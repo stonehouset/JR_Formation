@@ -1,0 +1,56 @@
+html{
+
+	width: 100%;
+	background-color: #B7B7B9;
+	
+}
+
+.card-body{
+
+	background-color: #B7B7B9;
+	
+}
+
+#menu_universel{
+
+	background-color: #b3b3ff; 
+}
+
+/*CSS Page accueil_admin*/
+
+#container_bonjour{
+
+	width: 100%;
+}
+
+#contenu_form1,#contenu_form2,#contenu_form3,#contenu_donnees,#gestion_formation,#gestion_utilisateurs{
+
+	width: 90%;
+	margin-top: 1%;
+	margin-left: auto;
+	margin-right: auto;
+
+}
+
+#btn_ajout_confirm_apprenant,#btn_annuler{
+
+	width: 50%;
+}
+
+#marg_check_sexe{
+
+	margin-right: 10%;
+}
+
+#titre_form_apprenant,#titre_form_formateur,#titre_form_entreprise{
+
+	text-align: center;
+	margin-bottom: 2%;
+}
+
+#btn_donnees,#btn_gestion_formation,#btn_gestion_utilisateur,#btn_entreprise,#btn_formateur,#btn_apprenant,.list-group,.input-group,table,#accordion{
+
+	box-shadow: 5px 5px 5px gray;
+}
+
+
