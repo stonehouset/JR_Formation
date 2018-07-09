@@ -62,129 +62,136 @@
                                     </h5>
                                 </div>
                                 <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
-                                    <div class="card-body">
-                                        <div class="row">
-                                            <div class="col-lg-6">
-                                                <div class="input-group mb-3">
-                                                    <div class="input-group-prepend" id="marg_check_sexe">
-                                                        <span class="input-group-text" id="basic-addon1">Sexe</span>
+                                    <form  method="POST" action="{{ route('apprenant') }}">
+                                        {{ csrf_field() }}
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="col-lg-6">
+                                                    <div class="input-group mb-3">
+                                                        <div class="input-group-prepend" id="marg_check_sexe">
+                                                            <span class="input-group-text" id="basic-addon1">Sexe</span>
+                                                        </div>
+                                                        <label class="btn btn-secondary">
+                                                            <input type="radio" name="options[]" id="option1" autocomplete="off"> Homme
+                                                        </label>
+                                                        <label class="btn btn-secondary">
+                                                            <input type="radio" name="options[]" id="option2" autocomplete="off"> Femme
+                                                        </label>
                                                     </div>
-                                                    <div class="form-check form-check-inline">
-                                                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
-                                                        <label class="form-check-label" for="inlineRadio1">Homme</label>
+                                                    <div class="input-group mb-3">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text" id="basic-addon1">Nom</span>
+                                                        </div>
+                                                        <input type="text" class="form-control" name="nom_apprenant" placeholder="Martin" aria-label="Nom" aria-describedby="basic-addon2">
                                                     </div>
-                                                    <div class="form-check form-check-inline">
-                                                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
-                                                        <label class="form-check-label" for="inlineRadio2">Femme</label>
+                                                    <div class="input-group mb-3">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text" id="basic-addon1">Prénom</span>
+                                                        </div>
+                                                        <input type="text" class="form-control" placeholder="Pierre" aria-label="Recipient's username" aria-describedby="basic-addon2" name="prenom_apprenant">
+                                                    </div>
+                                                    <div class="input-group mb-3">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text" id="basic-addon1">eMail</span>
+                                                        </div>
+                                                        <input type="email" class="form-control" placeholder="pierre.martin@fra.fr" aria-label="eMail" aria-describedby="basic-addon2" name="email_apprenant">
+                                                    </div>
+                                                    <div class="input-group mb-3">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text" id="basic-addon1">Date de naissance</span>
+                                                        </div>
+                                                        <input type="date" class="form-control" placeholder="01/01/2018" aria-label="date_naissance" aria-describedby="basic-addon2" name="date_naissance_apprenant">
+                                                    </div>
+                                                    <div class="input-group mb-3">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text" id="basic-addon1">Adresse</span>
+                                                        </div>
+                                                        <input type="text" class="form-control" placeholder="2 rue Voltaire" aria-label="adresse" aria-describedby="basic-addon2" name="adresse_apprenant">
+                                                    </div> 
+                                                    <div class="input-group mb-3">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text" id="basic-addon1">Date début tutorat</span>
+                                                        </div>
+                                                        <input type="date" class="form-control" placeholder="01/01/2018" aria-label="date_debut_tutorat" aria-describedby="basic-addon2" name="date_debut_tutorat">
+                                                    </div> 
+                                                    <div class="input-group mb-3">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text" id="basic-addon1">Date CDI</span>
+                                                        </div>
+                                                        <input type="date" class="form-control" placeholder="01/01/2018" aria-label="date_cdi" aria-describedby="basic-addon2" name="date_cdi">
+                                                    </div>                         
+                                                </div>
+                                                <div class="col-lg-6">
+                                                    <div class="input-group mb-3">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text" id="basic-addon3">Id Pôle Emploi</span>
+                                                        </div>
+                                                        <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3" name="pole_emploi">
+                                                    </div>
+                                                    <div class="input-group mb-3">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text" id="basic-addon1">N° Sécurité Sociale</span>
+                                                        </div>
+                                                        <input type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="basic-addon2" name="num_secu">
+                                                    </div>
+                                                    <div class="input-group mb-3">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text" id="basic-addon1">N° Téléphone</span>
+                                                        </div>
+                                                        <input type="tel" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="basic-addon2" name="num_telephone_apprenant">
+                                                    </div>  
+                                                    <div class="input-group mb-3">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text">Nationalité</span>
+                                                        </div>
+                                                        <input type="text" class="form-control" placeholder="Française" aria-label="nationalite" aria-describedby="basic-addon2" name="nationalite">
+                                                    </div>
+                                                    <div class="input-group mb-3">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text">Lieu de naissance</span>
+                                                        </div>
+                                                        <input type="text" class="form-control" placeholder="Paris" aria-label="lieu_naissance" aria-describedby="basic-addon2" name="lieu_naissance">
+                                                    </div>
+                                                    <div class="input-group mb-3">
+                                                        <div class="input-group-prepend">
+                                                            <label class="input-group-text" for="inputGroupSelect01">Formation</label>
+                                                        </div>
+                                                        <select class="custom-select" id="inputGroupSelect01" name="formations[]">
+                                                            <option selected>Aucune sélectionné</option>
+                                                            <option value="1">Quick</option>
+                                                            <option value="2">Brutch</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="input-group mb-3">
+                                                        <div class="input-group-prepend">
+                                                            <label class="input-group-text" for="inputGroupSelect01">Groupe de Formation</label>
+                                                        </div>
+                                                        <select class="custom-select" id="inputGroupSelect01" name="groupe_formations[]">
+                                                            <option selected>Aucun sélectionné</option>
+                                                            <option value="1">Quick BBM1</option>
+                                                            <option value="2">Brutch AF1</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="input-group mb-3">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text" id="basic-addon1">Date fin tutorat</span>
+                                                        </div>
+                                                        <input type="date" class="form-control" placeholder="01/01/2018" aria-label="date_fin_tutorat" aria-describedby="basic-addon2" name="date_fin_tutorat">
+                                                    </div>
+                                                    <div class="input-group mb-3">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text">Mot de passe</span>
+                                                        </div>
+                                                        <input type="password" class="form-control" placeholder="Mdp" aria-label="mdp" aria-describedby="basic-addon2" name="mdp">
                                                     </div>
                                                 </div>
                                                 <div class="input-group mb-3">
-                                                    <div class="input-group-prepend">
-                                                        <span class="input-group-text" id="basic-addon1">Nom</span>
-                                                    </div>
-                                                    <input type="text" class="form-control" name="input_nom" placeholder="Martin" aria-label="Nom" aria-describedby="basic-addon2">
+                                                    <button type="submit" class="btn btn-primary"id="btn_ajout_confirm_apprenant">Ajouter</button> 
+                                                    <button type="button" class="btn btn-danger" id="btn_annuler">Annuler</button> 
                                                 </div>
-                                                <div class="input-group mb-3">
-                                                    <div class="input-group-prepend">
-                                                        <span class="input-group-text" id="basic-addon1">Prénom</span>
-                                                    </div>
-                                                    <input type="text" class="form-control" placeholder="Pierre" aria-label="Recipient's username" aria-describedby="basic-addon2">
-                                                </div>
-                                                <div class="input-group mb-3">
-                                                    <div class="input-group-prepend">
-                                                        <span class="input-group-text" id="basic-addon1">eMail</span>
-                                                    </div>
-                                                    <input type="email" class="form-control" placeholder="pierre.martin@fra.fr" aria-label="eMail" aria-describedby="basic-addon2">
-                                                </div>
-                                                <div class="input-group mb-3">
-                                                    <div class="input-group-prepend">
-                                                        <span class="input-group-text" id="basic-addon1">Date de naissance</span>
-                                                    </div>
-                                                    <input type="date" class="form-control" placeholder="01/01/2018" aria-label="date_naissance" aria-describedby="basic-addon2">
-                                                </div>
-                                                <div class="input-group mb-3">
-                                                    <div class="input-group-prepend">
-                                                        <span class="input-group-text" id="basic-addon1">Adresse</span>
-                                                    </div>
-                                                    <input type="text" class="form-control" placeholder="2 rue Voltaire" aria-label="date_naissance" aria-describedby="basic-addon2">
-                                                </div> 
-                                                <div class="input-group mb-3">
-                                                    <div class="input-group-prepend">
-                                                        <span class="input-group-text" id="basic-addon1">Date début tutorat</span>
-                                                    </div>
-                                                    <input type="date" class="form-control" placeholder="01/01/2018" aria-label="date_debut_tutorat" aria-describedby="basic-addon2">
-                                                </div> 
-                                                <div class="input-group mb-3">
-                                                    <div class="input-group-prepend">
-                                                        <span class="input-group-text" id="basic-addon1">Date CDI</span>
-                                                    </div>
-                                                    <input type="date" class="form-control" placeholder="01/01/2018" aria-label="date_cdi" aria-describedby="basic-addon2">
-                                                </div>                         
-                                            </div>
-                                            <div class="col-lg-6">
-                                                <div class="input-group mb-3">
-                                                    <div class="input-group-prepend">
-                                                        <span class="input-group-text" id="basic-addon3">Id Pôle Emploi</span>
-                                                    </div>
-                                                    <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3">
-                                                </div>
-                                                <div class="input-group mb-3">
-                                                    <div class="input-group-prepend">
-                                                        <span class="input-group-text" id="basic-addon1">N° Sécurité Sociale</span>
-                                                    </div>
-                                                    <input type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="basic-addon2">
-                                                </div>
-                                                <div class="input-group mb-3">
-                                                    <div class="input-group-prepend">
-                                                        <span class="input-group-text" id="basic-addon1">N° Téléphone</span>
-                                                    </div>
-                                                    <input type="tel" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="basic-addon2">
-                                                </div>  
-                                                <div class="input-group mb-3">
-                                                    <div class="input-group-prepend">
-                                                        <span class="input-group-text">Nationalité</span>
-                                                    </div>
-                                                    <input type="text" class="form-control" placeholder="Française" aria-label="nationalite" aria-describedby="basic-addon2">
-                                                </div>
-                                                <div class="input-group mb-3">
-                                                    <div class="input-group-prepend">
-                                                        <span class="input-group-text">Lieu de naissance</span>
-                                                    </div>
-                                                    <input type="text" class="form-control" placeholder="Paris" aria-label="lieu_naissance" aria-describedby="basic-addon2">
-                                                </div>
-                                                <div class="input-group mb-3">
-                                                    <div class="input-group-prepend">
-                                                        <label class="input-group-text" for="inputGroupSelect01">Formation</label>
-                                                    </div>
-                                                    <select class="custom-select" id="inputGroupSelect01">
-                                                        <option selected>Aucune sélectionné</option>
-                                                        <option value="1">Quick</option>
-                                                        <option value="2">Brutch</option>
-                                                    </select>
-                                                </div>
-                                                <div class="input-group mb-3">
-                                                    <div class="input-group-prepend">
-                                                        <label class="input-group-text" for="inputGroupSelect01">Groupe de Formation</label>
-                                                    </div>
-                                                    <select class="custom-select" id="inputGroupSelect01">
-                                                        <option selected>Aucun sélectionné</option>
-                                                        <option value="1">Quick BBM1</option>
-                                                        <option value="2">Brutch AF1</option>
-                                                    </select>
-                                                </div>
-                                                <div class="input-group mb-3">
-                                                    <div class="input-group-prepend">
-                                                        <span class="input-group-text" id="basic-addon1">Date fin tutorat</span>
-                                                    </div>
-                                                    <input type="date" class="form-control" placeholder="01/01/2018" aria-label="date_fin_tutorat" aria-describedby="basic-addon2">
-                                                </div>
-                                            </div>
-                                            <div class="input-group mb-3">
-                                                <button type="button" class="btn btn-primary"id="btn_ajout_confirm_apprenant">Ajouter</button> 
-                                                <button type="button" class="btn btn-danger" id="btn_annuler">Annuler</button> 
                                             </div>
                                         </div>
-                                    </div>
+                                    </form>
                                 </div> 
                             </div>                  
                             <div class="card">
@@ -196,50 +203,51 @@
                                     </h5>
                                 </div>
                                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
-                                    <div class="card-body">
-                                        <div class="row">
-                                            <div class="col-lg-6">
-                                                <div class="input-group mb-3">
-                                                    <div class="input-group-prepend">
-                                                        <span class="input-group-text" id="basic-addon1">Nom</span>
+                                    <form  method="POST" action="{{ route('formateur') }}">
+                                        {{ csrf_field() }}
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="col-lg-6">
+                                                    <div class="input-group mb-3">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text" id="basic-addon1">Nom</span>
+                                                        </div>
+                                                        <input type="text" class="form-control" name="nom_formateur" placeholder="Nom" aria-label="Nom" aria-describedby="basic-addon1">
                                                     </div>
-                                                    <input type="text" class="form-control" name="nom_entreprise" placeholder="Nom" aria-label="Nom" aria-describedby="basic-addon1">
+                                                    <div class="input-group mb-3">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text" id="basic-addon1">eMail</span>
+                                                        </div>
+                                                        <input type="email" class="form-control" name="email_formateur" placeholder="eMail" aria-label="Nom" aria-describedby="basic-addon1">
+                                                    </div>  
+                                                    <div class="input-group mb-3">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text" id="basic-addon3">Mot de passe</span>
+                                                        </div>
+                                                        <input type="password" class="form-control" id="basic-url" aria-describedby="basic-addon3" name="mdp">
+                                                    </div>
                                                 </div>
-                                                <div class="input-group mb-3">
-                                                    <div class="input-group-prepend">
-                                                        <span class="input-group-text" id="basic-addon1">eMail</span>
+                                                <div class="col-lg-6">
+                                                    <div class="input-group mb-3">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text" id="basic-addon1">Prénom</span>
+                                                        </div>
+                                                        <input type="text" class="form-control" name="prenom_formateur" placeholder="Prénom" aria-label="Prenom" aria-describedby="basic-addon1">
                                                     </div>
-                                                    <input type="text" class="form-control" name="email_entreprise" placeholder="eMail" aria-label="Nom" aria-describedby="basic-addon1">
-                                                </div>  
-                                                <div class="input-group mb-3">
-                                                    <div class="input-group-prepend">
-                                                        <span class="input-group-text" id="basic-addon3">Autres</span>
-                                                    </div>
-                                                    <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3">
-                                                </div>
+                                                    <div class="input-group mb-3">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text" id="basic-addon1">N° Téléphone</span>
+                                                        </div>
+                                                        <input type="tel" class="form-control" placeholder="Téléphone" aria-label=telephone" aria-describedby="basic-addon2" name="tel_formateur">
+                                                    </div> 
+                                                    <div class="input-group mb-3">
+                                                        <button type="submit" class="btn btn-primary"id="btn_ajout_confirm_apprenant">Ajouter</button> 
+                                                        <button type="button" class="btn btn-danger" id="btn_annuler">Annuler</button> 
+                                                    </div> 
+                                                </div>    
                                             </div>
-                                            <div class="col-lg-6">
-                                                <div class="input-group mb-3">
-                                                    <div class="input-group-prepend">
-                                                        <span class="input-group-text" id="basic-addon1">N° Téléphone</span>
-                                                    </div>
-                                                    <input type="tel" class="form-control" placeholder="Téléphone" aria-label=telephone" aria-describedby="basic-addon2">
-                                                </div> 
-                                                <div class="input-group mb-3">
-                                                    <div class="input-group-prepend">
-                                                        <label class="input-group-text" for="inputGroupSelect01">Formation</label>
-                                                    </div>
-                                                    <select class="custom-select" id="inputGroupSelect01">
-                                                        <option selected>Aucune sélectionnée</option>
-                                                    </select>
-                                                </div>
-                                                <div class="input-group mb-3">
-                                                    <button type="button" class="btn btn-primary"id="btn_ajout_confirm_apprenant">Ajouter</button> 
-                                                    <button type="button" class="btn btn-danger" id="btn_annuler">Annuler</button> 
-                                                </div> 
-                                            </div>    
                                         </div>
-                                    </div>
+                                    </form>
                                 </div>    
                             </div>
                             <div class="card">
@@ -251,43 +259,47 @@
                                     </h5>
                                 </div>
                                 <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
-                                    <div class="card-body">
-                                        <div class="row">
-                                            <div class="col-lg-6">
-                                                <div class="input-group mb-3">
-                                                    <div class="input-group-prepend">
-                                                        <span class="input-group-text" id="basic-addon1">Nom</span>
+                                    <form  method="POST" action="{{ route('client') }}">
+                                                {{ csrf_field() }}
+                                        <div class="card-body">
+                                            <div class="row">
+                                            
+                                                <div class="col-lg-6">
+                                                    <div class="input-group mb-3">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text" id="basic-addon1">Nom</span>
+                                                        </div>
+                                                        <input type="text" class="form-control" name="nom_client" placeholder="Nom" aria-label="nom_client" aria-describedby="basic-addon1">
                                                     </div>
-                                                    <input type="text" class="form-control" name="nom_client" placeholder="Nom" aria-label="nom_client" aria-describedby="basic-addon1">
+                                                    <div class="input-group mb-3">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text" id="basic-addon1">eMail</span>
+                                                        </div>
+                                                        <input type="email" class="form-control" name="email_client" placeholder="eMail" aria-label="email_client" aria-describedby="basic-addon1">
+                                                    </div>  
+                                                    
+                                                </div>
+                                                <div class="col-lg-6">
+                                                    <div class="input-group mb-3">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text" id="basic-addon1">N° Téléphone</span>
+                                                        </div>
+                                                        <input type="tel" class="form-control" placeholder="Téléphone" aria-label=telephone" name="tel_client" aria-describedby="basic-addon2">
+                                                    </div> 
+                                                    <div class="input-group mb-3">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text" id="basic-addon3">Mot de passe</span>
+                                                        </div>
+                                                        <input type="password" class="form-control" id="basic-url" aria-describedby="basic-addon3" name="mdp">
+                                                    </div> 
                                                 </div>
                                                 <div class="input-group mb-3">
-                                                    <div class="input-group-prepend">
-                                                        <span class="input-group-text" id="basic-addon1">eMail</span>
-                                                    </div>
-                                                    <input type="text" class="form-control" name="email_client" placeholder="eMail" aria-label="email_client" aria-describedby="basic-addon1">
-                                                </div>  
-                                                
+                                                    <button type="submit" class="btn btn-primary"id="btn_ajout_confirm_client">Ajouter</button> 
+                                                    <button type="button" class="btn btn-danger" id="btn_annuler_client">Annuler</button> 
+                                                </div>    
                                             </div>
-                                            <div class="col-lg-6">
-                                                <div class="input-group mb-3">
-                                                    <div class="input-group-prepend">
-                                                        <span class="input-group-text" id="basic-addon1">N° Téléphone</span>
-                                                    </div>
-                                                    <input type="tel" class="form-control" placeholder="Téléphone" aria-label=telephone" name="tel_client" aria-describedby="basic-addon2">
-                                                </div> 
-                                                <div class="input-group mb-3">
-                                                    <div class="input-group-prepend">
-                                                        <span class="input-group-text" id="basic-addon3">Autres</span>
-                                                    </div>
-                                                    <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3" name="autre_client">
-                                                </div> 
-                                            </div>
-                                            <div class="input-group mb-3">
-                                                <button type="button" class="btn btn-primary"id="btn_ajout_confirm_client">Ajouter</button> 
-                                                <button type="button" class="btn btn-danger" id="btn_annuler_client">Annuler</button> 
-                                            </div>    
                                         </div>
-                                    </div>
+                                    </form>
                                 </div>
                             </div>                               
                         </div>
@@ -395,37 +407,45 @@
                                     </h5>
                                 </div>
                                 <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#accordion">
-                                    <div class="card-body">
-                                        <div class="row">
-                                            <div class="col-lg-6">
-                                                <div class="input-group mb-3">
-                                                    <div class="input-group-prepend">
-                                                        <span class="input-group-text" id="basic-addon1">Date début formation</span>
+                                    <form  method="POST" action="{{ route('formation') }}">
+                                                {{ csrf_field() }}
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="col-lg-6">
+                                                    <div class="input-group mb-3">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text" id="basic-addon1">Nom</span>
+                                                        </div>
+                                                        <input type="tel" class="form-control" placeholder="Nom" aria-label=nom" aria-describedby="basic-addon2" name="nom_formation">
+                                                    </div> 
+                                                    <div class="input-group mb-3">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text" id="basic-addon1">Date début formation</span>
+                                                        </div>
+                                                        <input type="date" class="form-control" placeholder="01/01/2018" aria-label="date_debut_formation" aria-describedby="basic-addon2" name="debut_formation">
                                                     </div>
-                                                    <input type="date" class="form-control" placeholder="01/01/2018" aria-label="date_fin_formation" aria-describedby="basic-addon2">
+                                                    <div class="input-group mb-3">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text" id="basic-addon1">Date fin formation</span>
+                                                        </div>
+                                                        <input type="date" class="form-control" placeholder="01/01/2018" aria-label="date_fin_formation" aria-describedby="basic-addon2" name="fin_formation">
+                                                    </div>                                                
                                                 </div>
-                                                <div class="input-group mb-3">
-                                                    <div class="input-group-prepend">
-                                                        <span class="input-group-text" id="basic-addon1">Date fin formation</span>
-                                                    </div>
-                                                    <input type="date" class="form-control" placeholder="01/01/2018" aria-label="date_fin_formation" aria-describedby="basic-addon2">
-                                                </div>                                                
-                                            </div>
-                                            <div class="col-lg-6">
-                                                <div class="input-group mb-3">
-                                                    <div class="input-group-prepend">
-                                                        <span class="input-group-text" id="basic-addon1">Client</span>
-                                                    </div>
-                                                    <input type="tel" class="form-control" placeholder="Nom Client" aria-label=telephone" aria-describedby="basic-addon2">
-                                                </div> 
-                                                <div class="input-group mb-3">
-                                                    <button type="button" class="btn btn-primary"id="btn_ajout_confirm_apprenant">Ajouter</button> 
-                                                    <button type="button" class="btn btn-danger" id="btn_annuler">Annuler</button> 
-                                                </div>                                                 
-                                            </div>
-                                        </div>                             
-                                    </div>
-                                    
+                                                <div class="col-lg-6">
+                                                    <div class="input-group mb-3">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text" id="basic-addon1">Client</span>
+                                                        </div>
+                                                        <input type="tel" class="form-control" placeholder="Nom Client" aria-label=nom_client" aria-describedby="basic-addon2" name="nom_client">
+                                                    </div> 
+                                                    <div class="input-group mb-3">
+                                                        <button type="submit" class="btn btn-primary"id="btn_ajout_confirm_apprenant">Ajouter</button> 
+                                                        <button type="button" class="btn btn-danger" id="btn_annuler">Annuler</button> 
+                                                    </div>                                                 
+                                                </div>
+                                            </div>                             
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
                             <div class="card">

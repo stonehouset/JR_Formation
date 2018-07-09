@@ -27,6 +27,13 @@ Route::get('/interface_client', function () {
     return view('interface_client');
 });
 
+Route::post('client', [ 'as' => 'client', 'uses' => 'ClientController@store']);
+
+Route::post('formateur', [ 'as' => 'formateur', 'uses' => 'FormateurController@store']);
+
+Route::post('apprenant', [ 'as' => 'apprenant', 'uses' => 'ApprenantController@store']);
+
+Route::post('formation', [ 'as' => 'formation', 'uses' => 'FormationController@store']);
 
 Auth::routes();
 

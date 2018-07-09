@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class Client extends Migration
+class Formateur extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,11 @@ class Client extends Migration
      */
     public function up()
     {
-        Schema::create('clients', function (Blueprint $table) {
+        Schema::create('formateurs', function (Blueprint $table) {
             
             $table->increments('id');
             $table->string('nom');
+            $table->string('prenom');
             $table->string('email')->unique();
             $table->char('numero_telephone', 10)->nullable();
             $table->string('mdp');
@@ -24,8 +25,6 @@ class Client extends Migration
             $table->timestamps();
             
         });
-
-
     }
 
     /**

@@ -2,10 +2,10 @@
 
 namespace JR_Formation\Http\Controllers;
 
-use JR_Formation\Client;
+use JR_Formation\Formation;
 use Illuminate\Http\Request;
 
-class ClientController extends Controller
+class FormationController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,16 +17,14 @@ class ClientController extends Controller
         //
     }
 
-
     /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(array $data)
+    public function create()
     {
-
-       
+        //
     }
 
     /**
@@ -38,27 +36,26 @@ class ClientController extends Controller
     public function store(Request $request)
     {
 
+        $formation = new Formation;
 
-        $client = new Client;
-        $client->nom = $request->nom_client;
-        $client->email = $request->email_client;
-        $client->numero_telephone = $request->tel_client;
-        $client->mdp = $request->mdp;
-        $client->save();
+        $formation->nom = $request->nom_formation;
+        $formation->date_debut = $request->debut_formation;
+        $formation->date_fin = $request->fin_formation;
+        $formation->client= $request->nom_client;
+
+        $formation->save();
 
         return redirect('/home');
-
-
-
-        //
+        
     }
+
     /**
      * Display the specified resource.
      *
-     * @param  \JR_Formation\Client  $client
+     * @param  \JR_Formation\Formation  $formation
      * @return \Illuminate\Http\Response
      */
-    public function show(Client $client)
+    public function show(Formation $formation)
     {
         //
     }
@@ -66,10 +63,10 @@ class ClientController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \JR_Formation\Client  $client
+     * @param  \JR_Formation\Formation  $formation
      * @return \Illuminate\Http\Response
      */
-    public function edit(Client $client)
+    public function edit(Formation $formation)
     {
         //
     }
@@ -78,10 +75,10 @@ class ClientController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \JR_Formation\Client  $client
+     * @param  \JR_Formation\Formation  $formation
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Client $client)
+    public function update(Request $request, Formation $formation)
     {
         //
     }
@@ -89,10 +86,10 @@ class ClientController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \JR_Formation\Client  $client
+     * @param  \JR_Formation\Formation  $formation
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Client $client)
+    public function destroy(Formation $formation)
     {
         //
     }
