@@ -33,6 +33,7 @@ class ApprenantController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+    
     public function store(Request $request)
     {
         $apprenant = new Apprenant;
