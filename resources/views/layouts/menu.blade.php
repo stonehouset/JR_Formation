@@ -13,8 +13,8 @@
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar navbar-dark bg-dark">
-        <a class="navbar-brand" href="{{ url('/') }}">
-            {{ config('app.name', 'Laravel') }}
+        <a class="navbar-brand">
+            <img src="/img/image005.jpg" class="css-class" alt="alt text">
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -34,6 +34,7 @@
                     <a class="nav-link" href="/interface_client">Client <span class="sr-only">(current)</span></a>
                 </li>
             </ul>
+            <a class="nav-link disabled" href="#">{{ date('d/m/Y') }}</a>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     

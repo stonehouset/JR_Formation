@@ -5,21 +5,21 @@
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
-                <div class="panel-heading">Register</div>
+                <div class="panel-heading">Enregistrer un utilisateur</div>
 
                 <div class="panel-body">
                     <form class="form-horizontal" method="POST" action="{{ route('register') }}">
                         {{ csrf_field() }}
 
-                        <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
-                            <label for="name" class="col-md-4 control-label">Nom</label>
+                        <div class="form-group{{ $errors->has('nom') ? ' has-error' : '' }}">
+                            <label for="nom" class="col-md-4 control-label">Nom</label>
 
                             <div class="col-md-6">
-                                <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}" required autofocus>
+                                <input id="nom" type="text" class="form-control" name="nom" value="{{ old('nom') }}" required autofocus>
 
-                                @if ($errors->has('name'))
+                                @if ($errors->has('nom'))
                                     <span class="help-block">
-                                        <strong>{{ $errors->first('name') }}</strong>
+                                        <strong>{{ $errors->first('nom') }}</strong>
                                     </span>
                                 @endif
                             </div>
@@ -27,7 +27,19 @@
                         <div class="form-group">
                             <label for="prenom" class="col-md-4 control-label">Prénom</label>
                             <div class="col-md-6">
-                                <input id="name" type="text" class="form-control" name="name" value="{{ old('prenom') }}" required autofocus>
+                                <input id="prenom" type="text" class="form-control" name="prenom" value="{{ old('prenom') }}" required autofocus>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="prenom" class="col-md-4 control-label">Rôle</label>
+                            <div class="col-md-6">
+                                <input id="role" type="number" class="form-control" name="role" value="" min="0" required autofocus>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="prenom" class="col-md-4 control-label">N° Téléphone</label>
+                            <div class="col-md-6">
+                                <input id="numero_telephone" type="tel" class="form-control" name="numero_telephone" value="" required autofocus>
                             </div>
                         </div>
                         <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">

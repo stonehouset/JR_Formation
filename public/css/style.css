@@ -5,7 +5,12 @@ html{
 	
 }
 
-.card-body{
+body{
+
+	background-color: #B7B7B9;
+}
+
+.card-body,.panel-body,.card-text{
 
 	background-color: #B7B7B9;
 	
@@ -23,7 +28,7 @@ html{
 	width: 100%;
 }
 
-#contenu_form1,#contenu_form2,#contenu_form3,#contenu_donnees,#gestion_formation,#gestion_utilisateurs{
+#contenu_form1,#contenu_form2,#contenu_form3,#contenu_donnees,#gestion_formation,#gestion_utilisateurs,{
 
 	width: 90%;
 	margin-top: 1%;
@@ -42,7 +47,7 @@ html{
 	margin-right: 10%;
 }
 
-#titre_form_apprenant,#titre_form_formateur,#titre_form_entreprise{
+#titre_form_apprenant,#titre_form_formateur,#titre_form_entreprise,#nom_user_courant{
 
 	text-align: center;
 	margin-bottom: 2%;
@@ -53,4 +58,34 @@ html{
 	box-shadow: 5px 5px 5px gray;
 }
 
+#form_register_users{
+
+	width: 100%;
+}
+
+#selection_role{
+
+	width: 50%;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+
+#body_interface_formateur,#body_interface_client{
+
+	text-align: center;
+	width: 80%;
+	margin-top: 2%;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+#body_interface_apprenant{
+
+	text-align: center;
+	width: 90%;
+	margin-top: 2%;
+	margin-left: auto;
+	margin-right: auto;
+}
 

@@ -15,9 +15,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/interface_apprenant', function () {
-    return view('interface_apprenant');
-});
+// Route::get('/interface_apprenant', function () {
+//     return view('interface_apprenant');
+// });
 
 Route::get('/interface_formateur', function () {
     return view('interface_formateur');
@@ -38,3 +38,5 @@ Route::post('formation', [ 'as' => 'formation', 'uses' => 'FormationController@s
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/interface_apprenant', 'ApprenantController@index')->name('interface_apprenant');

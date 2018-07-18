@@ -41,7 +41,7 @@ class FormationController extends Controller
         $formation->nom = $request->nom_formation;
         $formation->date_debut = $request->debut_formation;
         $formation->date_fin = $request->fin_formation;
-        $formation->client= $request->nom_client;
+        $formation->client = $request->nom_client;
 
         $formation->save();
 

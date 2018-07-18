@@ -3,6 +3,7 @@
 namespace JR_Formation\Http\Controllers;
 
 use Illuminate\Http\Request;
+use JR_Formation\User;
 
 class HomeController extends Controller
 {
@@ -23,6 +24,8 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+
+        $users = User::all();
+        return view('home', ['users' => $users]);
     }
 }

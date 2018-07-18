@@ -3,6 +3,7 @@
 namespace JR_Formation\Http\Controllers;
 
 use JR_Formation\Apprenant;
+use JR_Formation\User;
 use Illuminate\Http\Request;
 
 class ApprenantController extends Controller
@@ -12,9 +13,18 @@ class ApprenantController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+
     public function index()
     {
-        //
+        $users = User::all();
+        return view('interface_apprenant', ['users' => $users]);
     }
 
     /**
@@ -33,7 +43,7 @@ class ApprenantController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    
+
     public function store(Request $request)
     {
         $apprenant = new Apprenant;

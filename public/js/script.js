@@ -7,16 +7,32 @@ $( document ).ready(function() {
     $("#dropdownMenuButton").hide();  
     $(".boutons_gestion_utilisateur").hide();
     $("#gestion_utilisateurs").hide();
+    $('#form_apprenant').hide(); 
     
     $("#titre_carte_gestion").fadeOut(2500);
 
 });
 
 
+ $('#inputGroupSelect01').bind('change', function(event) {
+
+    var i= $('#inputGroupSelect01').val();
+
+    if(i=="0"){
+
+        $('#form_apprenant').show("fast");
+    }
+    else{
+
+        $('#form_apprenant').hide(); 
+          
+    }
+});
+
 $("#btn_gestion_utilisateur").click(function(){
 
     $(".boutons_gestion_utilisateur").show();
-    $("#gestion_utilisateurs").show();
+    $("#gestion_utilisateurs").show("fast");
 });
 
 $("#btn_donnees").click(function(){
@@ -45,7 +61,7 @@ $("#btn_gestion_formation").click(function(){
     
     $("#contenu_form3").hide();
     $("#dropdownMenuButton").hide();  
-    $("#gestion_formation").show();  
+    $("#gestion_formation").show("fast");  
 
 });
 
