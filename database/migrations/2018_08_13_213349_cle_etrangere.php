@@ -29,8 +29,23 @@ class CleEtrangere extends Migration
 
         Schema::table('formations', function (Blueprint $table) {
             
-            $table->foreign('user_id')->references('id')->on('users'); 
+            $table->foreign('client_id')->references('id')->on('users'); 
+            $table->foreign('formateur_id')->references('id')->on('users');
               
+        });
+
+        Schema::table('absences_retards', function (Blueprint $table) {
+
+            $table->foreign('formateur_id')->references('id')->on('users'); 
+            $table->foreign('apprenant_id')->references('user_id')->on('apprenants'); 
+
+        });
+
+        Schema::table('commentaires', function (Blueprint $table) {
+
+            $table->foreign('formateur_id')->references('id')->on('users'); 
+            $table->foreign('apprenant_id')->references('user_id')->on('apprenants'); 
+
         });
     }
 

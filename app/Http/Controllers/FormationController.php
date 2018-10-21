@@ -3,7 +3,9 @@
 namespace JR_Formation\Http\Controllers;
 
 use JR_Formation\Formation;
+use JR_Formation\Apprenant;
 use Illuminate\Http\Request;
+use DB;
 
 class FormationController extends Controller
 {
@@ -14,7 +16,10 @@ class FormationController extends Controller
      */
     public function index()
     {
-        //
+        $users = User::all();
+
+        return redirect('home', ['users' => $users]);
+
     }
 
     /**
@@ -36,14 +41,33 @@ class FormationController extends Controller
     public function store(Request $request)
     {
 
+        // return $request->nom_formation;
+
+        $apprenants = Apprenant::where('groupe_formation', '=' , $request->nom_formation)->get();
+
+        // return $apprenants;
+
         $formation = new Formation;
 
         $formation->nom = $request->nom_formation;
         $formation->date_debut = $request->debut_formation;
         $formation->date_fin = $request->fin_formation;
-        $formation->client = $request->nom_client;
+        $formation->client_id = $request->nom_client;
+        $formation->formateur_id = $request->nom_formateur;
+
+        // return $request->all();
 
         $formation->save();
+
+        $idFormation = DB::getPdo()->lastInsertId();
+
+        // return $idFormation;
+
+        foreach ($apprenants as $apprenant) {
+
+            DB::table('apprenants')->where('user_id' ,'=' , $apprenant->user_id)->update(['formation_id' => $idFormation]);
+            
+        }
 
         return redirect('/home');
         

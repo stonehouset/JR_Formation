@@ -1,4 +1,4 @@
-@extends('layouts.menu')
+@extends('layouts.menu_accueil')
 
 @section('content')
 <div class="container">

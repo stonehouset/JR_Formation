@@ -6,6 +6,9 @@ use JR_Formation\User;
 use JR_Formation\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Http\Request;
+use Illuminate\Auth\Events\Registered;
+use Hash;
 
 class RegisterController extends Controller
 {
@@ -36,7 +39,21 @@ class RegisterController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest');
+        
+    }
+
+    public function register(Request $request)
+    {
+        $this->validator($request->all())->validate();
+
+        event(new Registered($user = $this->create($request->all())));
+
+        $this->guard()->login($user);
+
+        return $this->registered($request, $user)
+                        ?: redirect($this->redirectPath());
+
+        return $request->all();
     }
 
     /**
@@ -47,6 +64,7 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
+
         return Validator::make($data, [
             'nom' => 'required|string|max:255',
             'prenom' => 'required|string|max:255',
@@ -64,13 +82,17 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+
         return User::create([
+
             'nom' => $data['nom'],
             'prenom' => $data['prenom'],
             'role' => $data['role'],
             'numero_telephone' => $data['numero_telephone'],
             'email' => $data['email'],
-            'password' => bcrypt($data['password']),
+            'password' =>Hash::make($data['password']),
         ]);
+
+        Mail::to('houselstein.thibaud@gmail.com')->send(new MailWhenUserIsRegister());
     }
 }

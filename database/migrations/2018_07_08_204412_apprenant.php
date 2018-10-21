@@ -28,7 +28,12 @@ class Apprenant extends Migration
             $table->date('debut_tutorat')->nullable();
             $table->date('fin_tutorat')->nullable();
             $table->date('date_cdi')->nullable();
-
+            $table->char('note_formation', 5)->nullable();
+            $table->char('note_formateur', 5)->nullable();
+            $table->integer('embauche_2_mois')->default(0);
+            $table->integer('embauche_6_mois')->default(0);
+            $table->text('commentaire_semaine1', 1000)->nullable(); 
+            $table->text('commentaire_semaine2', 1000)->nullable(); 
 
         });
     }

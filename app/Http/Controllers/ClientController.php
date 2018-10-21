@@ -3,7 +3,14 @@
 namespace JR_Formation\Http\Controllers;
 
 use JR_Formation\Client;
+use JR_Formation\Formation;
+use JR_Formation\Apprenant;
 use Illuminate\Http\Request;
+use JR_Formation\User;
+use Maatwebsite\Excel\Facades\Excel;
+use PDF;
+use Carbon\Carbon;
+
 
 class ClientController extends Controller
 {
@@ -14,7 +21,119 @@ class ClientController extends Controller
      */
     public function index()
     {
-        //
+        $users = User::all();
+
+        $idClient = auth()->user()->id;
+
+        $formations = Formation::where('client_id', '=', $idClient)->get();
+
+        foreach ($formations as $formation) {
+            
+            $apprenants = Apprenant::where('formation_id','=',$formation->id)->get();
+
+            // return $apprenants;
+
+            $formation->setAttribute('apprenants', $apprenants);
+
+            foreach ($apprenants as $apprenant) {
+            
+                $users = User::where('id','=',$apprenant->user_id)->get();
+
+                $apprenant->setAttribute('users', $users);
+
+            }
+     
+        }
+
+        return view('interface_client', ['formations' => $formations]);
+    }
+
+    public function getDownload()
+    {
+        
+        $file = public_path(). '\file\eval_a_froid_action_de_formation.pdf';
+
+        // return $file;
+        
+        $headers = [
+
+              'Content-Type' => 'application/pdf',
+
+           ];
+
+        return response()->download($file, 'eval_a_froid.pdf', $headers);
+    }
+
+
+    public function extractCsv()
+    {
+ 
+        $users = User::all();
+
+        $idClient = auth()->user()->id;
+
+        $formations = Formation::where('client_id', '=', $idClient)->get();
+
+        foreach ($formations as $formation) {
+            
+            $apprenants = Apprenant::where('formation_id','=',$formation->id)->get();
+
+            // return $apprenants;
+
+            $formation->setAttribute('apprenants', $apprenants);
+
+            foreach ($apprenants as $apprenant) {
+            
+                $users = User::where('id','=',$apprenant->user_id)->get();
+
+                $apprenant->setAttribute('users', $users);
+
+                foreach ($users as $user) {
+
+                    $dateDebut = Carbon::parse($apprenant->debut_tutorat)->format('d/m/Y');
+                    $dateFin = Carbon::parse($apprenant->fin_tutorat)->format('d/m/Y');
+ 
+                    $userData[] = [
+
+                        
+                        'Nom' => $user->nom,
+                        'Prenom' => $user->prenom,
+                        'Lieu de naissance' => $apprenant->lieu_naissance,
+                        'Nationalite' => $apprenant->nationalite,
+                        'ID Pole Emploi' => $apprenant->id_pole_emploi,  
+                        'N° Securite Sociale' => $apprenant->numero_ss,
+                        'eMail' => $user->email,
+                        'Telephone' => $user->numero_telephone, 
+                        'Formation' => $apprenant->groupe_formation, 
+                        'Date debut de formation' => $dateDebut, 
+                        'Date fin de formation' => $dateFin,     
+                    
+                    ];
+                }
+
+            }
+
+            return $userData;
+
+            if ($userData == null) {
+
+                return redirect()->back()->with('error', 'le tableau est vide!');
+            }else{
+
+                Excel::create('users', function ($excel) use ($userData) {
+     
+                    // Build the spreadsheet, passing in the users array
+                    $excel->sheet('sheet1', function ($sheet) use ($userData) {
+
+                        $sheet->fromArray($userData);
+
+                    });
+     
+                })->download('xlsx');
+            }
+     
+        }
+        
     }
 
 

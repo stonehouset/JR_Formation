@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="{{ app()->getLocale() }}">
 <head>
-    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- CSRF Token -->
@@ -11,48 +11,63 @@
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
-<body>
-    <nav class="navbar navbar-expand-lg navbar navbar-dark bg-dark">
+<body style="background-color: #2D3F58;">
+    <nav class="navbar navbar-expand-lg navbar navbar-lg navbar-light bg-light">
         <a class="navbar-brand">
-            <img src="/img/image005.jpg" class="css-class" alt="alt text">
+            <img src="/img/0001.jpg" class="css-class" alt="alt text" style="max-width:180px;max-height:120px;"> 
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="/home">Accueil <span class="sr-only">(current)</span></a>
+                @if(Auth::user()->role === 3)
+                <li class="nav-item active" >
+                    <a class="nav-link" href="/home" style="color:#2D3F58;">Gestion<span class="sr-only">(current)</span></a>
                 </li>
-                <li class="nav-item active">
-                    <a class="nav-link" href="/interface_apprenant">Apprenant <span class="sr-only">(current)</span></a>
+                @endif
+                @if(Auth::user()->role === 0 || Auth::user()->role === 3)
+                <li class="nav-item active" >
+                    <a class="nav-link" href="/interface_apprenant" style="color:#2D3F58;">Apprenant <span class="sr-only">(current)</span></a>
                 </li>
-                <li class="nav-item active">
-                    <a class="nav-link" href="/interface_formateur">Formateur <span class="sr-only">(current)</span></a>
+                @endif
+                @if(Auth::user()->role === 1 || Auth::user()->role === 3)
+                <li class="nav-item active" >
+                    <a class="nav-link" href="/interface_formateur" style="color:#2D3F58;">Formateur <span class="sr-only">(current)</span></a>
                 </li>
-                <li class="nav-item active">
-                    <a class="nav-link" href="/interface_client">Client <span class="sr-only">(current)</span></a>
+                @endif
+                @if(Auth::user()->role === 2 || Auth::user()->role === 3) 
+                <li class="nav-item active" >
+                    <a class="nav-link" href="/interface_client" style="color:#2D3F58;">Client <span class="sr-only">(current)</span></a>
                 </li>
-            </ul>
-            <a class="nav-link disabled" href="#">{{ date('d/m/Y') }}</a>
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    
-                </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                @endif
+                <li class="nav-item active" >
+                    <a class="nav-link" href="/profil" style="color:#2D3F58;">Profil <span class="sr-only">(current)</span></a>
+                </li>
+                @if(Auth::user()->role === 1 || Auth::user()->role === 3) 
+                <li class="nav-item active" >
+                    <a class="nav-link" href="/questionnaire_formation" style="color:#2D3F58;">Questionnaire<span class="sr-only">(current)</span></a>
+                </li>
+                @endif
+            </ul>    
+            <span id="date_jour" style="color:#2D3F58;">{{ date('d/m/Y') }}</span>
+                
+                <span id="initials_user" style="color:black;">
+                {{substr(Auth::user()->prenom, 0, 1)}}{{substr(Auth::user()->nom, 0, 1)}} 
+                </span>
+                
                 @guest
-                    <li><a href="{{ route('login') }}">Se connecter</a></li>
-                    <li><a href="{{ route('register') }}">S'enregister</a></li>
+                    <li><a href="{{ route('login') }}" style="margin-left: 1%;">Connexion</a></li>
                 @else
-                    <a href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">
-                        Se déconnecter
+                    <a href="{{ route('logout') }}" style="margin-left: 1%;color:#E0002D;" onclick="event.preventDefault();document.getElementById('logout-form').submit();">
+                        Déconnexion
                     </a>
-                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" >
                         {{ csrf_field() }}
                     </form>
                 </div>
-            </li>
-            @endguest
+           
+                @endguest
         </div>
     </nav>  
     @yield('content')

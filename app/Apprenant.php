@@ -8,6 +8,8 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class Apprenant extends Model
 {
+	public $timestamps = false;
+	
     public function setDateAttribute( $value ) {
 
 	  	$this->attributes['date_naissance'] = (new Carbon($value))->format('d/m/y');
@@ -16,5 +18,14 @@ class Apprenant extends Model
 	  	$this->attributes['date_CDI'] = (new Carbon($value))->format('d/m/y');
 
 	}
+
+	// public function User()
+ //    {
+ //    	return $this->hasOne('JR_Formation\User');
+ //    }
+
+	
+
+
     
 }

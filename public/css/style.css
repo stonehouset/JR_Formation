@@ -1,24 +1,64 @@
 html{
 
 	width: 100%;
-	background-color: #B7B7B9;
+	background-color: #2D3F58;
 	
 }
 
-body{
+.form-control{
 
-	background-color: #B7B7B9;
+	color: black;
 }
 
-.card-body,.panel-body,.card-text{
+.nav-item{
 
-	background-color: #B7B7B9;
-	
+	color: #2D3F58;
+
+}
+
+
+#exampleFormControlTextarea1{
+
+	max-height: 300px;
+}
+
+#select_stagiaire_retard_formateur,#select_absoureta_retard_formateur{
+
+	width: 50%;
+}
+
+
+.card-body,.panel-body,.card-header{
+
+	background-color: #2D3F58;
+	border-color: #2D3F58;
+
 }
 
 #menu_universel{
 
 	background-color: #b3b3ff; 
+}
+
+#initials_user{
+
+	font-size: 20px;
+	width: 4%;
+	color: white;
+	text-align: center;
+	vertical-align: middle;
+	text-transform: uppercase;
+	border: 2px #E0002D solid;
+	
+}
+
+#date_jour{
+
+	font-size: 20px;
+	width: 4%;
+	color: white;
+	margin-right: 10%;
+	
 }
 
 /*CSS Page accueil_admin*/
@@ -30,16 +70,16 @@ body{
 
 #contenu_form1,#contenu_form2,#contenu_form3,#contenu_donnees,#gestion_formation,#gestion_utilisateurs,{
 
-	width: 90%;
+	width: 100%;
 	margin-top: 1%;
 	margin-left: auto;
 	margin-right: auto;
 
 }
 
-#btn_ajout_confirm_apprenant,#btn_annuler{
+#btn_ajout_confirm_apprenant{
 
-	width: 50%;
+	width: 100%;
 }
 
 #marg_check_sexe{
@@ -53,9 +93,39 @@ body{
 	margin-bottom: 2%;
 }
 
-#btn_donnees,#btn_gestion_formation,#btn_gestion_utilisateur,#btn_entreprise,#btn_formateur,#btn_apprenant,.list-group,.input-group,table,#accordion{
+#btn_donnees,#btn_gestion_formation,#btn_gestion_utilisateur{
 
-	box-shadow: 5px 5px 5px gray;
+	min-width: 30%;
+	background-color: #2D3F58;
+	border: 2px solid #E0002D;	
+	color: white;
+	border-radius: 15px;
+}
+
+#btn_gestion_utilisateur:hover{
+	background-color: silver;
+	border: hidden;
+	color: black;
+}
+
+#btn_donnees:hover{
+	background-color: silver;
+	border: hidden;
+	color: black;
+}
+
+#btn_gestion_formation:hover{
+	background-color: silver;
+	border: hidden;
+	color: black;
+}
+
+#btn_telecharger_tab_formateur_admin,#btn_telecharger_tab_formateur_admin{
+
+	width: 100%;
+	margin-left: auto;
+	margin-right: auto;
+
 }
 
 #form_register_users{
@@ -74,8 +144,8 @@ body{
 #body_interface_formateur,#body_interface_client{
 
 	text-align: center;
-	width: 80%;
-	margin-top: 2%;
+	width: 95%;
+	margin-top: 0.5%;
 	margin-left: auto;
 	margin-right: auto;
 }
@@ -83,9 +153,265 @@ body{
 #body_interface_apprenant{
 
 	text-align: center;
-	width: 90%;
-	margin-top: 2%;
+	width: 95%;
+	margin-top: 0.5%;
 	margin-left: auto;
 	margin-right: auto;
 }
+
+#btn_apprenant_programme,#btn_apprenant_quest_formation,#btn_apprenant_quest_formateur,#btn_apprenant_com_fin_sem{
+
+	
+	width: 250px;
+}
+
+#form_suivi_client{
+
+	width: 100%;
+	margin-top: 1%;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+#titre_interface_client{
+
+	background-color: #2D3F58;
+	border-color: #E0002D;
+	color: white;
+}
+
+#presence_2_mois,#presence_6_mois{
+
+	margin-top: 5%;
+	
+}
+
+#label_presence_2m,#label_presence_6m,#label_select_stagiaire,#label_embauche_stagiaire{
+
+	font-weight: bold;
+
+}
+
+#header_tableau_apprenants{
+
+	margin-top: 1%;
+
+}
+
+#header_interface_client_infos{
+
+	border: 1px black solid;
+}
+
+#btn_impact_form_client{
+
+	margin-top: 1%;
+}
+
+/*$custom-file-text: (
+  fr:Importer;
+);
+*/
+
+
+#row_profil{
+
+	margin-top: 2%;
+	margin-left: auto;
+	margin-right: auto;
+	width: 100%;
+}
+
+#tableau_gestion_admin_infos_users,#tab_infos_inteface_client {
+
+	height: 250px;
+	width: 100%;
+    overflow-y:scroll;
+    margin-bottom: 2%;
+    position: static;
+}
+
+#tableau_gestion_admin_infos_apprenants,#tableau_gestion_admin_infos_formateurs{
+
+	height: 250px;
+	width: 100%;
+	margin-right: auto;
+	margin-left: auto; 
+    margin-bottom: 2%;
+    border-color: #2D3F58;
+}
+
+#tab_admin_apprenants,#tab_formateur_admin{
+
+	overflow-y:scroll;
+	position: static;
+	height: 215px;
+
+}
+
+#tab_admin_formations{
+
+	overflow-y:scroll;
+	position: static;
+	height: 215px;
+}
+
+#tab_infos_interface_formateur{
+
+	height: 420px;
+	width: 100%;
+    overflow-y:scroll;
+    margin-bottom: 2%;
+    position: static;
+
+}
+
+#btn_ajouter_com_formateur_to_apprenant,#btn_valider_retard_absence,#btn_valider_note{
+
+	width: 100%;
+	margin-top: 1%;
+	margin-bottom: 1%;
+	color: white;
+	
+
+}
+
+#exampleFormControlTextarea1,#note_apprenant{
+
+	border-color: #E0002D;
+}
+
+#select_ajout_note_apprenant,#select_absence_retard_apprenant,#select_nom_apprenant_absouret,#note_apprenant{
+
+	border-color: #E0002D;
+	margin-top: 1.5%;
+}
+
+#btn_valider_retard_absence{
+
+	color: #FF8C00;
+}
+
+#titre_profil{
+
+	text-align: center;
+	margin-top: 2%;
+	width: 30%;
+	margin-left: auto;
+	margin-right: auto;
+	
+}
+
+.nav-item{
+
+	font-size: 20px;
+
+}
+
+.list-group{
+
+	margin: 0px;
+}
+
+#form_satisfaction_formateur,#form_satisfaction_formation{
+
+	width: 100%;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.list-group-item{
+
+	height: 110px;
+	border-color: black;
+	padding-bottom: 1px;
+	
+}
+
+.list-group-item:hover{
+
+	
+	
+}
+
+#item_details_users,#item_suivi_embauche{
+
+	height: 70px;
+	border-color: black;
+	padding-bottom: 1px;
+
+}
+
+h6{
+
+	width: 100%;
+}
+
+.titre_quest_form{
+
+	padding-top: 1%;
+	display: inline-block;
+	text-align: left;
+
+}
+
+
+input[type=radio] {
+
+  	margin: 2%;
+  	padding-bottom: 5%;
+
+}
+
+
+#form_satisfaction_formateur,#form_satisfaction_formation{
+
+	margin-top: 1%;
+}
+
+#titre_form_info_recrut,#titre_form_info_enviro_form,#titre_form_info_contenu_obj,#titre_form_info_peda{
+
+	text-align: center;
+	margin-top: 1%;
+	background-color: white;
+
+}
+
+#com_formateur_to_apprenant{
+
+	height: 500px;
+	
+}
+
+#form_register_commentaire,#form_register_note,#form_absence_retard{
+
+	background-color: #2D3F58;
+}
+
+#label_retard_absence,#label_note{
+
+	color: white;
+	background-color: #2D3F58;
+	border: 2px white solid;
+	font-weight: bold;
+	height: 47px;
+
+}
+
+#input_com_formateur_to_apprenant{
+
+	margin-top: 5%;
+}
+
+#liste_infos_generales_admin{
+
+	margin-top: 1%;
+}
+
+#com_formateur_to_apprenant_txt{
+
+	margin-top: 1%;
+}
+
+
 

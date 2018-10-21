@@ -8,13 +8,47 @@ $( document ).ready(function() {
     $(".boutons_gestion_utilisateur").hide();
     $("#gestion_utilisateurs").hide();
     $('#form_apprenant').hide(); 
-    
+    $('#form_suivi_client').hide();  
     $("#titre_carte_gestion").fadeOut(2500);
+    $('#contenu_form_client').hide(); 
+    $('#form_satisfaction_formateur').hide();
+    $('#form_satisfaction_formation').hide();
+    $('#form_com_semaine_apprenant').hide();
+    $('#programme_form_pdf').hide();
+
+    if (true) {}
+    
+    setTimeout(function() {
+
+        $('.alert-error,.alert-success').fadeOut('slow');
+
+    }, 3000);
+
+	num_role = $( "#role" ).text();
+
+    console.log(num_role);
+
+    if(num_role === 3){
+
+        $("#role").text("Administrateur");
+    }
+    else if(num_role === 2){
+
+        $("#role").text("Client");
+    }
+    else if(num_role === 1){
+
+        $("#role").text("Formateur");
+    }
+    else if(num_role === 0){
+
+        $("#role").text("Apprenant");
+    }
+	
 
 });
 
-
- $('#inputGroupSelect01').bind('change', function(event) {
+$('#inputGroupSelect01').bind('change', function(event) {
 
     var i= $('#inputGroupSelect01').val();
 
@@ -43,6 +77,47 @@ $("#btn_donnees").click(function(){
     $("#contenu_form1").hide();
     $("#dropdownMenuButton").hide(); 
 });
+
+$("#btn_apprenant_quest_formateur").click(function(){
+
+    $("#form_satisfaction_formation").hide();
+    $("#form_com_semaine_apprenant").hide(); 
+    $("#programme_form_pdf").hide(); 
+    $("#form_satisfaction_formateur").show("fast");
+    
+});
+
+$("#btn_apprenant_quest_formation").click(function(){
+
+    $("#form_satisfaction_formateur").hide();
+    $("#form_com_semaine_apprenant").hide(); 
+    $("#programme_form_pdf").hide(); 
+    $("#form_satisfaction_formation").show("fast");
+    
+});
+
+$("#btn_apprenant_com_fin_sem").click(function(){
+
+    $("#form_satisfaction_formateur").hide();
+    $("#form_satisfaction_formation").hide();
+    $("#programme_form_pdf").hide(); 
+    $('#form_com_semaine_apprenant').show("fast");
+    
+});
+
+$("#btn_apprenant_programme").click(function(){
+
+    $("#form_satisfaction_formateur").hide();
+    $("#form_satisfaction_formation").hide();
+    $("#form_com_semaine_apprenant").hide();
+    $('#programme_form_pdf').show("fast");
+     
+});
+
+
+
+
+
 
 $("#btn_gestion_utilisateur").click(function(){
 
@@ -101,6 +176,52 @@ $("#btn_donnees").click(function(){
     $("#gestion_formation").hide();
     $("#gestion_utilisateurs").hide();
 });
+
+$("#btn_com_formateur_to_apprenant").click(function(){
+
+    
+    $("#com_formateur_to_apprenant").show("fast");
+});
+
+
+function functionShowHideFormClient() {
+
+    var x = document.getElementById("form_suivi_client");
+
+    if (x.style.display === "none") {
+
+        x.style.display = "block";
+
+    } else {
+
+        x.style.display = "none";
+    }
+
+    $('#contenu_form_client').show();
+} 
+
+function functionRole(){
+
+    var role = $("#role").val();
+
+    if(role == 0){
+
+        $("#role").attr('text', 'Apprenant');
+
+    }
+
+    console.log(role);
+}
+
+$(document).on('change', '#checkbox_1', function(){
+
+    $(this).css('color', 'green');
+});
+
+
+
+
+
 
 
 // $("#btn_entreprise").mouseleave(function(){

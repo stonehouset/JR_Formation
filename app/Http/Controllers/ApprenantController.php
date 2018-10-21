@@ -3,8 +3,21 @@
 namespace JR_Formation\Http\Controllers;
 
 use JR_Formation\Apprenant;
+use JR_Formation\Formation;
 use JR_Formation\User;
 use Illuminate\Http\Request;
+use Carbon\Carbon; 
+use JR_Formation\Http\Requests\ContactRequest; 
+use Illuminate\Support\Facades\Mail;
+use JR_Formation\Mail\Contact;
+use JR_Formation\Mail\QuestionnaireFormateur;
+use JR_Formation\Mail\QuestionnaireFormation;
+use Maatwebsite\Excel\Facades\Excel;
+use DB;
+use View;
+use File;
+use Illuminate\Support\Facades\Storage;
+
 
 class ApprenantController extends Controller
 {
@@ -14,17 +27,30 @@ class ApprenantController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-
     public function __construct()
     {
         $this->middleware('auth');
     }
 
-
     public function index()
     {
-        $users = User::all();
-        return view('interface_apprenant', ['users' => $users]);
+
+        $idApprenant = auth()->user()->id;
+
+        $apprenant = Apprenant::where('user_id','=',$idApprenant)->first();   
+
+        $dateNow = Carbon::now();
+
+        $formation = Formation::where('id','=',$apprenant->formation_id)->first();
+
+        $dateDebutForm = $formation->date_debut;
+    
+        $datePlus4Jours = date('Y-m-d', strtotime($dateDebutForm. ' + 4 days'));
+
+        $datePlus11Jours = date('Y-m-d', strtotime($dateDebutForm. ' + 11 days'));
+
+        return view('interface_apprenant', ['dateNow' => $dateNow , 'apprenant' => $apprenant, 'datePlus4Jours' => $datePlus4Jours, 'datePlus11Jours' => $datePlus11Jours]);
+
     }
 
     /**
@@ -46,31 +72,416 @@ class ApprenantController extends Controller
 
     public function store(Request $request)
     {
-        $apprenant = new Apprenant;
-
-        $apprenant->sexe = $request->input('options.');
-        $apprenant->nom = $request->nom_apprenant;
-        $apprenant->prenom = $request->prenom_apprenant;
-        $apprenant->email = $request->email_apprenant;
-        $apprenant->date_naissance = $request->date_naissance_apprenant;
-        $apprenant->mdp = $request->mdp;
-        $apprenant->id_pole_emploi = $request->pole_emploi;
-        $apprenant->numero_ss = $request->num_secu;
-        $apprenant->numero_telephone = $request->num_telephone_apprenant;
-        $apprenant->date_CDI = $request->date_cdi;
-        $apprenant->debut_tutorat = $request->date_debut_tutorat;
-        $apprenant->fin_tutorat = $request->date_fin_tutorat;
-        $apprenant->adresse = $request->adresse_apprenant;
-        $apprenant->nationalite = $request->nationalite;
-        $apprenant->lieu_naissance = $request->lieu_naissance;
-        $apprenant->formation = $request->input('formations.');
-        $apprenant->groupe_formation = $request->input('groupe_formations.');
-
-        $apprenant->save();
-
-        return redirect('/home');
+        
+        
+        
     }
 
+    public function csvToArray($filename = '', $delimiter = ';')
+    {
+        if (!file_exists($filename) || !is_readable($filename))
+
+            return false;
+
+        $header = null;
+        $data = array();
+
+        if (($handle = fopen($filename, 'r')) !== false)
+        {
+            while (($row = fgetcsv($handle, 1000, $delimiter)) !== false)
+            {
+                if (!$header)
+
+                    $header = $row;
+                else
+
+                    $data[] = array_combine($header, $row);
+            }
+            fclose($handle);
+        }
+
+        return $data;
+    }
+
+    public function importCsv(Request $request)
+    {
+
+        $users = User::all();
+        $file = $request->file('fichier_csv_apprenants');
+        $customerArr = $this->csvToArray($file);
+
+        function generatePassword($length = 10) {
+
+            $chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789./][{};';
+            $count = mb_strlen($chars);
+            $result;
+
+            for ($i = 0, $result = ''; $i < $length; $i++) {
+                $index = rand(0, $count - 1);
+                $result .= mb_substr($chars, $index, 1);
+            }
+
+            return $result;
+        }
+
+        foreach ($customerArr as $item) {
+
+            if($item['date_naissance']!=null) {
+                $explodeDate = explode('/', $item['date_naissance']);
+                $day = $explodeDate[0];
+                $month = $explodeDate[1];
+                $year = $explodeDate[2];               
+                $date = Carbon::createFromFormat('Y-m-d', $year.'-'.$month.'-'.$day)->toDateString();
+                $item['date_naissance'] = $date;              
+            }   
+            // return $item['date_naissance'];
+
+            if($item['debut_tutorat']!=null) {
+                $explodeDate = explode('/', $item['debut_tutorat']);
+                $day = $explodeDate[0];
+                $month = $explodeDate[1];
+                $year = $explodeDate[2];               
+                $date = Carbon::createFromFormat('Y-m-d', $year.'-'.$month.'-'.$day )->toDateString();
+                $item['debut_tutorat'] = $date;              
+            }  
+
+            if($item['fin_tutorat']!=null) {
+                $explodeDate = explode('/', $item['fin_tutorat']);
+                $day = $explodeDate[0];
+                $month = $explodeDate[1];
+                $year = $explodeDate[2];               
+                $date = Carbon::createFromFormat('Y-m-d', $year.'-'.$month.'-'.$day )->toDateString();
+                $item['fin_tutorat'] = $date;                
+            }  
+
+            if($item['date_cdi'] == null) {
+
+                $item['date_cdi'] = null;
+            }
+
+            $mdp = generatePassword();
+
+            $item['password'] = $mdp;
+     
+            $user = new User;
+
+            $user->nom = $item['nom'];
+            $user->prenom = $item['prenom'];
+            $user->numero_telephone = $numAvecZero;
+            $user->email = $item['email'];
+            $user->password = bcrypt($item['password']);
+            $user->role = 0;
+
+            $user->save();
+            // return $user;
+
+            $getUserCreate = User::where('email', $user->email)->first();
+
+            $apprenant = new Apprenant;
+
+            $apprenant->user_id = $getUserCreate->id;
+            $apprenant->sexe = $item['sexe'];
+            $apprenant->date_naissance = $item['date_naissance'];
+            $apprenant->id_pole_emploi = $item['id_pole_emploi'];
+            $apprenant->numero_ss = $item['numero_ss'];
+            $apprenant->groupe_formation = $item['groupe_formation'];
+            $apprenant->lieu_naissance = $item['lieu_naissance'];
+            $apprenant->nationalite = $item['nationalite'];
+            $apprenant->adresse = $item['adresse'];
+            $apprenant->debut_tutorat = $item['debut_tutorat'];
+            $apprenant->fin_tutorat = $item['fin_tutorat'];
+            $apprenant->date_cdi = $item['date_cdi'];
+
+            $apprenant->save();
+
+            $data = [
+
+               'nom' => $item['nom'],
+               'prenom' => $item['prenom'],
+               'email' => $item['email'],
+               'formation' => $item['groupe_formation'],
+               'mdp' => $item['password']
+            ];
+
+            // return view("emails.apprenants", []);
+
+            Mail::to($item['email'])->send(new Contact($data));
+
+        }
+      
+        return redirect()->back()->with('success', 'Apprenants ajoutés!');    
+    }
+
+    public function getDownload()
+    {
+        
+        $file= public_path(). '\programme_form_brut_butcher_2.pdf';
+    
+        $headers = [
+
+              'Content-Type' => 'application/pdf',
+
+           ];
+
+        return response()->download($file, 'programme_formation.pdf', $headers);
+    }
+
+    public function ajoutComSem1(Request $request)
+    {
+
+        $idApprenant = auth()->user()->id;
+
+        $com = $request->com_apprenant_sem1;
+
+        $dataApprenant = Apprenant::where('user_id','=',$idApprenant)->first();
+
+        if ($dataApprenant->commentaire_semaine1 != null) {
+
+            return redirect()->back()->with('error', 'Vous avez déja écrit quelque chose pour cette semaine!'); 
+
+        }else if ($com == null) {
+
+            return redirect()->back()->with('error', 'Le commentaire est vide!'); 
+
+        }else{
+
+            DB::table('apprenants')->where('user_id' ,'=' , $idApprenant)->update(['commentaire_semaine1' => $com]);
+          
+            return redirect()->back()->with('success', 'Commentaire semaine 1 ajouté, Merci!');  
+        }
+    }
+
+    public function ajoutComSem2(Request $request)
+    {
+
+        $idApprenant = auth()->user()->id;
+
+        $com = $request->com_apprenant_sem2;
+
+        $dataApprenant = Apprenant::where('user_id','=',$idApprenant)->first();
+
+        if ($dataApprenant->commentaire_semaine1 == null) {
+
+            return redirect()->back()->with('error', 'Merci de remplir le commentaire de la première semaine!'); 
+
+        }
+        else if ($com == null) {
+
+            return redirect()->back()->with('error', 'Le commentaire est vide!'); 
+
+        }else if ($dataApprenant->commentaire_semaine2 != null) {
+
+            return redirect()->back()->with('error', 'Vous avez déja écrit quelque chose pour cette semaine!'); 
+
+        }else{
+
+            DB::table('apprenants')->where('user_id' ,'=' , $idApprenant)->update(['commentaire_semaine2' => $com]);
+          
+            return redirect()->back()->with('success', 'Commentaire semaine 2 ajouté, Merci!');  
+        }
+    }
+
+    public function sendFormFormateur(Request $request)
+    {
+        $data;
+        $apprenant = auth()->user()->id;
+        $dataApprenant = User::where('id','=', $apprenant)->first();
+         
+        $quest1 = "Le formateur sait transmettre ses connaissances (maitrise son sujet, donne des exemples pratiques)";
+        $quest2 = "Le formateur sait mobiliser les participants (donne envie d'apprendre, fait participer)"; 
+        $quest3 = "Le formateur sait s'adapter à chaque participant (personnalise son message, s'adapte au contexte de chacun)"; 
+        $quest4 = "Le formateur a des points forts"; 
+        $quest5 = "Les supports utilisés en formation étaient utiles pour apprendre (documents, vidéos)"; 
+        $quest6 = "La progression pédagogique est adaptée (rythme, difficulté progressive, équilibre théorie/pratique...)"; 
+        $quest7 = "L’alternance de moments de « théorie » avec des travaux pratiques vous a-t-elle semblé équilibrée"; 
+        $quest8 = "Le niveau du formateur vous a semblé correct"; 
+        $quest9 = "Le formateur a tenu un langage clair"; 
+        $quest10 = "Le formateur a respecté le contenu du programme,il vous a aidé à atteindre les objectifs"; 
+        $quest11 = "Il y a eu une adaptation au rythme, au contenu"; 
+        $quest12 = "La qualité des exemples cités"; 
+        $quest13 = "Le niveau des aptitudes (élocution, postures, tenue)"; 
+        $quest14 = "Le niveau de compétences et de disponibilité";
+        $quest15 = "Globalement, j'ai été très satisfait(e) du formateur";
+        $quest16 = "Si vous deviez suivre à nouveau une formation, le feriez-vous volontiers avec ce formateur ?";
+        $quest17 = "Recommanderiez-vous ce formateur à un centre de formation ou à une entreprise ?";    
+
+        $rep1 = $request->radio1;
+        $rep2 = $request->radio2;
+        $rep3 = $request->radio3;
+        $rep4 = $request->radio4;
+        $rep5 = $request->radio5;
+        $rep6 = $request->radio6;
+        $rep7 = $request->radio7;
+        $rep8 = $request->radio8;
+        $rep9 = $request->radio9;
+        $rep10 = $request->radio10;
+        $rep11 = $request->radio11;
+        $rep12 = $request->radio12;
+        $rep13 = $request->radio13;
+        $rep14 = $request->radio14;
+        $rep15 = $request->radio15;
+        $rep16 = $request->radio16;
+        $rep17 = $request->radio17;
+
+        if ($rep1 == null || $rep2 == null || $rep3 == null || $rep4 == null || $rep5 == null || $rep6 == null || $rep7 == null || $rep8 == null || $rep9 == null || $rep10 == null || $rep11 == null || $rep12 == null || $rep13 == null ||$rep14 == null || $rep15 == null || $rep16 == null || $rep17 == null) {
+            
+            return redirect()->back()->with('error', 'Merci de répondre à toutes les questions!');
+        }
+
+        $arrayQuestions =  array($quest1,$quest2,$quest3,$quest4,$quest5,$quest6,$quest7,$quest8,$quest9,$quest10,$quest11,$quest12,$quest13,$quest14,$quest15,$quest16,$quest17);
+
+        $arrayReponses =  array($rep1,$rep2,$rep3,$rep4,$rep5,$rep6,$rep7,$rep8,$rep9,$rep10,$rep11,$rep12,$rep13,$rep14,$rep15,$rep16,$rep17);
+
+        $nomApprenant;
+        $nomApprenant['nom'] = $dataApprenant->nom;
+
+        $prenomApprenant;
+        $prenomApprenant['prenom'] = $dataApprenant->prenom;
+
+        for ($i=0; $i < count($arrayQuestions); $i++) { 
+           
+            for ($j=0; $j < count($arrayReponses) ; $j++) { 
+              
+                if ($i == $j) {
+
+                    $data[$i]['Questions'] = $arrayQuestions[$i];
+                    $data[$i]['Evaluations'] = $arrayReponses[$i];
+
+                    if ($i == 0) {
+                        $data[$i]['Nom'] = $nomApprenant['nom'];
+                        $data[$i]['Prenom'] = $prenomApprenant['prenom'];
+                    }
+                }
+
+            }
+
+        }
+        $file = Excel::create('questionnaire_formateur', function ($excel) use ($data) {
+      
+            $excel->sheet('sheet1', function ($sheet) use ($data) {
+
+                $sheet->fromArray($data);
+
+            });
+
+        })->save('xlsx', storage_path('app/public'));
+
+        $array_file = [];
+        array_push($array_file, $file);
+
+        Mail::to('houselstein.thibaud@gmail.com')->send(new QuestionnaireFormateur($array_file));
+
+        File::delete('storage/questionnaire_formateur.xlsx');
+
+        return redirect()->back()->with('success', 'Questionnaire envoyé, merci!'); 
+
+    }
+
+    public function sendFormFormation(Request $request)
+    {
+        $data;
+
+        $apprenant = auth()->user()->id;
+
+        $dataApprenant = User::where('id','=', $apprenant)->first();
+              
+        $quest1 = "Qualités des informations communiquées";
+        $quest2 = "Clarté des critères de sélection"; 
+        $quest3 = "Qualité des entretiens et des tests de recrutement"; 
+        $quest4 = "Accompagnement pour la constitution du dossier de rémunération"; 
+        $quest5 = "Accueil et service"; 
+        $quest6 = "Qualité des salles de formation"; 
+        $quest7 = "Qualité du matériel utilisé"; 
+        $quest8 = "Accessibilité des locaux"; 
+        $quest9 = "Adéquation de la formation avec vos objectifs d'emploi"; 
+        $quest10 = "Parcours de formation adapté à votre niveau"; 
+        $quest11 = "Durée de la formation"; 
+        $quest12 = "Efficacité du parcours proposé"; 
+        $quest13 = "Disponibilité du formateur"; 
+        $quest14 = "Qualité d'animation du formateur";
+        $quest15 = "Maîtrise du sujet et connaissance du secteur/métier par le formateur";
+        $quest16 = "Qualité des supports pédagogiques de la formation";
+        $quest17 = "Homogénéité du groupe";
+        $quest18 = "Participation du groupe";
+        $quest19 = "Ambiance générale de la formation";   
+
+        $rep1 = $request->radio1;
+        $rep2 = $request->radio2;
+        $rep3 = $request->radio3;
+        $rep4 = $request->radio4;
+        $rep5 = $request->radio5;
+        $rep6 = $request->radio6;
+        $rep7 = $request->radio7;
+        $rep8 = $request->radio8;
+        $rep9 = $request->radio9;
+        $rep10 = $request->radio10;
+        $rep11 = $request->radio11;
+        $rep12 = $request->radio12;
+        $rep13 = $request->radio13;
+        $rep14 = $request->radio14;
+        $rep15 = $request->radio15;
+        $rep16 = $request->radio16;
+        $rep17 = $request->radio17;
+        $rep18 = $request->radio18;
+        $rep19 = $request->radio19;
+
+        $noteFormation = $request->note_formation;
+
+        if ($rep1 == null || $rep2 == null || $rep3 == null || $rep4 == null || $rep5 == null || $rep6 == null || $rep7 == null || $rep8 == null || $rep9 == null || $rep10 == null || $rep11 == null || $rep12 == null || $rep13 == null ||$rep14 == null || $rep15 == null || $rep16 == null || $rep17 == null || $rep18 == null || $rep18 == null) {
+            
+            return redirect()->back()->withInput()->with('error', 'Merci de répondre à toutes les questions!');
+        }
+
+        $arrayQuestions =  array($quest1,$quest2,$quest3,$quest4,$quest5,$quest6,$quest7,$quest8,$quest9,$quest10,$quest11,$quest12,$quest13,$quest14,$quest15,$quest16,$quest17,$quest18,$quest19);
+
+        $arrayReponses =  array($rep1,$rep2,$rep3,$rep4,$rep5,$rep6,$rep7,$rep8,$rep9,$rep10,$rep11,$rep12,$rep13,$rep14,$rep15,$rep16,$rep17,$rep18,$rep19);
+
+        $nomApprenant;
+        $nomApprenant['nom'] = $dataApprenant->nom;
+
+        $prenomApprenant;
+        $prenomApprenant['prenom'] = $dataApprenant->prenom;
+
+        for ($i=0; $i < count($arrayQuestions); $i++) { 
+           
+            for ($j=0; $j < count($arrayReponses) ; $j++) {
+
+                if ($i == $j) {
+
+                    $data[$i]['Questions'] = $arrayQuestions[$i];
+                    $data[$i]['Evaluations'] = $arrayReponses[$i];
+                }
+                if ($i == 0) {
+                    $data[$i]['Nom'] = $nomApprenant['nom'];
+                    $data[$i]['Prenom'] = $prenomApprenant['prenom'];
+                    $data[$i]['Note formation'] = $noteFormation;
+                }
+                                     
+            }
+
+        }
+        $file = Excel::create('questionnaire_formation', function ($excel) use ($data) {
+      
+            $excel->sheet('sheet1', function ($sheet) use ($data) {
+
+                $sheet->fromArray($data);
+
+            });
+
+        })->save('xlsx', storage_path('app/public'));
+
+        $array_file = [];
+        array_push($array_file, $file);
+
+        Mail::to('houselstein.thibaud@gmail.com')->send(new QuestionnaireFormation($array_file));
+
+        File::delete('storage/questionnaire_formation.xlsx');
+
+        return redirect()->back()->with('success', 'Questionnaire envoyé, merci!'); 
+
+    }
+
+    
     /**
      * Display the specified resource.
      *
