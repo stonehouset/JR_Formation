@@ -8,7 +8,6 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\Request;
 use Illuminate\Auth\Events\Registered;
-use Hash;
 
 class RegisterController extends Controller
 {
@@ -90,7 +89,7 @@ class RegisterController extends Controller
             'role' => $data['role'],
             'numero_telephone' => $data['numero_telephone'],
             'email' => $data['email'],
-            'password' =>Hash::make($data['password']),
+            'password' =>bcrypt($data['password']), 
         ]);
 
         Mail::to('houselstein.thibaud@gmail.com')->send(new MailWhenUserIsRegister());

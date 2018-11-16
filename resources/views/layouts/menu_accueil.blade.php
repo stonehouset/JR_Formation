@@ -14,14 +14,11 @@
     <body style="background-color: #2D3F58;">
         <nav class="navbar navbar-expand-lg navbar navbar-dark bg-dark">
             <a class="navbar-brand">
-                <img src="/img/0001.jpg" class="css-class" alt="alt text" style="max-width:180px;max-height:120px;">
+                <img src="/img/0001.jpg" class="css-class" alt="alt text" style="max-width:210px;max-height:150px;">
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <a class="nav-link" href="#">{{ date('d/m/Y') }}</a>
-            </div>
             <li class="nav-item active" >
                 <a class="nav-link" href="/register" style="color:#2D3F58;">S'enregistrer<span class="sr-only"></span></a>
             </li>

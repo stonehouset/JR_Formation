@@ -1,7 +1,17 @@
 @extends('layouts.menu')
 
 @section('content')
-<div class="panel-body" id="body_interface_formateur">        
+<div class="panel-body" id="body_interface_formateur"> 
+    @if (\Session::has('error'))
+        <div class="alert alert-error" style="color: red;text-align: center;background-color: #2D3F58;border-color: red;margin-top: 2%;">          
+        {!! \Session::get('error') !!}         
+        </div>
+    @endif
+    @if (\Session::has('success'))
+    <div class="alert alert-success" style="color: green;text-align: center;background-color: #2D3F58;border-color: green;margin-top: 2%; ">       
+        {!! \Session::get('success') !!}    
+    </div>
+    @endif       
     <div class="card-header" id="headingTwo">
         <h5 class="mb-0" style="color: white;">
             @foreach($formations as $formation)

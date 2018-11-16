@@ -9,7 +9,7 @@ use Closure;
 use Illuminate\Support\Facades\Auth;
 
 
-class RedirectIfAuthenticated
+class Authenticate
 
 {
 
@@ -33,9 +33,17 @@ class RedirectIfAuthenticated
 
     {
 
-        if (Auth::guard($guard)->check()) {
+        if (Auth::guard($guard)->guest()) {
 
-            return redirect('/home');
+            if ($request->ajax() || $request->wantsJson()) {
+
+                return response('Unauthorized.', 401);
+
+            } else {
+
+                return redirect()->guest('login');
+
+            }
 
         }
 
@@ -45,4 +53,3 @@ class RedirectIfAuthenticated
     }
 
 }
-

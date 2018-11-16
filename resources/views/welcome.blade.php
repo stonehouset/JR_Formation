@@ -1,11 +1,11 @@
 <!doctype html>
-<html lang="{{ app()->getLocale() }}" style="background-color:#f8f9fa;">
+<html lang="{{ app()->getLocale() }}" style="background-color:#2D3F58;">
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>JR Formation</title>
+        <title>Accueil Extranet</title>
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
@@ -33,18 +33,18 @@
             } 
         </style>
     </head>
-    <body style="background-color:#f8f9fa;">
+    <body style="background-color:#2D3F58;text-align: center;">
         <center>
-            <img src="/img/logo_formation_accueil.png" alt="alt text" style="width:80%;margin-top: 5%;border-bottom: 2px #E0002D solid;padding-bottom: 1%; ">
+            <img src="/img/0001.jpg" alt="alt text" style="width:50%;margin-top: 10%;border: 2px #E0002D solid;">
         </center> 
-        <h3 style="color: #2D3F58;text-align: center;font-size: 40px;">Extranet</h3>
+        <h3 style="color: #E0002D;text-align: center;font-size: 40px;">Extranet</h3>
         <div class="row">
             @if (Route::has('login'))
                 <div class="links" style="text-align: center;">
                     @auth
                         <a href="{{ url('/home') }}">Accueil</a>
                     @else
-                        <a href="{{ route('login') }}" style="color: #E0002D;font-size: 22px;">Connexion</a>
+                        <a href="{{ route('login') }}" style="color: white;font-size: 25px;border: 2px #E0002D solid; ">Connexion</a>
                         <!-- <a href="{{ route('register') }}">S'enregistrer</a> -->
                     @endauth
                 </div>

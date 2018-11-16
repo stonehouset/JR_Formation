@@ -11,6 +11,10 @@
 |
 */
 
+Auth::routes();
+
+Route::get('/home', 'HomeController@index');
+
 Route::get('/', function () {
     return view('welcome');
 });
@@ -35,6 +39,8 @@ Route::get('/questionnaire_formation', function () {
     return view('questionnaire_formation');
 });
 
+Route::post('login', [ 'as' => 'login', 'uses' => 'Auth\AuthController@login']);
+
 Route::post('client', [ 'as' => 'client', 'uses' => 'ClientController@store']);
 
 Route::post('formateur', [ 'as' => 'formateur', 'uses' => 'FormateurController@store']);
@@ -42,8 +48,6 @@ Route::post('formateur', [ 'as' => 'formateur', 'uses' => 'FormateurController@s
 Route::post('apprenant', [ 'as' => 'apprenant', 'uses' => 'ApprenantController@importCsv']);
 
 Route::post('formation', [ 'as' => 'formation', 'uses' => 'FormationController@store']);
-
-Route::post('register', [ 'as' => 'register', 'uses' => 'RegisterController@create']);
 
 Route::post('commentaire', [ 'as' => 'commentaire', 'uses' => 'CommentaireController@create']);
 
@@ -59,7 +63,7 @@ Route::post('send_form_formateur_apprenant', [ 'as' => 'send_form_formateur_appr
 
 Route::post('send_form_formation_apprenant', [ 'as' => 'send_form_formation_apprenant', 'uses' => 'ApprenantController@sendFormFormation']);
 
-Auth::routes();
+Route::post('change_user_password', [ 'as' => 'change_user_password', 'uses' => 'HomeController@changeUserPassword']);
 
 Route::get('/home', 'HomeController@index')->name('home');
 
@@ -87,3 +91,7 @@ Route::get('apprenants_formateur_csv', [ 'as' => 'apprenants_formateur_csv', 'us
 
 Route::get('formateur_apprenants_csv', [ 'as' => 'formateur_apprenants_csv', 'uses' => 'FormateurController@extractApprenantCsv']);
 
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

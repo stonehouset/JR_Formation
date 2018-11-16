@@ -1,5 +1,4 @@
 <?php
-
 namespace JR_Formation\Http\Controllers;
 
 use Illuminate\Http\Request;
@@ -9,17 +8,22 @@ use JR_Formation\Formation;
 use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
 use Carbon\Carbon;
+use Auth;
 
 class HomeController extends Controller
 {
+
     /**
      * Create a new controller instance.
      *
      * @return void
      */
+
     public function __construct()
     {
+
         $this->middleware('auth');
+
     }
 
     /**
@@ -27,48 +31,34 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
     public function index()
     {
 
         $users = User::all();
-
         $statut = null;
-
         $groupes_formation = Apprenant::distinct()->get(['groupe_formation']);
-
         $clients = User::where('role', '=', '2')->get();
-
         $formateurs = User::where('role', '=', '1')->get();
-
         $apprenants = User::where('role', '=', '0')->get();
-
         $formations = Formation::all();
 
         foreach ($formations as $formation) {
 
-
             $client = User::where('id','=',$formation->client_id)->first();
-
             $formateur = User::where('id','=',$formation->formateur_id)->first();
-
             $formation->setAttribute('client', $client);
-
             $formation->setAttribute('formateur', $formateur);
             
         }
-
         // return $groupes_formation;
-
         return view('home', ['users' => $users, 'clients' => $clients, 'formateurs' => $formateurs, 'groupes_formation' => $groupes_formation, 'formations' => $formations, 'apprenants' => $apprenants]);
     }
-
     public function profil()
     {
 
         $roleUser = auth()->user()->role;
-
         $dataApprenant = Apprenant::where('user_id','=',auth()->user()->id)->first();
-
         $statut = null;
 
         if ($roleUser == 0) {
@@ -90,30 +80,21 @@ class HomeController extends Controller
         }
 
         return view('profil',['statut' => $statut, 'apprenant' => $dataApprenant]);
-
     }
 
     public function questionnaireFormation()
     {
-
         $idFormateur = auth()->user()->id;
-
         $formateur = User::where('id' ,'=', $idFormateur)->first();   
-
         $dateNow = Carbon::now();
-
         $formation = Formation::where('formateur_id','=',$idFormateur)->first();
-
         $dateDebutForm = $formation->date_debut;
     
         $datePlus4Jours = date('Y-m-d', strtotime($dateDebutForm. ' + 4 days'));
-
         $datePlus11Jours = date('Y-m-d', strtotime($dateDebutForm. ' + 11 days'));
 
         return view('questionnaire_formation',['dateNow' => $dateNow , 'formateur' => $formateur, 'datePlus4Jours' => $datePlus4Jours, 'datePlus11Jours' => $datePlus11Jours]);
-
     }
-
 
     public function extractApprenantCsv()
     {
@@ -123,13 +104,11 @@ class HomeController extends Controller
         foreach ($userApprenants as $userApprenant) {
 
             $apprenants = Apprenant::where('user_id','=', $userApprenant->id)->get();
-
             $userApprenant->setAttribute('apprenants', $apprenants);
 
             foreach ($apprenants as $apprenant) {
 
                 $formations = Formation::where('id', '=', $apprenant->formation_id)->get();
-
                 $apprenant->setAttribute('formations', $formations);
 
                 foreach ($formations as $formation) {
@@ -167,6 +146,7 @@ class HomeController extends Controller
                 ];       
             }
         }
+
         Excel::create('users', function ($excel) use ($userData) {
  
             // Build the spreadsheet, passing in the users array
@@ -188,7 +168,6 @@ class HomeController extends Controller
         foreach ($userFormateurs as $formateur) {
             
             $formation = Formation::where('formateur_id','=',$formateur->id)->first();
-
             $formateur->setAttribute('formation', $formation);
 
             if ($formateur->formation == null) {
@@ -198,7 +177,7 @@ class HomeController extends Controller
             }else{
 
                 $nomFormation = $formateur->formation->nom;
-    
+
             }
 
             $userData[] = [
@@ -209,8 +188,9 @@ class HomeController extends Controller
                         'Telephone' => $formateur->numero_telephone,  
                         'Formation' => $nomFormation,  
                                
-                ];
+                    ];
         }
+
         Excel::create('formateurs', function ($excel) use ($userData) {
  
             // Build the spreadsheet, passing in the users array
@@ -221,6 +201,34 @@ class HomeController extends Controller
             });
 
         })->download('xlsx');
+    }
+
+    public function changeUserPassword(Request $request) //Methode pour modifier le mot de passe d'un utilisateur via page profil.blade.php
+    {
+
+        $idUser = auth()->user()->id;
+
+        $mdp = $request->motdepasse;
+        $confirmMdp = $request->confirmPassword;
+
+        if (strlen($mdp) < 6){
+
+            return redirect()->back()->with('error', 'le mot de passe doit contenir au moins 6 caractères!');
+
+        }
+        elseif ($mdp === $confirmMdp){
+            
+            $password = bcrypt($mdp);
+
+            User::where('id', $idUser)->update(['password' => $password]);
+
+            return redirect()->back()->with('success', 'le mot de passe a été modifié!');
+        }
+        else{
+
+            return redirect()->back()->with('error', 'les mots de passe ne correspondent pas!');
+        }
+
 
     }
     
