@@ -167,7 +167,7 @@ class ApprenantController extends Controller
 
             $user->nom = $item['nom'];
             $user->prenom = $item['prenom'];
-            $user->numero_telephone = $numAvecZero;
+            $user->numero_telephone = $item['numero_telephone'];
             $user->email = $item['email'];
             $user->password = bcrypt($item['password']);
             $user->role = 0;

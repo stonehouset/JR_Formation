@@ -3,12 +3,12 @@
 @section('content')
 <div class="panel-body" id="body_interface_formateur"> 
     @if (\Session::has('error'))
-        <div class="alert alert-error" style="color: red;text-align: center;background-color: #2D3F58;border-color: red;margin-top: 2%;">          
+        <div class="alert alert-error" id="div_show_error">          
         {!! \Session::get('error') !!}         
         </div>
     @endif
     @if (\Session::has('success'))
-    <div class="alert alert-success" style="color: green;text-align: center;background-color: #2D3F58;border-color: green;margin-top: 2%; ">       
+    <div class="alert alert-success" id="div_show_success">       
         {!! \Session::get('success') !!}    
     </div>
     @endif       
@@ -20,20 +20,6 @@
 
             @endforeach
         </h5>
-        @if (\Session::has('error'))
-            <div class="alert alert-error" style="color: red;text-align: center;background-color: #2D3F58;border-color: red;margin-top: 2%;">
-                
-                {!! \Session::get('error') !!}</li>
-                
-            </div>
-        @endif
-        @if (\Session::has('success'))
-        <div class="alert alert-success" style="color: green;text-align: center;background-color: #2D3F58;border-color: green;margin-top: 2%; ">
-            
-            {!! \Session::get('success') !!}</li>
-            
-        </div>
-        @endif 
     </div>         
     <div class="row">       
         <div class="col-lg-7"> 

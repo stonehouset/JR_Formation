@@ -3,16 +3,16 @@
 @section('content')
 <div class="card text-center" style="background-color: #2D3F58;">
     <div class="card-body">   
-        <button type="button" class="btn btn-outline-dark" id="btn_donnees">Données Générales</button>
-        <button type="button" class="btn btn-outline-dark" id="btn_gestion_utilisateur">Utilisateurs</button> 
-        <button type="button" class="btn btn-outline-dark" id="btn_gestion_formation">Formations</button> 
+        <button type="button" class="btn btn-outline-dark" id="btn_donnees">DONNEES GENERALES</button>
+        <button type="button" class="btn btn-outline-dark" id="btn_gestion_utilisateur">UTILISATEURS</button> 
+        <button type="button" class="btn btn-outline-dark" id="btn_gestion_formation">FORMATIONS</button> 
         @if (\Session::has('error'))
-            <div class="alert alert-error" style="color: red;text-align: center;background-color: #2D3F58;border-color: red;margin-top: 2%;">
+            <div class="alert alert-error" id="div_show_error">
                 {!! \Session::get('error') !!}   
             </div>
         @endif
         @if (\Session::has('success'))
-            <div class="alert alert-success" style="color: green;text-align: center;background-color: #2D3F58;border-color: green;margin-top: 2%; ">
+            <div class="alert alert-success" id="div_show_success">
                 {!! \Session::get('success') !!}  
             </div>
         @endif        

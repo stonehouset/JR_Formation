@@ -91,6 +91,8 @@ Route::get('apprenants_formateur_csv', [ 'as' => 'apprenants_formateur_csv', 'us
 
 Route::get('formateur_apprenants_csv', [ 'as' => 'formateur_apprenants_csv', 'uses' => 'FormateurController@extractApprenantCsv']);
 
+Route::get('commentaires', [ 'as' => 'commentaires', 'uses' => 'CommentaireController@showCommentaires']);
+
 
 Auth::routes();
 

@@ -7,12 +7,12 @@
     <button type="button" id="btn_apprenant_quest_formateur" class="btn btn-outline-primary">Questionnaire formateur</button>
     <button type="button" id="btn_apprenant_com_fin_sem" class="btn btn-outline-primary">Commentaires fin de semaine</button>
     @if (\Session::has('error'))
-        <div class="alert alert-error" style="color: red;text-align: center;background-color: #2D3F58;border-color: red;margin-top: 2%;">          
+        <div class="alert alert-error" id="div_show_error">          
         {!! \Session::get('error') !!}         
         </div>
     @endif
     @if (\Session::has('success'))
-    <div class="alert alert-success" style="color: green;text-align: center;background-color: #2D3F58;border-color: green;margin-top: 2%; ">       
+    <div class="alert alert-success" id="div_show_success">       
         {!! \Session::get('success') !!}    
     </div>
     @endif
@@ -373,10 +373,7 @@
     </div>
     <div class="row" id="form_com_semaine_apprenant" style="margin-top: 2%;">
         <div class="offset-lg-3 col-lg-6 col-md-12">
-            @if ($dateNow <= $datePlus4Jours)
-                <h4 style="color: white;text-align: center;">Revenez le {{\Carbon\Carbon::parse($datePlus4Jours)->format('d/m/Y')}} pour remplir votre premier commentaire!</h4>
-            @endif
-            @if ($dateNow >= $datePlus4Jours && $apprenant->commentaire_semaine1 != null)
+            
             <form class="form-horizontal" method="POST" action="{{ route('comFormSem1') }}">
                 {{ csrf_field() }} 
                 <div class="form-group">
@@ -385,13 +382,7 @@
                 </div>  
                 <button type="submit" id="btn_validation_form_formation" class="btn btn-outline-primary">Envoyer le commentaire</button>
             </form>
-            @endif
-            @if ($apprenant->commentaire_semaine1 != null && $dateNow <= $datePlus11Jours)
-
-                <h4 style="color: white;text-align: center;">Revenez le {{\Carbon\Carbon::parse($datePlus11Jours)->format('d/m/Y')}} pour remplir votre deuxième commentaire!</h4>
-
-            @endif
-            @if ($apprenant->commentaire_semaine1 != null && $dateNow >= $datePlus11Jours && apprenant_commentaire_semaine2 != null)
+           
 
             <form class="form-horizontal" method="POST" action="{{ route('comFormSem2') }}">
                 {{ csrf_field() }} 
@@ -402,7 +393,7 @@
                 <button type="submit" id="btn_validation_form_formation" class="btn btn-outline-primary" >Envoyer le commentaire</button>
             </form>
 
-            @endif 
+             
         </div>
     </div>
     <div class="row" id="programme_form_pdf" style="margin-top: 2%;">

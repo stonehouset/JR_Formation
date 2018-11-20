@@ -1,8 +1,71 @@
+
+/*CSS GENERAL*/
+
 html{
 
 	width: 100%;
 	background-color: #2D3F58;
 	
+	
+}
+
+body{
+
+	/*font-family: 'GothamLight';
+    src: url('/fonts/Gotham-Light.eot');
+    src: url('/fonts/Gotham-Light.otf') format('opentype'),
+         url('/fonts/Gotham-Light.eot?iefix') format('embedded-opentype'),
+         url('/fonts/Gotham-Light.woff') format('woff'),
+         url('/fonts/Gotham-Light.ttf') format('truetype'),
+         url('/fonts/Gotham-Light.svg#gothamlight') format('svg');*/
+}
+
+#div_show_error{
+
+	z-index: 1;
+	color: white;
+	text-align: center;
+	background-color: red;
+	border: 1px white solid;
+	margin-top: 2%;
+	font-size: 18px;
+	border-radius: 2px;
+
+}
+
+#div_show_success{
+
+	z-index: 1;
+	color: white;
+	text-align: center;
+	background-color: green;
+	border: 1px white solid;
+	margin-top: 2%;
+	font-size: 18px;
+	border-radius: 2px;
+
+}
+
+#initials_user{
+
+
+	color:black;
+	font-size: 20px;
+	width: 4%;
+	text-align: center;
+	vertical-align: middle;
+	text-transform: uppercase;
+	border: 2px #E0002D solid;
+	
+
+}
+
+#initials_user:hover{
+
+	
+	background-color: #2D3F58;
+	color: white;
+
 }
 
 .form-control{
@@ -10,11 +73,48 @@ html{
 	color: black;
 }
 
-.nav-item{
+.nav-link{
 
 	color: #2D3F58;
+	border-radius: 1px;
+}
+
+#text_nav_link:hover{
+
+	color: white;
+	border-radius: 1px;
+}
+
+
+.nav-item:hover{
+
+	box-shadow: 1px 1px 10px #2D3F58;
+	border-radius: 1px;
+	background-color: #2D3F58;
+	opacity: 0.8;
+}
+
+#btn_deconnexion{
+
+	margin-left: 1%;
+	color: #E0002D;
+	height: 40px;
+	text-align: center;
+	padding-top: 0.5%;
+	border: hidden;
+	
 
 }
+
+#btn_deconnexion:hover{
+
+	box-shadow: 1px 1px 10px red;
+	border-radius: 5px;
+	background-color: #E0002D;
+	color: white;
+	border-radius: 1px;
+}
+
 
 
 #exampleFormControlTextarea1{
@@ -31,7 +131,7 @@ html{
 .card-body,.panel-body,.card-header{
 
 	background-color: #2D3F58;
-	border-color: #2D3F58;
+	
 
 }
 
@@ -40,17 +140,6 @@ html{
 	background-color: #b3b3ff; 
 }
 
-#initials_user{
-
-	font-size: 20px;
-	width: 4%;
-	color: white;
-	text-align: center;
-	vertical-align: middle;
-	text-transform: uppercase;
-	border: 2px #E0002D solid;
-	
-}
 
 #date_jour{
 
@@ -97,28 +186,70 @@ html{
 
 	min-width: 30%;
 	background-color: #2D3F58;
-	border: 2px solid #E0002D;	
+	border: 1px solid #E0002D;	
 	color: white;
-	border-radius: 15px;
+	border-radius: 2px;
 }
 
 #btn_gestion_utilisateur:hover{
-	background-color: silver;
+
+	background-color: white;
 	border: hidden;
-	color: black;
+	color: #2D3F58;
 }
 
 #btn_donnees:hover{
-	background-color: silver;
+
+	background-color: white;
 	border: hidden;
-	color: black;
+	color: #2D3F58;
 }
 
 #btn_gestion_formation:hover{
-	background-color: silver;
+
+	background-color: white;
 	border: hidden;
-	color: black;
+	color: #2D3F58;
 }
+
+#btn_apprenant_programme:hover{
+
+	background-color: white;
+	color: #2D3F58;
+	border: #E0002D;
+	border-radius: 2px;
+}
+
+#btn_apprenant_quest_formation:hover{
+
+	background-color: white;
+	color: #2D3F58;
+	border: #E0002D;
+	border-radius: 2px;
+}
+
+#btn_apprenant_quest_formateur:hover{
+
+	background-color: white;
+	color: #2D3F58;
+	border: #E0002D;
+	border-radius: 2px;
+}
+
+#btn_apprenant_com_fin_sem:hover{
+
+	background-color: white;
+	color: #2D3F58;
+	border: #E0002D;
+	border-radius: 2px;
+}
+
+#btn_valider_retard_absence:hover{
+
+	background-color: #FF8C00;
+	color: white;
+}
+
 
 #btn_telecharger_tab_formateur_admin,#btn_telecharger_tab_formateur_admin{
 
@@ -163,6 +294,7 @@ html{
 
 	
 	width: 250px;
+	color: white;
 }
 
 #form_suivi_client{
@@ -238,7 +370,7 @@ html{
 	margin-right: auto;
 	margin-left: auto; 
     margin-bottom: 2%;
-    border-color: #2D3F58;
+    
 }
 
 #tab_admin_apprenants,#tab_formateur_admin{
@@ -320,24 +452,18 @@ html{
 	margin-right: auto;
 }
 
-.list-group-item{
+li.list-group-item{
 
-	height: 110px;
-	border-color: black;
+	height: 150px;
 	padding-bottom: 1px;
-	
-}
-
-.list-group-item:hover{
-
-	
+	height: 50px;
+	border-color: #E0002D;
 	
 }
 
 #item_details_users,#item_suivi_embauche{
 
 	height: 70px;
-	border-color: black;
 	padding-bottom: 1px;
 
 }
@@ -414,4 +540,147 @@ input[type=radio] {
 }
 
 
+/* CSS Page Connexion*/
 
+#titre_page_connexion {
+
+
+	margin: auto;
+	color: white;
+	width: 50%;
+	border-bottom: 2px #E0002D solid;
+	padding-bottom: 1%;
+	text-align: center;
+	margin-top: 2%;
+
+}
+
+#formulaire_page_connexion{
+
+	margin: auto;
+	margin-top: 15%;
+	box-shadow: 1px 1px 5px #E0002D;
+	border-radius: 5px;
+	padding-bottom: 2%;
+	padding-top: 2%;
+
+}
+
+#label_mdp_form_connexion,#label_email_form_connexion{
+
+	margin-top: 2%;
+	margin-bottom: 2%;
+	color: white;
+	font-size: 20px;
+	display: block;
+	text-align: center;
+}
+
+#input_checkbox_form_connexion{
+
+	color: white;
+	display: block;
+	text-align: center;
+	margin-top: 5%;
+}
+
+#form_validation_form_connexion{
+
+	text-align: center;
+	margin-top: 5%;
+
+}
+
+
+/*CSS Page Profil*/
+
+#div_modif_password{
+
+	margin-top: 10%;
+}
+
+
+
+
+/*CSS Page Commentaires*/
+
+#titre_page_commentaire{
+
+	margin: auto;
+	margin-top: 2%;
+	width: 60%;
+	color: white;
+	font-size: 25px;
+	text-align: center;
+	border-bottom: 2px #E0002D solid;
+	padding-bottom: 1%;
+}
+
+#affichage_coms_apprenants{
+
+	margin: auto;
+	width: 95%;
+	padding-bottom: 2%;
+	padding-top: 1%;
+
+}
+
+#row_com_sem_apprenant{
+
+	margin: 0;
+}
+
+#body_card_com_semaine_apprenant{
+
+	color: white;
+	font-size: 16px;
+}
+
+#card_com_semaine_apprenant{
+
+	width: 600px;
+}
+
+#header_card_com_sem_apprenant{
+
+	font-weight:bold;
+}
+
+#entete_liste_com{
+
+	text-align: center;
+	color: white;
+	margin-top: 1%;
+	box-shadow: 1px 1px 5px #E0002D;
+	padding-bottom: 1%;
+	padding-top: 1%;
+	border-radius: 5px;
+}
+#card_com_sem_apprenant{
+
+	margin-top: 2%;
+
+}
+
+#row_commentaires{
+
+	box-shadow: 1px 1px 5px;
+
+}
+
+#btn_submit_change_mdp{
+
+	margin-top: 5%;
+	width: 50%;
+	display: block;
+	margin-right:auto;
+	margin-left: auto;
+}
+
+#btn_submit_change_mdp:hover{
+
+	background-color: green;
+	color: white;
+	border: hidden;
+
+}
