@@ -20,10 +20,10 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-lg-6" id="tableau_gestion_admin_infos_formateurs"> 
-                        <div class="card" style="margin-top: 2%;background-color:#2D3F58;border-color: #E0002D;">
-                            <div class="card-header" id="header_tableau_apprenants" style="color: white;border-color: #E0002D;">
+                        <div class="card" style="margin-top: 2%;background-color:#2D3F58;border:hidden;border-bottom: 1px white solid;">
+                            <div class="card-header" id="header_tableau_apprenants" style="border-color: #E0002D;background-color: white;">
                                 <h5 class="mb-0">
-                                    Liste des formateurs
+                                    LISTE DES FORMATEURS
                                 </h5>
                             </div>
                             <div id="tab_formateur_admin">
@@ -49,10 +49,10 @@
                         </div>
                     </div> 
                     <div class="col-lg-6" id="tableau_gestion_admin_infos_apprenants">
-                        <div class="card" style="margin-top: 2%;background-color:#2D3F58;border-color: #E0002D;">
-                            <div class="card-header" id="header_tableau_apprenants" style="color: white;border-color: #E0002D;">
+                        <div class="card" style="margin-top: 2%;background-color:#2D3F58;border:hidden;border-bottom: 1px white solid;">
+                            <div class="card-header" id="header_tableau_apprenants" style="border-color: #E0002D;background-color: white;">
                                 <h5 class="mb-0">
-                                    Liste des apprenants
+                                    LISTE DES APPRENANTS
                                 </h5>
                             </div>
                             <div id="tab_admin_apprenants">   
@@ -88,11 +88,11 @@
                 </div>
             </div>
             <div id="accordion" style="margin-top: 2%;">
-                <div class="card" style="border-color: #E0002D; color: #2D3F58;">
-                    <div class="card-header" id="headingOne" style="border-color: #E0002D; color: #2D3F58;">
+                <div class="card" style="border-color: white; color: #2D3F58;">
+                    <div class="card-header" id="headingOne" style="border-color: #E0002D;background-color: white;">
                         <h5 class="mb-0">
                             <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
-                                Ajouter un Utilisateur
+                                AJOUTER UN UTILISATEUR
                             </button>
                         </h5>
                     </div>
@@ -155,11 +155,11 @@
                         </div>                                    
                     </div>                   
                 </div>
-                <div class="card" style="border-color: #E0002D; color: #2D3F58;">
+                <div class="card" style="border-color: white;color:#2D3F58;">
                     <div class="card-header" id="headingTwo" style="border-color: #E0002D; color: #2D3F58;">
                         <h5 class="mb-0">
                             <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                            Ajouter une liste d'Apprenants
+                            AJOUTER UNE LISTE D'APPRENANTS
                             </button>
                         </h5>
                     </div>
@@ -242,10 +242,10 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="card-body">
-                            <div class="card" style="margin-top: 1%;background-color:#2D3F58;border-color: #E0002D;">
-                                <div class="card-header" id="header_tableau_apprenants" style="color: white;border-color: #E0002D;">
+                            <div class="card" style="margin-top: 1%;background-color:#2D3F58;border:hidden;border-bottom: 1px white solid;">
+                                <div class="card-header" id="header_tableau_apprenants" style="border-color: #E0002D;background-color: white;">
                                     <h5 class="mb-0">
-                                        Liste des formations 
+                                        LISTE DES FORMATIONS 
                                     </h5>
                                 </div>
                                 <div id="tab_admin_formations">
@@ -275,16 +275,16 @@
                             </div>
                         </div>                                  
                         <div id="accordion">
-                            <div class="card" style="border-color: #E0002D; color: #2D3F58;">
+                            <div class="card" style="border-color: white; color: #2D3F58;">
                                 <div class="card-header" id="headingFive" style="border-color: #E0002D; color: #2D3F58;">
                                     <h5 class="mb-0">
                                         <button class="btn btn-link" data-toggle="collapse" data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
-                                        Ajouter un groupe de Formation
+                                        AJOUTER UN GROUPE DE FORMATION 
                                         </button>
                                     </h5>
                                 </div>
                                 <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#accordion">
-                                    <form  method="POST" action="{{ route('formation') }}">
+                                    <form  method="POST" action="{{ route('formation') }}" enctype="multipart/form-data">
                                             {{ csrf_field() }}
                                         <div class="card-body">
                                             <div class="row">
@@ -315,7 +315,11 @@
                                                             <span class="input-group-text" id="basic-addon1">Date fin formation</span>
                                                         </div>
                                                         <input type="date" class="form-control" placeholder="01/01/2018" aria-label="date_fin_formation" aria-describedby="basic-addon2" name="fin_formation">
-                                                    </div>                                                
+                                                    </div> 
+                                                    <div class="custom-file">                                         
+                                                        <input type="file" name="programme_formation" class="custom-file-input" id="programme_formation" required>
+                                                        <label class="custom-file-label" for="file">Importer le programme de formation</label>
+                                                    </div>                                               
                                                 </div>
                                                 <div class="col-lg-6">
                                                     <div class="input-group mb-3">

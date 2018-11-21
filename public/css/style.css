@@ -152,6 +152,11 @@ body{
 
 /*CSS Page accueil_admin*/
 
+#headingOne,#headingTwo,#headingFive{
+
+	background-color: white;
+}
+
 #container_bonjour{
 
 	width: 100%;
@@ -454,11 +459,16 @@ body{
 
 li.list-group-item{
 
-	height: 150px;
+	height: 130px;
 	padding-bottom: 1px;
-	height: 50px;
 	border-color: #E0002D;
 	
+}
+
+#item_list_profil{
+
+	height: 60px;
+
 }
 
 #item_details_users,#item_suivi_embauche{
@@ -636,35 +646,48 @@ input[type=radio] {
 	font-size: 16px;
 }
 
-#card_com_semaine_apprenant{
 
-	width: 600px;
-}
 
 #header_card_com_sem_apprenant{
 
 	font-weight:bold;
+	background-color: #415B7F;
+	color: white;
+	border-radius: 2px;
+	
 }
 
 #entete_liste_com{
 
 	text-align: center;
 	color: white;
+	background-color: #2D3F58;
 	margin-top: 1%;
-	box-shadow: 1px 1px 5px #E0002D;
+	box-shadow: 1px 1px 5px black;
 	padding-bottom: 1%;
 	padding-top: 1%;
-	border-radius: 5px;
+	border-radius: 2px;
 }
+
 #card_com_sem_apprenant{
 
 	margin-top: 2%;
+	border: 1px #2D3F58 solid;
+	background-color: white;
+	border-radius: 2px;
 
 }
 
 #row_commentaires{
 
 	box-shadow: 1px 1px 5px;
+	height: 600px;
+	overflow-y:scroll;
+	position: static;	
+	background-color: white;
+	border-radius: 2px;
+	margin-top: 1%;
+
 
 }
 

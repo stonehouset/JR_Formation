@@ -2,7 +2,7 @@
 
 @section('content')
 
-<h3 id="titre_page_commentaire">LISTE DES COMMENTAIRES</h3>
+<h3 id="titre_page_commentaire">LISTES DES COMMENTAIRES</h3>
 <div id="affichage_coms_apprenants">
 	<div class="row" id="row_com_sem_apprenant">	
 		<div class="col-lg-6" id="row_commentaires">

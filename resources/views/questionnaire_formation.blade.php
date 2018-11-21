@@ -6,7 +6,7 @@
     @if ($dateNow <= $datePlus4Jours)
         <h4 style="color: white;text-align: center;margin-top: 1%;">Revenez le {{\Carbon\Carbon::parse($datePlus4Jours)->format('d/m/Y')}} pour répondre au questionnaire!</h4>
     @endif
-    @if ($dateNow >= $datePlus4Jours) 
+    
     <div class="row">
         <div class="col-lg-6">
             <ul class="list-group">
@@ -148,7 +148,7 @@
             <button type="submit" id="btn_validation_form_formateur" style="width: 100%;margin-top: 6%;border-color:green;margin-bottom: 1%;" class="btn btn-outline-primary">Valider le questionnaire</button> 
         </div>
     </div>
-    @endif
+    
 </form>
 
 @endsection

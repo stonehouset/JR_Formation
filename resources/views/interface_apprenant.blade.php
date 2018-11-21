@@ -30,7 +30,7 @@
             @if ($dateNow <= $datePlus4Jours)
                 <h4 style="color: white;text-align: center;margin-top: 2%;">Revenez le {{\Carbon\Carbon::parse($datePlus4Jours)->format('d/m/Y')}} pour répondre au questionnaire!</h4>
             @endif
-            @if ($dateNow >= $datePlus4Jours) 
+            
                 <div class="row">
                     <div class="col-lg-6">
                         <ul class="list-group">
@@ -172,7 +172,7 @@
                         <button type="submit" id="btn_validation_form_formateur" style="width: 100%;margin-top: 6%;border-color:green;margin-bottom: 1%;" class="btn btn-outline-primary">Valider le questionnaire</button> 
                     </div>
                 </div>
-            @endif
+            
         </div>
     </form>
     <div id="form_satisfaction_formation">
@@ -400,7 +400,6 @@
         <div class="col-lg-12">
             <form class="form-horizontal" method="GET" action="{{ route('downloadPdf') }}">
             {{ csrf_field() }}
-                <a href="{{ asset('file/programme_form_brut_butcher_2.pdf') }}" style="color: white;">Consulter le programme de formation ici</a>
                 <br>
                 <button class="btn btn-outline-primary" type="submit" style="margin-top: 2%;">Télécharger le programme</button>
             </form>

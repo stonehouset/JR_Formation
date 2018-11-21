@@ -36,17 +36,11 @@ class ApprenantController extends Controller
     {
 
         $idApprenant = auth()->user()->id;
-
         $apprenant = Apprenant::where('user_id','=',$idApprenant)->first();   
-
         $dateNow = Carbon::now();
-
-        $formation = Formation::where('id','=',$apprenant->formation_id)->first();
-
+        $formation = Formation::where('id','=',$apprenant->formation_id)->first(); //Recuperation des infos de l'apprenant connecte
         $dateDebutForm = $formation->date_debut;
-    
         $datePlus4Jours = date('Y-m-d', strtotime($dateDebutForm. ' + 4 days'));
-
         $datePlus11Jours = date('Y-m-d', strtotime($dateDebutForm. ' + 11 days'));
 
         return view('interface_apprenant', ['dateNow' => $dateNow , 'apprenant' => $apprenant, 'datePlus4Jours' => $datePlus4Jours, 'datePlus11Jours' => $datePlus11Jours]);
@@ -77,7 +71,7 @@ class ApprenantController extends Controller
         
     }
 
-    public function csvToArray($filename = '', $delimiter = ';')
+    public function csvToArray($filename = '', $delimiter = ';') //Fonction de récupération du fichier CSV pour créer un tableau de données.
     {
         if (!file_exists($filename) || !is_readable($filename))
 
@@ -88,31 +82,35 @@ class ApprenantController extends Controller
 
         if (($handle = fopen($filename, 'r')) !== false)
         {
+
             while (($row = fgetcsv($handle, 1000, $delimiter)) !== false)
             {
+
                 if (!$header)
 
                     $header = $row;
+
                 else
 
                     $data[] = array_combine($header, $row);
             }
+
             fclose($handle);
         }
 
         return $data;
     }
 
-    public function importCsv(Request $request)
+    public function importCsv(Request $request) // Fonction d'import du tableau de données créé ci-dessus dans la basse de données.
     {
 
         $users = User::all();
         $file = $request->file('fichier_csv_apprenants');
         $customerArr = $this->csvToArray($file);
 
-        function generatePassword($length = 10) {
+        function generatePassword($length = 10) { 
 
-            $chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789./][{};';
+            $chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789./][{};:';
             $count = mb_strlen($chars);
             $result;
 
@@ -127,31 +125,37 @@ class ApprenantController extends Controller
         foreach ($customerArr as $item) {
 
             if($item['date_naissance']!=null) {
+
                 $explodeDate = explode('/', $item['date_naissance']);
                 $day = $explodeDate[0];
                 $month = $explodeDate[1];
                 $year = $explodeDate[2];               
                 $date = Carbon::createFromFormat('Y-m-d', $year.'-'.$month.'-'.$day)->toDateString();
-                $item['date_naissance'] = $date;              
+                $item['date_naissance'] = $date;    
+
             }   
             // return $item['date_naissance'];
 
             if($item['debut_tutorat']!=null) {
+
                 $explodeDate = explode('/', $item['debut_tutorat']);
                 $day = $explodeDate[0];
                 $month = $explodeDate[1];
                 $year = $explodeDate[2];               
                 $date = Carbon::createFromFormat('Y-m-d', $year.'-'.$month.'-'.$day )->toDateString();
-                $item['debut_tutorat'] = $date;              
+                $item['debut_tutorat'] = $date; 
+
             }  
 
             if($item['fin_tutorat']!=null) {
+
                 $explodeDate = explode('/', $item['fin_tutorat']);
                 $day = $explodeDate[0];
                 $month = $explodeDate[1];
                 $year = $explodeDate[2];               
                 $date = Carbon::createFromFormat('Y-m-d', $year.'-'.$month.'-'.$day )->toDateString();
-                $item['fin_tutorat'] = $date;                
+                $item['fin_tutorat'] = $date;  
+
             }  
 
             if($item['date_cdi'] == null) {
@@ -214,16 +218,14 @@ class ApprenantController extends Controller
 
     public function getDownload()
     {
-        
-        $file= public_path(). '\programme_form_brut_butcher_2.pdf';
-    
-        $headers = [
 
-              'Content-Type' => 'application/pdf',
+        $idApprenant = auth()->user()->id;
+        $apprenant = Apprenant::where('user_id','=',$idApprenant)->first();   
+        $formation = Formation::where('id','=',$apprenant->formation_id)->first();
 
-           ];
+        $nomProgrammeFormation = $formation->programme_formation; 
 
-        return response()->download($file, 'programme_formation.pdf', $headers);
+        return response()->download(storage_path("app/programme_formation/{$nomProgrammeFormation}"));
     }
 
     public function ajoutComSem1(Request $request)
@@ -471,6 +473,7 @@ class ApprenantController extends Controller
         })->save('xlsx', storage_path('app/public'));
 
         $array_file = [];
+        
         array_push($array_file, $file);
 
         Mail::to('houselstein.thibaud@gmail.com')->send(new QuestionnaireFormation($array_file));

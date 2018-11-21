@@ -21,6 +21,7 @@ class Formation extends Migration
             $table->date('date_fin')->nullable();
             $table->unsignedInteger('client_id');
             $table->unsignedInteger('formateur_id');
+            $table->char('programme_formation', 100)->nullable();
 
             $table->timestamps();
             

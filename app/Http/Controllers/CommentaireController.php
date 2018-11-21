@@ -94,7 +94,6 @@ class CommentaireController extends Controller
     public function showCommentaires() //Fonction d'affichage des commentaires /semaine des apprenants et des commentaires des formateurs.
     {
 
-
         $apprenants = Apprenant::all(); //Recuperation de toute la table apprenants.
         $commentairesFormateur = Commentaire::all(); //recuperation de toute la table commentaires.
 

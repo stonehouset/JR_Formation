@@ -16,7 +16,7 @@
 <body style="background-color: #2D3F58;">
     <nav class="navbar navbar-expand-lg navbar navbar-lg navbar-light bg-light">
         <a class="navbar-brand">
-            <img src="/img/0001.jpg" class="css-class" alt="alt text" style="max-width:180px;max-height:120px;"> 
+            <img src="/img/0001.jpg" class="css-class" alt="alt text" style="max-width:180px;max-height:120px;box-shadow: 1px 1px 5px #2D3F58;"> 
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>

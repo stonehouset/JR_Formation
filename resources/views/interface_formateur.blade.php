@@ -12,21 +12,19 @@
         {!! \Session::get('success') !!}    
     </div>
     @endif       
-    <div class="card-header" id="headingTwo">
-        <h5 class="mb-0" style="color: white;">
-            @foreach($formations as $formation)
+    <h5 class="mb-0" style="color: white;width: 80%;border-bottom:2px #E0002D solid;padding-bottom: 2%;margin:auto;">
+        @foreach($formations as $formation)
 
-                Formation : {{$formation->nom}} du {{\Carbon\Carbon::parse($formation->date_debut)->format('d/m/Y')}} au {{\Carbon\Carbon::parse($formation->date_fin)->format('d/m/Y')}}
+            Formation en cours : {{$formation->nom}} du {{\Carbon\Carbon::parse($formation->date_debut)->format('d/m/Y')}} au {{\Carbon\Carbon::parse($formation->date_fin)->format('d/m/Y')}}
 
-            @endforeach
-        </h5>
-    </div>         
-    <div class="row">       
+        @endforeach
+    </h5>       
+    <div class="row" style="margin-top: 2%;">       
         <div class="col-lg-7"> 
             <div class="card" style="border-color: white;background-color: #2D3F58;">   
                 <div class="card-header" id="header_tableau_apprenants" style="background-color: #2D3F58;color: white;margin-top: 0%;border-color: #E0002D;">
                     <h5 class="mb-0" style="color: white;">
-                        Liste de vos stagiaires 
+                        Liste de vos apprenants 
                     </h5>
                 </div>
                 <div id="tab_infos_interface_formateur" ">
@@ -55,7 +53,7 @@
                         </tbody>
                     </table>  
                 </div>
-                    <a href="{{route('formateur_apprenants_csv')}}" style="color: white;">Extraire tableau stagiaires format Excel</a>
+                    <a href="{{route('formateur_apprenants_csv')}}" style="color: white;">Extraire tableau apprenants format Excel</a>
                 </button>                
             </div>                                    
         </div>
@@ -64,7 +62,7 @@
                 <form id="form_register_commentaire" method="POST" action="{{ route('commentaire') }}">
                 {{ csrf_field() }} 
                     <select class="custom-select" id="inputGroupSelect01" name="nom_apprenant_com">
-                        <option value="" disabled selected style="color: #2D3F58;">Sélectionnez un stagiaire</option>
+                        <option value="" disabled selected style="color: #2D3F58;">Sélectionnez un apprenant</option>
                         @foreach($formations as $formation)
                             @foreach($formation->apprenants as $apprenant)
                                 @foreach($apprenant->users as $user)
@@ -76,7 +74,7 @@
                         @endforeach
                     </select>
                     <div id="com_formateur_to_apprenant_txt">
-                        <textarea class="form-control" id="exampleFormControlTextarea1" placeholder="Ecrivez un message à propos du stagiaire."rows="5" name="contenu_commentaire"></textarea>
+                        <textarea class="form-control" id="exampleFormControlTextarea1" placeholder="Ecrivez un message à propos de l'apprenant séléctionné."rows="5" name="contenu_commentaire"></textarea>
                     </div>
                     <button type="submit" id="btn_ajouter_com_formateur_to_apprenant" class="btn btn-outline-primary">Ajouter</button>
                 </form> 
@@ -86,7 +84,7 @@
                     <div class="row">
                         <div class="col-lg-6">
                             <select class="custom-select" id="select_nom_apprenant_absouret" name="nom_apprenant_absence_retard">
-                                <option value="" disabled selected style="color: #2D3F58;">Stagiaire</option>
+                                <option value="" disabled selected style="color: #2D3F58;">Apprenant</option>
                                 @foreach($formations as $formation)
                                     @foreach($formation->apprenants as $apprenant)
                                         @foreach($apprenant->users as $user)
@@ -114,7 +112,7 @@
                     <div class="row">
                         <div class="col-lg-6">
                             <select class="custom-select" id="select_ajout_note_apprenant" name="nom_apprenant_note">
-                                <option value="" disabled style="color: #2D3F58;">Stagiaire</option>
+                                <option value="" disabled style="color: #2D3F58;">Apprenant</option>
                                 @foreach($formations as $formation)
                                     @foreach($formation->apprenants as $apprenant)
                                         @foreach($apprenant->users as $user)
