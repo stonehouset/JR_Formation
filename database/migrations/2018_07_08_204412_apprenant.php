@@ -27,15 +27,17 @@ class Apprenant extends Migration
             $table->char('adresse', 40)->nullable();   
             $table->date('debut_tutorat')->nullable();
             $table->date('fin_tutorat')->nullable();
-            $table->date('date_cdi')->nullable();
+            $table->date('date_embauche')->nullable();
+            $table->char('motif_non_embauche', 100)->nullable();
             $table->char('note_formation', 5)->nullable();
             $table->char('note_formateur', 5)->nullable();
-            $table->integer('embauche_2_mois')->default(0);
-            $table->integer('embauche_6_mois')->default(0);
-            $table->text('motif_embauche_2_mois', 100)->nullable(); 
-            $table->text('motif_embauche_6_mois', 100)->nullable(); 
-            $table->text('commentaire_semaine1', 1000)->nullable(); 
-            $table->text('commentaire_semaine2', 1000)->nullable(); 
+            $table->char('embauche_2_mois', 10)->nullable();
+            $table->char('embauche_6_mois', 10)->nullable();
+            $table->char('motif_predefini', 100)->nullable(); 
+            $table->char('motif_non_embauche_2_mois', 100)->nullable(); 
+            $table->char('motif_non_embauche_6_mois', 100)->nullable(); 
+            $table->char('commentaire_semaine1', 1000)->nullable(); 
+            $table->char('commentaire_semaine2', 1000)->nullable(); 
 
         });
     }

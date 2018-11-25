@@ -2,14 +2,22 @@
 
 @section('content')
 <div class="panel-body" id="body_interface_client">
+    @if (\Session::has('error'))
+        <div class="alert alert-error" id="div_show_error">          
+        {!! \Session::get('error') !!}         
+        </div>
+    @endif
+    @if (\Session::has('success'))
+    <div class="alert alert-success" id="div_show_success">       
+        {!! \Session::get('success') !!}    
+    </div>
+    @endif 
     <div class="row">
         <div class="col-lg-12">
             <h5 class="mb-0" id="titre_interface_client">
-                @foreach($formations as $formation)
 
-                    Formation : {{$formation->nom}} Du {{\Carbon\Carbon::parse($formation->date_debut)->format('d/m/Y')}} au {{\Carbon\Carbon::parse($formation->date_fin)->format('d/m/Y')}}
-
-                 @endforeach
+                GESTION DES APPRENANTS 
+                
             </h5>  
             <div class="card" id="card_tab_apprenant_client">
                 <div class="card-header" id="header_tableau_apprenants">                  
@@ -21,6 +29,7 @@
                             <tr>
                                 <th scope="col">Prénom</th>
                                 <th scope="col">Nom</th>
+                                <th scope="col">Formation</th>
                                 <th scope="col">eMail</th>
                                 <th scope="col">Téléphone</th>       
                             </tr>
@@ -32,6 +41,7 @@
                                     <tr>                         
                                         <td>{{$user->prenom}}</td>
                                         <td>{{$user->nom}}</td>
+                                        <td>{{$formation->nom}}</td>
                                         <td>{{$user->email}}</td>
                                         <td>{{$user->numero_telephone}}</td>                                    
                                     </tr>
@@ -50,11 +60,11 @@
                     <div class="row">
                         <div class="offset-lg-4 col-lg-4">
                             <label for="exampleFormControlSelect1" id="label_select_stagiaire">Sélectionner un apprenant</label>
-                            <select class="form-control" id="select_stagiaire_form_client">
+                            <select class="form-control" id="select_stagiaire_form_client" name="id_apprenant">
                                 @foreach($formations as $formation)
                                     @foreach($formation->apprenants as $apprenant)
                                         @foreach($apprenant->users as $user)
-                                            <option>{{$user->prenom}} {{$user->nom}}</option>  
+                                            <option value="{{$user->id}}">{{$user->prenom}} {{$user->nom}}</option>  
                                         @endforeach
                                     @endforeach
                                 @endforeach
@@ -64,39 +74,41 @@
                     <div class="row" id="contenu_form_client">
                         <div class="offset-lg-3 col-lg-6">
                             <div id="div_checkbox_embauche">
-                                <input class="form-check-input" type="checkbox" id="autoSizingCheck">                               
+                                <input class="form-check-input" type="checkbox" id="embauche_ou_non" name="embauche_ou_non" value="1" onchange="doalert(this)">                               
                                 <label class="form-check-label" for="autoSizingCheck" id="label_embauche_stagiaire">
                                 Embauché (Oui si coché)
                                 </label>
                                 <br>
-                                <label for="exampleFormControlTextarea1">Motif</label>
-                                <textarea class="form-control" id="exampleFormControlTextarea1" rows="1" placeholder="Entrer un motif si l'apprenant n'a pas été embauché."></textarea>
+                                <label for="input_date_embauche" id="label_date_embauche"> En date du : </label>
+                                <input type="date" class="form-control" placeholder="en date du :" aria-label="date_embauche" aria-describedby="basic-addon2" id="input_date_embauche" name="date_embauche">
+                                <br>
+                                <label for="motif_non_embauche" id="label_motif_non_embauche">Motif</label>
+                                <textarea class="form-control" name="motif_non_embauche" id="motif_non_embauche" rows="1" placeholder="Entrer un motif si l'apprenant n'a pas été embauché."></textarea>
                             </div>                        
                             <div id="presence_2_mois">
-                                <input class="form-check-input" type="checkbox" id="autoSizingCheck">                                
+                                <input class="form-check-input" type="checkbox" id="autoSizingCheck" name="embauche_2_mois" value="1" onchange="doalert2(this)">                                
                                 <label class="form-check-label" for="autoSizingCheck" id="label_presence_2m">
                                 Présence à 2 mois (Oui si coché)
                                 </label>
                                 <br>
-                                <label for="exampleFormControlSelect1">Sélectionner un motif</label>
-                                <select class="custom-select" id="inlineFormCustomSelect">
-                                    <option selected>Motif</option>
-                                    <option value="1">Fin période d'essai à l'initiative de l'employeur</option>
-                                    <option value="2">Fin période d'essai à l'initiative de l'employé</option>
-                                    <option value="3">Autres</option>
+                                <label for="motif_predefini_2_mois" id="label_select_motif_2_mois">Sélectionner un motif</label>
+                                <select class="custom-select" id="motif_predefini_2_mois" name="motif_predefini">
+                                    <option disabled selected>Motif</option>
+                                    <option value="Fin période d'essai à l'initiative de l'employeur">Fin période d'essai à l'initiative de l'employeur</option>
+                                    <option value="Fin période d'essai à l'initiative de l'employé">Fin période d'essai à l'initiative de l'employé</option>
+                                    <option value="Autres">Autres</option>
                                 </select>
-                                <label for="exampleFormControlTextarea1">Motif détaillé</label>
-                                <textarea class="form-control" id="exampleFormControlTextarea1" rows="1" placeholder="Entrer un motif si l'apprenant n'est plus présent après 2 mois."></textarea>
+                                <label for="motif_detaille_2_mois" id="label_motif_detaille_2_mois">Motif détaillé</label>
+                                <textarea class="form-control" name="motif_non_embauche_2_mois" id="motif_detaille_2_mois" rows="1" placeholder="Vous pouvez développer"></textarea>
                             </div>
                                 <div id="presence_6_mois">
-                                <input class="form-check-input" type="checkbox" id="autoSizingCheck">
-                                <input class="form-check-input" type="checkbox" id="autoSizingCheck">
+                                <input class="form-check-input" type="checkbox" id="autoSizingCheck" name="embauche_6_mois" value="1" onchange="doalert3(this)">
                                 <label class="form-check-label" for="autoSizingCheck" id="label_presence_6m">
                                 Présence à 6 mois (Oui si coché)
                                 </label>
                                 <br>
-                                <label for="exampleFormControlTextarea1">Motif</label>
-                                <textarea class="form-control" id="exampleFormControlTextarea1" rows="1" placeholder="Entrer un motif si l'apprenant n'est plus présent après 6 mois."></textarea>
+                                <label for="input_embauche_6_mois" id="label_embauche_6_mois">Motif</label>
+                                <textarea class="form-control" name="motif_non_embauche_6_mois" id="input_embauche_6_mois" rows="1" placeholder="Entrer un motif si l'apprenant n'est plus présent après 6 mois."></textarea>
                             </div>
                         </div>                         
                         <div class="offset-lg-3 col-lg-6">                     
@@ -404,4 +416,10 @@
         </div>
     </div>
 </div>
+@foreach($formations as $formation)
+
+    Formation : {{$formation->nom}} Du {{\Carbon\Carbon::parse($formation->date_debut)->format('d/m/Y')}} au {{\Carbon\Carbon::parse($formation->date_fin)->format('d/m/Y')}}
+
+@endforeach
+
 @endsection

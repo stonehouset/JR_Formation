@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use JR_Formation\User;
 use Maatwebsite\Excel\Facades\Excel;
 use PDF;
+use DB;
 use Carbon\Carbon;
 
 
@@ -118,6 +119,7 @@ class ClientController extends Controller
             if ($userData == null) {
 
                 return redirect()->back()->with('error', 'le tableau est vide!');
+
             }else{
 
                 Excel::create('users', function ($excel) use ($userData) {
@@ -136,11 +138,116 @@ class ClientController extends Controller
         
     }
 
-    public function suiviApprenant(Request $request)
+    public function suiviApprenant(Request $request)// Fonction d'ajout des donnees du suivi d'un apprenant en entreprise.
     {
 
-        
+        $idApprenant = $request->id_apprenant; // ID de l'apprenant choisi.
 
+        $dateEmbauche = $request->date_embauche;
+
+        $userApprenant = User::where('id', $idApprenant)->first(); //Infos user de l'apprenant.
+
+        $infosApprenant = Apprenant::where('user_id', $idApprenant)->first(); //Infos apprenant de l'apprenant.
+
+        $embaucheOuNon = $request->embauche_ou_non; //Recuperation de la valeur de la checkbox embauche_ou_nom.
+
+        $motifNonEmbauche = $request->motif_non_embauche; //Contenu du motif si apprenant non embauche
+
+        $embaucheA2Mois = $request->embauche_2_mois; // Valeur checkbox embauche_2_mois.
+
+        $embaucheA6Mois = $request->embauche_6_mois; // Valeur checkbox embauche_6_mois.
+
+        $motifPredefini2Mois = $request->motif_predefini;
+
+        $motifNonEmbauche2Mois = $request->motif_non_embauche_2_mois; //Contenu motif non_embauche_2_mois.
+
+        $motifNonEmbauche6Mois = $request->motif_non_embauche_6_mois; //Contenu motif non_embauche_6_mois.
+
+        $non = 'non';
+
+        $oui = 'oui';
+
+        // return array($idApprenant, $embaucheOuNon, $motifNonEmbauche, $embaucheA2Mois, $embaucheA6Mois, $motifNonEmbauche2Mois, $motifNonEmbauche6Mois, $motifPredefini2Mois);
+
+        if ($idApprenant == null) {
+
+           return redirect()->back()->with('error', 'Vous n\'avez pas sélectionné d\'apprenant!');
+        }
+
+        if ($embaucheOuNon != null && $dateEmbauche == null) {
+            
+            return redirect()->back()->with('error', 'Veuillez indiquer une date en cas d\'embauche!');
+        }
+
+        if ($embaucheOuNon == null && $motifNonEmbauche == null) {
+            
+            return redirect()->back()->with('error', 'Veuillez saisir un motif si l\'apprenant n\'a pas été embauché!');
+        }
+
+        if ($embaucheOuNon != null && $motifNonEmbauche != null) {
+            
+            return redirect()->back()->with('error', 'Aucun motif nécéssaire si l\'apprenant a été embauché!');
+
+        }
+
+        if ($embaucheOuNon == null && $motifNonEmbauche != null) {
+            
+            DB::table('apprenants')->where('user_id' ,'=' , $idApprenant)->update([
+
+                'motif_non_embauche' => $motifNonEmbauche,
+                'embauche_2_mois' => $non,
+                'embauche_6_mois' => $non
+
+                ]);
+
+            return redirect()->back()->with('success', 'Merci pour votre participation!');
+
+        }
+
+        if ($embaucheOuNon != null && $motifNonEmbauche == null) {
+            
+            DB::table('apprenants')->where('user_id' ,'=' , $idApprenant)->update(['date_embauche' => $dateEmbauche]);
+
+
+            if ($embaucheA2Mois != null && $motifPredefini2Mois == null && $motifNonEmbauche2Mois == null) {
+
+                
+                DB::table('apprenants')->where('user_id' ,'=' , $idApprenant)->update(['embauche_2_mois' => $oui]);
+
+            }
+            else{
+
+                DB::table('apprenants')->where('user_id' ,'=' , $idApprenant)->update([
+
+                    'embauche_2_mois' => $non,
+                    'motif_predefini' => $motifPredefini2Mois,
+                    'motif_non_embauche_2_mois' => $motifNonEmbauche2Mois
+
+                    ]);
+            }
+
+            if ($embaucheA6Mois != null && $motifPredefini2Mois == null && $motifNonEmbauche2Mois == null) {
+
+
+                DB::table('apprenants')->where('user_id' ,'=' , $idApprenant)->update(['embauche_6_mois' => $oui]);
+
+            }
+            else{
+
+                DB::table('apprenants')->where('user_id' ,'=' , $idApprenant)->update([
+
+                    'embauche_6_mois' => $non,
+                    'motif_non_embauche_6_mois' => $motifNonEmbauche6Mois
+
+                    ]);
+            }
+
+
+            return redirect()->back()->with('success', 'Merci pour votre participation!');
+
+        }
+
+        
     }
     /**
      * Show the form for creating a new resource.
@@ -164,10 +271,12 @@ class ClientController extends Controller
 
 
         $client = new Client;
+
         $client->nom = $request->nom_client;
         $client->email = $request->email_client;
         $client->numero_telephone = $request->tel_client;
         $client->mdp = $request->mdp;
+
         $client->save();
 
         return redirect('/home');

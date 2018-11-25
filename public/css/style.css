@@ -105,7 +105,6 @@ body{
 
 #btn_deconnexion{
 
-	margin-left: 1%;
 	color: #E0002D;
 	height: 40px;
 	text-align: center;
@@ -431,13 +430,15 @@ li.list-group-item{
 
 	height: 130px;
 	padding-bottom: 1px;
-	border-color: #E0002D;
+	border-color: #2D3F58;
+	box-shadow: 1px 1px 5px black;
 	
 }
 
 #item_list_profil{
 
 	height: 60px;
+	margin-top: 1%;
 
 }
 
@@ -1168,4 +1169,9 @@ input[type=radio] {
 
 	background-color: green;
 
+}
+
+#input_date_embauche{
+
+	margin-top: 1%;
 }

@@ -1,5 +1,8 @@
 
 $( document ).ready(function() {
+
+    $('input[type=checkbox]').prop("checked", false);
+
     $("#contenu_form1").hide();
     $("#contenu_form2").hide();
     $("#contenu_form3").hide();
@@ -14,19 +17,24 @@ $( document ).ready(function() {
     $('#contenu_form_impact').hide(); 
     $('#form_impact_client').hide();
     $('#form_ajout_com_journalier_formateur').hide(); 
-    $('#commentaire_journalier_formation').hide();  
-    
+    $('#commentaire_journalier_formation').hide(); 
+    $('#presence_2_mois').hide();  
+    $('#presence_6_mois').hide();
+    $('#btn_valider_suivi_client ').hide();
+    $('#input_date_embauche').hide();
+    $('#label_date_embauche').hide();
     
     $('#form_satisfaction_formateur').hide();
     $('#form_satisfaction_formation').hide();
     $('#form_com_semaine_apprenant').hide();
     $('#programme_form_pdf').hide();
 
+    
     if (true) {}
     
     setTimeout(function() {
 
-        $('.alert-error,.alert-success').fadeOut('slow');
+        $('.alert-error,.alert-success').fadeOut('fast');
 
     }, 3000);
 
@@ -53,6 +61,8 @@ $( document ).ready(function() {
 	
 
 });
+
+
 
 $('#inputGroupSelect01').bind('change', function(event) {
 
@@ -120,9 +130,87 @@ $("#btn_apprenant_programme").click(function(){
      
 });
 
+function doalert(checkboxElem) {
 
+  if (checkboxElem.checked) {
 
+    $('#presence_2_mois').show("fast");
+    $('#btn_valider_suivi_client').show("fast");
+    $('#input_date_embauche').show("fast");
+    $('#label_date_embauche').show("fast");
+    $('#motif_non_embauche').hide("fast");
+    $('#label_motif_non_embauche').hide("fast");
+    
+    
 
+  } else {
+
+    $('#presence_2_mois').hide("fast");
+    $('#presence_6_mois').hide("fast");
+    $('#btn_valider_suivi_client').hide("fast");
+    $('#motif_non_embauche').show("fast");
+    $('#label_motif_non_embauche').show("fast");
+    $('#input_date_embauche').hide("fast");
+    $('#label_date_embauche').hide("fast");
+    
+    
+    
+
+  }
+
+}
+
+$('#motif_non_embauche').on('keyup', function() {
+
+     if (this.value.length > 1) {
+        
+        $('#btn_valider_suivi_client').show("fast");
+     }
+     else {
+
+        $('#btn_valider_suivi_client').hide();
+     }
+
+});
+
+function doalert2(checkboxElem) {
+
+  if (checkboxElem.checked) {
+
+    $('#presence_6_mois').show("fast");
+    $('#label_select_motif_2_mois').hide();
+    $('#motif_predefini_2_mois').hide();
+    $('#label_motif_detaille_2_mois').hide();
+    $('#motif_detaille_2_mois').hide();
+
+  } else {
+
+    $('#presence_6_mois').hide();
+    $('#label_select_motif_2_mois').show("fast");
+    $('#motif_predefini_2_mois').show("fast");
+    $('#label_motif_detaille_2_mois').show("fast");
+    $('#motif_detaille_2_mois').show("fast");
+
+  }
+
+}
+
+function doalert3(checkboxElem) {
+
+  if (checkboxElem.checked) {
+
+    $('#label_embauche_6_mois').hide();
+    $('#input_embauche_6_mois').hide();
+
+    
+  } else {
+
+    $('#label_embauche_6_mois').show("fast");
+    $('#input_embauche_6_mois').show("fast");
+
+  }
+
+}
 
 
 $("#btn_gestion_utilisateur").click(function(){
