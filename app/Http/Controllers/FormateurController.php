@@ -50,10 +50,7 @@ class FormateurController extends Controller
 
         }
 
-
         $formationsEnCours = Formation::whereDate('created_at', $now);
-
-        // return $formations;
 
         return view('interface_formateur', ['formations' => $formations]);
     }

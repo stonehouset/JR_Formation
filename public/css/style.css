@@ -100,7 +100,7 @@ body{
 	box-shadow: 1px 1px 10px #2D3F58;
 	border-radius: 1px;
 	background-color: #2D3F58;
-	
+
 }
 
 #btn_deconnexion{
@@ -397,48 +397,15 @@ body{
 	height: 215px;
 }
 
-#tab_infos_interface_formateur{
-
-	height: 420px;
-	width: 100%;
-    overflow-y:scroll;
-    margin-bottom: 2%;
-    position: static;
-
-}
-
-#btn_ajouter_com_formateur_to_apprenant,#btn_valider_retard_absence,#btn_valider_note{
-
-	width: 100%;
-	margin-top: 1%;
-	margin-bottom: 1%;
-	color: white;
-	
-}
-
-#exampleFormControlTextarea1,#note_apprenant{
-
-	border-color: #E0002D;
-}
-
-#select_ajout_note_apprenant,#select_absence_retard_apprenant,#select_nom_apprenant_absouret,#note_apprenant{
-
-	border-color: #E0002D;
-	margin-top: 1.5%;
-}
-
-#btn_valider_retard_absence{
-
-	color: #FF8C00;
-}
 
 #titre_profil{
 
 	text-align: center;
 	margin-top: 2%;
-	width: 30%;
-	margin-left: auto;
-	margin-right: auto;
+	color: white;
+	width: 100%;
+	border-bottom:2px #E0002D solid;
+	padding-bottom: 2%;
 	
 }
 
@@ -471,6 +438,22 @@ li.list-group-item{
 #item_list_profil{
 
 	height: 60px;
+
+}
+
+#input_profil_mdp,#input_profil_confirm_mdp{
+
+	height: 45px;
+	margin-top: 5%;
+}
+
+#btn_submit_change_mdp{
+
+	margin-top: 5%;
+	width: 50%;
+	display: block;
+	margin-right:auto;
+	margin-left: auto;
 
 }
 
@@ -537,16 +520,6 @@ input[type=radio] {
 #form_register_commentaire,#form_register_note,#form_absence_retard{
 
 	background-color: #2D3F58;
-}
-
-#label_retard_absence,#label_note{
-
-	color: white;
-	background-color: #2D3F58;
-	border: 2px white solid;
-	font-weight: bold;
-	height: 47px;
-
 }
 
 #input_com_formateur_to_apprenant{
@@ -932,6 +905,13 @@ input[type=radio] {
 	box-shadow: 1px 1px 5px black;
 }
 
+#titre_interface_client{
+
+	background-color: #2D3F58;
+	border-color: #E0002D;
+	color: white;
+}
+
 #header_tableau_apprenants{
 
 	margin-top: 1%;
@@ -942,13 +922,6 @@ input[type=radio] {
 	text-align: center;
 	background-color: white;
 
-}
-
-#titre_interface_client{
-
-	background-color: #2D3F58;
-	border-color: #E0002D;
-	color: white;
 }
 
 #form_suivi_client,#form_impact_client{
@@ -1043,4 +1016,156 @@ input[type=radio] {
 #btn_valider_impact_formation:hover{
 
 	background-color: green;
+}
+
+/*CSS Page interface_formateur*/
+
+#titre_interface_formateur{
+
+	color: white;
+	width: 80%;
+	border-bottom:2px #E0002D solid;
+	padding-bottom: 2%;
+	margin: auto;
+	margin-top: 2%;
+	
+}
+
+#row_principale_interface_formateur{
+
+	margin-top: 2%;
+}
+
+#card_principale_interface_formateur{
+
+	border-color: white;
+	background-color: #2D3F58;
+	box-shadow: 1px 1px 5px black;
+}
+
+
+#header_tableau_apprenants_formateur{
+
+	background-color: #2D3F58;
+	color: white;
+	margin-top: 0%;
+	border-color: #E0002D;
+}
+
+#titre_header_tab_apprenants_formateur{
+
+	color: white;
+}
+
+#tab_infos_interface_formateur{
+
+	height: 420px;
+	width: 100%;
+    overflow-y:scroll;
+    margin-bottom: 2%;
+    position: static;
+
+}
+
+#lien_tab_to_csv_formateur{
+
+	color: white;
+}
+
+#card_actions_formateur{
+
+	border: hidden;
+	box-shadow: 1px 1px 5px black;
+}
+
+#label_retard_absence,#label_note{
+
+	color: white;
+	background-color: #2D3F58;
+	border: 2px white solid;
+	font-weight: bold;
+	height: 47px;
+
+}
+
+#btn_ajouter_com_formateur_to_apprenant,#btn_valider_retard_absence{
+
+	width: 100%;
+	margin-top: 1%;
+	margin-bottom: 1%;
+	color: white;
+	
+}
+
+#btn_valider_note{
+
+	width: 100%;
+	margin-top: 1%;
+	color: white;
+
+}
+
+#exampleFormControlTextarea1,#note_apprenant{
+
+	border-color: #E0002D;
+}
+
+#select_ajout_note_apprenant,#select_absence_retard_apprenant,#select_nom_apprenant_absouret,#note_apprenant{
+
+	border-color: #E0002D;
+	margin-top: 1.5%;
+}
+
+#btn_valider_retard_absence{
+
+	color: #FF8C00;
+}
+
+#commentaire_journalier_formation{
+
+	margin-top: 2%;
+	margin-bottom: 2%;
+
+}
+
+#zone_text_com_jour{
+
+	margin-top: 1%;
+}
+
+#btn_form_com_jour_formateur{
+
+	margin-top: 2%;
+	width: 100%;
+	height: 60px;
+	background-color: white;
+	border-radius: 2px;
+	border: 1px #2D3F58 solid;
+	color: #2D3F58;
+	font-size: 15px;
+	box-shadow: 1px 1px 5px black;
+
+}
+
+#form_ajout_com_journalier_formateur{
+
+	box-shadow: 1px 1px 5px black;
+	border: 1px white solid;
+	border-radius: 2px;
+
+}
+
+#btn_valider_com_jour{
+
+	margin-top: 1%;
+	width: 100%;
+	border: 1px white solid;
+	color: white;
+
+}
+
+#btn_valider_com_jour:hover{
+
+	background-color: green;
+
 }

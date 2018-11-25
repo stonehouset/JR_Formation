@@ -139,7 +139,7 @@ class ClientController extends Controller
     public function suiviApprenant(Request $request)
     {
 
-        return 'coucou';
+        
 
     }
     /**

@@ -14,7 +14,7 @@
 <div class="row">
     <div class="offset-lg-3 col-lg-6 col-md-10 col-sm-12">
         <h3 id="titre_questionnaire_formateur">
-            Compte Rendu De Fin De Formation
+            COMPTE RENDU DE FORMATION
         </h3>
     </div>
 </div>

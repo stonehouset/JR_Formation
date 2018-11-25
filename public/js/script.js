@@ -12,7 +12,10 @@ $( document ).ready(function() {
     $("#titre_carte_gestion").fadeOut(2500);
     $('#contenu_form_client').hide(); 
     $('#contenu_form_impact').hide(); 
-    $('#form_impact_client').hide(); 
+    $('#form_impact_client').hide();
+    $('#form_ajout_com_journalier_formateur').hide(); 
+    $('#commentaire_journalier_formation').hide();  
+    
     
     $('#form_satisfaction_formateur').hide();
     $('#form_satisfaction_formation').hide();
@@ -218,6 +221,23 @@ function functionShowHideFormImpact() {
 
     $('#contenu_form_impact').show('slow');
 } 
+
+function functionShowHideFormComJour(){
+
+    var x = document.getElementById("form_ajout_com_journalier_formateur");
+
+    if (x.style.display === "none") {
+
+        x.style.display = "block";
+
+    } else {
+
+        x.style.display = "none";
+    }
+
+    $('#commentaire_journalier_formation').show('slow');
+
+}
 
 function functionRole(){
 

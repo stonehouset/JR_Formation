@@ -12,7 +12,7 @@
     </div>
 @endif
 <div class="container">
-    <h3 id="titre_profil" style="color: white;width: 100%;border-bottom:2px #E0002D solid;padding-bottom: 2%;">
+    <h3 id="titre_profil">
         MES DONNEES
     </h3>
 	<div class="row" id="row_profil">
@@ -55,9 +55,9 @@
                 <h4 id="titre_modif_mdp">Modifier votre mot de passe</h4>
                 <form class="form-horizontal" method="POST" action="{{ route('change_user_password') }}">
                 {{ csrf_field() }}
-                    <input type="password" class="form-control" name="motdepasse" placeholder="Nouveau mot de passe" style="height: 45px;margin-top: 5%;">
-                    <input type="password" class="form-control" name="confirmPassword" placeholder="Confirmer le nouveau mot de passe" style="margin-top: 5%;height: 45px;">
-                    <button type="submit" class="btn btn-outline-primary" style="margin-top: 5%;width: 50%;display: block;margin-right:auto;margin-left: auto;">Valider</button>
+                    <input type="password" class="form-control" name="motdepasse" placeholder="Nouveau mot de passe" id="input_profil_mdp">
+                    <input type="password" class="form-control" name="confirmPassword" placeholder="Confirmer le nouveau mot de passe" id="input_profil_confirm_mdp">
+                    <button type="submit" class="btn btn-outline-primary" id="btn_submit_change_mdp">Valider</button>
                 </form>
             </div>
         </div>

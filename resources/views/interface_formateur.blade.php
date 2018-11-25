@@ -12,19 +12,15 @@
         {!! \Session::get('success') !!}    
     </div>
     @endif       
-    <h5 class="mb-0" style="color: white;width: 80%;border-bottom:2px #E0002D solid;padding-bottom: 2%;margin:auto;">
-        @foreach($formations as $formation)
-
-            Formation en cours : {{$formation->nom}} du {{\Carbon\Carbon::parse($formation->date_debut)->format('d/m/Y')}} au {{\Carbon\Carbon::parse($formation->date_fin)->format('d/m/Y')}}
-
-        @endforeach
-    </h5>       
-    <div class="row" style="margin-top: 2%;">       
+    <h4 class="mb-0" id="titre_interface_formateur">
+        GESTION DES APPRENANTS
+    </h4>       
+    <div class="row" id="row_principale_interface_formateur">       
         <div class="col-lg-7"> 
-            <div class="card" style="border-color: white;background-color: #2D3F58;">   
-                <div class="card-header" id="header_tableau_apprenants" style="background-color: #2D3F58;color: white;margin-top: 0%;border-color: #E0002D;">
-                    <h5 class="mb-0" style="color: white;">
-                        Liste de vos apprenants 
+            <div class="card" id="card_principale_interface_formateur">   
+                <div class="card-header" id="header_tableau_apprenants_formateur">
+                    <h5 class="mb-0" id="titre_header_tab_apprenants_formateur">
+                        LISTE DE VOS APPRENANTS 
                     </h5>
                 </div>
                 <div id="tab_infos_interface_formateur">
@@ -33,6 +29,7 @@
                             <tr>
                                 <th scope="col">Prénom</th>
                                 <th scope="col">Nom</th>
+                                <th scope="col">Formation</th>
                                 <th scope="col">eMail</th> 
                                 <th scope="col">Téléphone</th>                                            
                             </tr>
@@ -44,6 +41,7 @@
                                     <tr>                         
                                         <td>{{$user->prenom}}</td>
                                         <td>{{$user->nom}}</td>
+                                        <td>{{$apprenant->groupe_formation}}</td>
                                         <td>{{$user->email}}</td>
                                         <td>{{$user->numero_telephone}}</td>                                    
                                     </tr>
@@ -53,16 +51,15 @@
                         </tbody>
                     </table>  
                 </div>
-                    <a href="{{route('formateur_apprenants_csv')}}" style="color: white;">Extraire tableau apprenants format Excel</a>
-                </button>                
+                <a href="{{route('formateur_apprenants_csv')}}" id="lien_tab_to_csv_formateur">Extraire tableau apprenants format Excel</a>                
             </div>                                    
         </div>
         <div class="col-lg-5" id="com_formateur_to_apprenant">            
-            <div class="card" style="border: hidden;">         
+            <div class="card" id="card_actions_formateur">         
                 <form id="form_register_commentaire" method="POST" action="{{ route('commentaire') }}">
                 {{ csrf_field() }} 
                     <select class="custom-select" id="inputGroupSelect01" name="nom_apprenant_com">
-                        <option value="" disabled selected style="color: #2D3F58;">Sélectionnez un apprenant</option>
+                        <option value="" disabled selected>Sélectionnez un apprenant</option>
                         @foreach($formations as $formation)
                             @foreach($formation->apprenants as $apprenant)
                                 @foreach($apprenant->users as $user)
@@ -84,7 +81,7 @@
                     <div class="row">
                         <div class="col-lg-6">
                             <select class="custom-select" id="select_nom_apprenant_absouret" name="nom_apprenant_absence_retard">
-                                <option value="" disabled selected style="color: #2D3F58;">Apprenant</option>
+                                <option value="" disabled selected>Apprenant</option>
                                 @foreach($formations as $formation)
                                     @foreach($formation->apprenants as $apprenant)
                                         @foreach($apprenant->users as $user)
@@ -112,7 +109,7 @@
                     <div class="row">
                         <div class="col-lg-6">
                             <select class="custom-select" id="select_ajout_note_apprenant" name="nom_apprenant_note">
-                                <option value="" disabled style="color: #2D3F58;">Apprenant</option>
+                                <option value="" disabled>Apprenant</option>
                                 @foreach($formations as $formation)
                                     @foreach($formation->apprenants as $apprenant)
                                         @foreach($apprenant->users as $user)
@@ -132,6 +129,29 @@
                 </form>
             </div>                     
         </div>     
-    </div>  
+    </div>
+    <button type="button" class="btn btn-outline-primary" id="btn_form_com_jour_formateur" onclick="functionShowHideFormComJour();">COMMENTAIRE JOURNALIER DES FORMATIONS</button> 
+    <form class="form-horizontal" method="POST" action="">
+        {{csrf_field()}}
+        <div class="form-group" id="form_ajout_com_journalier_formateur">
+            <div class="row" id="commentaire_journalier_formation">
+                <div class="offset-lg-3 col-lg-6">
+                    <select class="custom-select" id="select_formation_com_journalier" name="formation">
+                        <option value="" disabled selected>Sélectionner une formation</option>
+                        @foreach($formations as $formation)
+                        <option value="{{$formation->id}}">{{$formation->nom}}</option> 
+                        @endforeach    
+                    </select>
+                    <textarea class="form-control" id="zone_text_com_jour" placeholder="Donnez votre ressenti globale sur le groupe de formation sélectionné" rows="5" name="contenu_commentaire"></textarea>
+                    <button type="submit" id="btn_valider_com_jour" class="btn btn-outline-primary">AJOUTER COMMENTAIRE</button>
+                </div>
+            </div>  
+        </div>
+    </form>
 </div>
+@foreach($formations as $formation)
+
+            Formation en cours : {{$formation->nom}} du {{\Carbon\Carbon::parse($formation->date_debut)->format('d/m/Y')}} au {{\Carbon\Carbon::parse($formation->date_fin)->format('d/m/Y')}}
+
+        @endforeach
 @endsection
