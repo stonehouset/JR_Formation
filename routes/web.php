@@ -63,7 +63,11 @@ Route::post('send_form_formateur_apprenant', [ 'as' => 'send_form_formateur_appr
 
 Route::post('send_form_formation_apprenant', [ 'as' => 'send_form_formation_apprenant', 'uses' => 'ApprenantController@sendFormFormation']);
 
+Route::post('send_compte_rendu_formarteur', [ 'as' => 'send_compte_rendu_formarteur', 'uses' => 'FormateurController@sendCompteRenduFormateur']);
+
 Route::post('change_user_password', [ 'as' => 'change_user_password', 'uses' => 'HomeController@changeUserPassword']);
+
+Route::post('suivi_apprenant', [ 'as' => 'suivi_apprenant', 'uses' => 'ClientController@suiviApprenant']);
 
 Route::get('/home', 'HomeController@index')->name('home');
 

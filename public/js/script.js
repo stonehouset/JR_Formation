@@ -11,6 +11,9 @@ $( document ).ready(function() {
     $('#form_suivi_client').hide();  
     $("#titre_carte_gestion").fadeOut(2500);
     $('#contenu_form_client').hide(); 
+    $('#contenu_form_impact').hide(); 
+    $('#form_impact_client').hide(); 
+    
     $('#form_satisfaction_formateur').hide();
     $('#form_satisfaction_formation').hide();
     $('#form_com_semaine_apprenant').hide();
@@ -197,7 +200,23 @@ function functionShowHideFormClient() {
         x.style.display = "none";
     }
 
-    $('#contenu_form_client').show();
+    $('#contenu_form_client').show('slow');
+} 
+
+function functionShowHideFormImpact() {
+
+    var x = document.getElementById("form_impact_client");
+
+    if (x.style.display === "none") {
+
+        x.style.display = "block";
+
+    } else {
+
+        x.style.display = "none";
+    }
+
+    $('#contenu_form_impact').show('slow');
 } 
 
 function functionRole(){

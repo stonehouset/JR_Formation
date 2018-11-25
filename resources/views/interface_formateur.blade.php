@@ -27,9 +27,9 @@
                         Liste de vos apprenants 
                     </h5>
                 </div>
-                <div id="tab_infos_interface_formateur" ">
-                    <table class="table table-striped table-dark">
-                        <thead>
+                <div id="tab_infos_interface_formateur">
+                    <table class="table table-hover table-dark">
+                        <thead class="">
                             <tr>
                                 <th scope="col">Prénom</th>
                                 <th scope="col">Nom</th>
@@ -74,7 +74,7 @@
                         @endforeach
                     </select>
                     <div id="com_formateur_to_apprenant_txt">
-                        <textarea class="form-control" id="exampleFormControlTextarea1" placeholder="Ecrivez un message à propos de l'apprenant séléctionné."rows="5" name="contenu_commentaire"></textarea>
+                        <textarea class="form-control" id="exampleFormControlTextarea1" placeholder="Ecrivez un message à propos de l'apprenant séléctionné." rows="5" name="contenu_commentaire"></textarea>
                     </div>
                     <button type="submit" id="btn_ajouter_com_formateur_to_apprenant" class="btn btn-outline-primary">Ajouter</button>
                 </form> 

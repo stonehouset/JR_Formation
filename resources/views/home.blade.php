@@ -189,8 +189,8 @@
                 <div class="row" id="liste_infos_generales_admin">
                     <div class="col-lg-6" style="margin-top: 1%;">
                         <ul class="list-group" >
-                            <button type="button" class="list-group-item list-group-item-action active btn btn-outline-dark" id="item_details_users" style="font-size: 18px;background-color:#2D3F58;border-color: #E0002D;">
-                                Informations générales
+                            <button type="button" class="list-group-item list-group-item-action active btn btn-outline-dark" id="header_item_utilisateur">
+                                INFORMATIONS GENERALES
                             </button>
                             <li class="list-group-item d-flex justify-content-between align-items-center" id="item_details_users" style="font-weight: bold;">                  
                                 Nombre d'utilisateurs Total
@@ -213,8 +213,8 @@
                     <br>
                     <div class="col-lg-6" style="border-color: white;margin-top: 1%;">
                         <ul class="list-group">
-                            <button type="button" class="list-group-item list-group-item-action active btn btn-outline-dark" id="item_suivi_embauche" style="font-size: 18px;background-color:#2D3F58;border-color: #E0002D;">
-                                Suivi des apprenants en entreprise
+                            <button type="button" class="list-group-item list-group-item-action active btn btn-outline-dark" id="header_item_utilisateur">
+                                SUIVI DES APPRENANTS
                             </button>
                             <li class="list-group-item d-flex justify-content-between align-items-center" id="item_suivi_embauche" style="font-weight: bold;">
                                 Nombre d'embauchés

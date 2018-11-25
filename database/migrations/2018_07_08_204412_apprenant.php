@@ -32,6 +32,8 @@ class Apprenant extends Migration
             $table->char('note_formateur', 5)->nullable();
             $table->integer('embauche_2_mois')->default(0);
             $table->integer('embauche_6_mois')->default(0);
+            $table->text('motif_embauche_2_mois', 100)->nullable(); 
+            $table->text('motif_embauche_6_mois', 100)->nullable(); 
             $table->text('commentaire_semaine1', 1000)->nullable(); 
             $table->text('commentaire_semaine2', 1000)->nullable(); 
 

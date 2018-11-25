@@ -172,7 +172,7 @@
                         <button type="submit" id="btn_validation_form_formateur" style="width: 100%;margin-top: 6%;border-color:green;margin-bottom: 1%;" class="btn btn-outline-primary">Valider le questionnaire</button> 
                     </div>
                 </div>
-            
+            </form>
         </div>
     </form>
     <div id="form_satisfaction_formation">
@@ -373,27 +373,22 @@
     </div>
     <div class="row" id="form_com_semaine_apprenant" style="margin-top: 2%;">
         <div class="offset-lg-3 col-lg-6 col-md-12">
-            
             <form class="form-horizontal" method="POST" action="{{ route('comFormSem1') }}">
                 {{ csrf_field() }} 
                 <div class="form-group">
-                    <button type="" disabled="true" id="btn_disabled_validation_com2_formation" class="btn btn-outline-primary" style="width: 100%;color: white">Commentaire première semaine </button>
+                    <button type="" disabled="true" id="btn_disabled_validation_com2_formation" class="btn btn-outline-primary" style="width: 100%;color: white">COMMENTAIRE PREMIERE SEMAINE</button>
                     <textarea class="form-control" id="exampleTextarea" name="com_apprenant_sem1" rows="6" style="margin-top: 2%;" placeholder="Ecrivez votre ressenti sur votre première semaine de formation"></textarea>
                 </div>  
                 <button type="submit" id="btn_validation_form_formation" class="btn btn-outline-primary">Envoyer le commentaire</button>
             </form>
-           
-
             <form class="form-horizontal" method="POST" action="{{ route('comFormSem2') }}">
                 {{ csrf_field() }} 
                 <div class="form-group">
-                    <button type="" disabled="true" id="btn_disabled_validation_com2_formation" class="btn btn-outline-primary" style="width: 100%;color: white">Commentaire deuxième semaine </button>
+                    <button type="" disabled="true" id="btn_disabled_validation_com2_formation" class="btn btn-outline-primary" style="width: 100%;color: white">COMMENTAIRE DEUXIEME SEMAINE</button>
                     <textarea class="form-control" id="exampleTextarea" rows="6" name="com_apprenant_sem2" style="margin-top: 2%;" placeholder="Ecrivez votre ressenti sur votre deuxième semaine de formation"></textarea>
                 </div>  
                 <button type="submit" id="btn_validation_form_formation" class="btn btn-outline-primary" >Envoyer le commentaire</button>
-            </form>
-
-             
+            </form>  
         </div>
     </div>
     <div class="row" id="programme_form_pdf" style="margin-top: 2%;">
@@ -401,7 +396,7 @@
             <form class="form-horizontal" method="GET" action="{{ route('downloadPdf') }}">
             {{ csrf_field() }}
                 <br>
-                <button class="btn btn-outline-primary" type="submit" style="margin-top: 2%;">Télécharger le programme</button>
+                <button class="btn btn-outline-primary" id="btn_download_programme" type="submit" style="margin-top: 2%;">Télécharger le programme de votre formation</button>
             </form>
         </div>
     </div>

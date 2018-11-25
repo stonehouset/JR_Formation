@@ -11,6 +11,7 @@ html{
 
 body{
 
+	background-color: #2D3F58;
 	/*font-family: 'GothamLight';
     src: url('/fonts/Gotham-Light.eot');
     src: url('/fonts/Gotham-Light.otf') format('opentype'),
@@ -18,6 +19,13 @@ body{
          url('/fonts/Gotham-Light.woff') format('woff'),
          url('/fonts/Gotham-Light.ttf') format('truetype'),
          url('/fonts/Gotham-Light.svg#gothamlight') format('svg');*/
+}
+
+#img_menu{
+
+	max-width: 180px;
+	max-height: 120px;
+	box-shadow: 1px 1px 5px #2D3F58;
 }
 
 #div_show_error{
@@ -55,7 +63,8 @@ body{
 	text-align: center;
 	vertical-align: middle;
 	text-transform: uppercase;
-	border: 2px #E0002D solid;
+	border: 1px #E0002D solid;
+	
 	
 
 }
@@ -91,7 +100,7 @@ body{
 	box-shadow: 1px 1px 10px #2D3F58;
 	border-radius: 1px;
 	background-color: #2D3F58;
-	opacity: 0.8;
+	
 }
 
 #btn_deconnexion{
@@ -145,9 +154,14 @@ body{
 
 	font-size: 20px;
 	width: 4%;
-	color: white;
+	color: #2D3F58;
 	margin-right: 10%;
 	
+}
+
+#lien_connexion_deco{
+
+	margin-left: 1%;
 }
 
 /*CSS Page accueil_admin*/
@@ -249,13 +263,35 @@ body{
 	border-radius: 2px;
 }
 
+#btn_download_programme{
+
+	color: white;
+}
+
+#btn_download_programme:hover{
+
+	color: #2D3F58;
+	background-color: white;
+}
+
 #btn_valider_retard_absence:hover{
 
 	background-color: #FF8C00;
 	color: white;
 }
 
+#btn_form_client,#btn_impact_form_client{
 
+	margin-top: 2%;
+	width: 100%;
+	height: 60px;
+	background-color: white;
+	border-radius: 2px;
+	border: 1px #2D3F58 solid;
+	color: #2D3F58;
+	font-size: 15px;
+	box-shadow: 1px 1px 5px black;
+}
 #btn_telecharger_tab_formateur_admin,#btn_telecharger_tab_formateur_admin{
 
 	width: 100%;
@@ -302,36 +338,10 @@ body{
 	color: white;
 }
 
-#form_suivi_client{
-
-	width: 100%;
-	margin-top: 1%;
-	margin-left: auto;
-	margin-right: auto;
-}
-
-#titre_interface_client{
-
-	background-color: #2D3F58;
-	border-color: #E0002D;
-	color: white;
-}
-
-#presence_2_mois,#presence_6_mois{
-
-	margin-top: 5%;
-	
-}
 
 #label_presence_2m,#label_presence_6m,#label_select_stagiaire,#label_embauche_stagiaire{
 
 	font-weight: bold;
-
-}
-
-#header_tableau_apprenants{
-
-	margin-top: 1%;
 
 }
 
@@ -344,12 +354,6 @@ body{
 
 	margin-top: 1%;
 }
-
-/*$custom-file-text: (
-  fr:Importer;
-);
-*/
-
 
 #row_profil{
 
@@ -410,7 +414,6 @@ body{
 	margin-bottom: 1%;
 	color: white;
 	
-
 }
 
 #exampleFormControlTextarea1,#note_apprenant{
@@ -475,7 +478,19 @@ li.list-group-item{
 
 	height: 70px;
 	padding-bottom: 1px;
+	background-color: #A4A4A4;
+	color: black;
+	border: 1px white solid;
 
+}
+
+#header_item_utilisateur{
+
+	font-size: 18px;
+	background-color: white;
+	border-color: white;
+	color: #2D3F58;
+	height: 70px;
 }
 
 h6{
@@ -569,11 +584,22 @@ input[type=radio] {
 
 	margin: auto;
 	margin-top: 15%;
-	box-shadow: 1px 1px 5px #E0002D;
-	border-radius: 5px;
+	box-shadow: 1px 1px 5px black;
+	border: 1px white solid;
+	border-radius: 2px;
 	padding-bottom: 2%;
 	padding-top: 2%;
 
+}
+
+#btn_submit_login{
+
+	border-radius: 2px;
+}
+
+#lien_mdp_oublie{
+
+	color: white;
 }
 
 #label_mdp_form_connexion,#label_email_form_connexion{
@@ -606,9 +632,17 @@ input[type=radio] {
 
 #div_modif_password{
 
-	margin-top: 10%;
+	margin: auto;
+	margin-top: 5%;
 }
 
+#titre_modif_mdp{
+
+	text-align: center;
+	color: white;
+	border-bottom: 2px #E0002D solid;
+	padding-bottom: 3%;
+}
 
 
 
@@ -617,7 +651,7 @@ input[type=radio] {
 #titre_page_commentaire{
 
 	margin: auto;
-	margin-top: 2%;
+	margin-top: 1%;
 	width: 60%;
 	color: white;
 	font-size: 25px;
@@ -631,29 +665,38 @@ input[type=radio] {
 	margin: auto;
 	width: 95%;
 	padding-bottom: 2%;
-	padding-top: 1%;
+	
 
 }
 
 #row_com_sem_apprenant{
 
-	margin: 0;
+	margin: 1%;
+	margin-top: 0%;
+	border-top: hidden;
+	background-color: #2D3F58;
+	
 }
 
 #body_card_com_semaine_apprenant{
 
-	color: white;
+	color: white;	
+	box-shadow: 1px 1px 5px #2D3F58;
+}
+
+#text_com{
+
 	font-size: 16px;
 }
 
 
-
 #header_card_com_sem_apprenant{
 
-	font-weight:bold;
-	background-color: #415B7F;
-	color: white;
-	border-radius: 2px;
+	font-weight: bold;
+	background-color: white;
+	color: #2D3F58;
+	border-radius: 1px;
+	font-size: 18px;
 	
 }
 
@@ -666,25 +709,29 @@ input[type=radio] {
 	box-shadow: 1px 1px 5px black;
 	padding-bottom: 1%;
 	padding-top: 1%;
-	border-radius: 2px;
+	border-radius: 1px;
 }
 
 #card_com_sem_apprenant{
 
-	margin-top: 2%;
+	margin-top: 1%;
 	border: 1px #2D3F58 solid;
 	background-color: white;
-	border-radius: 2px;
+	border-radius: 1px;
 
+}
+
+#cadre_scroll_commentaire{
+
+	height: 550px;
+	overflow-y:scroll;
+	position: static;
 }
 
 #row_commentaires{
 
-	box-shadow: 1px 1px 5px;
-	height: 600px;
-	overflow-y:scroll;
-	position: static;	
-	background-color: white;
+	background-color: #A4A4A4;
+	border: 1px #2D3F58 solid;
 	border-radius: 2px;
 	margin-top: 1%;
 
@@ -706,4 +753,294 @@ input[type=radio] {
 	color: white;
 	border: hidden;
 
+}
+
+/*CSS Page Questionnaire auto evaluation formateur*/
+
+#titre_questionnaire_formateur{
+
+	margin-top: 2%;
+	color: white;
+	border-bottom:2px #E0002D solid;
+	text-align: center;
+	padding-bottom: 2%;
+}
+
+#container_questionnaire_auto_evaluation{
+
+	
+	margin-top: 1%;
+	border-radius: 2px;
+}
+
+#contenu_form_questionnaire_autoeval{
+
+	padding-left: 1%;
+
+}
+
+#section_auto_eval{
+
+	border: 1px white solid;
+	margin-top: 0.5%;
+	border-radius: 2px;
+	box-shadow: 1px 1px 5px black;
+
+}
+
+#section_contenu_pedago{
+
+	border: 1px white solid;
+	margin-top: 0.5%;
+	border-radius: 2px;
+	box-shadow: 1px 1px 5px black;
+
+}
+
+#section_materiel_logistique{
+
+	border: 1px white solid;
+	margin-top: 0.5%;
+	border-radius: 2px;
+	box-shadow: 1px 1px 5px black;
+
+}
+
+#section_et_demain{
+
+	border: 1px white solid;
+	margin-top: 0.5%;
+	border-radius: 2px;
+	box-shadow: 1px 1px 5px black;
+
+}
+
+
+#titre_auto_eval{
+
+	text-align: center;
+	color: white;
+	margin-top: 1%;
+	margin-bottom: 2%;
+	border: 1px white solid;
+	border-radius: 2%;
+	padding-bottom: 1%;
+	background-color: #2D3F58;
+	box-shadow: 1px 1px 5px black;
+	padding-top: 1%;
+}
+
+#label_eval_perf{
+
+	color: white;
+	text-align: center;
+	margin-top: 1%;
+	margin-bottom: 1%;
+
+}
+
+#sous_label_objectif_sem{
+
+	color: white;
+	text-align: center;
+	margin-top: 0.5%;
+	margin-bottom: 0.5%;
+}
+
+#sous_label_objectif_sem1{
+
+	color: white;
+	text-align: center;
+	margin-top: 0.5%;
+	margin-bottom: 2%;
+}
+
+#question_perf_form{
+
+	background-color: #2D3F58;
+	border: hidden;
+	height: 70px;
+	text-align: center;
+	color: white;
+}
+
+#questions_matos{
+
+	background-color: #2D3F58;
+	border: hidden;
+	text-align: center;
+	color: white;
+}
+
+#label_quest_matos{
+
+	color: white;
+	text-align: center;
+
+}
+
+#btn_validation_form_formateur{
+
+	width: 100%;
+	height: 60px;
+	margin-bottom: 2%;
+	margin-top: 2%;
+	border: 1px white solid;
+	box-shadow: 1px 1px 5px black;
+	border-radius: 2%;
+	color: white;
+	background-color: #2D3F58;
+	font-size: 20px;
+}
+
+#btn_validation_form_formateur:hover{
+
+	width: 100%;
+	border: 1px white solid;
+	background-color: green;
+	border-radius: 2%;
+}
+
+
+
+/*CSS Page interface_client*/
+
+#btn_valider_suivi_client{
+
+	color: white;
+	margin-top: 2%;
+	height: 50px;
+	width: 100%;
+	border: 1px white solid;
+}
+
+#btn_valider_suivi_client:hover{
+
+
+	background-color: green;
+	color: white;
+
+}
+
+#card_tab_apprenant_client{
+
+	margin-top: 2%;
+	padding-top: -1%;
+	background-color: white;
+	border-color: white;
+	border-radius: 2px;
+	box-shadow: 1px 1px 5px black;
+}
+
+#header_tableau_apprenants{
+
+	margin-top: 1%;
+	height: 50px;
+	padding-bottom: 1.5%;
+	color: #2D3F58;
+	border-color: #E0002D;
+	text-align: center;
+	background-color: white;
+
+}
+
+#titre_interface_client{
+
+	background-color: #2D3F58;
+	border-color: #E0002D;
+	color: white;
+}
+
+#form_suivi_client,#form_impact_client{
+
+	width: 100%;
+	margin-left: auto;
+	margin-right: auto;
+	border: 1px white solid;
+	box-shadow: 1px 1px 5px black;
+	padding: 1%;
+	color: white;
+}
+
+#contenu_form_client{
+
+	color: white;
+}
+
+#presence_2_mois,#presence_6_mois,#div_checkbox_embauche{
+
+	margin-top: 2%;
+	box-shadow: 1px 1px 5px black;
+	padding: 1%;
+	
+}
+
+#contenu_form_impact{
+
+	padding-top: 1%;
+	box-shadow: 1px 1px 5px black;
+}
+
+#label_select_stagiaire{
+
+	color: white;
+}
+
+#input_hierarchie_entreprise_fonction,#input_formation_suivie_duree{
+
+	margin-top: 0.5%;
+}
+
+#btn_radio{
+
+	margin-top: 1%;
+}
+
+#deuxieme_partie_form{
+
+	margin-top: 2%;
+}
+
+#titre_form_impact_formation1{
+
+	text-align: center;
+	color: white;
+	margin-bottom: 3%;
+	padding-top: 2%;
+}
+
+#titre_form_impact_formation{
+
+	text-align: center;
+	color: white;
+	margin-bottom: 3%;
+	border-top: 2px white solid;
+	padding-top: 2%;
+}
+
+#sous_titre_indicateurs{
+
+	text-align: center;
+	color: white;
+	margin-bottom: 2%;
+
+}
+
+#indic_quali{
+
+	color: white;
+}
+
+#btn_valider_impact_formation{
+
+	width: 100%;
+	height: 50px;
+	margin-top: 2%;
+	margin-bottom: 2%;
+	color: white;
+}
+
+#btn_valider_impact_formation:hover{
+
+	background-color: green;
 }

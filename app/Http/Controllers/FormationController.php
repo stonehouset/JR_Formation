@@ -5,9 +5,9 @@ namespace JR_Formation\Http\Controllers;
 use JR_Formation\Formation;
 use JR_Formation\Apprenant;
 use Illuminate\Http\Request;
-use Illuminate\Http\File;
 use Illuminate\Support\Facades\Storage;
 use DB;
+use File;
 
 class FormationController extends Controller
 {

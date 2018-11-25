@@ -216,7 +216,7 @@ class ApprenantController extends Controller
         return redirect()->back()->with('success', 'Apprenants ajoutés!');    
     }
 
-    public function getDownload()
+    public function getDownload() //Fonction de telechargement du programme de formation.
     {
 
         $idApprenant = auth()->user()->id;
@@ -228,13 +228,11 @@ class ApprenantController extends Controller
         return response()->download(storage_path("app/programme_formation/{$nomProgrammeFormation}"));
     }
 
-    public function ajoutComSem1(Request $request)
+    public function ajoutComSem1(Request $request)// Fonction d'ajout du commentaire de la premiere semaine de formation.
     {
 
         $idApprenant = auth()->user()->id;
-
         $com = $request->com_apprenant_sem1;
-
         $dataApprenant = Apprenant::where('user_id','=',$idApprenant)->first();
 
         if ($dataApprenant->commentaire_semaine1 != null) {
@@ -253,13 +251,11 @@ class ApprenantController extends Controller
         }
     }
 
-    public function ajoutComSem2(Request $request)
+    public function ajoutComSem2(Request $request) //Fonction d'ajout du commentaire de la deuxième semaine de formation.
     {
 
         $idApprenant = auth()->user()->id;
-
         $com = $request->com_apprenant_sem2;
-
         $dataApprenant = Apprenant::where('user_id','=',$idApprenant)->first();
 
         if ($dataApprenant->commentaire_semaine1 == null) {
@@ -283,8 +279,9 @@ class ApprenantController extends Controller
         }
     }
 
-    public function sendFormFormateur(Request $request)
+    public function sendFormFormateur(Request $request) //Fonction de creation du fichier excel questionnaire formateur et envoi a l'admin.
     {
+
         $data;
         $apprenant = auth()->user()->id;
         $dataApprenant = User::where('id','=', $apprenant)->first();
@@ -379,12 +376,11 @@ class ApprenantController extends Controller
 
     }
 
-    public function sendFormFormation(Request $request)
+    public function sendFormFormation(Request $request)// Fonction d'envoi du questionnaire et des réponses a l'admin.
     {
+
         $data;
-
         $apprenant = auth()->user()->id;
-
         $dataApprenant = User::where('id','=', $apprenant)->first();
               
         $quest1 = "Qualités des informations communiquées";
@@ -407,7 +403,7 @@ class ApprenantController extends Controller
         $quest18 = "Participation du groupe";
         $quest19 = "Ambiance générale de la formation";   
 
-        $rep1 = $request->radio1;
+        $rep1 = $request->radio1; //Recuperation des reponses du questinnaire.
         $rep2 = $request->radio2;
         $rep3 = $request->radio3;
         $rep4 = $request->radio4;
@@ -442,7 +438,7 @@ class ApprenantController extends Controller
         $nomApprenant['nom'] = $dataApprenant->nom;
 
         $prenomApprenant;
-        $prenomApprenant['prenom'] = $dataApprenant->prenom;
+        $prenomApprenant['prenom'] = $dataApprenant->prenom; //Creatuin du tableau de donnees a inserer dans le fichier excel.
 
         for ($i=0; $i < count($arrayQuestions); $i++) { 
            
@@ -462,7 +458,7 @@ class ApprenantController extends Controller
             }
 
         }
-        $file = Excel::create('questionnaire_formation', function ($excel) use ($data) {
+        $file = Excel::create('questionnaire_formation', function ($excel) use ($data) { //Creation du fichier excel avec les donnees.
       
             $excel->sheet('sheet1', function ($sheet) use ($data) {
 
@@ -476,7 +472,7 @@ class ApprenantController extends Controller
         
         array_push($array_file, $file);
 
-        Mail::to('houselstein.thibaud@gmail.com')->send(new QuestionnaireFormation($array_file));
+        Mail::to('houselstein.thibaud@gmail.com')->send(new QuestionnaireFormation($array_file));//Envoi du mail a l'admin avec fichier excel.
 
         File::delete('storage/questionnaire_formation.xlsx');
 

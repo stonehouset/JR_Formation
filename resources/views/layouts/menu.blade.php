@@ -13,10 +13,10 @@
     <!-- Styles -->  
     <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
-<body style="background-color: #2D3F58;">
+<body>
     <nav class="navbar navbar-expand-lg navbar navbar-lg navbar-light bg-light">
-        <a class="navbar-brand">
-            <img src="/img/0001.jpg" class="css-class" alt="alt text" style="max-width:180px;max-height:120px;box-shadow: 1px 1px 5px #2D3F58;"> 
+        <a class="navbar-brand" href="/home">
+            <img src="/img/0001.jpg" class="css-class" alt="alt text" id="img_menu"> 
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -57,14 +57,14 @@
                 </li>
                 @endif
             </ul>    
-            <span id="date_jour" style="color:#2D3F58;">{{ date('d/m/Y') }}</span>
+            <span id="date_jour">{{ date('d/m/Y') }}</span>
                 
                 <span id="initials_user">
                 {{substr(Auth::user()->prenom, 0, 1)}}{{substr(Auth::user()->nom, 0, 1)}} 
                 </span>
                 
                 @guest
-                    <li><a href="{{ route('login') }}" style="margin-left: 1%;">Connexion</a></li>
+                    <li><a href="{{ route('login') }}" id="lien_connexion_deco">Connexion</a></li>
                 @else
                     <a href="{{ route('logout') }}" class="btn btn-outline-primary" id="btn_deconnexion" role="button" onclick="event.preventDefault();document.getElementById('logout-form').submit();">
                         DECONNEXION

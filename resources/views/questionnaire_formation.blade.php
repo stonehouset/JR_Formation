@@ -1,154 +1,163 @@
 @extends('layouts.menu')
 
 @section('content')
-<form class="form-horizontal" method="POST" action="">
-{{ csrf_field() }}
-    @if ($dateNow <= $datePlus4Jours)
-        <h4 style="color: white;text-align: center;margin-top: 1%;">Revenez le {{\Carbon\Carbon::parse($datePlus4Jours)->format('d/m/Y')}} pour répondre au questionnaire!</h4>
+@if (\Session::has('error'))
+        <div class="alert alert-error" id="div_show_error">          
+        {!! \Session::get('error') !!}         
+        </div>
     @endif
-    
-    <div class="row">
-        <div class="col-lg-6">
-            <ul class="list-group">
-                <li class="list-group-item" style="border-color: white;background-color: #2D3F58;color: white">
-                    <h6>Le formateur sait transmettre ses connaissances (maitrise son sujet, donne des exemples pratiques)</h6>
-                    <input type="radio" name="radio1" value="mediocre">
-                    <input type="radio" name="radio1" value="faible">
-                    <input type="radio" name="radio1" value="satisfaisant">
-                    <input type="radio" name="radio1" value="excellent">
-                </li>
-                <li class="list-group-item" style="border-color: white;background-color: #2D3F58;color: white">
-                    <h6>Le formateur sait mobiliser les participants (donne envie d'apprendre, fait participer)</h6>
-                    <input type="radio" name="radio2" value="mediocre">
-                    <input type="radio" name="radio2" value="faible">
-                    <input type="radio" name="radio2" value="satisfaisant">
-                    <input type="radio" name="radio2" value="excellent">
-                      
-                </li>
-                <li class="list-group-item" style="border-color: white;background-color: #2D3F58;color: white">
-                    <h6>Le formateur sait s'adapter à chaque participant (personnalise son message, s'adapte au contexte de chacun)</h6>
-                    <input type="radio" name="radio3" value="mediocre">
-                    <input type="radio" name="radio3" value="faible">
-                    <input type="radio" name="radio3" value="satisfaisant">
-                    <input type="radio" name="radio3" value="excellent">       
-                </li>
-                <li class="list-group-item" style="border-color: white;background-color: #2D3F58;color: white">
-                    <h6>Le formateur a des points forts</h6> 
-                    <input type="radio" name="radio4" value="mediocre">
-                    <input type="radio" name="radio4" value="faible">
-                    <input type="radio" name="radio4" value="satisfaisant">
-                    <input type="radio" name="radio4" value="excellent"> 
-                </li>
-                <li class="list-group-item" style="border-color: white;background-color: #2D3F58;color: white">
-                    <h6>Les supports utilisés en formation étaient utiles pour apprendre (documents, vidéos)</h6>
-                    <input type="radio" name="radio5" value="mediocre">
-                    <input type="radio" name="radio5" value="faible">
-                    <input type="radio" name="radio5" value="satisfaisant">
-                    <input type="radio" name="radio5" value="excellent">
-                </li>
-                <li class="list-group-item" style="border-color: white;background-color: #2D3F58;color: white">
-                    <h6>La progression pédagogique est adaptée (rythme, difficulté progressive, équilibre théorie/pratique...)</h6> 
-                    <input type="radio" name="radio6" value="mediocre">
-                    <input type="radio" name="radio6" value="faible">
-                    <input type="radio" name="radio6" value="satisfaisant">
-                    <input type="radio" name="radio6" value="excellent">      
-                </li>
-                <li class="list-group-item" style="border-color: white;background-color: #2D3F58;color: white">
-                    <h6>L’alternance de moments de « théorie » avec des travaux pratiques vous a-t-elle semblé équilibrée</h6>
-                    <input type="radio" name="radio7" value="mediocre">
-                    <input type="radio" name="radio7" value="faible">
-                    <input type="radio" name="radio7" value="satisfaisant">
-                    <input type="radio" name="radio7" value="excellent">      
-                </li>
-                <li class="list-group-item" style="border-color: white;background-color: #2D3F58;color: white">
-                    <h6>Le niveau du formateur vous a semblé correct</h6>
-                    <input type="radio" name="radio8" value="mediocre">
-                    <input type="radio" name="radio8" value="faible">
-                    <input type="radio" name="radio8" value="satisfaisant">
-                    <input type="radio" name="radio8" value="excellent">       
-                </li>
-                <li class="list-group-item" style="border-color: white;background-color: #2D3F58;color: white">
-                    Le formateur a tenu un langage clair
-                    <br>
-                    <input type="radio" name="radio9" value="mediocre">
-                    <input type="radio" name="radio9" value="faible">
-                    <input type="radio" name="radio9" value="satisfaisant">
-                    <input type="radio" name="radio9" value="excellent">
-                </li>
-            </ul>
-        </div>
-        <div class="col-lg-6">
-            <ul class="list-group">
-                <li class="list-group-item" style="border-color: white;background-color: #2D3F58;color: white">
-                    Le formateur a respecté le contenu du programme, 
-                    il vous a aidé à atteindre les objectifs 
-                    <br>
-                    <input type="radio" name="radio10" value="mediocre">
-                    <input type="radio" name="radio10" value="faible">
-                    <input type="radio" name="radio10" value="satisfaisant">
-                    <input type="radio" name="radio10" value="excellent">                           
-                </li>
-                <li class="list-group-item" style="border-color: white;background-color: #2D3F58;color: white">
-                    Il y a eu une adaptation au rythme, au contenu
-                    <br>
-                    <input type="radio" name="radio11" value="mediocre">
-                    <input type="radio" name="radio11" value="faible">
-                    <input type="radio" name="radio11" value="satisfaisant">
-                    <input type="radio" name="radio11" value="excellent">
-                </li>
-                <li class="list-group-item" style="border-color: white;background-color: #2D3F58;color: white">
-                    La qualité des exemples cités
-                    <br>
-                    <input type="radio" name="radio12" value="mediocre">
-                    <input type="radio" name="radio12" value="faible">
-                    <input type="radio" name="radio12" value="satisfaisant">
-                    <input type="radio" name="radio12" value="excellent">                           
-                </li>
-                <li class="list-group-item" style="border-color: white;background-color: #2D3F58;color: white">
-                    Le niveau des aptitudes (élocution, postures, tenue)
-                    <br>
-                    <input type="radio" name="radio13" value="mediocre">
-                    <input type="radio" name="radio13" value="faible">
-                    <input type="radio" name="radio13" value="satisfaisant">
-                    <input type="radio" name="radio13" value="excellent">
-                </li>
-                <li class="list-group-item" style="border-color: white;background-color: #2D3F58;color: white">
-                    Le niveau de compétences et de disponibilité
-                    <br>
-                    <input type="radio" name="radio14" value="mediocre">
-                    <input type="radio" name="radio14" value="faible">
-                    <input type="radio" name="radio14" value="satisfaisant">
-                    <input type="radio" name="radio14" value="excellent">
-                </li>
-                <li class="list-group-item" style="border-color: white;background-color: #2D3F58;color: white">
-                    Globalement, j'ai été très satisfait(e) du formateur
-                    <br>
-                    <input type="radio" name="radio15" value="mediocre">
-                    <input type="radio" name="radio15" value="faible">
-                    <input type="radio" name="radio15" value="satisfaisant">
-                    <input type="radio" name="radio15" value="excellent">
-                </li>
-                <li class="list-group-item" style="border-color: white;background-color: #2D3F58;color: white">
-                    Si vous deviez suivre à nouveau une formation, le feriez-vous volontiers avec ce formateur ?
-                    <br>
-                    <input type="radio" name="radio16" value="mediocre">
-                    <input type="radio" name="radio16" value="faible">
-                    <input type="radio" name="radio16" value="satisfaisant">
-                    <input type="radio" name="radio16" value="excellent">
-                </li>
-                <li class="list-group-item" style="border-color: white;background-color: #2D3F58;color: white">
-                    Recommanderiez-vous ce formateur à un centre de formation ou à une entreprise ?
-                    <br>
-                    <input type="radio" name="radio17" value="mediocre">
-                    <input type="radio" name="radio17" value="faible">
-                    <input type="radio" name="radio17" value="satisfaisant">
-                    <input type="radio" name="radio17" value="excellent">        
-                </li> 
-            </ul>
-            <button type="submit" id="btn_validation_form_formateur" style="width: 100%;margin-top: 6%;border-color:green;margin-bottom: 1%;" class="btn btn-outline-primary">Valider le questionnaire</button> 
-        </div>
+    @if (\Session::has('success'))
+    <div class="alert alert-success" id="div_show_success">       
+        {!! \Session::get('success') !!}    
     </div>
-    
-</form>
-
+    @endif
+<div class="row">
+    <div class="offset-lg-3 col-lg-6 col-md-10 col-sm-12">
+        <h3 id="titre_questionnaire_formateur">
+            Compte Rendu De Fin De Formation
+        </h3>
+    </div>
+</div>
+<div class="container" id="container_questionnaire_auto_evaluation">
+    <form class="form-horizontal" method="POST" action="{{ route('send_compte_rendu_formarteur')}}">
+    {{ csrf_field() }}
+        <div class="row" id="contenu_form_questionnaire_autoeval">
+            <div class="col-lg-12">
+                <div class="row">
+                    <div class="offset-lg-1 col-lg-10" id="section_auto_eval">              
+                        <h4 id="titre_auto_eval">1/ Auto évaluation</h4>
+                        <div class="form-group">
+                            <h5 id="label_eval_perf" class="">¤ Evaluez votre performance durant cette session</h5>
+                            <div class="offset-lg-1 col-lg-10">
+                                <li class="list-group-item" id="question_perf_form">
+                                    <input type="radio" id="radioperf" name="radioPerf" value="1">1
+                                    <input type="radio" id="radioperf" name="radioPerf" value="2">2
+                                    <input type="radio" id="radioperf" name="radioPerf" value="3">3
+                                    <input type="radio" id="radioperf" name="radioPerf" value="4">4
+                                    <input type="radio" id="radioperf" name="radioPerf" value="5">5
+                                </li>                 
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <h5 id="label_eval_perf" class="">¤ Avez vous atteint les objectifs du séminaire ?</h5>
+                            <h6 id="sous_label_objectif_sem" class="">(Si oui, quels sont les éléments qui vous permette de l'affirmer ?</h6>
+                            <h6 id="sous_label_objectif_sem1" class="">Si non, pour quelles raisons ? Qu’auriez-vous dû faire ?)</h6>
+                            <div class="offset-lg-2 col-lg-8">
+                                <textarea class="form-control" id="exampleFormControlTextarea1" placeholder="" rows="5" name="contenu_objectif_atteint_ou_non"></textarea>                
+                            </div>
+                        </div>   
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="offset-lg-1 col-lg-10" id="section_auto_eval">              
+                        <h4 id="titre_auto_eval">2/ Contenu et Pédagogie</h4>
+                        <div class="form-group">
+                            <h5 id="label_eval_perf" class="">¤ Avez-vous apporté des modifications significatives (déroulé, contenu, timing, supports, outils) ?</h5>
+                            <h6 id="sous_label_objectif_sem" class="">(Si oui lesquelles ?)</h6>
+                            <div class="offset-lg-2 col-lg-8">
+                                <textarea class="form-control" id="exampleFormControlTextarea2" placeholder="" rows="5" name="contenu_modifs"></textarea>                
+                            </div>
+                        </div>   
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="offset-lg-1 col-lg-10" id="section_materiel_logistique">              
+                        <h4 id="titre_auto_eval">3/ Matériel et logistique</h4>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <h5 id="label_quest_matos" class="">¤ Matériel d'animation</h5>
+                                    <div class="offset-lg-1 col-lg-10">
+                                        <li class="list-group-item" id="questions_matos">
+                                            <input type="radio" id="radioperf" name="matos_anim" value="bon">Bon
+                                            <input type="radio" id="radioperf" name="matos_anim" value="pas bon">Pas bon   
+                                        </li>                 
+                                    </div>
+                                    <h5 id="label_quest_matos" class="">¤ Supports Animateurs</h5>
+                                    <div class="offset-lg-1 col-lg-10">
+                                        <li class="list-group-item" id="questions_matos">
+                                            <input type="radio" id="radioperf" name="supports" value="bon">Bon
+                                            <input type="radio" id="radioperf" name="supports" value="pas bon">Pas bon   
+                                        </li>                 
+                                    </div>
+                                    <h5 id="label_quest_matos" class="">¤ Documents Participants</h5>
+                                    <div class="offset-lg-1 col-lg-10">
+                                        <li class="list-group-item" id="questions_matos">
+                                            <input type="radio" id="radioperf" name="doc_partici" value="bon">Bon
+                                            <input type="radio" id="radioperf" name="doc_partici" value="pas bon">Pas bon   
+                                        </li>                 
+                                    </div>
+                                    <h5 id="label_quest_matos" class="">¤ Accès au lieu de formation</h5>
+                                    <div class="offset-lg-1 col-lg-10">
+                                        <li class="list-group-item" id="questions_matos">
+                                            <input type="radio" id="radioperf" name="acces" value="bon">Bon
+                                            <input type="radio" id="radioperf" name="acces" value="pas bon">Pas bon   
+                                        </li>                 
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <h5 id="label_quest_matos" class="">¤ Salles</h5>
+                                <div class="offset-lg-1 col-lg-10">
+                                    <li class="list-group-item" id="questions_matos">
+                                        <input type="radio" id="radioperf" name="salles" value="bon">Bon
+                                        <input type="radio" id="radioperf" name="salles" value="pas bon">Pas bon   
+                                    </li>                 
+                                </div>
+                                <h5 id="label_quest_matos" class="">¤ Mobilier</h5>
+                                <div class="offset-lg-1 col-lg-10">
+                                    <li class="list-group-item" id="questions_matos">
+                                        <input type="radio" id="radioperf" name="mobilier" value="bon">Bon
+                                        <input type="radio" id="radioperf" name="mobilier" value="pas bon">Pas bon   
+                                    </li>                 
+                                </div>
+                                <h5 id="label_quest_matos" class="">¤ Accueil</h5>
+                                <div class="offset-lg-1 col-lg-10">
+                                    <li class="list-group-item" id="questions_matos">
+                                        <input type="radio" id="radioperf" name="accueil" value="bon">Bon
+                                        <input type="radio" id="radioperf" name="accueil" value="pas bon">Pas bon   
+                                    </li>                 
+                                </div>
+                                <h5 id="label_quest_matos" class="">¤ Pauses</h5>
+                                <div class="offset-lg-1 col-lg-10">
+                                    <li class="list-group-item" id="questions_matos">
+                                        <input type="radio" id="radioperf" name="pauses" value="bon">Bon
+                                        <input type="radio" id="radioperf" name="pauses" value="pas bon">Pas bon   
+                                    </li>                 
+                                </div>
+                            </div>
+                        </div> 
+                        <div class="row">  
+                            <div class="offset-lg-3 col-lg-6">
+                                <h5 id="label_quest_matos" class="">¤ Repas</h5>
+                                <div class="offset-lg-3 col-lg-6">
+                                    <li class="list-group-item" id="questions_matos">
+                                        <input type="radio" id="radioperf" name="repas" value="bon">Bon
+                                        <input type="radio" id="radioperf" name="repas" value="pas bon">Pas bon   
+                                    </li>                 
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="offset-lg-1 col-lg-10" id="section_et_demain">              
+                        <h4 id="titre_auto_eval">4/ Contenu et Pédagogie</h4>
+                        <div class="form-group">
+                            <h5 id="label_eval_perf" class="">¤  D’une manière générale, quelles sont vos idées, vos suggestions pour améliorer et développer ensemble notre efficacité ?</h5>
+                            <div class="offset-lg-2 col-lg-8">
+                                <textarea class="form-control" id="exampleFormControlTextarea1" placeholder="" rows="5" name="contenu_suggestions"></textarea>                
+                            </div>
+                        </div>    
+                    </div>                  
+                </div>
+                <div class="row">
+                    <div class="col-lg-12" id="section_validation">              
+                        <button type="submit" id="btn_validation_form_formateur" class="btn btn-outline-primary">Valider le questionnaire</button>  
+                    </div>  
+                </div>    
+            </div>
+        </div>
+    </form>
+</div>
 @endsection

@@ -136,7 +136,12 @@ class ClientController extends Controller
         
     }
 
+    public function suiviApprenant(Request $request)
+    {
 
+        return 'coucou';
+
+    }
     /**
      * Show the form for creating a new resource.
      *
