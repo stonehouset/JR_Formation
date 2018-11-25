@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <div class="row">
-        <h3 id="titre_page_connexion" style="">Connexion</h3>
+        <h3 id="titre_page_connexion">CONNEXION</h3>
         <div class="offset-lg-3 col-lg-6">
             <div class="panel panel-default">
                 <div class="panel-body" id="formulaire_page_connexion">      

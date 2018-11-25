@@ -13,15 +13,18 @@
         <!-- Styles -->
         <style>
             html, body {
+
                 background-color: #2D3F58;
                 color: #636b6f;
                 font-family: 'Raleway', sans-serif;
                 font-weight: 100;
                 width: 100%;
                 margin: 0;
+
             }
 
             .links > a {
+
                 color: #636b6f;
                 padding: 0 25px;
                 font-size: 15px;
@@ -31,20 +34,20 @@
                 text-transform: uppercase;
                 border: 1px #E0002D solid;
             } 
+
         </style>
     </head>
     <body style="background-color:#2D3F58;text-align: center;">
         <center>
-            <img src="/img/0001.jpg" alt="alt text" style="width:50%;margin-top: 10%;border: 2px #E0002D solid;">
+            <img src="/img/0001.jpg" alt="alt text" style="width:50%;margin-top: 10%;border: 2px #E0002D solid;box-shadow: 1px 1px 5px black;">
         </center> 
-        <h3 style="color: #E0002D;text-align: center;font-size: 40px;">Extranet</h3>
-        <div class="row">
+        <div class="row" style="margin-top: 8%;">
             @if (Route::has('login'))
                 <div class="links" style="text-align: center;">
                     @auth
-                        <a href="{{ url('/home') }}">Accueil</a>
+                        <a href="{{ url('/home') }}" style="color: white;font-size: 25px;border: 1px #E0002D solid;box-shadow: 1px 1px 5px black;">ACCUEIL EXTRANET</a>
                     @else
-                        <a href="{{ route('login') }}" style="color: white;font-size: 25px;border: 2px #E0002D solid;box-shadow: 1px 1px 5px grey;">Connexion</a>
+                        <a href="{{ route('login') }}" style="color: white;font-size: 25px;border: 1px #E0002D solid;box-shadow: 1px 1px 5px black;">CONNEXION EXTRANET</a>
                         <!-- <a href="{{ route('register') }}">S'enregistrer</a> -->
                     @endauth
                 </div>

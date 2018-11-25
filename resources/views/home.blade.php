@@ -1,7 +1,7 @@
 @extends('layouts.menu')
 
 @section('content')
-<div class="card text-center" style="background-color: #2D3F58;">
+<div class="card text-center" id="card_principale_home">
     <div class="card-body">   
         <button type="button" class="btn btn-outline-dark" id="btn_donnees">DONNEES GENERALES</button>
         <button type="button" class="btn btn-outline-dark" id="btn_gestion_utilisateur">UTILISATEURS</button> 
@@ -16,12 +16,12 @@
                 {!! \Session::get('success') !!}  
             </div>
         @endif        
-        <div class="card-text" id="gestion_utilisateurs" style="border: hidden;">
+        <div class="card-text" id="gestion_utilisateurs">
             <div class="card-body">
                 <div class="row">
                     <div class="col-lg-6" id="tableau_gestion_admin_infos_formateurs"> 
-                        <div class="card" style="margin-top: 2%;background-color:#2D3F58;border:hidden;border-bottom: 1px white solid;">
-                            <div class="card-header" id="header_tableau_apprenants" style="border-color: #E0002D;background-color: white;">
+                        <div class="card" id="tab_gestion_admin_inf">
+                            <div class="card-header" id="header_tableau_apprenants">
                                 <h5 class="mb-0">
                                     LISTE DES FORMATEURS
                                 </h5>
@@ -49,8 +49,8 @@
                         </div>
                     </div> 
                     <div class="col-lg-6" id="tableau_gestion_admin_infos_apprenants">
-                        <div class="card" style="margin-top: 2%;background-color:#2D3F58;border:hidden;border-bottom: 1px white solid;">
-                            <div class="card-header" id="header_tableau_apprenants" style="border-color: #E0002D;background-color: white;">
+                        <div class="card" id="card_liste_apprenants_admin">
+                            <div class="card-header" id="header_tableau_apprenants">
                                 <h5 class="mb-0">
                                     LISTE DES APPRENANTS
                                 </h5>
@@ -79,17 +79,17 @@
                     </div> 
                 </div>
             </div>
-            <div class="row" style="margin-top: 0%;"> 
+            <div class="row"> 
                 <div class="col-lg-6" id="btn_telecharger_tab_formateur_admin">    
-                    <a  href="{{route('apprenants_formateur_csv')}}" style="color: white;">Extraire tableau formateurs format Excel</a>  
+                    <a  href="{{route('apprenants_formateur_csv')}}" id="lien_tab_formateurs">Extraire tableau formateurs format Excel</a>  
                 </div>
                 <div class="col-lg-6" id="btn_telecharger_tab_apprenant_admin">   
-                    <a  href="{{route('apprenants_admin_csv')}}" style="color: white;">Extraire tableau apprenants format Excel</a>  
+                    <a  href="{{route('apprenants_admin_csv')}}" id="lien_tab_apprenants">Extraire tableau apprenants format Excel</a>  
                 </div>
             </div>
-            <div id="accordion" style="margin-top: 2%;">
-                <div class="card" style="border-color: white; color: #2D3F58;">
-                    <div class="card-header" id="headingOne" style="border-color: #E0002D;background-color: white;">
+            <div id="accordion">
+                <div class="card" id="card_ajout_user">
+                    <div class="card-header" id="headingOne">
                         <h5 class="mb-0">
                             <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
                                 AJOUTER UN UTILISATEUR
@@ -103,15 +103,15 @@
                                 <div class="row">
                                     <div class="col-lg-6">
                                         <div class="form-group">
-                                            <label for="prenom" style="color: white;" class="control-label">Rôle</label>    
+                                            <label for="prenom" id="label_form_user_admin" style="" class="control-label">Rôle</label>    
                                             <input id="role" type="number" class="form-control" name="role" value="" min="1" max="3" required autofocus>   
                                         </div>
                                         <div class="form-group">
-                                            <label for="nom" style="color: white;" class="control-label">Nom</label> 
+                                            <label for="nom" id="label_form_user_admin" class="control-label">Nom</label> 
                                             <input id="nom" type="text" class="form-control" name="nom" value="" required autofocus> 
                                         </div>
                                         <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                                            <label for="password" style="color: white;" class="control-label">Mot de passe</label> 
+                                            <label for="password" id="label_form_user_admin" class="control-label">Mot de passe</label> 
                                             <input id="password" type="password" class="form-control" name="password" required>
 
                                             @if ($errors->has('password'))
@@ -122,13 +122,13 @@
                                         </div>
                                         
                                         <div class="form-group">
-                                            <label for="prenom" style="color: white;"class="control-label">N° Téléphone</label>
+                                            <label for="prenom" id="label_form_user_admin" class="control-label">N° Téléphone</label>
                                             <input id="numero_telephone" type="tel" class="form-control" name="numero_telephone" value="" required autofocus>                                            
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
                                         <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                                            <label for="email" style="color: white;" class="control-label">eMail</label>
+                                            <label for="email" id="label_form_user_admin" class="control-label">eMail</label>
                                             <input id="email" type="email"
                                              class="form-control" name="email" value="{{ old('email') }}" required>
                                             @if ($errors->has('email'))
@@ -138,15 +138,15 @@
                                             @endif  
                                         </div>
                                         <div class="form-group{{ $errors->has('prenom') ? ' has-error' : '' }}">
-                                            <label for="prenom" style="color: white;" class="control-label">Prénom</label>
+                                            <label for="prenom" id="label_form_user_admin" class="control-label">Prénom</label>
                                             <input id="prenom" type="text" class="form-control" name="prenom" value="{{ old('prenom') }}" required autofocus>
                                             
                                         </div>   
                                         <div class="form-group">
-                                            <label for="password-confirm" style="color: white;"class="control-label">Confirmer le mot de passe</label>
+                                            <label for="password-confirm" id="label_form_user_admin" class="control-label">Confirmer le mot de passe</label>
                                             <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
                                         </div>        
-                                        <button type="submit" class="btn btn-outline-primary" style="width: 100%;margin-top: 5%;">
+                                        <button type="submit" id="btn_ajout_user_admin" class="btn btn-outline-primary">
                                             Enregistrer
                                         </button> 
                                     </div>
@@ -155,8 +155,8 @@
                         </div>                                    
                     </div>                   
                 </div>
-                <div class="card" style="border-color: white;color:#2D3F58;">
-                    <div class="card-header" id="headingTwo" style="border-color: #E0002D; color: #2D3F58;">
+                <div class="card" id="card_ajout_apprenant">
+                    <div class="card-header" id="headingTwo">
                         <h5 class="mb-0">
                             <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
                             AJOUTER UNE LISTE D'APPRENANTS
@@ -173,7 +173,7 @@
                                 </div>
                                 <div class="form-group">
                                     <div>
-                                        <button type="submit" class="btn btn-outline-primary" style="margin-top: 1%;border-color:#E0002D;width: 30%;margin-left: auto;margin-right: auto; ">
+                                        <button type="submit" id="btn_ajout_liste_apprenants" class="btn btn-outline-primary">
                                             Ajouter
                                         </button>
                                     </div>

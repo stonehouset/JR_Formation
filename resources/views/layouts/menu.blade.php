@@ -60,7 +60,7 @@
                 <li><a href="{{ route('login') }}" id="lien_connexion_deco">Connexion</a></li>
             @else
                 <a href="{{ route('logout') }}" class="btn btn-outline-primary" id="btn_deconnexion" role="button" onclick="event.preventDefault();document.getElementById('logout-form').submit();">
-                    {{Auth::user()->prenom}}.{{substr(Auth::user()->nom, 0, 1)}} | DECONNEXION
+                    {{Auth::user()->prenom}} {{substr(Auth::user()->nom, 0, 1)}} | DECONNEXION
                 </a>
                 <form id="logout-form" action="{{ route('logout') }}" method="POST" >
                             {{ csrf_field() }}
