@@ -47,7 +47,7 @@
                     @auth
                         <a href="{{ url('/home') }}" style="color: white;font-size: 25px;border: 1px #E0002D solid;box-shadow: 1px 1px 5px black;">ACCUEIL EXTRANET</a>
                     @else
-                        <a href="{{ route('login') }}" style="color: white;font-size: 25px;border: 1px #E0002D solid;box-shadow: 1px 1px 5px black;">CONNEXION EXTRANET</a>
+                        <a href="{{ route('login') }}" style="color: white;font-size: 25px;border: 1px #E0002D solid;box-shadow: 1px 1px 5px black;">ACCES EXTRANET</a>
                         <!-- <a href="{{ route('register') }}">S'enregistrer</a> -->
                     @endauth
                 </div>

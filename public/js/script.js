@@ -28,6 +28,8 @@ $( document ).ready(function() {
     $('#form_satisfaction_formation').hide();
     $('#form_com_semaine_apprenant').hide();
     $('#programme_form_pdf').hide();
+    $('#btns_questionnaires').hide();
+    
 
     
     if (true) {}
@@ -94,12 +96,22 @@ $("#btn_donnees").click(function(){
     $("#dropdownMenuButton").hide(); 
 });
 
+$("#btn_questionnaires").click(function(){
+
+
+    $("#btns_questionnaires").show("fast");
+    $("#form_com_semaine_apprenant").hide(); 
+    $("#programme_form_pdf").hide(); 
+    
+});
+
 $("#btn_apprenant_quest_formateur").click(function(){
 
     $("#form_satisfaction_formation").hide();
     $("#form_com_semaine_apprenant").hide(); 
     $("#programme_form_pdf").hide(); 
     $("#form_satisfaction_formateur").show("fast");
+
     
 });
 
@@ -118,6 +130,7 @@ $("#btn_apprenant_com_fin_sem").click(function(){
     $("#form_satisfaction_formation").hide();
     $("#programme_form_pdf").hide(); 
     $('#form_com_semaine_apprenant').show("fast");
+    $("#btns_questionnaires").hide();
     
 });
 
@@ -127,6 +140,7 @@ $("#btn_apprenant_programme").click(function(){
     $("#form_satisfaction_formation").hide();
     $("#form_com_semaine_apprenant").hide();
     $('#programme_form_pdf').show("fast");
+    $("#btns_questionnaires").hide();
      
 });
 

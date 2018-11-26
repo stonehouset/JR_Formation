@@ -16,78 +16,66 @@
                 {!! \Session::get('success') !!}  
             </div>
         @endif        
-        <div class="card-text" id="gestion_utilisateurs">
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-lg-6" id="tableau_gestion_admin_infos_formateurs"> 
-                        <div class="card" id="tab_gestion_admin_inf">
-                            <div class="card-header" id="header_tableau_apprenants">
-                                <h5 class="mb-0">
-                                    LISTE DES FORMATEURS
-                                </h5>
-                            </div>
-                            <div id="tab_formateur_admin">
-                                <table class="table table-striped table-dark" >
-                                    <thead>
-                                        <tr> 
-                                            <th scope="col">Prénom + Nom</th>                                     
-                                            <th scope="col">Email</th>
-                                            <th scope="col">Téléphone</th>           
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach($formateurs as $formateur)
-                                        <tr>
-                                            <td>{{$formateur->prenom}} {{$formateur->nom}}</td>
-                                            <td>{{$formateur->email}}</td>
-                                            <td>{{$formateur->numero_telephone}}</td>                                        
-                                        </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
+        <div class="card-text" id="gestion_utilisateurs">  
+            <div class="row">
+                <div class="col-lg-6" id="tableau_gestion_admin_infos_apprenants">
+                    <div class="card-header" id="header_tableau_apprenants">
+                        LISTE DES APPRENANTS                       
+                    </div>
+                    <div id="tab_admin_apprenants">   
+                        <table class="table table-striped table-dark" >
+                            <thead>
+                                <tr> 
+                                    <th scope="col">Prénom + Nom</th>                                     
+                                    <th scope="col">Email</th>
+                                    <th scope="col">Téléphone</th>                    
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($apprenants as $apprenant)
+                                <tr>
+                                    <td>{{$apprenant->prenom}} {{$apprenant->nom}}</td>
+                                    <td>{{$apprenant->email}}</td>
+                                    <td>{{$apprenant->numero_telephone}}</td>                                        
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table> 
+                    </div>
+                    <div id="div_lien_tab_apprenants">
+                        <a  href="{{route('apprenants_admin_csv')}}" id="lien_tab_apprenants">Extraire tableau apprenants format Excel</a>
+                    </div>
+                </div>
+                <div class="col-lg-6" id="tableau_gestion_admin_infos_formateurs">                   
+                    <div class="card-header" id="header_tableau_apprenants">                      
+                        LISTE DES FORMATEURS                       
+                    </div>
+                    <div id="tab_formateur_admin">
+                        <table class="table table-striped table-dark" >
+                            <thead>
+                                <tr> 
+                                    <th scope="col">Prénom + Nom</th>                                     
+                                    <th scope="col">Email</th>
+                                    <th scope="col">Téléphone</th>           
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($formateurs as $formateur)
+                                <tr>
+                                    <td>{{$formateur->prenom}} {{$formateur->nom}}</td>
+                                    <td>{{$formateur->email}}</td>
+                                    <td>{{$formateur->numero_telephone}}</td>                                        
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                    <div id="div_lien_tab_formateurs">
+                        <a  href="{{route('apprenants_formateur_csv')}}" id="lien_tab_formateurs">Extraire tableau formateurs format Excel</a> 
                     </div> 
-                    <div class="col-lg-6" id="tableau_gestion_admin_infos_apprenants">
-                        <div class="card" id="card_liste_apprenants_admin">
-                            <div class="card-header" id="header_tableau_apprenants">
-                                <h5 class="mb-0">
-                                    LISTE DES APPRENANTS
-                                </h5>
-                            </div>
-                            <div id="tab_admin_apprenants">   
-                                <table class="table table-striped table-dark" >
-                                    <thead>
-                                        <tr> 
-                                            <th scope="col">Prénom + Nom</th>                                     
-                                            <th scope="col">Email</th>
-                                            <th scope="col">Téléphone</th>                    
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach($apprenants as $apprenant)
-                                        <tr>
-                                            <td>{{$apprenant->prenom}} {{$apprenant->nom}}</td>
-                                            <td>{{$apprenant->email}}</td>
-                                            <td>{{$apprenant->numero_telephone}}</td>                                        
-                                        </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table> 
-                            </div>
-                        </div>
-                    </div> 
-                </div>
-            </div>
-            <div class="row"> 
-                <div class="col-lg-6" id="btn_telecharger_tab_formateur_admin">    
-                    <a  href="{{route('apprenants_formateur_csv')}}" id="lien_tab_formateurs">Extraire tableau formateurs format Excel</a>  
-                </div>
-                <div class="col-lg-6" id="btn_telecharger_tab_apprenant_admin">   
-                    <a  href="{{route('apprenants_admin_csv')}}" id="lien_tab_apprenants">Extraire tableau apprenants format Excel</a>  
-                </div>
-            </div>
-            <div id="accordion">
+                </div>  
+            </div>           
+            <div id="accordion" class="accordion_users">
                 <div class="card" id="card_ajout_user">
                     <div class="card-header" id="headingOne">
                         <h5 class="mb-0">
@@ -244,9 +232,9 @@
                         <div class="card-body">
                             <div class="card" style="margin-top: 1%;background-color:#2D3F58;border:hidden;border-bottom: 1px white solid;">
                                 <div class="card-header" id="header_tableau_apprenants" style="border-color: #E0002D;background-color: white;">
-                                    <h5 class="mb-0">
-                                        LISTE DES FORMATIONS 
-                                    </h5>
+                                   
+                                    LISTE DES FORMATIONS 
+                                    
                                 </div>
                                 <div id="tab_admin_formations">
                                     <table class="table table-striped table-dark">
@@ -274,7 +262,7 @@
                                 </div>
                             </div>
                         </div>                                  
-                        <div id="accordion">
+                        <div id="accordion" class="accordion_formateur">
                             <div class="card" style="border-color: white; color: #2D3F58;">
                                 <div class="card-header" id="headingFive" style="border-color: #E0002D; color: #2D3F58;">
                                     <h5 class="mb-0">
@@ -315,11 +303,7 @@
                                                             <span class="input-group-text" id="basic-addon1">Date fin formation</span>
                                                         </div>
                                                         <input type="date" class="form-control" placeholder="01/01/2018" aria-label="date_fin_formation" aria-describedby="basic-addon2" name="fin_formation">
-                                                    </div> 
-                                                    <div class="custom-file">                                         
-                                                        <input type="file" name="programme_formation" class="custom-file-input" id="programme_formation" required>
-                                                        <label class="custom-file-label" for="file">Importer le programme de formation</label>
-                                                    </div>                                               
+                                                    </div>                                                
                                                 </div>
                                                 <div class="col-lg-6">
                                                     <div class="input-group mb-3">
@@ -348,10 +332,14 @@
                                                             @endforeach    
                                                         </select>
                                                     </div>
-                                                    <div class="input-group mb-3">
-                                                        <button type="submit" class="btn btn-outline-primary" id="btn_ajout_confirm_apprenant">Ajouter</button>   
-                                                    </div>                                                 
+                                                    <div class="custom-file">                                         
+                                                        <input type="file" name="programme_formation" class="custom-file-input" id="programme_formation" required>
+                                                        <label class="custom-file-label" for="file">Importer le programme de formation</label>
+                                                    </div>                                                
                                                 </div>
+                                                <div class="offset-lg-3 col-lg-6">
+                                                    <button type="submit" class="btn btn-outline-primary" id="btn_ajout_confirm_formation">AJOUTER</button> 
+                                                </div>  
                                             </div>                             
                                         </div>
                                     </form>

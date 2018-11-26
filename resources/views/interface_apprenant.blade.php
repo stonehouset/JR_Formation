@@ -2,10 +2,9 @@
 
 @section('content') 
 <div class="panel-body" id="body_interface_apprenant">
-    <button type="button" id="btn_apprenant_programme" class="btn btn-outline-primary">Programme de formation</button>
-    <button type="button" id="btn_apprenant_quest_formation" class="btn btn-outline-primary">Questionnaire formation</button>
-    <button type="button" id="btn_apprenant_quest_formateur" class="btn btn-outline-primary">Questionnaire formateur</button>
-    <button type="button" id="btn_apprenant_com_fin_sem" class="btn btn-outline-primary">Commentaires fin de semaine</button>
+    <button type="button" id="btn_apprenant_programme" class="btn btn-outline-primary">PROGRAMME</button>
+    <button type="button" id="btn_questionnaires" class="btn btn-outline-primary">QUESTIONNAIRES</button>
+    <button type="button" id="btn_apprenant_com_fin_sem" class="btn btn-outline-primary">COMMENTAIRES</button>
     @if (\Session::has('error'))
         <div class="alert alert-error" id="div_show_error">          
         {!! \Session::get('error') !!}         
@@ -16,6 +15,12 @@
         {!! \Session::get('success') !!}    
     </div>
     @endif
+    <div class="row" id="btns_questionnaires">
+        <div class="offset-lg-3 col-lg-6">
+            <button type="button" id="btn_apprenant_quest_formation" class="btn btn-outline-primary">EVALUATION FORMATION</button>
+            <button type="button" id="btn_apprenant_quest_formateur" class="btn btn-outline-primary">EVALUATION FORMATEUR</button>
+        </div>
+    </div>
     <div id="form_satisfaction_formateur">
         @if ($dateNow >= $datePlus4Jours)        
             <h3 style="color: white;">Evaluation du formateur</h3>
@@ -376,18 +381,18 @@
             <form class="form-horizontal" method="POST" action="{{ route('comFormSem1') }}">
                 {{ csrf_field() }} 
                 <div class="form-group">
-                    <button type="" disabled="true" id="btn_disabled_validation_com2_formation" class="btn btn-outline-primary" style="width: 100%;color: white">COMMENTAIRE PREMIERE SEMAINE</button>
-                    <textarea class="form-control" id="exampleTextarea" name="com_apprenant_sem1" rows="6" style="margin-top: 2%;" placeholder="Ecrivez votre ressenti sur votre première semaine de formation"></textarea>
+                    <div id="btn_disabled_validation_com2_formation">COMMENTAIRE PREMIERE SEMAINE</div>
+                    <textarea class="form-control" id="input_text_com_1" name="com_apprenant_sem1" rows="6" style="margin-top: 2%;" placeholder="Ecrivez votre ressenti sur votre première semaine de formation (1000 caractères maximum)."></textarea>
                 </div>  
-                <button type="submit" id="btn_validation_form_formation" class="btn btn-outline-primary">Envoyer le commentaire</button>
+                <button type="submit" id="btn_validation_form_formation" class="btn btn-outline-primary">VALIDER</button>
             </form>
             <form class="form-horizontal" method="POST" action="{{ route('comFormSem2') }}">
                 {{ csrf_field() }} 
                 <div class="form-group">
-                    <button type="" disabled="true" id="btn_disabled_validation_com2_formation" class="btn btn-outline-primary" style="width: 100%;color: white">COMMENTAIRE DEUXIEME SEMAINE</button>
-                    <textarea class="form-control" id="exampleTextarea" rows="6" name="com_apprenant_sem2" style="margin-top: 2%;" placeholder="Ecrivez votre ressenti sur votre deuxième semaine de formation"></textarea>
+                    <div id="btn_disabled_validation_com2_formation">COMMENTAIRE DEUXIEME SEMAINE</div>
+                    <textarea class="form-control" id="input_text_com_2" rows="6" name="com_apprenant_sem2" style="margin-top: 2%;" placeholder="Ecrivez votre ressenti sur votre deuxième semaine de formation (1000 caractères maximum)."></textarea>
                 </div>  
-                <button type="submit" id="btn_validation_form_formation" class="btn btn-outline-primary" >Envoyer le commentaire</button>
+                <button type="submit" id="btn_validation_form_formation" class="btn btn-outline-primary" >VALIDER</button>
             </form>  
         </div>
     </div>
@@ -396,7 +401,7 @@
             <form class="form-horizontal" method="GET" action="{{ route('downloadPdf') }}">
             {{ csrf_field() }}
                 <br>
-                <button class="btn btn-outline-primary" id="btn_download_programme" type="submit" style="margin-top: 2%;">Télécharger le programme de votre formation</button>
+                <button class="btn btn-outline-primary" id="btn_download_programme" type="submit" style="margin-top: 2%;">Télécharger votre programme de formation</button>
             </form>
         </div>
     </div>

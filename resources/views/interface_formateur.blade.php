@@ -11,48 +11,51 @@
     <div class="alert alert-success" id="div_show_success">       
         {!! \Session::get('success') !!}    
     </div>
-    @endif       
-    <h4 class="mb-0" id="titre_interface_formateur">
-        GESTION DES APPRENANTS
-    </h4>       
+    @endif 
+    <div class="row"> 
+        <div class="offset-lg-4 col-lg-4">     
+            <h4 id="titre_interface_formateur">
+                GESTION DES APPRENANTS
+            </h4>    
+        </div>
+    </div>   
     <div class="row" id="row_principale_interface_formateur">       
-        <div class="col-lg-7"> 
-            <div class="card" id="card_principale_interface_formateur">   
-                <div class="card-header" id="header_tableau_apprenants_formateur">
-                    <h5 class="mb-0" id="titre_header_tab_apprenants_formateur">
-                        LISTE DE VOS APPRENANTS 
-                    </h5>
-                </div>
-                <div id="tab_infos_interface_formateur">
-                    <table class="table table-hover table-dark">
-                        <thead class="">
-                            <tr>
-                                <th scope="col">Prénom</th>
-                                <th scope="col">Nom</th>
-                                <th scope="col">Formation</th>
-                                <th scope="col">eMail</th> 
-                                <th scope="col">Téléphone</th>                                            
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach($formations as $formation)
-                                @foreach($formation->apprenants as $apprenant)
-                                    @foreach($apprenant->users as $user)
-                                    <tr>                         
-                                        <td>{{$user->prenom}}</td>
-                                        <td>{{$user->nom}}</td>
-                                        <td>{{$apprenant->groupe_formation}}</td>
-                                        <td>{{$user->email}}</td>
-                                        <td>{{$user->numero_telephone}}</td>                                    
-                                    </tr>
-                                    @endforeach
+        <div class="col-lg-7">  
+            <div class="card-header" id="header_tableau_apprenants_formateur">    
+                LISTE DE VOS APPRENANTS       
+            </div>
+            <div id="tab_infos_interface_formateur">
+                <table id="taille_tab_formateur" class="table table-striped table">
+                    <thead id="head_tab_apprenant_formateur">
+                        <tr>
+                            <th scope="col">Prénom</th>
+                            <th scope="col">Nom</th>
+                            <th scope="col">Formation</th>
+                            <th scope="col">eMail</th> 
+                            <th scope="col">Téléphone</th>                                            
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($formations as $formation)
+                            @foreach($formation->apprenants as $apprenant)
+                                @foreach($apprenant->users as $user)
+                                <tr>                         
+                                    <td>{{$user->prenom}}</td>
+                                    <td>{{$user->nom}}</td>
+                                    <td>{{$apprenant->groupe_formation}}</td>
+                                    <td>{{$user->email}}</td>
+                                    <td>{{$user->numero_telephone}}</td>                                    
+                                </tr>
                                 @endforeach
                             @endforeach
-                        </tbody>
-                    </table>  
-                </div>
-                <a href="{{route('formateur_apprenants_csv')}}" id="lien_tab_to_csv_formateur">Extraire tableau apprenants format Excel</a>                
-            </div>                                    
+                        @endforeach
+                    </tbody>
+                </table>  
+                               
+            </div>
+            <div id="lien_tab_to_csv_formateur"> 
+                <a href="{{route('formateur_apprenants_csv')}}" id="lien_csv_formateur">Extraire tableau apprenants format Excel</a> 
+            </div>                                              
         </div>
         <div class="col-lg-5" id="com_formateur_to_apprenant">            
             <div class="card" id="card_actions_formateur">         

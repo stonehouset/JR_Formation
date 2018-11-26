@@ -21,6 +21,66 @@ body{
          url('/fonts/Gotham-Light.svg#gothamlight') format('svg');*/
 }
 
+#titre_page_connexion {
+
+
+	margin: auto;
+	color: white;
+	width: 50%;
+	text-shadow: 2px 2px 4px black;
+	padding-bottom: 1%;
+	padding-top: 1%;
+	font-size: 30px;
+	text-align: center;
+	margin-top: 2%;
+
+}
+
+#titre_page_commentaire{
+
+	margin: auto;
+	margin-top: 1%;
+	width: 60%;
+	color: white;
+	font-size: 30px;
+	text-align: center;
+	padding-bottom: 1%;
+	text-shadow: 2px 2px 4px black;
+}
+
+#titre_interface_formateur{
+
+	color: white;
+	text-shadow: 2px 2px 4px black;
+	margin-top: 2%;
+	font-size: 30px;
+	
+}
+
+#titre_profil{
+
+	margin: auto;
+	color: white;
+	width: 50%;
+	font-size: 30px;
+	text-shadow: 2px 2px 4px black;
+	padding-bottom: 1%;
+	padding-top: 1%;
+	text-align: center;
+	margin-top: 1%;
+	
+}
+
+#titre_questionnaire_formateur{
+
+	margin-top: 2%;
+	color: white;
+	font-size: 30px;
+	text-align: center;
+	text-shadow: 2px 2px 4px black;
+	
+}
+
 .card{
 
 	border-radius:2px;
@@ -248,10 +308,19 @@ body{
 	min-width: 30%;
 	background-color: #2D3F58;
 	box-shadow: 1px 1px 5px black;
-	text-shadow: 2px 2px 4px black;
 	border: 1px solid #E0002D;	
 	color: white;
 	border-radius: 2px;
+}
+
+.accordion_formateur{
+
+	margin-top: 1%;
+}
+
+.accordion_users{
+
+	margin-top: 10%;
 }
 
 #btn_gestion_utilisateur:hover{
@@ -259,6 +328,27 @@ body{
 	background-color: white;
 	border: hidden;
 	color: #2D3F58;
+}
+
+#btn_ajout_confirm_formation{
+
+	margin-top: 0.5%;
+	width: 100%;
+	color: white;
+	border: 1px white solid;
+	
+
+}
+
+#btn_ajout_confirm_formation:hover{
+
+	background-color: green;
+
+}
+
+#collapseFive{
+
+	box-shadow: 1px 1px 5px black;
 }
 
 #btn_donnees:hover{
@@ -275,12 +365,36 @@ body{
 	color: #2D3F58;
 }
 
+#btn_apprenant_programme,#btn_apprenant_quest_formation,#btn_apprenant_quest_formateur,#btn_apprenant_com_fin_sem,#btn_questionnaires{
+
+	
+	background-color: #2D3F58;
+	box-shadow: 1px 1px 5px black;
+	text-shadow: 2px 2px 4px black;
+	border: 1px solid #E0002D;	
+	color: white;
+	border-radius: 2px;
+
+}
+
+
+
 #btn_apprenant_programme:hover{
 
 	background-color: white;
 	color: #2D3F58;
 	border: #E0002D;
 	border-radius: 2px;
+	text-shadow: none;
+}
+
+#btn_questionnaires:hover{
+
+	background-color: white;
+	color: #2D3F58;
+	border: #E0002D;
+	border-radius: 2px;
+	text-shadow: none;
 }
 
 #btn_apprenant_quest_formation:hover{
@@ -289,6 +403,7 @@ body{
 	color: #2D3F58;
 	border: #E0002D;
 	border-radius: 2px;
+	text-shadow: none;
 }
 
 #btn_apprenant_quest_formateur:hover{
@@ -297,6 +412,7 @@ body{
 	color: #2D3F58;
 	border: #E0002D;
 	border-radius: 2px;
+	text-shadow: none;
 }
 
 #btn_apprenant_com_fin_sem:hover{
@@ -305,11 +421,33 @@ body{
 	color: #2D3F58;
 	border: #E0002D;
 	border-radius: 2px;
+	text-shadow: none;
+}
+
+#btn_disabled_validation_com2_formation{
+
+	width: 100%;
+	color: white;
+	border: 1px white solid;
+	border-radius: 2px;
+	box-shadow: 1px 1px 5px black;
+	text-align: center;
+	height: 45px;
+	padding-top: 1%;
+	margin-top: 2%;
+}
+
+#input_text_com_1,#input_text_com_2{
+
+	box-shadow: 1px 1px 5px black;
 }
 
 #btn_download_programme{
 
 	color: white;
+	border-radius: 2px;
+	border: 1px white solid;
+	box-shadow: 2px 2px 4px black;
 }
 
 #btn_download_programme:hover{
@@ -375,11 +513,16 @@ body{
 	margin-right: auto;
 }
 
-#btn_apprenant_programme,#btn_apprenant_quest_formation,#btn_apprenant_quest_formateur,#btn_apprenant_com_fin_sem{
+#btn_apprenant_programme,#btn_apprenant_quest_formation,#btn_apprenant_quest_formateur,#btn_apprenant_com_fin_sem,#btn_questionnaires{
 
 	
 	width: 250px;
 	color: white;
+}
+
+#btns_questionnaires{
+
+	margin-top: 2%;
 }
 
 
@@ -430,7 +573,9 @@ body{
 
 	overflow-y:scroll;
 	position: static;
-	height: 215px;
+	height: 300px;
+	box-shadow: 1px 1px 5px black;
+	border: 1px white solid;
 
 }
 
@@ -441,19 +586,6 @@ body{
 	height: 215px;
 }
 
-
-#titre_profil{
-
-	margin: auto;
-	color: white;
-	width: 50%;
-	text-shadow: 2px 2px 4px black;
-	padding-bottom: 1%;
-	padding-top: 1%;
-	text-align: center;
-	margin-top: 2%;
-	
-}
 
 .nav-item{
 
@@ -592,19 +724,6 @@ input[type=radio] {
 
 /* CSS Page Connexion*/
 
-#titre_page_connexion {
-
-
-	margin: auto;
-	color: white;
-	width: 50%;
-	text-shadow: 2px 2px 4px black;
-	padding-bottom: 1%;
-	padding-top: 1%;
-	text-align: center;
-	margin-top: 2%;
-
-}
 
 #formulaire_page_connexion{
 
@@ -683,17 +802,6 @@ input[type=radio] {
 
 /*CSS Page Commentaires*/
 
-#titre_page_commentaire{
-
-	margin: auto;
-	margin-top: 1%;
-	width: 60%;
-	color: white;
-	font-size: 25px;
-	text-align: center;
-	padding-bottom: 1%;
-	text-shadow: 2px 2px 4px black;
-}
 
 #affichage_coms_apprenants{
 
@@ -796,14 +904,6 @@ input[type=radio] {
 
 /*CSS Page Questionnaire auto evaluation formateur*/
 
-#titre_questionnaire_formateur{
-
-	margin-top: 2%;
-	color: white;
-	border-bottom:2px #E0002D solid;
-	text-align: center;
-	padding-bottom: 2%;
-}
 
 #container_questionnaire_auto_evaluation{
 
@@ -864,6 +964,7 @@ input[type=radio] {
 	border: 1px white solid;
 	border-radius: 2%;
 	padding-bottom: 1%;
+	text-shadow: 2px 2px 4px black;
 	background-color: #2D3F58;
 	box-shadow: 1px 1px 5px black;
 	padding-top: 1%;
@@ -900,6 +1001,7 @@ input[type=radio] {
 	border: hidden;
 	height: 70px;
 	text-align: center;
+	box-shadow: none;
 	color: white;
 }
 
@@ -909,6 +1011,7 @@ input[type=radio] {
 	border: hidden;
 	text-align: center;
 	color: white;
+	box-shadow: none;
 }
 
 #label_quest_matos{
@@ -985,16 +1088,26 @@ input[type=radio] {
 
 	margin-top: 1%;
 	height: 50px;
-	padding-bottom: 2%;
 	font-size: 20px;
-	/*font-weight: bold;*/
+	box-shadow: 1px 1px 5px black;
 	color: #2D3F58;
 	text-align: center;
 	background-color: white;
 
 }
 
-#head_tab_apprenant_client{
+#header_tableau_apprenants_formateur{
+
+	height: 50px;
+	
+	font-size: 20px;
+	/*font-weight: bold;*/
+	color: #2D3F58;
+	text-align: center;
+	background-color: white;
+}
+
+#head_tab_apprenant_client,#head_tab_apprenant_formateur{
 
 	background-color: #2D3F58;
 	color: white;
@@ -1111,16 +1224,6 @@ input[type=radio] {
 
 /*CSS Page interface_formateur*/
 
-#titre_interface_formateur{
-
-	color: white;
-	width: 80%;
-	border-bottom:2px #E0002D solid;
-	padding-bottom: 2%;
-	margin: auto;
-	margin-top: 2%;
-	
-}
 
 #row_principale_interface_formateur{
 
@@ -1130,18 +1233,11 @@ input[type=radio] {
 #card_principale_interface_formateur{
 
 	border-color: white;
-	background-color: #2D3F58;
+	background-color: white;
 	box-shadow: 1px 1px 5px black;
 }
 
 
-#header_tableau_apprenants_formateur{
-
-	background-color: #2D3F58;
-	color: white;
-	margin-top: 0%;
-	border-color: #E0002D;
-}
 
 #titre_header_tab_apprenants_formateur{
 
@@ -1150,18 +1246,33 @@ input[type=radio] {
 
 #tab_infos_interface_formateur{
 
-	height: 420px;
+	height: 400px;
 	width: 100%;
     overflow-y:scroll;
     margin-bottom: 2%;
     position: static;
+    border: 1px white solid;
+    box-shadow: 1px 1px 5px black;
+    background-color: white;
 
+}
+
+#taille_tab_formateur{
+
+	/*height: 100px;*/
 }
 
 #lien_tab_to_csv_formateur{
 
-	color: white;
+	color: #2D3F58;
+    bottom:0;
+    box-shadow: 1px 1px 5px black;
+    background-color: white;
+    border-radius: 2px;
+    height: 50px;
+    padding-top: 1%;
 }
+
 
 #card_actions_formateur{
 
@@ -1285,6 +1396,7 @@ input[type=radio] {
 #gestion_utilisateurs{
 
 	border: hidden;
+	margin-top: 2%;
 }
 
 #card_ajout_user{
@@ -1317,13 +1429,21 @@ input[type=radio] {
 
 #lien_tab_formateurs,#lien_tab_apprenants{
 
-	color: white;
+	color: #2D3F58;
 }
 
-#accordion{
+#div_lien_tab_apprenants,#div_lien_tab_formateurs{
 
-	margin-top: 2%;
+	height: 40px;
+	background-color: white;
+	border-radius: 2px;
+	box-shadow: 1px 1px 5px black;
+	margin-top: 0.5%;
+	padding-top: 1%;
+
 }
+
+
 
 #label_form_user_admin{
 
