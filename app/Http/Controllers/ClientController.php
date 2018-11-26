@@ -7,8 +7,12 @@ use JR_Formation\Formation;
 use JR_Formation\Apprenant;
 use Illuminate\Http\Request;
 use JR_Formation\User;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Mail;
+use JR_Formation\Mail\ImpactFormation;
 use Maatwebsite\Excel\Facades\Excel;
 use PDF;
+use File;
 use DB;
 use Carbon\Carbon;
 
@@ -249,9 +253,147 @@ class ClientController extends Controller
 
         
     }
+
+    public function impactFormation(Request $request){ //Fonction d'envoi du formulaire impact formation sur entreprise.
+
+   
+        $data;
+
+        $labelEntreprise = 'Entreprise';
+        $labelFormation = 'Formation Suivie';
+        $labelHierarchie = 'Hierarchie';
+
+        $entreprise = $request->nom_entreprise;
+        $hierarchieClient = $request->hierarchie_entreprise_id;
+        $fonctionClient = $request->hierarchie_entreprise_fonction;
+        $intituleFormation = $request->formation_suivie_entreprise_intitule;
+        $dureeFormation = $request->formation_suivie_entreprise_duree;
+
+        $objectif1 = $request->objectif1;
+        $resultObjectif1 = $request->radio1;
+
+        $objectif2 = $request->objectif2;
+        $resultObjectif2 = $request->radio2;
+
+        $objectif3 = $request->objectif3;
+        $resultObjectif3 = $request->radio3;
+
+        $objectif4 = $request->objectif4;
+        $resultObjectif4 = $request->radio4;
+
+
+        $indicQuali1 = $request->indic1;
+        $constatIndic1 = $request->constat1;
+        $resultIndic1 = $request->result1;
+        $constatFinalIndic1 = $request->constat_final1;
+
+
+        $indicQuali2 = $request->indic2;
+        $constatIndic2 = $request->constat2;
+        $resultIndic2 = $request->result2;
+        $constatFinalIndic2 = $request->constat_final2;
+
+
+        $indicQuali3 = $request->indic3;
+        $constatIndic3 = $request->constat3;
+        $resultIndic3 = $request->result3;
+        $constatFinalIndic3 = $request->constat_final3;
+
+
+        $indicQuali4 = $request->indic4;
+        $constatIndic4 = $request->constat4;
+        $resultIndic4 = $request->result4;
+        $constatFinalIndic4 = $request->constat_final4;
+
+
+        $indicQuali5 = $request->indic5;       
+        $constatIndic5 = $request->constat5;
+        $resultIndic5 = $request->result5;
+        $constatFinalIndic5 = $request->constat_final5;
+
+        $intituleIndicQuanti1 = 'Organisation du travail et cohésion d’équipe';
+        $resultIndicQuanti1 = $request->evol1;
+
+        $intituleIndicQuanti2 = 'Sécurité au travail (respect de règles, accidents du travail…)';
+        $resultIndicQuanti2 = $request->evol2;
+
+        $intituleIndicQuanti3 = 'Utilisation des supports écrits professionnels';
+        $resultIndicQuanti3 = $request->evol2;
+
+        $intituleIndicQuanti4 = 'Respect des normes qualité et environnemental';
+        $resultIndicQuanti4 = $request->evol4;
+
+        $intituleIndicQuanti5 = 'Qualité de la relation client / usager';
+        $resultIndicQuanti5 = $request->evol5;
+
+        $intituleIndicQuanti6 = 'Fidélisation et/ou maintien dans l’emploi';
+        $resultIndicQuanti6 = $request->evol6;
+
+        // return array($objectif1, $resultObjectif1, $objectif2, $resultObjectif2, $objectif3, $resultObjectif3, $objectif4, $resultObjectif4, $indicQuali1, $constatIndic1, $resultIndic1, $constatFinalIndic1, $indicQuali2, $constatIndic2, $resultIndic2, $constatFinalIndic2, $indicQuali3, $constatIndic3, $resultIndic3, $constatFinalIndic3, $indicQuali4, $constatIndic4, $resultIndic4, $constatFinalIndic4, $indicQuali5, $constatIndic5, $resultIndic5, $constatFinalIndic5, $intituleIndicQuanti1, $resultIndicQuanti1, $intituleIndicQuanti2, $resultIndicQuanti2, $intituleIndicQuanti3, $resultIndicQuanti3, $intituleIndicQuanti4, $resultIndicQuanti4, $intituleIndicQuanti5, $resultIndicQuanti5, $intituleIndicQuanti6, $resultIndicQuanti6,);
+
+
+        if ($entreprise == null || $hierarchieClient == null || $fonctionClient == null || $intituleFormation == null || $dureeFormation == null) {
+        
+            return redirect()->back()->with('error', 'Merci de compléter la section "identification"!');
+        }
+
+        if ($objectif1 == null || $resultObjectif1 == null || $objectif2 == null || $resultObjectif2 == null || $indicQuali1 == null || $constatIndic1 == null || $resultIndic1 == null || $constatFinalIndic1 == null || $intituleIndicQuanti1 == null || $resultIndicQuanti1 == null || $intituleIndicQuanti2 == null || $resultIndicQuanti2 == null || $intituleIndicQuanti3 == null || $resultIndicQuanti3 == null || $intituleIndicQuanti4 == null || $resultIndicQuanti4 == null || $intituleIndicQuanti5 == null || $resultIndicQuanti5 == null || $intituleIndicQuanti6 == null || $resultIndicQuanti6 == null) {
+            
+            return redirect()->back()->with('error', 'Merci de compléter au moins 2 objectifs de progrès fixe et 1 indicateur quantitatif!');
+
+        }
+        else{
+
+            $arrayQuestions = array($labelEntreprise, $labelHierarchie, $labelFormation, $objectif1, $objectif2, $objectif3, $objectif4, $indicQuali1, $indicQuali2, $indicQuali3, $indicQuali4, $indicQuali5, $intituleIndicQuanti1, $intituleIndicQuanti2, $intituleIndicQuanti3, $intituleIndicQuanti4, $intituleIndicQuanti5, $intituleIndicQuanti6);
+
+           
+            $arrayReponses = array($entreprise, $hierarchieClient, $fonctionClient, $intituleFormation, $dureeFormation, $resultObjectif1, $resultObjectif2, $resultObjectif3, $resultObjectif4, $constatIndic1, $resultIndic1, $constatFinalIndic1, $constatIndic2, $resultIndic2, $constatFinalIndic2, $constatIndic3, $resultIndic3, $constatFinalIndic3, $constatIndic4, $resultIndic4, $constatFinalIndic4, $constatIndic5, $resultIndic5, $constatFinalIndic5, $resultIndicQuanti1, $resultIndicQuanti2, $resultIndicQuanti3, $resultIndicQuanti4, $resultIndicQuanti5, $resultIndicQuanti6);
+
+            $j = 0;
+
+            for ($i = 0; $i < count($arrayQuestions); $i++) { 
+               
+                $data[$i]['Questions/intitulé'] = $arrayQuestions[$i];
+                $data[$i]['Réponses'] = $arrayReponses[$j];
+
+                $j++;
+
+                if ($i == 1 || $i == 2 || $i == 7 || $i == 8 || $i == 9 || $i == 10 || $i == 11) {
+      
+                    $data[$i]['Compléments réponses 1'] = $arrayReponses[$j++];
+
+                    if ($i == 7 || $i == 8 || $i == 9 || $i == 10 || $i == 11) {
+
+                        $data[$i]['Compléments réponses 2'] = $arrayReponses[$j++];
+                    }
+                }
+                         
+            }
+
+            $file = Excel::create('impact_formation', function ($excel) use ($data) {
+      
+                $excel->sheet('sheet1', function ($sheet) use ($data) {
+
+                    $sheet->fromArray($data);
+
+                });
+
+            })->save('xlsx', storage_path('app/public'));
+
+            $array_file = [];
+            array_push($array_file, $file);
+
+            Mail::to('houselstein.thibaud@gmail.com')->send(new ImpactFormation($array_file));
+
+            File::delete('storage/impact_formation.xlsx');
+
+            return redirect()->back()->with('success', 'Formulaire envoyé, merci!');
+        }
+
+    }
     /**
      * Show the form for creating a new resource.
-     *
+     *''
      * @return \Illuminate\Http\Response
      */
     public function create(array $data)

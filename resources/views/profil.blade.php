@@ -53,6 +53,7 @@
         <div class="offset-lg-4 col-lg-4">
             <div id="div_modif_password">
                 <h4 id="titre_modif_mdp">Modifier votre mot de passe</h4>
+                <h5 id="sous_titre_modif_mdp">(6 caractères minimum)</h5>
                 <form class="form-horizontal" method="POST" action="{{ route('change_user_password') }}">
                 {{ csrf_field() }}
                     <input type="password" class="form-control" name="motdepasse" placeholder="Nouveau mot de passe" id="input_profil_mdp">

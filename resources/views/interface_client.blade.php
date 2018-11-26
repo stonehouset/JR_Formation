@@ -19,13 +19,13 @@
                 GESTION DES APPRENANTS 
                 
             </h5>  
-            <div class="card" id="card_tab_apprenant_client">
+            <div id="card_tab_apprenant_client">
                 <div class="card-header" id="header_tableau_apprenants">                  
                     LISTE DE VOS APPRENANTS  
                 </div>
                 <div id="tab_infos_inteface_client">
-                    <table class="table table-striped table-dark">
-                        <thead>                                    
+                    <table class="table table-striped table">
+                        <thead id="head_tab_apprenant_client">                                    
                             <tr>
                                 <th scope="col">Prénom</th>
                                 <th scope="col">Nom</th>
@@ -51,7 +51,7 @@
                         </tbody>
                     </table>
                 </div>
-                <a  href="{{route('apprenants_csv')}}">Extraire toutes les données des stagiaires en fichier Excel</a>
+                <a  href="{{route('apprenants_csv')}}" id="lien_download_tab_client">Extraire les données des apprenants en fichier Excel</a>
             </div>
             <button type="button" class="btn btn-outline-primary" id="btn_form_client" onclick="functionShowHideFormClient();">SUIVI DES PLACEMENTS EN ENTREPRISE</button> 
             <form class="form-horizontal" method="POST" action="{{route('suivi_apprenant')}}">
@@ -118,87 +118,88 @@
                 </div>
             </form>
             <button type="button" class="btn btn-outline-primary" id="btn_impact_form_client" onclick="functionShowHideFormImpact();">IMPACT DE L'ACTION DE FORMATION</button> 
-            <div class="form-group" id="form_impact_client">
-                <h5 id="titre_form_impact_formation1">EVALUATION DES IMPACTS « A FROID » PAR L’ENTREPRISE</h5>
+            <div class="form-group" id="form_impact_client"> 
+                <h5 id="titre_form_impact_formation">EVALUATION DES IMPACTS « A FROID » PAR L’ENTREPRISE</h5>
                 <p><h5>Il y a environs 3 mois de cela, un ou plusieurs de vos salariés ont suivi une formation dispensée par notre organisme de formation.<br> 
                 Aujourd’hui nous souhaiterions connaître l’impact que celle-ci a eu sur la ou les personnes formées ainsi que pour votre entreprise.</h5><br>                
                 Un de nos conseillers pédagogiques se chargera de prendre contact avec vous afin de faire le point ensemble de votre évaluation. Au préalable, merci de bien vouloir consacrer quelques instants à remplir ce questionnaire en prévision de cet entretien. </p>
                 <div class="row">
                     <div class="offset-lg-2 col-lg-8" id="contenu_form_impact">
-                        <form class="form-horizontal" method="POST" action="">
+                        <form class="form-horizontal" method="POST" action="{{route('impact_formation')}}">
                             {{csrf_field()}}
+                            <h5 id="titre_form_impact_formation">INDENTIFICATION</h5>
                             <div class="form-group row">
-                                <label for="input_nom_entreprise" class="col-sm-4 col-form-label">¤ ENTREPRISE</label>
-                                <div class="col-sm-8">
-                                    <input type="textarea" name="nom_entreprise" class="form-control" id="input_nom_entreprise" placeholder="identification :">
+                                <label for="input_nom_entreprise" class="offset-sm-2 col-sm-4 col-form-label">¤ ENTREPRISE</label>
+                                <div class="col-sm-4">
+                                    <input type="textarea" name="nom_entreprise" class="form-control" id="input_nom_entreprise" placeholder="Identification :">
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="input_hierarchie_entreprise_id" class="col-sm-4 col-form-label">¤ HIERARCHIE</label>
-                                <div class="col-sm-8">
-                                    <input type="textarea" name="hierarchie_entreprise_id" class="form-control" id="input_hierarchie_entreprise_id" placeholder="identification :">
-                                    <input type="textarea" name="hierarchie_entreprise_fonction" class="form-control" id="input_hierarchie_entreprise_fonction" placeholder="fonction :">
+                                <label for="input_hierarchie_entreprise_id" class="offset-sm-2 col-sm-4 col-form-label">¤ HIERARCHIE</label>
+                                <div class="col-sm-4">
+                                    <input type="textarea" name="hierarchie_entreprise_id" class="form-control" id="input_hierarchie_entreprise_id" placeholder="Nom/prénom :">
+                                    <input type="textarea" name="hierarchie_entreprise_fonction" class="form-control" id="input_hierarchie_entreprise_fonction" placeholder="Fonction :">
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="input_formation_suivie" class="col-sm-4 col-form-label">¤ FORMATION SUIVIE</label>
-                                <div class="col-sm-8">
-                                    <input type="textarea" name="formation_suivie_entreprise_intitule" class="form-control" id="input_formation_suivie" placeholder="intitulé :">
-                                    <input type="textarea" name="formation_suivie_entreprise_duree" class="form-control" id="input_formation_suivie_duree" placeholder="durée :">
+                                <label for="input_formation_suivie" class="offset-sm-2 col-sm-4 col-form-label">¤ FORMATION SUIVIE</label>
+                                <div class="col-sm-4">
+                                    <input type="textarea" name="formation_suivie_entreprise_intitule" class="form-control" id="input_formation_suivie" placeholder="Intitulé :">
+                                    <input type="textarea" name="formation_suivie_entreprise_duree" class="form-control" id="input_formation_suivie_duree" placeholder="Durée :">
                                 </div>
                             </div>
                             <h5 id="titre_form_impact_formation">EVALUATION DES OBJECTIFS DE PROGRES FIXES LORS DU DIAGNOSTIC INITIAL</h5>
                             <div id="deuxieme_partie_form">                
                                 <div class="form-group row">
                                     <div class="col-sm-6">
-                                        <input type="textarea" name="objectif1" class="form-control" id="input_formation_suivie_duree" placeholder="OBJECTIF 1">
+                                        <input type="textarea" name="objectif1" class="form-control" id="input_formation_suivie_duree" placeholder="Objectif 1">
                                     </div> 
                                     <div class="col-sm-3" id="btn_radio">
-                                        <label for="input_nom_entreprise" class="col-form-label">ATTEINT</label>
+                                        <label for="input_nom_entreprise" class="col-form-label">Atteint</label>
                                         <input type="radio" name="radio1" value="atteint">
                                     </div>
                                     <div class="col-sm-3" id="btn_radio">
-                                        <label for="input_nom_entreprise" class="col-form-label">NON ATTEINT</label>
-                                        <input type="radio" name="radio1" value="non_atteint"> 
+                                        <label for="input_nom_entreprise" class="col-form-label">Non atteint</label>
+                                        <input type="radio" name="radio1" value="non atteint"> 
                                     </div>              
                                 </div>
                                 <div class="form-group row">
                                     <div class="col-sm-6">
-                                        <input type="textarea" name="objectif2" class="form-control" id="input_formation_suivie_duree" placeholder="OBJECTIF 2">
+                                        <input type="textarea" name="objectif2" class="form-control" id="input_formation_suivie_duree" placeholder="Objectif 2">
                                     </div>
                                     <div class="col-sm-3" id="btn_radio">
-                                    <label for="input_nom_entreprise" class="col-form-label">ATTEINT</label>
+                                    <label for="input_nom_entreprise" class="col-form-label">Atteint</label>
                                         <input type="radio" name="radio2" value="atteint">
                                     </div>
                                     <div class="col-sm-3" id="btn_radio">
-                                        <label for="input_nom_entreprise" class="col-form-label">NON ATTEINT</label>
-                                        <input type="radio" name="radio2" value="non_atteint"> 
+                                        <label for="input_nom_entreprise" class="col-form-label">Non atteint</label>
+                                        <input type="radio" name="radio2" value="non atteint"> 
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <div class="col-sm-6">
-                                        <input type="textarea" name="objectif3" class="form-control" id="input_formation_suivie_duree" placeholder="OBJECTIF 3">
+                                        <input type="textarea" name="objectif3" class="form-control" id="input_formation_suivie_duree" placeholder="Objectif 3">
                                     </div>
                                     <div class="col-sm-3" id="btn_radio">
-                                        <label for="input_nom_entreprise" class="col-form-label">ATTEINT</label>
+                                        <label for="input_nom_entreprise" class="col-form-label">Atteint</label>
                                         <input type="radio" name="radio3" value="atteint">
                                     </div>
                                     <div class="col-sm-3" id="btn_radio">
-                                        <label for="input_nom_entreprise" class="col-form-label">NON ATTEINT</label>
-                                        <input type="radio" name="radio3" value="non_atteint"> 
+                                        <label for="input_nom_entreprise" class="col-form-label">Non atteint</label>
+                                        <input type="radio" name="radio3" value="non atteint"> 
                                     </div>                               
                                 </div>
                                 <div class="form-group row">
                                     <div class="col-sm-6">
-                                        <input type="textarea" name="objectif4" class="form-control" id="input_formation_suivie_duree" placeholder="OBJECTIF 4">
+                                        <input type="textarea" name="objectif4" class="form-control" id="input_formation_suivie_duree" placeholder="Objectif 4">
                                     </div> 
                                     <div class="col-sm-3" id="btn_radio">
-                                        <label for="input_nom_entreprise" class="col-form-label">ATTEINT</label>
+                                        <label for="input_nom_entreprise" class="col-form-label">Atteint</label>
                                         <input type="radio" name="radio4" value="atteint">
                                     </div>
                                     <div class="col-sm-3" id="btn_radio">
-                                        <label for="input_nom_entreprise" class="col-form-label">NON ATTEINT</label>
-                                        <input type="radio" name="radio4" value="non_atteint"> 
+                                        <label for="input_nom_entreprise" class="col-form-label">Non atteint</label>
+                                        <input type="radio" name="radio4" value="non atteint"> 
                                     </div>                          
                                 </div>
                             </div>
@@ -207,21 +208,21 @@
                             <div id="troisieme_partie_form">
                                 <div class="form-group row">
                                     <div class="col-sm-5">
-                                        <input type="textarea" rows="3" name="indic1" class="form-control" id="input_formation_suivie_duree" placeholder="INDICATEUR 1...">
+                                        <input type="textarea" rows="3" name="indic1" class="form-control" id="input_formation_suivie_duree" placeholder="Indicateur 1...">
                                     </div>
                                     <div class="col-sm-2">
-                                        <input type="textarea" rows="3" name="constat1" class="form-control" id="input_formation_suivie_duree" placeholder="CONSTAT INITIAL...">
+                                        <input type="textarea" rows="3" name="constat1" class="form-control" id="input_formation_suivie_duree" placeholder="Constat initial...">
                                     </div>
                                     <div class="col-sm-3">
-                                        <input type="textarea" rows="3" name="result1" class="form-control" id="input_formation_suivie_duree" placeholder="RESULTATS ATTENDUS...">
+                                        <input type="textarea" rows="3" name="result1" class="form-control" id="input_formation_suivie_duree" placeholder="Resultat attendu...">
                                     </div>
                                     <div class="col-sm-2">
-                                        <input type="textarea" rows="3" name="constat_final1" class="form-control" id="input_formation_suivie_duree" placeholder="CONSTAT FINAL..">
+                                        <input type="textarea" rows="3" name="constat_final1" class="form-control" id="input_formation_suivie_duree" placeholder="Constat final...">
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <div class="col-sm-5">
-                                        <input type="textarea" rows="3" name="indic2" class="form-control" id="input_formation_suivie_duree" placeholder="INDICATEUR 2...">
+                                        <input type="textarea" rows="3" name="indic2" class="form-control" id="input_formation_suivie_duree" placeholder="Indicateur 2...">
                                     </div>
                                     <div class="col-sm-2">
                                         <input type="textarea" rows="3" name="constat2" class="form-control" id="input_formation_suivie_duree" placeholder="...">
@@ -235,7 +236,7 @@
                                 </div>
                                 <div class="form-group row">
                                     <div class="col-sm-5">
-                                        <input type="textarea" rows="3" name="indic3" class="form-control" id="input_formation_suivie_duree" placeholder="INDICATEUR 3...">
+                                        <input type="textarea" rows="3" name="indic3" class="form-control" id="input_formation_suivie_duree" placeholder="Indicateur 3...">
                                     </div>
                                     <div class="col-sm-2">
                                         <input type="textarea" rows="3" name="constat3" class="form-control" id="input_formation_suivie_duree" placeholder="...">
@@ -249,7 +250,7 @@
                                 </div>
                                 <div class="form-group row">
                                     <div class="col-sm-5">
-                                        <input type="textarea" rows="3" name="indic4" class="form-control" id="input_formation_suivie_duree" placeholder="INDICATEUR 4...">
+                                        <input type="textarea" rows="3" name="indic4" class="form-control" id="input_formation_suivie_duree" placeholder="Indicateur 4...">
                                     </div>
                                     <div class="col-sm-2">
                                         <input type="textarea" rows="3" name="constat4" class="form-control" id="input_formation_suivie_duree" placeholder="...">
@@ -263,7 +264,7 @@
                                 </div>
                                 <div class="form-group row">
                                     <div class="col-sm-5">
-                                        <input type="textarea" rows="3" name="indic5" class="form-control" id="input_formation_suivie_duree" placeholder="INDICATEUR 5...">
+                                        <input type="textarea" rows="3" name="indic5" class="form-control" id="input_formation_suivie_duree" placeholder="Indicateur 5...">
                                     </div>
                                     <div class="col-sm-2">
                                         <input type="textarea" rows="3" name="constat5" class="form-control" id="input_formation_suivie_duree" placeholder="...">
@@ -283,19 +284,19 @@
                                     </div>
                                     <div class="col-sm-3">
                                         <label class="col-form-label">Peu ou pas d’évolution</label>
-                                        <input type="radio" name="evol1" value="peu_pas_evolution">
+                                        <input type="radio" name="evol1" value="peu ou pas evolution">
                                     </div>
                                     <div class="col-sm-2">
                                         <label class="col-form-label">En progression</label>
-                                        <input type="radio" name="evol1" value="en_progression">
+                                        <input type="radio" name="evol1" value="en progression">
                                     </div>
                                     <div class="col-sm-2">
                                         <label class="col-form-label">Nette évolution</label>
-                                        <input type="radio" name="evol1" value="net_evolution">
+                                        <input type="radio" name="evol1" value="nette evolution">
                                     </div>
                                     <div class="col-sm-2">
                                         <label class="col-form-label">Sans objet</label>
-                                        <input type="radio" name="evol1" value="sans_objet">
+                                        <input type="radio" name="evol1" value="sans objet">
                                     </div>
                                 </div> 
                                 <div class="form-group row">
@@ -304,19 +305,19 @@
                                     </div>
                                     <div class="col-sm-3">
                                         <label class="col-form-label">Peu ou pas d’évolution</label>
-                                        <input type="radio" name="evol2" value="peu_pas_evolution">
+                                        <input type="radio" name="evol2" value="peu ou pas d'évolution">
                                     </div>
                                     <div class="col-sm-2">
                                         <label class="col-form-label">En progression</label>
-                                        <input type="radio" name="evol2" value="en_progression">
+                                        <input type="radio" name="evol2" value="en progression">
                                     </div>
                                     <div class="col-sm-2">
                                         <label class="col-form-label">Nette évolution</label>
-                                        <input type="radio" name="evol2" value="net_evolution">
+                                        <input type="radio" name="evol2" value="nette évolution">
                                     </div>
                                     <div class="col-sm-2">
                                         <label class="col-form-label">Sans objet</label>
-                                        <input type="radio" name="evol2" value="sans_objet">
+                                        <input type="radio" name="evol2" value="sans objet">
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -325,19 +326,19 @@
                                     </div>
                                     <div class="col-sm-3">
                                         <label class="col-form-label">Peu ou pas d’évolution</label>
-                                        <input type="radio" name="evol3" value="peu_pas_evolution">
+                                        <input type="radio" name="evol3" value="peu ou pas d'évolution">
                                     </div>
                                     <div class="col-sm-2">
                                         <label class="col-form-label">En progression</label>
-                                        <input type="radio" name="evol3" value="en_progression">
+                                        <input type="radio" name="evol3" value="en progression">
                                     </div>
                                     <div class="col-sm-2">
                                         <label class="col-form-label">Nette évolution</label>
-                                        <input type="radio" name="evol3" value="net_evolution">
+                                        <input type="radio" name="evol3" value="nette évolution">
                                     </div>
                                     <div class="col-sm-2">
                                         <label class="col-form-label">Sans objet</label>
-                                        <input type="radio" name="evol3" value="sans_objet">
+                                        <input type="radio" name="evol3" value="sans objet">
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -346,19 +347,19 @@
                                     </div>
                                     <div class="col-sm-3">
                                         <label class="col-form-label">Peu ou pas d’évolution</label>
-                                        <input type="radio" name="evol4" value="peu_pas_evolution">
+                                        <input type="radio" name="evol4" value="peu ou pas d'évolution">
                                     </div>
                                     <div class="col-sm-2">
                                         <label class="col-form-label">En progression</label>
-                                        <input type="radio" name="evol4" value="en_progression">
+                                        <input type="radio" name="evol4" value="en progression">
                                     </div>
                                     <div class="col-sm-2">
                                         <label class="col-form-label">Nette évolution</label>
-                                        <input type="radio" name="evol4" value="net_evolution">
+                                        <input type="radio" name="evol4" value="nette évolution">
                                     </div>
                                     <div class="col-sm-2">
                                         <label class="col-form-label">Sans objet</label>
-                                        <input type="radio" name="evol4" value="sans_objet">
+                                        <input type="radio" name="evol4" value="sans objet">
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -367,19 +368,19 @@
                                     </div>
                                     <div class="col-sm-3">
                                         <label class="col-form-label">Peu ou pas d’évolution</label>
-                                        <input type="radio" name="evol5" value="peu_pas_evolution">
+                                        <input type="radio" name="evol5" value="peu ou pas d'évolution">
                                     </div>
                                     <div class="col-sm-2">
                                         <label class="col-form-label">En progression</label>
-                                        <input type="radio" name="evol5" value="en_progression">
+                                        <input type="radio" name="evol5" value="en progression">
                                     </div>
                                     <div class="col-sm-2">
                                         <label class="col-form-label">Nette évolution</label>
-                                        <input type="radio" name="evol5" value="net_evolution">
+                                        <input type="radio" name="evol5" value="nette évolution">
                                     </div>
                                     <div class="col-sm-2">
                                         <label class="col-form-label">Sans objet</label>
-                                        <input type="radio" name="evol5" value="sans_objet">
+                                        <input type="radio" name="evol5" value="sans objet">
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -388,19 +389,19 @@
                                     </div>
                                     <div class="col-sm-3">
                                         <label class="col-form-label">Peu ou pas d’évolution</label>
-                                        <input type="radio" name="evol6" value="peu_pas_evolution">
+                                        <input type="radio" name="evol6" value="peu ou pas d'évolution">
                                     </div>
                                     <div class="col-sm-2">
                                         <label class="col-form-label">En progression</label>
-                                        <input type="radio" name="evol6" value="en_progression">
+                                        <input type="radio" name="evol6" value="en progression">
                                     </div>
                                     <div class="col-sm-2">
                                     <label class="col-form-label">Nette évolution</label>
-                                        <input type="radio" name="evol6" value="net_evolution">
+                                        <input type="radio" name="evol6" value="nette évolution">
                                     </div>
                                     <div class="col-sm-2">
                                         <label class="col-form-label">Sans objet</label>
-                                        <input type="radio" name="evol6" value="sans_objet">
+                                        <input type="radio" name="evol6" value="sans objet">
                                     </div>
                                 </div>                             
                             </div>
@@ -416,10 +417,4 @@
         </div>
     </div>
 </div>
-@foreach($formations as $formation)
-
-    Formation : {{$formation->nom}} Du {{\Carbon\Carbon::parse($formation->date_debut)->format('d/m/Y')}} au {{\Carbon\Carbon::parse($formation->date_fin)->format('d/m/Y')}}
-
-@endforeach
-
 @endsection

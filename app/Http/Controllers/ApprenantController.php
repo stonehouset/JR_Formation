@@ -337,9 +337,9 @@ class ApprenantController extends Controller
         $prenomApprenant;
         $prenomApprenant['prenom'] = $dataApprenant->prenom;
 
-        for ($i=0; $i < count($arrayQuestions); $i++) { 
+        for ($i = 0; $i < count($arrayQuestions); $i++) { 
            
-            for ($j=0; $j < count($arrayReponses) ; $j++) { 
+            for ($j = 0; $j < count($arrayReponses) ; $j++) { 
               
                 if ($i == $j) {
 
@@ -347,6 +347,7 @@ class ApprenantController extends Controller
                     $data[$i]['Evaluations'] = $arrayReponses[$i];
 
                     if ($i == 0) {
+
                         $data[$i]['Nom'] = $nomApprenant['nom'];
                         $data[$i]['Prenom'] = $prenomApprenant['prenom'];
                     }
@@ -355,6 +356,7 @@ class ApprenantController extends Controller
             }
 
         }
+
         $file = Excel::create('questionnaire_formateur', function ($excel) use ($data) {
       
             $excel->sheet('sheet1', function ($sheet) use ($data) {

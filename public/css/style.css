@@ -659,15 +659,24 @@ input[type=radio] {
 #div_modif_password{
 
 	margin: auto;
-	margin-top: 5%;
+	margin-top: 10%;
 }
 
 #titre_modif_mdp{
 
+
+	margin-top: 3%;
 	text-align: center;
 	color: white;
-	border-bottom: 2px #E0002D solid;
-	padding-bottom: 3%;
+	text-shadow: 2px 2px 4px black;
+}
+
+#sous_titre_modif_mdp{
+
+	margin-top: 0.5%;
+	text-align: center;
+	color: white;
+
 }
 
 
@@ -967,19 +976,40 @@ input[type=radio] {
 	background-color: #2D3F58;
 	border-color: #E0002D;
 	color: white;
+	font-size: 25px;
+	text-shadow: 2px 2px 4px black;
+	margin-top: 1%;
 }
 
 #header_tableau_apprenants{
 
 	margin-top: 1%;
 	height: 50px;
-	padding-bottom: 1.5%;
+	padding-bottom: 2%;
+	font-size: 20px;
+	/*font-weight: bold;*/
 	color: #2D3F58;
-	border-color: #E0002D;
 	text-align: center;
 	background-color: white;
 
+}
 
+#head_tab_apprenant_client{
+
+	background-color: #2D3F58;
+	color: white;
+}
+
+
+#lien_download_tab_client{
+
+	color: #2D3F58;
+}
+
+#lien_download_tab_client:hover{
+
+	background-color: white;
+	color: #2D3F58;
 }
 
 #form_suivi_client,#form_impact_client{
@@ -1032,13 +1062,6 @@ input[type=radio] {
 	margin-top: 2%;
 }
 
-#titre_form_impact_formation1{
-
-	text-align: center;
-	color: white;
-	margin-bottom: 3%;
-	padding-top: 2%;
-}
 
 #titre_form_impact_formation{
 
@@ -1046,7 +1069,17 @@ input[type=radio] {
 	color: white;
 	margin-bottom: 3%;
 	border-top: 2px white solid;
+	text-shadow: 2px 2px 4px black;
 	padding-top: 2%;
+}
+
+#titre_form_identification{
+
+	text-align: center;
+	color: white;
+	margin-bottom: 3%;
+
+
 }
 
 #sous_titre_indicateurs{

@@ -69,6 +69,8 @@ Route::post('change_user_password', [ 'as' => 'change_user_password', 'uses' => 
 
 Route::post('suivi_apprenant', [ 'as' => 'suivi_apprenant', 'uses' => 'ClientController@suiviApprenant']);
 
+Route::post('impact_formation', [ 'as' => 'impact_formation', 'uses' => 'ClientController@impactFormation']);
+
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/profil', 'HomeController@profil')->name('profil');
