@@ -1287,6 +1287,25 @@ input[type=radio] {
 	border: 2px white solid;
 	font-weight: bold;
 	height: 47px;
+	text-shadow: 2px 2px 4px black;
+
+}
+
+#btn_ajouter_com_formateur_to_apprenant,#btn_valider_note{
+
+	border: 1px green solid;
+}
+
+#btn_ajouter_com_formateur_to_apprenant:hover{
+
+	border-color: white;
+	background-color: green;
+}
+
+#btn_valider_note:hover{
+
+	border-color: white;
+	background-color: green;
 
 }
 
@@ -1321,6 +1340,7 @@ input[type=radio] {
 #btn_valider_retard_absence{
 
 	color: #FF8C00;
+	border: 1px #FF8C00 solid;
 }
 
 #commentaire_journalier_formation{
@@ -1361,7 +1381,7 @@ input[type=radio] {
 
 	margin-top: 1%;
 	width: 100%;
-	border: 1px white solid;
+	border: 1px green solid;
 	color: white;
 
 }
@@ -1369,6 +1389,7 @@ input[type=radio] {
 #btn_valider_com_jour:hover{
 
 	background-color: green;
+	border-color: white;
 
 }
 

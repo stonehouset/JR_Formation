@@ -39,7 +39,7 @@
 		<div class="col-lg-6" id="row_commentaires">
 			<h4 id="entete_liste_com">Commentaires des formateurs</h4>
 			<div id="cadre_scroll_commentaire"> 
-				@foreach($commentaires as $commentaire)					  	
+				@foreach($commentaires as $commentaire)				  	
 					<div class="card" id="card_com_sem_apprenant">
 	  					<div class="card-header" id="header_card_com_sem_apprenant">
 					    Commentaire de {{$commentaire->formateur->prenom}} {{$commentaire->formateur->nom}} au sujet de {{$commentaire->apprenant->prenom}} {{$commentaire->apprenant->nom}}
@@ -50,7 +50,7 @@
 					      		<p id="text_com">Publié le : {{\Carbon\Carbon::parse($commentaire->date_jour)->format('d/m/Y')}}</p>
 					    	</blockquote>
 					  	</div>
-					</div>	  	
+					</div>	 	
 	            @endforeach
 	        </div>
 		</div>

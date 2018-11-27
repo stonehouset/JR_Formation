@@ -185,7 +185,7 @@
                                 <span class="badge badge-primary badge-pill">{{ count($users) }}</span> 
                             </li>
                             <li class="list-group-item d-flex justify-content-between align-items-center" id="item_details_users">
-                                Nombre de stagiaires
+                                Nombre d'apprenants
                                 <span class="badge badge-primary badge-pill">{{ count($apprenants) }}</span>
                             </li>
                             <li class="list-group-item d-flex justify-content-between align-items-center" id="item_details_users">

@@ -5,9 +5,9 @@ namespace JR_Formation\Http\Controllers;
 use JR_Formation\Formation;
 use JR_Formation\Apprenant;
 use Illuminate\Http\Request;
+use Illuminate\Http\File;
 use Illuminate\Support\Facades\Storage;
 use DB;
-use File;
 
 class FormationController extends Controller
 {
@@ -45,14 +45,14 @@ class FormationController extends Controller
 
         $apprenants = Apprenant::where('groupe_formation', '=' , $request->nom_formation)->get();
 
+        $programme_formation = $request->file('programme_formation');
+
         if ($request->debut_formation == null || $request->debut_formation == null || $request->fin_formation == null || $request->nom_client == null || $request->nom_formateur == null || $request->file('programme_formation') == null) {
            
             return redirect()->back()->with('error', 'Merci de compléter tous les champs!');
         }
 
-        $programme_formation = $request->file('programme_formation');
-
-        $nom_programme_formation =  $programme_formation->getClientOriginalName();
+        $nom_programme_formation = $programme_formation->getClientOriginalName();
 
         // return $apprenants;
 

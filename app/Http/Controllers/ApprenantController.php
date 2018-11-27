@@ -158,9 +158,9 @@ class ApprenantController extends Controller
 
             }  
 
-            if($item['date_cdi'] == null) {
+            if($item['date_embauche'] == null) {
 
-                $item['date_cdi'] = null;
+                $item['date_embauche'] = null;
             }
 
             $mdp = generatePassword();
@@ -194,7 +194,7 @@ class ApprenantController extends Controller
             $apprenant->adresse = $item['adresse'];
             $apprenant->debut_tutorat = $item['debut_tutorat'];
             $apprenant->fin_tutorat = $item['fin_tutorat'];
-            $apprenant->date_cdi = $item['date_cdi'];
+            $apprenant->date_embauche = $item['date_embauche'];
 
             $apprenant->save();
 

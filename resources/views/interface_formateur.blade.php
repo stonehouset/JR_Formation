@@ -74,7 +74,7 @@
                         @endforeach
                     </select>
                     <div id="com_formateur_to_apprenant_txt">
-                        <textarea class="form-control" id="exampleFormControlTextarea1" placeholder="Ecrivez un message à propos de l'apprenant séléctionné." rows="5" name="contenu_commentaire"></textarea>
+                        <textarea class="form-control" id="exampleFormControlTextarea1" placeholder="Ecrivez un message à propos de l'apprenant sélectionné (1000 caractères maximum)." rows="5" name="contenu_commentaire"></textarea>
                     </div>
                     <button type="submit" id="btn_ajouter_com_formateur_to_apprenant" class="btn btn-outline-primary">Ajouter</button>
                 </form> 
@@ -134,7 +134,7 @@
         </div>     
     </div>
     <button type="button" class="btn btn-outline-primary" id="btn_form_com_jour_formateur" onclick="functionShowHideFormComJour();">COMMENTAIRE JOURNALIER DES FORMATIONS</button> 
-    <form class="form-horizontal" method="POST" action="">
+    <form class="form-horizontal" method="POST" action="{{ route('commentaire_journalier')}}">
         {{csrf_field()}}
         <div class="form-group" id="form_ajout_com_journalier_formateur">
             <div class="row" id="commentaire_journalier_formation">
@@ -152,9 +152,4 @@
         </div>
     </form>
 </div>
-@foreach($formations as $formation)
-
-            Formation en cours : {{$formation->nom}} du {{\Carbon\Carbon::parse($formation->date_debut)->format('d/m/Y')}} au {{\Carbon\Carbon::parse($formation->date_fin)->format('d/m/Y')}}
-
-        @endforeach
 @endsection

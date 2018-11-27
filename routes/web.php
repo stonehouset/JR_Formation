@@ -19,17 +19,17 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/interface_apprenant', function () {
-    return view('interface_apprenant');
-});
+// Route::get('/interface_apprenant', function () {
+//     return view('interface_apprenant');
+// });
 
-Route::get('/interface_formateur', function () {
-    return view('interface_formateur');
-});
+// Route::get('/interface_formateur', function () {
+//     return view('interface_formateur');
+// });
 
-Route::get('/interface_client', function () {
-    return view('interface_client');
-});
+// Route::get('/interface_client', function () {
+//     return view('interface_client');
+// });
 
 Route::get('/profil', function () {
     return view('profil');
@@ -58,6 +58,8 @@ Route::post('note_apprenant', [ 'as' => 'note_apprenant', 'uses' => 'FormateurCo
 Route::post('comFormSem1', [ 'as' => 'comFormSem1', 'uses' => 'ApprenantController@ajoutComSem1']);
 
 Route::post('comFormSem2', [ 'as' => 'comFormSem2', 'uses' => 'ApprenantController@ajoutComSem2']);
+
+Route::post('commentaire_journalier', [ 'as' => 'commentaire_journalier', 'uses' => 'FormateurController@commentaireJournalierFormation']);
 
 Route::post('send_form_formateur_apprenant', [ 'as' => 'send_form_formateur_apprenant', 'uses' => 'ApprenantController@sendFormFormateur']);
 

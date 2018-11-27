@@ -4,7 +4,7 @@ namespace JR_Formation\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Carbon\Carbon;
-use JR_Formation\AbsenceRetard;
+use JR_Formation\AbsencesRetards;
 use JR_Formation\User;
 use JR_Formation\Apprenant;
 use JR_Formation\Formation;
@@ -30,20 +30,20 @@ class AbsenceRetardController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request)
+    public function create(Request $request)//Fonction de signalement d'un retard ou d'une absence
     {
 
         $aujourdhui = Carbon::now();
 
         $apprenant = $request->nom_apprenant_absence_retard;
 
-        if ($request->nom_apprenant_absence_retard == null) {
+        if ($apprenant == null) {                   //Controle des inputs apprenant et type de signalement.
            
-            return redirect()->back()->with('error', 'Vous n\'avez pas sélectionné de stagiaire!');
+            return redirect()->back()->with('error', 'Vous n\'avez pas sélectionné de stagiaire!'); 
 
         }
 
-        $userApprenant = User::where('id','=', $apprenant)->first();
+        $userApprenant = User::where('id','=', $apprenant)->first(); //Recuperation des informations.
 
         $dataApprenant = Apprenant::where('user_id', '=', $apprenant)->first();
 
@@ -51,19 +51,20 @@ class AbsenceRetardController extends Controller
 
         $formateur = User::where('id','=',$formation->formateur_id)->first();
 
+        
         if ($request->absence_ou_retard  == null) {
            
             return redirect()->back()->with('error', 'Vous n\'avez pas choisi le type de signalement!');
         }
 
-        $dernierSignalement = AbsenceRetard::where('apprenant_id','=', $apprenant)->first();
+        $dernierSignalement = AbsencesRetards::where('apprenant_id','=', $apprenant)->first();
 
         if ($dernierSignalement == null) {
 
-            $absenceRetard = new AbsenceRetard;
+            $absenceRetard = new AbsencesRetards; //Creation du retard ou de l'absence.
 
             $absenceRetard->date_jour = $aujourdhui;
-            $absenceRetard->apprenant_id = $request->nom_apprenant_absence_retard;
+            $absenceRetard->apprenant_id = $apprenant;
             $absenceRetard->formateur_id = auth()->user()->id;
             $absenceRetard->type = $request->absence_ou_retard;
 
@@ -79,15 +80,17 @@ class AbsenceRetardController extends Controller
                
             ];
 
-            if ($request->absence_ou_retard == 1) { 
+            if ($request->absence_ou_retard == 1) { //Envoi d'un email a l'admin pour signaler le retard.
 
                 Mail::to('houselstein.thibaud@gmail.com')->send(new SignalementRetard($data));
+
                 return redirect()->back()->with('success', 'Retard signalé!');
                 
             }
-            elseif ($request->absence_ou_retard == 2) {
+            elseif ($request->absence_ou_retard == 2) { //Envoi d'un email a l'admin pour signaler l'absence.
                 
                 Mail::to('houselstein.thibaud@gmail.com')->send(new SignalementAbsence($data));
+
                 return redirect()->back()->with('success', 'Absence signalée!');
                 
             }

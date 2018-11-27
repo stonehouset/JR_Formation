@@ -83,6 +83,8 @@ class CommentaireController extends Controller
             $commentaire->apprenant_id = $request->nom_apprenant_com;
             $commentaire->formateur_id = auth()->user()->id;
             $commentaire->commentaire = $request->contenu_commentaire;
+            $commentaire->type = 2;
+            $commentaire->formation = null;
 
             $commentaire->save();
 
@@ -95,7 +97,7 @@ class CommentaireController extends Controller
     {
 
         $apprenants = Apprenant::all(); //Recuperation de toute la table apprenants.
-        $commentairesFormateur = Commentaire::all(); //recuperation de toute la table commentaires.
+        $commentairesFormateur = Commentaire::where('type','=', 2)->get(); //recuperation de toute la table commentaires.
 
         foreach ($apprenants as $apprenant) { //Boucle sur les apprenants pour recuperer les infos user et formation.
             
@@ -119,6 +121,8 @@ class CommentaireController extends Controller
             $commentaire->setAttribute('apprenant', $apprenantCible); //Ajout des infos de l'apprenant au commentaire.
             $commentaire->setAttribute('formateur', $nomFormateur);//Ajout des infos du formateur au commentaire.
         }
+
+
 
         return view('commentaires',['apprenants' => $apprenants, 'commentaires' => $commentairesFormateur]); //Envoi des donnees a la vue 
                                                                                                              //commentaires.blade.php.

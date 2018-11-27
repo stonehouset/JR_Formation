@@ -16,10 +16,12 @@ class Commentaires extends Migration
         Schema::create('commentaires', function (Blueprint $table) {
 
             $table->increments('id');
-            $table->date('date_jour')->nullable();
-            $table->unsignedInteger('apprenant_id');
-            $table->unsignedInteger('formateur_id');
+            $table->dateTime('date_jour')->nullable();
+            $table->unsignedInteger('apprenant_id')->nullable();
+            $table->unsignedInteger('formateur_id')->nullable();
             $table->text('commentaire', 1000);
+            $table->integer('type');
+            $table->char('formation', 100)->nullable();
             
         });
     }

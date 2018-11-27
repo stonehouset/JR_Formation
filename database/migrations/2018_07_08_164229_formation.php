@@ -22,7 +22,7 @@ class Formation extends Migration
             $table->unsignedInteger('client_id');
             $table->unsignedInteger('formateur_id');
             $table->char('programme_formation', 100)->nullable();
-            $table->integer('compte_rendu_formateur')->default(0);
+            $table->integer('compte_rendu_formateur')->default(0)->nullable();
             $table->timestamps();
             
         });

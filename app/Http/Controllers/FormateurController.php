@@ -3,6 +3,7 @@
 namespace JR_Formation\Http\Controllers;
 
 use JR_Formation\Formateur;
+use JR_Formation\Commentaire;
 use JR_Formation\Formation;
 use JR_Formation\Apprenant;
 use JR_Formation\User;
@@ -25,15 +26,17 @@ class FormateurController extends Controller
     public function index() //Fonction d'envoi des donnees des formations d'un formateur a l'interface formateur.
     {
 
-        $now = $dateJour = date('Y-m-d H:i:s');
+        $aujourdhui = date('Y-m-d');
         $users = User::all(); //Recuperation des donnees utilisateurs.
         $formateur_id = auth()->user()->id; //Recuperation de l'id du formateur connecté.
         $formations = Formation::where('formateur_id', '=', $formateur_id)->get(); //Recuperation des infos formations.
 
-        // return $formateur_id;
+        $formationsEnCours = Formation::where('date_debut', '<=', $aujourdhui)
+                           ->where('date_fin', '>=', $aujourdhui)
+                           ->get();
 
-        foreach ($formations as $formation) {
-            
+        foreach ($formationsEnCours as $formation) {
+    
             $apprenants = Apprenant::where('formation_id','=',$formation->id)->get(['user_id','date_naissance','formation_id','groupe_formation','nationalite','note_formateur']); //Ajout des donnees des apprenants aux formations.
 
             // return $apprenants;
@@ -50,22 +53,10 @@ class FormateurController extends Controller
 
         }
 
-        $formationsEnCours = Formation::whereDate('created_at', $now);
-
-        return view('interface_formateur', ['formations' => $formations]);
+        return view('interface_formateur',['formations' => $formationsEnCours]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    public function ajoutNote(Request $request)
+    public function ajoutNote(Request $request)// Fonction d'ajout du note du formateur a l'apprenant.
     {
 
         $idApprenant = $request->nom_apprenant_note;
@@ -94,26 +85,67 @@ class FormateurController extends Controller
         }
     }
 
-    
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function commentaireJournalierFormation(Request $request)// Fonction d'ajout d'un commentaire formation par le formateur.
     {
-        $formateur = new Formateur;
-        $formateur->nom = $request->nom_formateur;
-        $formateur->prenom = $request->prenom_formateur;
-        $formateur->email = $request->email_formateur;
-        $formateur->numero_telephone = $request->tel_formateur;
-        $formateur->mdp = $request->mdp;
-        $formateur->save();
 
-        return redirect('/home');
-    }
+        $dateJour = date('Y-m-d H:i:s');
+        $idFormation = $request->formation;
+        $infoFormation = Formation::where('id', $idFormation)->first();
+        $nomFormation = $infoFormation->nom;
+        $contenuCommentaire = $request->contenu_commentaire;
+
+
+        $dernierMessage = Commentaire::where('formation','=', $nomFormation)->orderByRaw('date_jour DESC')->first(); 
+
+        if ($dernierMessage != null) {
+
+
+            $dateJourDernierMessage = $dernierMessage->date_jour;
+    
+        }else{
+
+
+            $dateJourDernierMessage = '1970-01-01 00:00:00';
+            
+        }
+      
+        $datePlus10Heures = date('Y-m-d H:i:s', strtotime($dateJourDernierMessage)+36000);
+
+
+        if ($datePlus10Heures > $dateJour) {
+
+             return redirect()->back()->with('error', 'Vous avez déja écrit un message à propos de ce groupe aujourd\'hui!');
+
+        }
+       
+        if ($idFormation  == null) {
+            
+            return redirect()->back()->with('error', 'Aucune formation selectionnée!');
+        }
+
+        else if ($contenuCommentaire == null) {
+            
+            return redirect()->back()->with('error', 'Le commentaire est vide!');
+        }
+
+        else{
+
+            $commentaire = new Commentaire;
+
+            $commentaire->date_jour = $dateJour;
+            $commentaire->apprenant_id = null;
+            $commentaire->formateur_id = auth()->user()->id;
+            $commentaire->commentaire = $contenuCommentaire;
+            $commentaire->type = 1;
+            $commentaire->formation = $nomFormation;
+
+            $commentaire->save();
+
+            return redirect()->back()->with('success', 'Commentaire envoyé!');
+
+        }
+
+    } 
 
     public function extractApprenantCsv() //Fonction d'extraction des donnees des apprenants en fichier excel.
     {
@@ -159,7 +191,7 @@ class FormateurController extends Controller
             }
 
         }
-        Excel::create('stagiaires', function ($excel) use ($userData) {
+        Excel::create('apprenants', function ($excel) use ($userData) {
  
             // Build the spreadsheet, passing in the users array
             $excel->sheet('sheet1', function ($sheet) use ($userData) {
@@ -262,48 +294,4 @@ class FormateurController extends Controller
         return redirect()->back()->with('success', 'Questionnaire envoyé, merci!');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \JR_Formation\Formateur  $formateur
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Formateur $formateur)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \JR_Formation\Formateur  $formateur
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Formateur $formateur)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \JR_Formation\Formateur  $formateur
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Formateur $formateur)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \JR_Formation\Formateur  $formateur
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Formateur $formateur)
-    {
-        //
-    }
 }

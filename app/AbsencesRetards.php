@@ -4,7 +4,7 @@ namespace JR_Formation;
 
 use Illuminate\Database\Eloquent\Model;
 
-class AbsenceRetard extends Model
+class AbsencesRetards extends Model
 {
 
 	public $timestamps = false;
