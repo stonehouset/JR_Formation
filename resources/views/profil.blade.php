@@ -13,7 +13,7 @@
 @endif
 <div class="container">
     <h3 id="titre_profil">
-        MES DONNEES
+        PROFIL
     </h3>
 	<div class="row" id="row_profil">
         <div class="col-lg-6">  

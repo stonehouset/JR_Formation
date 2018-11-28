@@ -22,7 +22,8 @@
     <div class="row" id="row_principale_interface_formateur">       
         <div class="col-lg-7">  
             <div class="card-header" id="header_tableau_apprenants_formateur">    
-                LISTE DE VOS APPRENANTS       
+                APPRENANTS 
+                <a href="{{route('formateur_apprenants_csv')}}" id="lien_csv_formateur">Extraire (.xlsx)</a>        
             </div>
             <div id="tab_infos_interface_formateur">
                 <table id="taille_tab_formateur" class="table table-striped table">
@@ -52,10 +53,7 @@
                     </tbody>
                 </table>  
                                
-            </div>
-            <div id="lien_tab_to_csv_formateur"> 
-                <a href="{{route('formateur_apprenants_csv')}}" id="lien_csv_formateur">Extraire tableau apprenants format Excel</a> 
-            </div>                                              
+            </div>                                             
         </div>
         <div class="col-lg-5" id="com_formateur_to_apprenant">            
             <div class="card" id="card_actions_formateur">         

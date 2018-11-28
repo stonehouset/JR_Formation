@@ -16,12 +16,12 @@
         <div class="col-lg-12">
             <h5 class="mb-0" id="titre_interface_client">
 
-                GESTION DES APPRENANTS 
+                INTERFACE CLIENT 
                 
             </h5>  
             <div id="card_tab_apprenant_client">
                 <div class="card-header" id="header_tableau_apprenants">                  
-                    LISTE DE VOS APPRENANTS  
+                    APPRENANTS  
                 </div>
                 <div id="tab_infos_inteface_client">
                     <table class="table table-striped table">
@@ -51,7 +51,7 @@
                         </tbody>
                     </table>
                 </div>
-                <a  href="{{route('apprenants_csv')}}" id="lien_download_tab_client">Extraire les données des apprenants en fichier Excel</a>
+                <!-- <a  href="{{route('apprenants_csv')}}" id="lien_download_tab_client">Extraire les données des apprenants en fichier Excel</a> -->
             </div>
             <button type="button" class="btn btn-outline-primary" id="btn_form_client" onclick="functionShowHideFormClient();">SUIVI DES PLACEMENTS EN ENTREPRISE</button> 
             <form class="form-horizontal" method="POST" action="{{route('suivi_apprenant')}}">
@@ -144,9 +144,19 @@
                             <div class="form-group row">
                                 <label for="input_formation_suivie" class="offset-sm-2 col-sm-4 col-form-label">¤ FORMATION SUIVIE</label>
                                 <div class="col-sm-4">
-                                    <input type="textarea" name="formation_suivie_entreprise_intitule" class="form-control" id="input_formation_suivie" placeholder="Intitulé :">
-                                    <input type="textarea" name="formation_suivie_entreprise_duree" class="form-control" id="input_formation_suivie_duree" placeholder="Durée :">
-                                </div>
+                                    <!-- <input type="textarea" name="formation_suivie_entreprise_intitule" class="form-control" id="input_formation_suivie" placeholder="Intitulé :">
+                                    <input type="textarea" name="formation_suivie_entreprise_duree" class="form-control" id="input_formation_suivie_duree" placeholder="Durée :"> -->
+                                    <select class="custom-select" id="inputGroupSelect01" name="nom_formation">
+                                        <option selected>Aucun sélectionné</option>
+
+                                            @foreach($formations_terminees as $formation)
+
+                                                <option selected value="{{$formation->id}}">{{$formation->nom}}</option>
+
+                                            @endforeach    
+
+                                    </select>
+                                </div>       
                             </div>
                             <h5 id="titre_form_impact_formation">EVALUATION DES OBJECTIFS DE PROGRES FIXES LORS DU DIAGNOSTIC INITIAL</h5>
                             <div id="deuxieme_partie_form">                

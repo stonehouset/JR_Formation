@@ -14,6 +14,7 @@ use Maatwebsite\Excel\Facades\Excel;
 use PDF;
 use File;
 use DB;
+use DateTime;
 use Carbon\Carbon;
 
 
@@ -27,10 +28,17 @@ class ClientController extends Controller
     public function index()
     {
         $users = User::all();
+        $dateJour = date('Y-m-d');
 
         $idClient = auth()->user()->id;
 
         $formations = Formation::where('client_id', '=', $idClient)->get();
+
+        $formationsTerminees = Formation::where('date_fin', '<=', $dateJour)
+                                        ->where('client_id', '=', $idClient)
+                                        ->where('impact_formation', '=', 0)
+                                        ->get();
+
 
         foreach ($formations as $formation) {
             
@@ -50,7 +58,7 @@ class ClientController extends Controller
      
         }
 
-        return view('interface_client', ['formations' => $formations]);
+        return view('interface_client', ['formations' => $formations, 'formations_terminees' => $formationsTerminees]);
     }
 
     public function getDownload()
@@ -259,6 +267,10 @@ class ClientController extends Controller
    
         $data;
 
+        $formation = $request->nom_formation;
+
+        $infoFormation = Formation::where('id', $formation)->first();
+
         $labelEntreprise = 'Entreprise';
         $labelFormation = 'Formation Suivie';
         $labelHierarchie = 'Hierarchie';
@@ -332,7 +344,7 @@ class ClientController extends Controller
         // return array($objectif1, $resultObjectif1, $objectif2, $resultObjectif2, $objectif3, $resultObjectif3, $objectif4, $resultObjectif4, $indicQuali1, $constatIndic1, $resultIndic1, $constatFinalIndic1, $indicQuali2, $constatIndic2, $resultIndic2, $constatFinalIndic2, $indicQuali3, $constatIndic3, $resultIndic3, $constatFinalIndic3, $indicQuali4, $constatIndic4, $resultIndic4, $constatFinalIndic4, $indicQuali5, $constatIndic5, $resultIndic5, $constatFinalIndic5, $intituleIndicQuanti1, $resultIndicQuanti1, $intituleIndicQuanti2, $resultIndicQuanti2, $intituleIndicQuanti3, $resultIndicQuanti3, $intituleIndicQuanti4, $resultIndicQuanti4, $intituleIndicQuanti5, $resultIndicQuanti5, $intituleIndicQuanti6, $resultIndicQuanti6,);
 
 
-        if ($entreprise == null || $hierarchieClient == null || $fonctionClient == null || $intituleFormation == null || $dureeFormation == null) {
+        if ($entreprise == null || $hierarchieClient == null || $fonctionClient == null || $formation == null) {
         
             return redirect()->back()->with('error', 'Merci de compléter la section "identification"!');
         }
@@ -343,6 +355,37 @@ class ClientController extends Controller
 
         }
         else{
+
+            $intituleFormation = $infoFormation->nom;
+
+            $datetime1 = new DateTime($infoFormation->date_debut);
+            $datetime2 = new DateTime($infoFormation->date_fin);
+            $interval = $datetime1->diff($datetime2);
+            $nbjour = $interval->format('%d'); //Retourne le nombre de jours
+
+            $dureeFormation = $nbjour;
+
+            if ($nbjour < 5) {
+                
+                $dureeFormation = $nbjour.' jours';
+            }
+            else if ($nbjour >= 5 && $nbjour <= 7) {
+                
+                $dureeFormation = '1 semaine';
+            }
+            else if ($nbjour > 7 && $nbjour <= 12) {
+                
+                $dureeFormation = '2 semaines';
+
+            }
+            else if ($nbjour > 12 && $nbjour <= 19) {
+                
+                $dureeFormation = '3 semaines';
+
+            }else if ($nbjour > 19) {
+                
+                $dureeFormation = 'Plus de 3 semaines';
+            }
 
             $arrayQuestions = array($labelEntreprise, $labelHierarchie, $labelFormation, $objectif1, $objectif2, $objectif3, $objectif4, $indicQuali1, $indicQuali2, $indicQuali3, $indicQuali4, $indicQuali5, $intituleIndicQuanti1, $intituleIndicQuanti2, $intituleIndicQuanti3, $intituleIndicQuanti4, $intituleIndicQuanti5, $intituleIndicQuanti6);
 
@@ -386,6 +429,8 @@ class ClientController extends Controller
             Mail::to('houselstein.thibaud@gmail.com')->send(new ImpactFormation($array_file));
 
             File::delete('storage/impact_formation.xlsx');
+
+            DB::table('formations')->where('id' ,'=' , $formation)->update(['impact_formation' => 1]);
 
             return redirect()->back()->with('success', 'Formulaire envoyé, merci!');
         }

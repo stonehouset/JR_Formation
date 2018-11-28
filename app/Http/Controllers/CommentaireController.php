@@ -43,6 +43,18 @@ class CommentaireController extends Controller
 
         $dernierMessage = Commentaire::where('apprenant_id','=', $apprenant)->orderByRaw('date_jour DESC')->first(); //recuperation dernier commentaire de l'apprenant.
 
+        if ($request->nom_apprenant_com == null) {
+           
+            return redirect()->back()->with('error', 'Vous n\'avez pas sélectionné de stagiaire!');
+
+        }
+
+        if ($request->contenu_commentaire == null) {
+           
+            return redirect()->back()->with('error', 'Votre message est vide!');                        //Erreurs si les inputs sont vides.
+
+        }
+
         if ($dernierMessage != null) {
 
 
@@ -66,15 +78,8 @@ class CommentaireController extends Controller
 
         }
 
-        if ($request->contenu_commentaire == null) {
-           
-            return redirect()->back()->with('error', 'Votre message est vide!');                        //Erreurs si les inputs sont vides.
-
-        }elseif ($request->nom_apprenant_com == null) {
-           
-            return redirect()->back()->with('error', 'Vous n\'avez pas sélectionné de stagiaire!');
-
-        }else { //Sinon ajout du commentaire en base de donnee.
+        
+        else { //Sinon ajout du commentaire en base de donnee.
               
             // return $request->all();
             $commentaire = new Commentaire;
@@ -97,7 +102,7 @@ class CommentaireController extends Controller
     {
 
         $apprenants = Apprenant::all(); //Recuperation de toute la table apprenants.
-        $commentairesFormateur = Commentaire::where('type','=', 2)->get(); //recuperation de toute la table commentaires.
+        $commentairesFormateur = Commentaire::where('type','=', 2)->orderByRaw('date_jour DESC')->get(); //recuperation de toute la table commentaires.
 
         foreach ($apprenants as $apprenant) { //Boucle sur les apprenants pour recuperer les infos user et formation.
             

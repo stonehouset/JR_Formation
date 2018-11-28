@@ -82,18 +82,24 @@ class HomeController extends Controller
         return view('profil',['statut' => $statut, 'apprenant' => $dataApprenant]);
     }
 
-    public function questionnaireFormation()
+    public function questionnaireFormation() // Affichage de la page compte rendu formateur avec Formations sans eval
     {
+        $aujourdhui = date('Y-m-d');
         $idFormateur = auth()->user()->id;
         $formateur = User::where('id' ,'=', $idFormateur)->first();   
         $dateNow = Carbon::now();
-        $formation = Formation::where('formateur_id','=',$idFormateur)->first();
-        $dateDebutForm = $formation->date_debut;
-    
-        $datePlus4Jours = date('Y-m-d', strtotime($dateDebutForm. ' + 4 days'));
-        $datePlus11Jours = date('Y-m-d', strtotime($dateDebutForm. ' + 11 days'));
+        $formationsTermineesSansEval = Formation::where('date_fin', '<=', $aujourdhui)
+                           ->where('compte_rendu_formateur', '=', 0)
+                           ->where('formateur_id', '=', $idFormateur)
+                           ->get();
 
-        return view('questionnaire_formation',['dateNow' => $dateNow , 'formateur' => $formateur, 'datePlus4Jours' => $datePlus4Jours, 'datePlus11Jours' => $datePlus11Jours]);
+        if ($formationsTermineesSansEval == null) {
+
+            return view('questionnaire_formation');
+        }
+
+
+        return view('questionnaire_formation',['formations' => $formationsTermineesSansEval]);
     }
 
     public function extractApprenantCsv()

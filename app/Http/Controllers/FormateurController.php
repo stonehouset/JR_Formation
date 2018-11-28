@@ -90,10 +90,15 @@ class FormateurController extends Controller
 
         $dateJour = date('Y-m-d H:i:s');
         $idFormation = $request->formation;
+
+        if ($idFormation  == null) {
+           
+            return redirect()->back()->with('error', 'Aucune formation selectionnée!');
+        } 
+
         $infoFormation = Formation::where('id', $idFormation)->first();
         $nomFormation = $infoFormation->nom;
         $contenuCommentaire = $request->contenu_commentaire;
-
 
         $dernierMessage = Commentaire::where('formation','=', $nomFormation)->orderByRaw('date_jour DESC')->first(); 
 
@@ -116,11 +121,6 @@ class FormateurController extends Controller
 
              return redirect()->back()->with('error', 'Vous avez déja écrit un message à propos de ce groupe aujourd\'hui!');
 
-        }
-       
-        if ($idFormation  == null) {
-            
-            return redirect()->back()->with('error', 'Aucune formation selectionnée!');
         }
 
         else if ($contenuCommentaire == null) {
@@ -209,6 +209,8 @@ class FormateurController extends Controller
 
 
         $data;
+        $formation = $request->nom_formation;
+
         $formateur = auth()->user()->id;                                //Recuperation des infos du formateur.
         $dataFormateur = User::where('id','=', $formateur)->first();
          
@@ -237,6 +239,11 @@ class FormateurController extends Controller
         $rep11 = $request->pauses;
         $rep12 = $request->repas;
         $rep13 = $request->contenu_suggestions;
+
+        if ($formation === 'Aucun sélectionné') {
+
+            return redirect()->back()->with('error', 'Aucun groupe de formation selectionné!');
+        }
 
         if ($rep1 == null || $rep2 == null || $rep3 == null || $rep4 == null || $rep5 == null || $rep6 == null || $rep7 == null || $rep8 == null || $rep9 == null || $rep10 == null || $rep11 == null || $rep12 == null || $rep13 == null) {
             
@@ -289,7 +296,7 @@ class FormateurController extends Controller
 
         File::delete('storage/compte_rendu_formateur.xlsx'); //Suppression du fichier excel temporaire.
 
-        DB::table('formations')->where('user_id' ,'=' , $formateur)->update(['compte_rendu_formateur' => 1]);
+        DB::table('formations')->where('id' ,'=' , $formation)->update(['compte_rendu_formateur' => 1]);
 
         return redirect()->back()->with('success', 'Questionnaire envoyé, merci!');
     }

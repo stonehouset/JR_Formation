@@ -6,7 +6,7 @@
 <div id="affichage_coms_apprenants">
 	<div class="row" id="row_com_sem_apprenant">	
 		<div class="col-lg-6" id="row_commentaires">
-			<h4 id="entete_liste_com">Commentaires des apprenants</h4>
+			<h4 id="entete_liste_com">APPRENANT => FORMATION</h4>
 			<div id="cadre_scroll_commentaire"> 
 				@foreach($apprenants as $apprenant)
 					@if($apprenant->commentaire_semaine1 != null)
@@ -37,7 +37,7 @@
 	        </div>
 		</div>
 		<div class="col-lg-6" id="row_commentaires">
-			<h4 id="entete_liste_com">Commentaires des formateurs</h4>
+			<h4 id="entete_liste_com">FORMATEUR -> APPRENANT</h4>
 			<div id="cadre_scroll_commentaire"> 
 				@foreach($commentaires as $commentaire)				  	
 					<div class="card" id="card_com_sem_apprenant">

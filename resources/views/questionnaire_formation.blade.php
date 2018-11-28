@@ -21,6 +21,25 @@
 <div class="container" id="container_questionnaire_auto_evaluation">
     <form class="form-horizontal" method="POST" action="{{ route('send_compte_rendu_formarteur')}}">
     {{ csrf_field() }}
+        <div class="row">
+            <div class="offset-lg-3 col-lg-6" id="input_formation_quest_formateur">
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon1">Groupe de formation</span>
+                    </div>
+                    <select class="custom-select" id="inputGroupSelect01" name="nom_formation">
+                        <option selected>Aucun sélectionné</option>
+
+                            @foreach($formations as $formation)
+
+                                <option selected value="{{$formation->id}}">{{$formation->nom}}</option>
+
+                            @endforeach    
+
+                    </select>
+                </div>
+            </div>
+        </div>
         <div class="row" id="contenu_form_questionnaire_autoeval">
             <div class="col-lg-12">
                 <div class="row">
@@ -43,7 +62,7 @@
                             <h6 id="sous_label_objectif_sem" class="">(Si oui, quels sont les éléments qui vous permette de l'affirmer ?</h6>
                             <h6 id="sous_label_objectif_sem1" class="">Si non, pour quelles raisons ? Qu’auriez-vous dû faire ?)</h6>
                             <div class="offset-lg-2 col-lg-8">
-                                <textarea class="form-control" id="exampleFormControlTextarea1" placeholder="" rows="5" name="contenu_objectif_atteint_ou_non"></textarea>                
+                                <textarea class="form-control" id="exampleFormControlTextarea1" placeholder="200 caractères max" rows="5" name="contenu_objectif_atteint_ou_non" maxlength="200"></textarea>                
                             </div>
                         </div>   
                     </div>
@@ -53,9 +72,10 @@
                         <h4 id="titre_auto_eval">2/ Contenu et Pédagogie</h4>
                         <div class="form-group">
                             <h5 id="label_eval_perf" class="">¤ Avez-vous apporté des modifications significatives (déroulé, contenu, timing, supports, outils) ?</h5>
-                            <h6 id="sous_label_objectif_sem" class="">(Si oui lesquelles ?)</h6>
+                            <h6 id="sous_label_objectif_sem" class="">(Si oui lesquelles ? Si non, saisissez "non")</h6>
                             <div class="offset-lg-2 col-lg-8">
-                                <textarea class="form-control" id="exampleFormControlTextarea2" placeholder="" rows="5" name="contenu_modifs"></textarea>                
+                                <textarea class="form-control" id="exampleFormControlTextarea2" placeholder="200 caractères max" rows="5" name="contenu_modifs"
+                                maxlength="200"></textarea>                
                             </div>
                         </div>   
                     </div>
@@ -146,7 +166,7 @@
                         <div class="form-group">
                             <h5 id="label_eval_perf" class="">¤  D’une manière générale, quelles sont vos idées, vos suggestions pour améliorer et développer ensemble notre efficacité ?</h5>
                             <div class="offset-lg-2 col-lg-8">
-                                <textarea class="form-control" id="exampleFormControlTextarea1" placeholder="" rows="5" name="contenu_suggestions"></textarea>                
+                                <textarea class="form-control" id="exampleFormControlTextarea1" placeholder="200 caractères max" rows="5" name="contenu_suggestions" maxlength="200"></textarea>                
                             </div>
                         </div>    
                     </div>                  

@@ -11,33 +11,15 @@
 |
 */
 
-Auth::routes();
+Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/home', 'HomeController@index');
+//Route page accueil.
 
 Route::get('/', function () {
     return view('welcome');
 });
 
-// Route::get('/interface_apprenant', function () {
-//     return view('interface_apprenant');
-// });
-
-// Route::get('/interface_formateur', function () {
-//     return view('interface_formateur');
-// });
-
-// Route::get('/interface_client', function () {
-//     return view('interface_client');
-// });
-
-Route::get('/profil', function () {
-    return view('profil');
-});
-
-Route::get('/questionnaire_formation', function () {
-    return view('questionnaire_formation');
-});
+//Routes Post
 
 Route::post('login', [ 'as' => 'login', 'uses' => 'Auth\AuthController@login']);
 
@@ -73,6 +55,8 @@ Route::post('suivi_apprenant', [ 'as' => 'suivi_apprenant', 'uses' => 'ClientCon
 
 Route::post('impact_formation', [ 'as' => 'impact_formation', 'uses' => 'ClientController@impactFormation']);
 
+//Routes Get
+
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/profil', 'HomeController@profil')->name('profil');
@@ -101,7 +85,8 @@ Route::get('formateur_apprenants_csv', [ 'as' => 'formateur_apprenants_csv', 'us
 
 Route::get('commentaires', [ 'as' => 'commentaires', 'uses' => 'CommentaireController@showCommentaires']);
 
+//Routes authentification Laravel.
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+

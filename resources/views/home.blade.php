@@ -18,9 +18,10 @@
         @endif        
         <div class="card-text" id="gestion_utilisateurs">  
             <div class="row">
-                <div class="col-lg-6" id="tableau_gestion_admin_infos_apprenants">
+                <div class="col-lg-7" id="tableau_gestion_admin_infos_apprenants">
                     <div class="card-header" id="header_tableau_apprenants">
-                        LISTE DES APPRENANTS                       
+                        APPRENANTS       
+                        <a  href="{{route('apprenants_admin_csv')}}" id="lien_tab_apprenants">extraire (.xlsx)</a>                
                     </div>
                     <div id="tab_admin_apprenants">   
                         <table class="table table-striped table-dark" >
@@ -42,13 +43,11 @@
                             </tbody>
                         </table> 
                     </div>
-                    <div id="div_lien_tab_apprenants">
-                        <a  href="{{route('apprenants_admin_csv')}}" id="lien_tab_apprenants">Extraire tableau apprenants format Excel</a>
-                    </div>
                 </div>
-                <div class="col-lg-6" id="tableau_gestion_admin_infos_formateurs">                   
+                <div class="col-lg-5" id="tableau_gestion_admin_infos_formateurs">                   
                     <div class="card-header" id="header_tableau_apprenants">                      
-                        LISTE DES FORMATEURS                       
+                        FORMATEURS 
+                        <a  href="{{route('apprenants_formateur_csv')}}" id="lien_tab_formateurs">extraire</a>                      
                     </div>
                     <div id="tab_formateur_admin">
                         <table class="table table-striped table-dark" >
@@ -69,9 +68,6 @@
                                 @endforeach
                             </tbody>
                         </table>
-                    </div>
-                    <div id="div_lien_tab_formateurs">
-                        <a  href="{{route('apprenants_formateur_csv')}}" id="lien_tab_formateurs">Extraire tableau formateurs format Excel</a> 
                     </div> 
                 </div>  
             </div>           
@@ -92,7 +88,12 @@
                                     <div class="col-lg-6">
                                         <div class="form-group">
                                             <label for="prenom" id="label_form_user_admin" style="" class="control-label">Rôle</label>    
-                                            <input id="role" type="number" class="form-control" name="role" value="" min="1" max="3" required autofocus>   
+                                        
+                                            <select class="custom-select" id="role" class="form-control" name="role">
+                                                <option value="3" >Admin</option>
+                                                <option value="2" >Client</option>
+                                                <option value="1" >Formateur</option>                
+                                            </select>   
                                         </div>
                                         <div class="form-group">
                                             <label for="nom" id="label_form_user_admin" class="control-label">Nom</label> 
@@ -230,7 +231,7 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="card-body">
-                            <div class="card" style="margin-top: 1%;background-color:#2D3F58;border:hidden;border-bottom: 1px white solid;">
+                            <div class="card" style="margin-top: 1%;background-color:#2D3F58;border:hidden;border: 1px white solid;">
                                 <div class="card-header" id="header_tableau_apprenants" style="border-color: #E0002D;background-color: white;">
                                    
                                     LISTE DES FORMATIONS 
