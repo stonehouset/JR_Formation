@@ -32,10 +32,19 @@ class ClientController extends Controller
 
         $idClient = auth()->user()->id;
 
-        $formations = Formation::where('client_id', '=', $idClient)->get();
+        $formations = Formation::where('client_id1', '=', $idClient)
+                                ->orWhere('client_id2', $idClient)
+                                ->orWhere('client_id3', $idClient)
+                                ->orWhere('client_id4', $idClient)
+                                ->orWhere('client_id5', $idClient)
+                                ->get();
 
         $formationsTerminees = Formation::where('date_fin', '<=', $dateJour)
-                                        ->where('client_id', '=', $idClient)
+                                        ->where('client_id1', '=', $idClient)
+                                        ->orWhere('client_id2', $idClient)
+                                        ->orWhere('client_id3', $idClient)
+                                        ->orWhere('client_id4', $idClient)
+                                        ->orWhere('client_id5', $idClient)
                                         ->where('impact_formation', '=', 0)
                                         ->get();
 

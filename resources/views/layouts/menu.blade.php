@@ -46,14 +46,14 @@
                     <a class="nav-link" href="/interface_client" id="text_nav_link">Client <span class="sr-only">(current)</span></a>
                 </li>
                 @endif
-                <li class="nav-item active" >
-                    <a class="nav-link" href="/profil" id="text_nav_link">Profil <span class="sr-only">(current)</span></a>
-                </li>
                 @if(Auth::user()->role === 1) 
                 <li class="nav-item active" >
                     <a class="nav-link" href="/questionnaire_formation" id="text_nav_link">Questionnaire<span class="sr-only">(current)</span></a>
                 </li>
                 @endif
+                <li class="nav-item active" >
+                    <a class="nav-link" href="/profil" id="text_nav_link">Profil <span class="sr-only">(current)</span></a>
+                </li>
             </ul>    
             <span id="date_jour">{{ date('d/m/Y') }}</span>    
             @guest

@@ -19,7 +19,11 @@ class Formation extends Migration
             $table->string('nom');
             $table->date('date_debut');
             $table->date('date_fin');
-            $table->unsignedInteger('client_id');
+            $table->unsignedInteger('client_id1');
+            $table->unsignedInteger('client_id2')->nullable();
+            $table->unsignedInteger('client_id3')->nullable();
+            $table->unsignedInteger('client_id4')->nullable();
+            $table->unsignedInteger('client_id5')->nullable();
             $table->unsignedInteger('formateur_id');
             $table->char('programme_formation', 100);
             $table->integer('compte_rendu_formateur')->default(0);

@@ -29,7 +29,6 @@ class FormateurController extends Controller
         $aujourdhui = date('Y-m-d');
         $users = User::all(); //Recuperation des donnees utilisateurs.
         $formateur_id = auth()->user()->id; //Recuperation de l'id du formateur connecté.
-        $formations = Formation::where('formateur_id', '=', $formateur_id)->get(); //Recuperation des infos formations.
 
         $formationsEnCours = Formation::where('date_debut', '<=', $aujourdhui)
                            ->where('date_fin', '>=', $aujourdhui)

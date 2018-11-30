@@ -23,7 +23,7 @@
         <div class="col-lg-7">  
             <div class="card-header" id="header_tableau_apprenants_formateur">    
                 APPRENANTS 
-                <a href="{{route('formateur_apprenants_csv')}}" id="lien_csv_formateur">Extraire (.xlsx)</a>        
+                <a href="{{route('formateur_apprenants_csv')}}">extraire (.xlsx)</a>        
             </div>
             <div id="tab_infos_interface_formateur">
                 <table id="taille_tab_formateur" class="table table-striped table">
@@ -72,7 +72,7 @@
                         @endforeach
                     </select>
                     <div id="com_formateur_to_apprenant_txt">
-                        <textarea class="form-control" id="exampleFormControlTextarea1" placeholder="Ecrivez un message à propos de l'apprenant sélectionné (1000 caractères maximum)." rows="5" name="contenu_commentaire"></textarea>
+                        <textarea class="form-control" id="exampleFormControlTextarea1" placeholder="Ecrivez un message à propos de l'apprenant sélectionné (500 caractères maximum)." rows="5" name="contenu_commentaire"></textarea>
                     </div>
                     <button type="submit" id="btn_ajouter_com_formateur_to_apprenant" class="btn btn-outline-primary">Ajouter</button>
                 </form> 
@@ -143,7 +143,7 @@
                         <option value="{{$formation->id}}">{{$formation->nom}}</option> 
                         @endforeach    
                     </select>
-                    <textarea class="form-control" id="zone_text_com_jour" placeholder="Donnez votre ressenti globale sur le groupe de formation sélectionné" rows="5" name="contenu_commentaire"></textarea>
+                    <textarea class="form-control" id="zone_text_com_jour" placeholder="Donnez votre ressenti globale de la journée sur le groupe de formation sélectionné (200 caractères max). " rows="5" name="contenu_commentaire" maxlength="500"></textarea>
                     <button type="submit" id="btn_valider_com_jour" class="btn btn-outline-primary">AJOUTER COMMENTAIRE</button>
                 </div>
             </div>  

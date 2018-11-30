@@ -124,8 +124,9 @@ body{
 	z-index: 1;
 	color: white;
 	text-align: center;
-	background-color: red;
-	border: 1px white solid;
+	background-color: #2D3F58;
+	box-shadow: 1px 1px 5px red;
+	border: 1px red solid;
 	margin-top: 2%;
 	font-size: 18px;
 	border-radius: 2px;
@@ -137,8 +138,9 @@ body{
 	z-index: 1;
 	color: white;
 	text-align: center;
-	background-color: green;
-	border: 1px white solid;
+	background-color: #2D3F58;
+	box-shadow: 1px 1px 5px green;
+	border: 1px green solid;
 	margin-top: 2%;
 	font-size: 18px;
 	border-radius: 2px;
@@ -566,7 +568,7 @@ body{
 	margin-right: auto;
 	margin-left: auto; 
     margin-bottom: 2%;
-    margin-top: 2%;
+
     
 }
 
@@ -872,9 +874,11 @@ input[type=radio] {
 
 #cadre_scroll_commentaire{
 
-	height: 550px;
+	height: 400px;
 	overflow-y:scroll;
 	position: static;
+	border: 1px white solid;
+	box-shadow: 1px 1px 5px black;
 }
 
 #row_commentaires{
@@ -1030,7 +1034,7 @@ input[type=radio] {
 	height: 60px;
 	margin-bottom: 2%;
 	margin-top: 2%;
-	border: 1px white solid;
+	border: 1px green solid;
 	box-shadow: 1px 1px 5px black;
 	border-radius: 2%;
 	color: white;
@@ -1056,7 +1060,7 @@ input[type=radio] {
 	margin-top: 2%;
 	height: 50px;
 	width: 100%;
-	border: 1px white solid;
+	border: 1px green solid;
 }
 
 #btn_valider_suivi_client:hover{
@@ -1218,6 +1222,7 @@ input[type=radio] {
 	margin-top: 2%;
 	margin-bottom: 2%;
 	color: white;
+	border-color: green;
 }
 
 #btn_valider_impact_formation:hover{
@@ -1488,3 +1493,5 @@ input[type=radio] {
 	margin-left: auto;
 	margin-right: auto;
 }
+
+

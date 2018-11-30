@@ -19,7 +19,7 @@ class Commentaires extends Migration
             $table->dateTime('date_jour')->nullable();
             $table->unsignedInteger('apprenant_id')->nullable();
             $table->unsignedInteger('formateur_id')->nullable();
-            $table->text('commentaire', 1000);
+            $table->text('commentaire', 500);
             $table->integer('type');
             $table->char('formation', 100)->nullable();
             

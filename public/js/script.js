@@ -65,6 +65,18 @@ $( document ).ready(function() {
 });
 
 
+$(function() {
+
+    $('#chkveg').multiselect({
+
+        includeSelectAllOption: true
+    });
+
+    $('#btnget').click(function(){
+
+        alert($('#chkveg').val());
+    });
+});
 
 $('#inputGroupSelect01').bind('change', function(event) {
 

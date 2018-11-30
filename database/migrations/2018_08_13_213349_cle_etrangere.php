@@ -29,7 +29,11 @@ class CleEtrangere extends Migration
 
         Schema::table('formations', function (Blueprint $table) {
             
-            $table->foreign('client_id')->references('id')->on('users'); 
+            $table->foreign('client_id1')->references('id')->on('users');
+            $table->foreign('client_id2')->references('id')->on('users'); 
+            $table->foreign('client_id3')->references('id')->on('users'); 
+            $table->foreign('client_id4')->references('id')->on('users'); 
+            $table->foreign('client_id5')->references('id')->on('users');  
             $table->foreign('formateur_id')->references('id')->on('users');
               
         });

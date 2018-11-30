@@ -43,11 +43,22 @@ class FormationController extends Controller
     public function store(Request $request)
     {
 
+
+        if($request->fin_formation < $request->debut_formation){
+
+            return redirect()->back()->with('error', 'La date de fin de formation ne peut pas être antérieure à la date de début!');
+        }
+
         $apprenants = Apprenant::where('groupe_formation', '=' , $request->nom_formation)->get();
 
         $programme_formation = $request->file('programme_formation');
 
-        if ($request->debut_formation == null || $request->debut_formation == null || $request->fin_formation == null || $request->nom_client == null || $request->nom_formateur == null || $request->file('programme_formation') == null) {
+        if ($request->nom_client1 == null) {
+            
+            return redirect()->back()->with('error', 'Merci de sélectionner au moins 1 client!');
+        }
+
+        else if ($request->debut_formation == null || $request->fin_formation == null || $request->nom_formateur == null || $request->file('programme_formation') == null) {
            
             return redirect()->back()->with('error', 'Merci de compléter tous les champs!');
         }
@@ -65,7 +76,28 @@ class FormationController extends Controller
         $formation->nom = $request->nom_formation;
         $formation->date_debut = $request->debut_formation;
         $formation->date_fin = $request->fin_formation;
-        $formation->client_id = $request->nom_client;
+        $formation->client_id1 = $request->nom_client1;
+
+        if ($request->nom_client2 != null) {
+            
+            $formation->client_id2 = $request->nom_client2;
+        }
+
+        if ($request->nom_client3 != null) {
+            
+            $formation->client_id3 = $request->nom_client3;
+        }
+
+        if ($request->nom_client4 != null) {
+            
+            $formation->client_id4 = $request->nom_client4;
+        }
+
+        if ($request->nom_client5 != null) {
+            
+            $formation->client_id5 = $request->nom_client5;
+        }
+        
         $formation->formateur_id = $request->nom_formateur;
         $formation->programme_formation = $nom_programme_formation;
 

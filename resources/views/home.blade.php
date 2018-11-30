@@ -21,7 +21,7 @@
                 <div class="col-lg-7" id="tableau_gestion_admin_infos_apprenants">
                     <div class="card-header" id="header_tableau_apprenants">
                         APPRENANTS       
-                        <a  href="{{route('apprenants_admin_csv')}}" id="lien_tab_apprenants">extraire (.xlsx)</a>                
+                        <a  href="{{route('apprenants_admin_csv')}}">extraire</a>                
                     </div>
                     <div id="tab_admin_apprenants">   
                         <table class="table table-striped table-dark" >
@@ -47,7 +47,7 @@
                 <div class="col-lg-5" id="tableau_gestion_admin_infos_formateurs">                   
                     <div class="card-header" id="header_tableau_apprenants">                      
                         FORMATEURS 
-                        <a  href="{{route('apprenants_formateur_csv')}}" id="lien_tab_formateurs">extraire</a>                      
+                        <a  href="{{route('apprenants_formateur_csv')}}" >extraire</a>                      
                     </div>
                     <div id="tab_formateur_admin">
                         <table class="table table-striped table-dark" >
@@ -90,6 +90,7 @@
                                             <label for="prenom" id="label_form_user_admin" style="" class="control-label">Rôle</label>    
                                         
                                             <select class="custom-select" id="role" class="form-control" name="role">
+                                                <option value="" disabled selected>Type d'utilisateur</option>
                                                 <option value="3" >Admin</option>
                                                 <option value="2" >Client</option>
                                                 <option value="1" >Formateur</option>                
@@ -234,7 +235,7 @@
                             <div class="card" style="margin-top: 1%;background-color:#2D3F58;border:hidden;border: 1px white solid;">
                                 <div class="card-header" id="header_tableau_apprenants" style="border-color: #E0002D;background-color: white;">
                                    
-                                    LISTE DES FORMATIONS 
+                                    FORMATIONS EN COURS 
                                     
                                 </div>
                                 <div id="tab_admin_formations">
@@ -245,7 +246,7 @@
                                                 <th scope="col">Debut</th>
                                                 <th scope="col">Fin</th>
                                                 <th scope="col">Formateur</th>
-                                                <th scope="col">Client</th>
+                                                <th scope="col">Client(s)</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -255,7 +256,21 @@
                                                 <td>{{\Carbon\Carbon::parse($formation->date_debut)->format('d/m/Y')}}</td>
                                                 <td>{{\Carbon\Carbon::parse($formation->date_fin)->format('d/m/Y')}}</td>
                                                 <td>{{$formation->formateur->prenom}} {{$formation->formateur->nom}}</td>  
-                                                <td>{{$formation->client->prenom}} {{$formation->client->nom}}</td>           
+                                                <td>{{$formation->client1->prenom}} {{$formation->client1->nom}}<br>
+
+                                                    @if ($formation->client2 != null)  
+                                                    {{$formation->client2->prenom}} {{$formation->client2->nom}}<br>
+                                                    @endif
+                                                    @if ($formation->client3 != null)  
+                                                    {{$formation->client3->prenom}} {{$formation->client3->nom}}<br>
+                                                    @endif
+                                                    @if ($formation->client4 != null)  
+                                                    {{$formation->client4->prenom}} {{$formation->client4->nom}}<br>
+                                                    @endif
+                                                    @if ($formation->client5 != null)  
+                                                    {{$formation->client5->prenom}} {{$formation->client5->nom}}
+                                                    @endif
+                                                </td>           
                                             </tr>
                                             @endforeach
                                         </tbody>
@@ -292,6 +307,7 @@
                                                             @endforeach    
 
                                                         </select>
+                                                        
                                                     </div> 
                                                     <div class="input-group mb-3">
                                                         <div class="input-group-prepend">
@@ -309,13 +325,45 @@
                                                 <div class="col-lg-6">
                                                     <div class="input-group mb-3">
                                                         <div class="input-group-prepend">
-                                                            <span class="input-group-text" id="basic-addon1">Client</span>
+                                                            <span class="input-group-text" id="basic-addon1">Client(s)</span>
                                                         </div>
-                                                        <select class="custom-select" id="inputGroupSelect01" name="nom_client">
-                                                            <option selected>Aucun sélectionné</option>
+                                                        <select class="custom-select" id="inputGroupSelect01" name="nom_client1">
+                                                            <option selected disabled="true">Aucun sélectionné</option>
                                                             @foreach($clients as $client)
 
-                                                            <option selected value="{{$client->id}}">{{$client->prenom}} {{$client->nom}}</option>
+                                                            <option selected value="{{$client->id}}"><label class="checkbox">{{$client->prenom}} {{$client->nom}}</option>
+
+                                                            @endforeach    
+                                                        </select>
+                                                        <select class="custom-select" id="inputGroupSelect01" name="nom_client2">
+                                                            <option selected disabled="true">Aucun sélectionné</option>
+                                                            @foreach($clients as $client)
+
+                                                            <option selected value="{{$client->id}}"><label class="checkbox">{{$client->prenom}} {{$client->nom}}</option>
+
+                                                            @endforeach    
+                                                        </select>
+                                                        <select class="custom-select" id="inputGroupSelect01" name="nom_client3">
+                                                            <option selected disabled="true">Aucun sélectionné</option>
+                                                            @foreach($clients as $client)
+
+                                                            <option selected value="{{$client->id}}"><label class="checkbox">{{$client->prenom}} {{$client->nom}}</option>
+
+                                                            @endforeach    
+                                                        </select>
+                                                        <select class="custom-select" id="inputGroupSelect01" name="nom_client4">
+                                                            <option selected disabled="true">Aucun sélectionné</option>
+                                                            @foreach($clients as $client)
+
+                                                            <option selected  value="{{$client->id}}"><label class="checkbox">{{$client->prenom}} {{$client->nom}}</option>
+
+                                                            @endforeach    
+                                                        </select>
+                                                        <select class="custom-select" id="inputGroupSelect01" name="nom_client5">
+                                                            <option selected disabled="true">Aucun sélectionné</option>
+                                                            @foreach($clients as $client)
+
+                                                            <option selected value="{{$client->id}}"><label class="checkbox">{{$client->prenom}} {{$client->nom}}</option>
 
                                                             @endforeach    
                                                         </select>
@@ -354,3 +402,4 @@
     </div>
 </div>
 @endsection
+

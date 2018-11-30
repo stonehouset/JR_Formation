@@ -24,7 +24,7 @@ class Apprenant extends Migration
             $table->string('groupe_formation')->nullable();
             $table->string('lieu_naissance')->nullable();
             $table->string('nationalite')->nullable();
-            $table->char('adresse', 40)->nullable();   
+            $table->char('adresse', 100)->nullable();   
             $table->date('debut_tutorat')->nullable();
             $table->date('fin_tutorat')->nullable();
             $table->date('date_embauche')->nullable();
@@ -34,10 +34,10 @@ class Apprenant extends Migration
             $table->char('embauche_2_mois', 10)->nullable();
             $table->char('embauche_6_mois', 10)->nullable();
             $table->char('motif_predefini', 100)->nullable(); 
-            $table->char('motif_non_embauche_2_mois', 100)->nullable(); 
-            $table->char('motif_non_embauche_6_mois', 100)->nullable(); 
-            $table->text('commentaire_semaine1', 1000)->nullable(); 
-            $table->text('commentaire_semaine2', 1000)->nullable(); 
+            $table->char('motif_non_embauche_2_mois', 500)->nullable(); 
+            $table->char('motif_non_embauche_6_mois', 500)->nullable(); 
+            $table->text('commentaire_semaine1', 500)->nullable(); 
+            $table->text('commentaire_semaine2', 500)->nullable(); 
 
         });
     }

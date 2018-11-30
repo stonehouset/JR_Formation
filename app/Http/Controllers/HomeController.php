@@ -45,9 +45,17 @@ class HomeController extends Controller
 
         foreach ($formations as $formation) {
 
-            $client = User::where('id','=',$formation->client_id)->first();
+            $client1 = User::where('id','=',$formation->client_id1)->first();
+            $client2 = User::where('id','=',$formation->client_id2)->first();
+            $client3 = User::where('id','=',$formation->client_id3)->first();
+            $client4 = User::where('id','=',$formation->client_id4)->first();
+            $client5 = User::where('id','=',$formation->client_id5)->first();
             $formateur = User::where('id','=',$formation->formateur_id)->first();
-            $formation->setAttribute('client', $client);
+            $formation->setAttribute('client1', $client1);
+            $formation->setAttribute('client2', $client2);
+            $formation->setAttribute('client3', $client3);
+            $formation->setAttribute('client4', $client4);
+            $formation->setAttribute('client5', $client5);
             $formation->setAttribute('formateur', $formateur);
             
         }
@@ -153,7 +161,7 @@ class HomeController extends Controller
             }
         }
 
-        Excel::create('users', function ($excel) use ($userData) {
+        Excel::create('apprenants', function ($excel) use ($userData) {
  
             // Build the spreadsheet, passing in the users array
             $excel->sheet('sheet1', function ($sheet) use ($userData) {
