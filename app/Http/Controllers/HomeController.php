@@ -43,32 +43,27 @@ class HomeController extends Controller
         $formateurs = User::where('role', '=', '1')->get();
         $apprenants = User::where('role', '=', '0')->get();
 
-        
+        $totalApprenants = count($apprenants);
+        $EmbauchesTotal = Apprenant::where('date_embauche', '!=', null)->get();
+        $nbEmbauchesTotal = $EmbauchesTotal->count();
+        $pourcentageEmbauchesTotal = $nbEmbauchesTotal * 100/ $totalApprenants;
+
+        $Embauches2moisTotal = Apprenant::where('embauche_2_mois', 'oui')->get();
+        $nbEmbauches2moisTotal = $Embauches2moisTotal->count();
+        $pourcentageEmbauches2MoisTotal = $nbEmbauches2moisTotal * 100/ $totalApprenants;
+
+        $Embauches6moisTotal = Apprenant::where('embauche_2_mois', 'oui')->get();
+        $nbEmbauches6moisTotal = $Embauches6moisTotal->count();
+        $pourcentageEmbauches6MoisTotal = $nbEmbauches6moisTotal * 100/ $totalApprenants;
+
+        $NonEmbauches = Apprenant::where('motif_non_embauche', '!=', null)->get();
+        $nbNonEmbauches = $NonEmbauches->count();
+        $pourcentageNonEmbauches = $nbNonEmbauches * 100/ $totalApprenants;
+
+        // return array($nbEmbauchesTotal, $nbEmbauches2moisTotal, $nbEmbauches6moisTotal);
+        //Formations en cours,
+
         $formations = Formation::where('date_fin', '>=', $aujourdhui)->get();
-
-        $formationsTerminees = Formation::where('date_fin', '<', $aujourdhui)->get();
-
-        foreach ($formationsTerminees as $formation) {
-            
-            $apprenantsFormationTerminees = Apprenant::where('formation_id', $formation->id);
-            $notesApprenants = Apprenant::avg('note_formation');
-
-            $formateur = User::where('id','=', $formation->formateur_id)->first();
-            $client1 = User::where('id','=',$formation->client_id1)->first();
-            $client2 = User::where('id','=',$formation->client_id2)->first();
-            $client3 = User::where('id','=',$formation->client_id3)->first();
-            $client4 = User::where('id','=',$formation->client_id4)->first();
-            $client5 = User::where('id','=',$formation->client_id5)->first();
-
-            $formation->setAttribute('apprenants', $apprenantsFormationTerminees);
-            $formation->setAttribute('formateur', $formateur);
-            $formation->setAttribute('client1', $client1);
-            $formation->setAttribute('client2', $client2);
-            $formation->setAttribute('client3', $client3);
-            $formation->setAttribute('client4', $client4);
-            $formation->setAttribute('client5', $client5);
-
-        }                 
 
         foreach ($formations as $formation) {
 
@@ -90,8 +85,82 @@ class HomeController extends Controller
         
         }
 
+        //Formation terminess
         
-        return view('home', ['users' => $users, 'clients' => $clients, 'formateurs' => $formateurs, 'groupes_formation' => $groupes_formation, 'formations' => $formations, 'apprenants' => $apprenants, 'formations_finies' => $formationsTerminees]);
+        $formationsTerminees = Formation::where('date_fin', '<', $aujourdhui)->get();
+
+        foreach ($formationsTerminees as $formation) {
+            
+            $apprenantsFormationTerminees = Apprenant::where('formation_id', $formation->id)->get();
+
+            $nbApprenants = $apprenantsFormationTerminees->count();
+
+            if ($nbApprenants != 0) {
+
+                $notesApprenants = Apprenant::where('formation_id', $formation->id)->avg('note_formation');
+
+                $ApprenantsEmbauches = Apprenant::where('formation_id', $formation->id)->where('date_embauche', '!=', null)->get();
+
+                $nbApprenantsEmbauches = $ApprenantsEmbauches->count();
+
+                $formation->setAttribute('nbApprenantsEmbauches', $nbApprenants);
+
+                $pourcentageSatisfaction = $notesApprenants * 5;
+
+                $formation->setAttribute('pourcentageSatisfaction', $pourcentageSatisfaction.' %');
+
+                $pourcentageApprenantEmbauches = $nbApprenantsEmbauches * 100 / $nbApprenants;
+
+                $formation->setAttribute('pourcentageEmbauches', '('.$pourcentageApprenantEmbauches.' %)');
+    
+            }
+            else{
+
+                $formation->setAttribute('pourcentageSatisfaction', '-');
+
+                $formation->setAttribute('pourcentageEmbauches', '-');
+            }  
+
+            $formateur = User::where('id','=', $formation->formateur_id)->first();
+            $client1 = User::where('id','=',$formation->client_id1)->first();
+            $client2 = User::where('id','=',$formation->client_id2)->first();
+            $client3 = User::where('id','=',$formation->client_id3)->first();
+            $client4 = User::where('id','=',$formation->client_id4)->first();
+            $client5 = User::where('id','=',$formation->client_id5)->first();
+
+            $formation->setAttribute('apprenants', $apprenantsFormationTerminees);
+            $formation->setAttribute('formateur', $formateur);
+            $formation->setAttribute('client1', $client1);
+            $formation->setAttribute('client2', $client2);
+            $formation->setAttribute('client3', $client3);
+            $formation->setAttribute('client4', $client4);
+            $formation->setAttribute('client5', $client5);
+
+
+            if ($formation->compte_rendu_formateur == 1) {
+              
+                $formation->setAttribute('compte_rendu_formateur', 'OK');
+
+            }
+            else{
+          
+                $formation->setAttribute('compte_rendu_formateur', '-');
+             
+            }
+
+            if ($formation->impact_formation == 1) {
+              
+                $formation->setAttribute('impact_formation', 'OK');
+
+            }
+            else{
+
+                $formation->setAttribute('impact_formation', '-');
+            }
+
+        }              
+        
+        return view('home', ['users' => $users, 'clients' => $clients, 'formateurs' => $formateurs, 'groupes_formation' => $groupes_formation, 'formations' => $formations, 'apprenants' => $apprenants, 'formations_finies' => $formationsTerminees, 'nbEmbauchesTotal' => $nbEmbauchesTotal , 'nbEmbauches2moisTotal' => $nbEmbauches2moisTotal , 'nbEmbauches6moisTotal' => $nbEmbauches6moisTotal, 'pourcentageEmbauchesTotal' => $pourcentageEmbauchesTotal ,'pourcentageEmbauches2MoisTotal' => $pourcentageEmbauches2MoisTotal ,'pourcentageEmbauches6MoisTotal' => $pourcentageEmbauches6MoisTotal, 'pourcentageNonEmbauches' => $pourcentageNonEmbauches]);
     }
     public function profil()
     {

@@ -223,7 +223,7 @@
                                 INFORMATIONS GENERALES
                             </button>
                             <li class="list-group-item d-flex justify-content-between align-items-center" id="item_details_users" style="font-weight: bold;">                  
-                                Nombre d'utilisateurs Total
+                                Nombre d'utilisateurs total
                                 <span class="badge badge-primary badge-pill">{{ count($users) }}</span> 
                             </li>
                             <li class="list-group-item d-flex justify-content-between align-items-center" id="item_details_users">
@@ -247,20 +247,20 @@
                                 SUIVI DES APPRENANTS
                             </button>
                             <li class="list-group-item d-flex justify-content-between align-items-center" id="item_suivi_embauche" style="font-weight: bold;">
-                                Nombre d'embauchés
-                                <span class="badge badge-primary badge-pill">0</span>
+                                Nombre d'embauchés total
+                                <span class="badge badge-primary badge-pill">{{$nbEmbauchesTotal}} | {{$pourcentageEmbauchesTotal}}%</span>
                             </li>
                             <li class="list-group-item d-flex justify-content-between align-items-center" id="item_suivi_embauche">
                                 Nombres d'embauchés à 2 mois
-                                <span class="badge badge-primary badge-pill">0</span>
+                                <span class="badge badge-primary badge-pill">{{$nbEmbauches2moisTotal}} | {{$pourcentageEmbauches2MoisTotal}}%</span>
                             </li>
                             <li class="list-group-item d-flex justify-content-between align-items-center" id="item_suivi_embauche">
                                 Nombres d'embauchés à 6 mois
-                                <span class="badge badge-primary badge-pill">0</span>
+                                <span class="badge badge-primary badge-pill">{{$nbEmbauches6moisTotal}} | {{$pourcentageEmbauches6MoisTotal}}%</span>
                             </li>
                             <li class="list-group-item d-flex justify-content-between align-items-center" id="item_suivi_embauche">
                                 Non embauchés
-                                <span class="badge badge-primary badge-pill">0</span>
+                                <span class="badge badge-primary badge-pill">{{$pourcentageNonEmbauches}}</span>
                             </li>
                         </ul>
                     </div>
@@ -278,13 +278,12 @@
                                 <thead>
                                     <tr>
                                         <th scope="col">Nom</th>
-                                        <th scope="col">Debut</th>
                                         <th scope="col">Fin</th>
                                         <th scope="col">Formateur</th>
                                         <th scope="col">Client(s)</th>
                                         <th scope="col">Nb apprenants</th>
                                         <th scope="col">% Satisfaction</th>
-                                        <th scope="col">% Embauche</th>
+                                        <th scope="col">Nb Embauchés</th>
                                         <th scope="col">Impact Formation</th>
                                         <th scope="col">Compte Rendu</th>
                                     </tr>
@@ -293,7 +292,6 @@
                                     @foreach($formations_finies as $formation)
                                     <tr>
                                         <td>{{$formation->nom}}</td>
-                                        <td>{{\Carbon\Carbon::parse($formation->date_debut)->format('d/m/Y')}}</td>
                                         <td>{{\Carbon\Carbon::parse($formation->date_fin)->format('d/m/Y')}}</td>
                                         <td>{{$formation->formateur->prenom}} {{$formation->formateur->nom}}</td>  
                                         <td>{{$formation->client1->prenom}} {{$formation->client1->nom}}<br>
@@ -311,7 +309,11 @@
                                                 {{$formation->client5->prenom}} {{$formation->client5->nom}}
                                                 @endif
                                             </td> 
-                                            <td>{{ count($formation->apprenants) }}</td>           
+                                            <td>{{ count($formation->apprenants) }}</td>
+                                            <td>{{$formation->pourcentageSatisfaction}}</td>  
+                                            <td>{{$formation->nbApprenantsEmbauches}} {{$formation->pourcentageEmbauches}}</td>  
+                                            <td>{{$formation->impact_formation}}</td>
+                                            <td>{{$formation->compte_rendu_formateur}}</td>        
                                     </tr>
                                     @endforeach
                                 </tbody>

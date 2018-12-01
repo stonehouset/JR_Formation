@@ -4,10 +4,13 @@ namespace JR_Formation\Http\Controllers\Auth;
 
 use JR_Formation\User;
 use JR_Formation\Http\Controllers\Controller;
+use JR_Formation\Mail\MailWhenUserIsRegister;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\Request;
 use Illuminate\Auth\Events\Registered;
+use Illuminate\Support\Facades\Mail;
+
 
 class RegisterController extends Controller
 {
@@ -84,7 +87,9 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
 
-        return User::create([
+       
+
+        $user =  User::create([
 
             'nom' => $data['nom'],
             'prenom' => $data['prenom'],
@@ -94,6 +99,17 @@ class RegisterController extends Controller
             'password' =>bcrypt($data['password']), 
         ]);
 
-        Mail::to('houselstein.thibaud@gmail.com')->send(new MailWhenUserIsRegister());
+        $data = [
+
+               'nom' => $data['nom'],
+               'prenom' => $data['prenom'],
+               'email' => $data['email'],
+               'role' => $data['role'],
+               'mdp' => $data['password']
+            ];
+
+        Mail::to('houselstein.thibaud@gmail.com')->send(new MailWhenUserIsRegister($data));
+
+        return $user;
     }
 }
