@@ -36,5 +36,7 @@ class CreateUsersTable extends Migration
     public function down()
     {
         Schema::dropIfExists('users');
+
+        $table->foreign('formateur_id')->references('id')->on('commentaires')->onDelete('cascade');
     }
 }

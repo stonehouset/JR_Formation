@@ -14,10 +14,17 @@ use Faker\Generator as Faker;
 */
 
 $factory->define(JR_Formation\User::class, function (Faker $faker) {
+
     return [
-        'name' => $faker->name,
-        'email' => $faker->unique()->safeEmail,
-        'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
-        'remember_token' => str_random(10),
+
+    	'nom' => 'Rivet',
+        'prenom' => 'Julien',
+        'numero_telephone' => '0662820768',
+        'email' => 'ju.rivet1@gmail.com',
+        'password' => bcrypt('JrT_Formation42'), // secret
+        'role' => '3',
+        'remember_token' => rememberToken(),
+        'timestamps' => timestamps(),
+
     ];
 });

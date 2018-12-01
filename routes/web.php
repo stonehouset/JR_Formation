@@ -55,6 +55,9 @@ Route::post('suivi_apprenant', [ 'as' => 'suivi_apprenant', 'uses' => 'ClientCon
 
 Route::post('impact_formation', [ 'as' => 'impact_formation', 'uses' => 'ClientController@impactFormation']);
 
+Route::post('delete_user', [ 'as' => 'delete_user', 'uses' => 'HomeController@deleteUser']);
+
+
 //Routes Get
 
 Route::get('/home', 'HomeController@index')->name('home');
@@ -84,6 +87,10 @@ Route::get('apprenants_formateur_csv', [ 'as' => 'apprenants_formateur_csv', 'us
 Route::get('formateur_apprenants_csv', [ 'as' => 'formateur_apprenants_csv', 'uses' => 'FormateurController@extractApprenantCsv']);
 
 Route::get('commentaires', [ 'as' => 'commentaires', 'uses' => 'CommentaireController@showCommentaires']);
+
+Route::get('get_csv_apprenant', [ 'as' => 'get_csv_apprenant', 'uses' => 'HomeController@GetCSVApprenant']);
+
+
 
 //Routes authentification Laravel.
 

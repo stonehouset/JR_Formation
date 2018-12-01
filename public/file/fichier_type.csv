@@ -1,0 +1,3 @@
+nom;prenom;numero_telephone;email;sexe;date_naissance;id_pole_emploi;numero_ss;groupe_formation;lieu_naissance;nationalite;adresse;debut_tutorat;fin_tutorat;date_embauche
+Houselstein;Thomas;607547333;houselstein.thibaud.dev@gmail.com;masculin;29/09/94;F4641741654848;58962248724;Macdo;Nantua;FR;20 rue diderot;17/11/18;30/11/18;
+Houselstein;Thibaud;607557333;houselstein.thibaud@gmail.com;masculin;29/09/93;F485445484894;54984184841;Burger King;Nantua;FR;20 rue diderot;17/11/18;30/11/18;

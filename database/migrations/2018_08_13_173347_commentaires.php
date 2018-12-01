@@ -24,6 +24,8 @@ class Commentaires extends Migration
             $table->char('formation', 100)->nullable();
             
         });
+
+
     }
 
     /**
@@ -33,6 +35,6 @@ class Commentaires extends Migration
      */
     public function down()
     {
-        //
+        $table->foreign('id')->references('formateur_id')->on('users')->onDelete('cascade');
     }
 }

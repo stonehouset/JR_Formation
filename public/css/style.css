@@ -268,6 +268,21 @@ body{
 	box-shadow: 1px 1px 5px black;
 }
 
+
+#headingSix{
+
+	border: 2px red solid;
+	border-top: hidden;
+	background-color: white;	
+	border-radius: 2px;
+	box-shadow: 1px 1px 5px black;
+}
+
+#btn_suppr_user_haut{
+
+	color: red;
+}
+
 #headingOne{
 
 	border-color: #E0002D;
@@ -282,7 +297,6 @@ body{
 #contenu_form1,#contenu_form2,#contenu_form3,#contenu_donnees,#gestion_formation,#gestion_utilisateurs,{
 
 	width: 100%;
-	margin-top: 1%;
 	margin-left: auto;
 	margin-right: auto;
 	border-radius: 2px;
@@ -348,9 +362,9 @@ body{
 
 }
 
-#collapseFive{
+#collapseFive,#collapseSix{
 
-	box-shadow: 1px 1px 5px black;
+	box-shadow: 1px 1px 5px red;
 }
 
 #btn_donnees:hover{
@@ -377,6 +391,30 @@ body{
 	color: white;
 	border-radius: 2px;
 
+}
+
+#btn_suppr_user_admin{
+
+
+	background-color: #2D3F58;
+	border: 1px solid red;	
+	border-radius: 2px;
+	color: white;
+
+}
+
+#btn_suppr_user_admin:hover{
+
+
+	background-color: red;
+	border: 1px solid white;	
+
+}
+
+#btn_collapse_6{
+
+	background-color: red;
+	color: white;
 }
 
 
@@ -1093,7 +1131,6 @@ input[type=radio] {
 
 #header_tableau_apprenants{
 
-	margin-top: 1%;
 	height: 50px;
 	font-size: 20px;
 	box-shadow: 1px 1px 5px black;
@@ -1106,7 +1143,6 @@ input[type=radio] {
 #header_tableau_apprenants_formateur{
 
 	height: 50px;
-	
 	font-size: 20px;
 	/*font-weight: bold;*/
 	color: #2D3F58;
@@ -1472,8 +1508,6 @@ input[type=radio] {
 
 }
 
-
-
 #label_form_user_admin{
 
 	color: white;
@@ -1481,17 +1515,53 @@ input[type=radio] {
 
 #btn_ajout_user_admin{
 
+	margin-top: 2%;
 	width: 100%;
-	margin-top: 5%;
+	border: 1px green solid;
+	color: white;
+	
+}
+
+#btn_ajout_user_admin:hover{
+
+
+	background-color: green;
+	border-color: green;
+	
 }
 
 #btn_ajout_liste_apprenants{
 
-	margin-top: 1%;
-	border-color: #E0002D;
-	width: 30%;
-	margin-left: auto;
-	margin-right: auto;
+	margin-top: 5%;
+	border-color: green;
+	color: white;
+	width: 100%;
+
 }
 
+#btn_ajout_liste_apprenants:hover{
+
+	background-color: green;
+	border: 1px green solid;
+	
+	
+}
+
+#user_a_suppr{
+
+	border: 1px red solid;
+}
+
+#btn_get_excel_apprenant{
+
+	width: 80%;
+	border: 1px white solid;
+	color: white;
+}
+
+#form_register_apprenants{
+
+	margin-top: 3.2%;
+
+}
 

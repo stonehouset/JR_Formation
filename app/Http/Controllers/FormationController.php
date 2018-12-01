@@ -49,19 +49,33 @@ class FormationController extends Controller
             return redirect()->back()->with('error', 'La date de fin de formation ne peut pas être antérieure à la date de début!');
         }
 
-        $apprenants = Apprenant::where('groupe_formation', '=' , $request->nom_formation)->get();
+        if ($request->nom_client1 == $request->nom_client2 || $request->nom_client1 == $request->nom_client3 || $request->nom_client1 == $request->nom_client4 || $request->nom_client1 == $request->nom_client5) {
+            
+            return redirect()->back()->with('error', 'Merci de sélectionner un client une seule fois!');
 
-        $programme_formation = $request->file('programme_formation');
+        }
 
         if ($request->nom_client1 == null) {
             
             return redirect()->back()->with('error', 'Merci de sélectionner au moins 1 client!');
         }
 
-        else if ($request->debut_formation == null || $request->fin_formation == null || $request->nom_formateur == null || $request->file('programme_formation') == null) {
+        if ($request->nom_formation == null || $request->debut_formation == null || $request->fin_formation == null || $request->nom_formateur == null || $request->file('programme_formation') == null) {
            
             return redirect()->back()->with('error', 'Merci de compléter tous les champs!');
         }
+
+        if (strlen($request->nom_formation) > 100) {
+
+            return redirect()->back()->with('error', 'Le nom du groupe ne doit pas dépasser 100 caractères!');
+        }
+
+        $apprenants = Apprenant::where('groupe_formation', '=' , $request->nom_formation)->get();
+
+        $programme_formation = $request->file('programme_formation');
+
+        
+
 
         $nom_programme_formation = $programme_formation->getClientOriginalName();
 

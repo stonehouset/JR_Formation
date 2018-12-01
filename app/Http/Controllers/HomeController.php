@@ -35,13 +35,40 @@ class HomeController extends Controller
     public function index()
     {
 
+        $aujourdhui = date('Y-m-d');
         $users = User::all();
         $statut = null;
         $groupes_formation = Apprenant::distinct()->get(['groupe_formation']);
         $clients = User::where('role', '=', '2')->get();
         $formateurs = User::where('role', '=', '1')->get();
         $apprenants = User::where('role', '=', '0')->get();
-        $formations = Formation::all();
+
+        
+        $formations = Formation::where('date_fin', '>=', $aujourdhui)->get();
+
+        $formationsTerminees = Formation::where('date_fin', '<', $aujourdhui)->get();
+
+        foreach ($formationsTerminees as $formation) {
+            
+            $apprenantsFormationTerminees = Apprenant::where('formation_id', $formation->id);
+            $notesApprenants = Apprenant::avg('note_formation');
+
+            $formateur = User::where('id','=', $formation->formateur_id)->first();
+            $client1 = User::where('id','=',$formation->client_id1)->first();
+            $client2 = User::where('id','=',$formation->client_id2)->first();
+            $client3 = User::where('id','=',$formation->client_id3)->first();
+            $client4 = User::where('id','=',$formation->client_id4)->first();
+            $client5 = User::where('id','=',$formation->client_id5)->first();
+
+            $formation->setAttribute('apprenants', $apprenantsFormationTerminees);
+            $formation->setAttribute('formateur', $formateur);
+            $formation->setAttribute('client1', $client1);
+            $formation->setAttribute('client2', $client2);
+            $formation->setAttribute('client3', $client3);
+            $formation->setAttribute('client4', $client4);
+            $formation->setAttribute('client5', $client5);
+
+        }                 
 
         foreach ($formations as $formation) {
 
@@ -51,16 +78,20 @@ class HomeController extends Controller
             $client4 = User::where('id','=',$formation->client_id4)->first();
             $client5 = User::where('id','=',$formation->client_id5)->first();
             $formateur = User::where('id','=',$formation->formateur_id)->first();
+            $apprenantsFormation = Apprenant::where('formation_id', '=', $formation->id)->get();
+
             $formation->setAttribute('client1', $client1);
             $formation->setAttribute('client2', $client2);
             $formation->setAttribute('client3', $client3);
             $formation->setAttribute('client4', $client4);
             $formation->setAttribute('client5', $client5);
             $formation->setAttribute('formateur', $formateur);
-            
+            $formation->setAttribute('apprenants', $apprenantsFormation);
+        
         }
-        // return $groupes_formation;
-        return view('home', ['users' => $users, 'clients' => $clients, 'formateurs' => $formateurs, 'groupes_formation' => $groupes_formation, 'formations' => $formations, 'apprenants' => $apprenants]);
+
+        
+        return view('home', ['users' => $users, 'clients' => $clients, 'formateurs' => $formateurs, 'groupes_formation' => $groupes_formation, 'formations' => $formations, 'apprenants' => $apprenants, 'formations_finies' => $formationsTerminees]);
     }
     public function profil()
     {
@@ -244,6 +275,38 @@ class HomeController extends Controller
         }
 
 
+    }
+
+    public function deleteUser(Request $request)
+    {
+
+        $idUserADelete = $request->suppr_user;
+
+        $user = DB::table('users')->where('id','=', $idUserADelete)->first();
+
+        if ($user->role == 2 || $user->role == 3) {
+
+            DB::table('users')->where('id', '=', $idUserADelete)->delete();
+
+            return redirect()->back()->with('success', $user->nom.' '.$user->prenom.' a été supprimé !');
+        }
+   
+    }
+
+    public function getCSVApprenant()
+    {
+        
+        $file = public_path(). '\file\fichier_type.csv';
+
+        // return $file;
+        
+        $headers = [
+
+              'Content-Type' => 'application/excel',
+
+           ];
+
+        return response()->download($file, 'fichier_type', $headers);
     }
     
 }
