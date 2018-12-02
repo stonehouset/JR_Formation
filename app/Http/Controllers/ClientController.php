@@ -60,7 +60,12 @@ class ClientController extends Controller
 
         foreach ($formations as $formation) {
             
-            $apprenants = Apprenant::where('formation_id','=',$formation->id)->get();
+            $apprenants = Apprenant::where('formation_id','=',$formation->id)->
+                                     where('motif_non_embauche', '=', null)->
+                                     where('motif_predefini', '=', null)->
+                                     orWhere('motif_non_embauche_2_mois', '=', null)->
+                                     orWhere('motif_non_embauche_6_mois', '=', null)->
+                                     get();
 
             // return $apprenants;
 
@@ -71,6 +76,15 @@ class ClientController extends Controller
                 $users = User::where('id','=',$apprenant->user_id)->get();
 
                 $apprenant->setAttribute('users', $users);
+
+                if ($apprenant->date_embauche != null) {
+
+                    $apprenant->setAttribute('embauche', 'oui');
+                }
+                else{
+
+                    $apprenant->setAttribute('embauche', 'non');
+                }
 
             }
      
@@ -197,30 +211,36 @@ class ClientController extends Controller
 
         $oui = 'oui';
 
-        // return array($idApprenant, $embaucheOuNon, $motifNonEmbauche, $embaucheA2Mois, $embaucheA6Mois, $motifNonEmbauche2Mois, $motifNonEmbauche6Mois, $motifPredefini2Mois);
-
         if ($idApprenant == null) {
 
            return redirect()->back()->with('error', 'Vous n\'avez pas sélectionné d\'apprenant!');
         }
 
-        if ($embaucheOuNon != null && $dateEmbauche == null) {
+        $apprenantEmbauche = Apprenant::where('user_id', $idApprenant)->first();
+
+        if ($apprenantEmbauche->motif_non_embauche != null && $apprenantEmbauche->date_embauche == null) {
+
+            return redirect()->back()->with('error', 'Vous avez déja signalé cet apprenant comme non embauché!');
+
+        }
+
+        if ($motifNonEmbauche != null && $apprenantEmbauche->date_embauche != null && $apprenantEmbauche->motif_non_embauche == null) {
             
-            return redirect()->back()->with('error', 'Veuillez indiquer une date en cas d\'embauche!');
+            return redirect()->back()->with('error', 'Vous avez déja signalé cet apprenant comme embauché!');
         }
 
         if ($embaucheOuNon == null && $motifNonEmbauche == null) {
             
-            return redirect()->back()->with('error', 'Veuillez saisir un motif si l\'apprenant n\'a pas été embauché!');
+             return redirect()->back()->with('error', 'Veuillez saisir un motif si l\'apprenant n\'a pas été embauché!');
         }
 
         if ($embaucheOuNon != null && $motifNonEmbauche != null) {
             
             return redirect()->back()->with('error', 'Aucun motif nécéssaire si l\'apprenant a été embauché!');
-
         }
 
-        if ($embaucheOuNon == null && $motifNonEmbauche != null) {
+
+        if ($embaucheOuNon == null && $motifNonEmbauche != null ) {
             
             DB::table('apprenants')->where('user_id' ,'=' , $idApprenant)->update([
 
@@ -230,54 +250,92 @@ class ClientController extends Controller
 
                 ]);
 
-            return redirect()->back()->with('success', 'Merci pour votre participation!');
+            return redirect()->back()->with('success', 'Suivi mis à jour, merci!');
 
         }
+        else if($motifNonEmbauche == null){
 
-        if ($embaucheOuNon != null && $motifNonEmbauche == null) {
+            if ($embaucheOuNon != null && $dateEmbauche == null && $apprenantEmbauche->date_embauche != null) {
             
-            DB::table('apprenants')->where('user_id' ,'=' , $idApprenant)->update(['date_embauche' => $dateEmbauche]);
 
+                DB::table('apprenants')->where('user_id', $idApprenant)->update(['date_embauche' => $apprenantEmbauche->date_embauche]);
 
-            if ($embaucheA2Mois != null && $motifPredefini2Mois == null && $motifNonEmbauche2Mois == null) {
+            }
+            else if ($embaucheOuNon != null && $dateEmbauche == null && $apprenantEmbauche->date_embauche == null) {
+            
+                return redirect()->back()->with('error', 'Veuillez indiquer une date en cas d\'embauche!');
+            }
+            else if($embaucheOuNon != null && $dateEmbauche != null && $apprenantEmbauche->date_embauche == null){
 
+                DB::table('apprenants')->where('user_id', $idApprenant)->update([
+
+                    'date_embauche' => $dateEmbauche,
+
+                    ]);
+            }
+            
+            if ($apprenantEmbauche->embauche_2_mois != null && $embaucheA2Mois != null) {
                 
-                DB::table('apprenants')->where('user_id' ,'=' , $idApprenant)->update(['embauche_2_mois' => $oui]);
+                DB::table('apprenants')->where('user_id' ,'=' , $idApprenant)->update(['embauche_2_mois' => $apprenantEmbauche->embauche_2_mois]);
+            }
+
+            else if ($embaucheA2Mois == null && $motifPredefini2Mois == null && $motifNonEmbauche2Mois == null) {
+               
+                return redirect()->back()->with('error', 'Veuillez indiquer un motif si l\'apprenant n\'est plus présent!');
+            }
+
+            else if ($embaucheA2Mois != null && $motifPredefini2Mois == null && $motifNonEmbauche2Mois == null) {
+                
+                DB::table('apprenants')->where('user_id' ,'=' , $idApprenant)->update([
+
+                                    'embauche_2_mois' => $oui,
+                                    'motif_predefini' => $motifPredefini2Mois,
+                                    'motif_non_embauche_2_mois' => $motifNonEmbauche2Mois]);
 
             }
-            else{
+            else if($embaucheA2Mois == null && $motifPredefini2Mois != null && $motifNonEmbauche2Mois != null){
 
                 DB::table('apprenants')->where('user_id' ,'=' , $idApprenant)->update([
 
-                    'embauche_2_mois' => $non,
-                    'motif_predefini' => $motifPredefini2Mois,
-                    'motif_non_embauche_2_mois' => $motifNonEmbauche2Mois
-
-                    ]);
+                                    'embauche_2_mois' => $non,
+                                    'motif_predefini' => $motifPredefini2Mois,
+                                    'motif_non_embauche_2_mois' => $motifNonEmbauche2Mois]);
             }
 
-            if ($embaucheA6Mois != null && $motifPredefini2Mois == null && $motifNonEmbauche2Mois == null) {
-
-
-                DB::table('apprenants')->where('user_id' ,'=' , $idApprenant)->update(['embauche_6_mois' => $oui]);
-
+            if ($apprenantEmbauche->embauche_6_mois != null && $embaucheA6Mois != null) {
+                
+                DB::table('apprenants')->where('user_id' ,'=' , $idApprenant)->update(['embauche_6_mois' => $apprenantEmbauche->embauche_6_mois]);
             }
-            else{
+
+            else if ($embaucheA6Mois == null && $motifNonEmbauche6Mois == null) {
+               
+                return redirect()->back()->with('error', 'Veuillez indiquer un motif si l\'apprenant n\'est plus présent!');
+            }
+
+            else if ($embaucheA6Mois != null && $motifPredefini2Mois == null && $motifNonEmbauche2Mois == null) {
+
 
                 DB::table('apprenants')->where('user_id' ,'=' , $idApprenant)->update([
 
-                    'embauche_6_mois' => $non,
-                    'motif_non_embauche_6_mois' => $motifNonEmbauche6Mois
+                                        'embauche_6_mois' => $oui,
+                                        'embauche_2_mois' => $oui,
+                                        ]);
 
-                    ]);
+            }
+            else if($apprenantEmbauche->embauche_6_mois == null && $embaucheA6Mois != null){
+
+                DB::table('apprenants')->where('user_id' ,'=' , $idApprenant)->update([
+
+                                'embauche_6_mois' => $non,
+                                'motif_non_embauche_6_mois' => $motifNonEmbauche6Mois
+
+                                ]);
             }
 
-
-            return redirect()->back()->with('success', 'Merci pour votre participation!');
+             return redirect()->back()->with('success', 'Suivi mis à jour, merci!');
 
         }
-
-        
+     
     }
 
     public function impactFormation(Request $request){ //Fonction d'envoi du formulaire impact formation sur entreprise.

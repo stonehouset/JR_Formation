@@ -18,11 +18,6 @@ class CommentaireController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        //
-    }
-
     public function __construct()
     {
 
@@ -101,36 +96,37 @@ class CommentaireController extends Controller
     public function showCommentaires() //Fonction d'affichage des commentaires /semaine des apprenants et des commentaires des formateurs.
     {
 
-        $apprenants = Apprenant::all(); //Recuperation de toute la table apprenants.
-        $commentairesFormateur = Commentaire::where('type','=', 2)->orderByRaw('date_jour DESC')->get(); //recuperation de toute la table commentaires.
+        //Recuperation des commentaires individuels.
 
-        foreach ($apprenants as $apprenant) { //Boucle sur les apprenants pour recuperer les infos user et formation.
-            
-            $infosApprenant = User::where('id', $apprenant->user_id)->first(); //Recuperation des infos de l'apprenant dans table users.
-            $formationApprenant = Formation::where('nom', $apprenant->groupe_formation)->first(); //Recuperation des infos de la formation.
-            $infosFormateur = User::where('id', $formationApprenant['formateur_id'])->first();//Recuperation du formateur de la formation.
-                                                                                       
-            $apprenant->setAttribute('infos', $infosApprenant); //Ajout des infos de l'apprenant (donnees user) a l'apprenant.
-            $apprenant->setAttribute('formation', $formationApprenant); //Ajout des infos de la formation a l'apprenant.
-            $apprenant->setAttribute('nom_formateur', $infosFormateur); // Ajout des infos du formateur a l'apprenant.
-           
+        $commentairesFormateurToApprenant = Commentaire::where('type','=', 2)->orderByRaw('date_jour DESC')->get(); 
 
-        }
+        //Recuperation des commentaires de groupes.
 
-        foreach ($commentairesFormateur as $commentaire) { //Boucle sur les commentaires formateur pour récupérer infos apprenant et  
-                                                           //formateur cible.
+        $commentairesFormateurToGroupe = Commentaire::where('type','=', 1)->orderByRaw('date_jour DESC')->get(); 
+
+        foreach ($commentairesFormateurToApprenant as $commentaire) { //Boucle sur les commentaires formateur pour récupérer infos. 
 
             $apprenantCible = User::where('id', $commentaire->apprenant_id)->first();//Recuperation des infos de l'apprenant cible.
             $nomFormateur = User::where('id', $commentaire->formateur_id)->first();//Recuperation des infos du formateur cible.
 
             $commentaire->setAttribute('apprenant', $apprenantCible); //Ajout des infos de l'apprenant au commentaire.
             $commentaire->setAttribute('formateur', $nomFormateur);//Ajout des infos du formateur au commentaire.
+
+        }
+
+        foreach ($commentairesFormateurToGroupe as $commentaire) { //Boucle sur les commentaires de groupe pour récupérer infos. 
+
+            $apprenantCible = User::where('id', $commentaire->apprenant_id)->first();//Recuperation des infos de l'apprenant cible.
+            $nomFormateur = User::where('id', $commentaire->formateur_id)->first();//Recuperation des infos du formateur cible.
+
+            $commentaire->setAttribute('apprenant', $apprenantCible); //Ajout des infos de l'apprenant au commentaire.
+            $commentaire->setAttribute('formateur', $nomFormateur);//Ajout des infos du formateur au commentaire.
+
         }
 
 
-
-        return view('commentaires',['apprenants' => $apprenants, 'commentaires' => $commentairesFormateur]); //Envoi des donnees a la vue 
-                                                                                                             //commentaires.blade.php.
+        return view('commentaires',['commentaires1' => $commentairesFormateurToApprenant, 'commentaires2' => $commentairesFormateurToGroupe]); //Envoi des donnees a la vue 
+                                                                                                             
     }
 
     /**

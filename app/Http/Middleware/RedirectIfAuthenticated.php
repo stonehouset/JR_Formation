@@ -33,9 +33,33 @@ class RedirectIfAuthenticated
 
     {
 
-        if (Auth::guard($guard)->check()) {
+        if ($request->user() && $request->user()->role == 3)
+        {
 
-            return redirect('/home');
+            return redirect('home');
+
+        }
+
+        if ($request->user() && $request->user()->role == 2)
+        {
+
+            return redirect('interface_client');
+
+        }
+
+        if ($request->user() && $request->user()->role == 1)
+        {
+
+            return redirect('interface_formateur');
+
+
+        }
+
+        if ($request->user() && $request->user()->role == 0)
+        {
+
+            return redirect('interface_apprenant');
+
 
         }
 

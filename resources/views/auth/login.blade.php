@@ -4,7 +4,7 @@
 <div class="container">
     <div class="row">
         <h3 id="titre_page_connexion">CONNEXION</h3>
-        <div class="offset-lg-3 col-lg-6">
+        <div class="offset-lg-3 col-lg-6 col-sm-12">
             <div class="panel panel-default">
                 <div class="panel-body" id="formulaire_page_connexion">      
                     <form class="form-horizontal" method="POST" action="{{ route('login') }}">

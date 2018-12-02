@@ -31,7 +31,8 @@
                                 <th scope="col">Nom</th>
                                 <th scope="col">Formation</th>
                                 <th scope="col">eMail</th>
-                                <th scope="col">Téléphone</th>       
+                                <th scope="col">Téléphone</th>
+                                <th scope="col">Embauché</th>       
                             </tr>
                         </thead>
                         <tbody>
@@ -41,9 +42,10 @@
                                     <tr>                         
                                         <td>{{$user->prenom}}</td>
                                         <td>{{$user->nom}}</td>
-                                        <td>{{$formation->nom}}</td>
+                                        <td>{{$apprenant->groupe_formation}}</td>
                                         <td>{{$user->email}}</td>
-                                        <td>{{$user->numero_telephone}}</td>                                    
+                                        <td>{{$user->numero_telephone}}</td> 
+                                        <td>{{$apprenant->embauche}}</td>                                   
                                     </tr>
                                     @endforeach
                                 @endforeach
@@ -60,7 +62,8 @@
                     <div class="row">
                         <div class="offset-lg-4 col-lg-4">
                             <label for="exampleFormControlSelect1" id="label_select_stagiaire">Sélectionner un apprenant</label>
-                            <select class="form-control" id="select_stagiaire_form_client" name="id_apprenant">
+                            <select class="form-control" id="select_stagiaire_form_client" required name="id_apprenant">
+                                <option selected disabled>Aucun sélectionné</option>
                                 @foreach($formations as $formation)
                                     @foreach($formation->apprenants as $apprenant)
                                         @foreach($apprenant->users as $user)
@@ -83,7 +86,7 @@
                                 <input type="date" class="form-control" placeholder="en date du :" aria-label="date_embauche" aria-describedby="basic-addon2" id="input_date_embauche" name="date_embauche">
                                 <br>
                                 <label for="motif_non_embauche" id="label_motif_non_embauche">Motif</label>
-                                <textarea class="form-control" name="motif_non_embauche" id="motif_non_embauche" rows="1" placeholder="Entrer un motif si l'apprenant n'a pas été embauché."></textarea>
+                                <textarea class="form-control" name="motif_non_embauche" id="motif_non_embauche" rows="1" placeholder="Entrer un motif si l'apprenant n'a pas été embauché (100 caractères maximum)." maxlength="100"></textarea>
                             </div>                        
                             <div id="presence_2_mois">
                                 <input class="form-check-input" type="checkbox" id="autoSizingCheck" name="embauche_2_mois" value="1" onchange="doalert2(this)">                                
@@ -99,7 +102,7 @@
                                     <option value="Autres">Autres</option>
                                 </select>
                                 <label for="motif_detaille_2_mois" id="label_motif_detaille_2_mois">Motif détaillé</label>
-                                <textarea class="form-control" name="motif_non_embauche_2_mois" id="motif_detaille_2_mois" rows="1" placeholder="Vous pouvez développer"></textarea>
+                                <textarea class="form-control" name="motif_non_embauche_2_mois" id="motif_detaille_2_mois" rows="1" placeholder="Vous pouvez développer (100 caractères maximum)." maxlength="100"></textarea>
                             </div>
                                 <div id="presence_6_mois">
                                 <input class="form-check-input" type="checkbox" id="autoSizingCheck" name="embauche_6_mois" value="1" onchange="doalert3(this)">
@@ -108,7 +111,7 @@
                                 </label>
                                 <br>
                                 <label for="input_embauche_6_mois" id="label_embauche_6_mois">Motif</label>
-                                <textarea class="form-control" name="motif_non_embauche_6_mois" id="input_embauche_6_mois" rows="1" placeholder="Entrer un motif si l'apprenant n'est plus présent après 6 mois."></textarea>
+                                <textarea class="form-control" name="motif_non_embauche_6_mois" id="input_embauche_6_mois" rows="1" placeholder="Entrer un motif si l'apprenant n'est plus présent après 6 mois (100 caractères maximum)." maxlength="100"></textarea>
                             </div>
                         </div>                         
                         <div class="offset-lg-3 col-lg-6">                     
@@ -131,14 +134,14 @@
                             <div class="form-group row">
                                 <label for="input_nom_entreprise" class="offset-sm-2 col-sm-4 col-form-label">¤ ENTREPRISE</label>
                                 <div class="col-sm-4">
-                                    <input type="textarea" name="nom_entreprise" class="form-control" id="input_nom_entreprise" placeholder="Identification :">
+                                    <input type="textarea" maxlength="50" name="nom_entreprise" class="form-control" id="input_nom_entreprise" placeholder="Identification :">
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label for="input_hierarchie_entreprise_id" class="offset-sm-2 col-sm-4 col-form-label">¤ HIERARCHIE</label>
                                 <div class="col-sm-4">
-                                    <input type="textarea" name="hierarchie_entreprise_id" class="form-control" id="input_hierarchie_entreprise_id" placeholder="Nom/prénom :">
-                                    <input type="textarea" name="hierarchie_entreprise_fonction" class="form-control" id="input_hierarchie_entreprise_fonction" placeholder="Fonction :">
+                                    <input type="textarea" maxlength="50" name="hierarchie_entreprise_id" class="form-control" id="input_hierarchie_entreprise_id" placeholder="Nom/prénom :">
+                                    <input type="textarea" maxlength="50" name="hierarchie_entreprise_fonction" class="form-control" id="input_hierarchie_entreprise_fonction" placeholder="Fonction :">
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -147,7 +150,7 @@
                                     <!-- <input type="textarea" name="formation_suivie_entreprise_intitule" class="form-control" id="input_formation_suivie" placeholder="Intitulé :">
                                     <input type="textarea" name="formation_suivie_entreprise_duree" class="form-control" id="input_formation_suivie_duree" placeholder="Durée :"> -->
                                     <select class="custom-select" id="inputGroupSelect01" name="nom_formation">
-                                        <option selected>Aucun sélectionné</option>
+                                        <option selected disabled="true">Aucun sélectionné</option>
 
                                             @foreach($formations_terminees as $formation)
 
@@ -162,7 +165,7 @@
                             <div id="deuxieme_partie_form">                
                                 <div class="form-group row">
                                     <div class="col-sm-6">
-                                        <input type="textarea" name="objectif1" class="form-control" id="input_formation_suivie_duree" placeholder="Objectif 1">
+                                        <input type="textarea" maxlength="100" name="objectif1" class="form-control" id="input_formation_suivie_duree" placeholder="Objectif 1">
                                     </div> 
                                     <div class="col-sm-3" id="btn_radio">
                                         <label for="input_nom_entreprise" class="col-form-label">Atteint</label>
@@ -175,7 +178,7 @@
                                 </div>
                                 <div class="form-group row">
                                     <div class="col-sm-6">
-                                        <input type="textarea" name="objectif2" class="form-control" id="input_formation_suivie_duree" placeholder="Objectif 2">
+                                        <input type="textarea" maxlength="100" name="objectif2" class="form-control" id="input_formation_suivie_duree" placeholder="Objectif 2">
                                     </div>
                                     <div class="col-sm-3" id="btn_radio">
                                     <label for="input_nom_entreprise" class="col-form-label">Atteint</label>
@@ -188,7 +191,7 @@
                                 </div>
                                 <div class="form-group row">
                                     <div class="col-sm-6">
-                                        <input type="textarea" name="objectif3" class="form-control" id="input_formation_suivie_duree" placeholder="Objectif 3">
+                                        <input type="textarea" maxlength="100" name="objectif3" class="form-control" id="input_formation_suivie_duree" placeholder="Objectif 3">
                                     </div>
                                     <div class="col-sm-3" id="btn_radio">
                                         <label for="input_nom_entreprise" class="col-form-label">Atteint</label>
@@ -201,7 +204,7 @@
                                 </div>
                                 <div class="form-group row">
                                     <div class="col-sm-6">
-                                        <input type="textarea" name="objectif4" class="form-control" id="input_formation_suivie_duree" placeholder="Objectif 4">
+                                        <input type="textarea" maxlength="100" name="objectif4" class="form-control" id="input_formation_suivie_duree" placeholder="Objectif 4">
                                     </div> 
                                     <div class="col-sm-3" id="btn_radio">
                                         <label for="input_nom_entreprise" class="col-form-label">Atteint</label>
@@ -218,72 +221,72 @@
                             <div id="troisieme_partie_form">
                                 <div class="form-group row">
                                     <div class="col-sm-5">
-                                        <input type="textarea" rows="3" name="indic1" class="form-control" id="input_formation_suivie_duree" placeholder="Indicateur 1...">
+                                        <input type="textarea" rows="3" maxlength="50" name="indic1" class="form-control" id="input_formation_suivie_duree" placeholder="Indicateur 1...">
                                     </div>
                                     <div class="col-sm-2">
-                                        <input type="textarea" rows="3" name="constat1" class="form-control" id="input_formation_suivie_duree" placeholder="Constat initial...">
+                                        <input type="textarea" rows="3" maxlength="50" name="constat1" class="form-control" id="input_formation_suivie_duree" placeholder="Constat initial...">
                                     </div>
                                     <div class="col-sm-3">
-                                        <input type="textarea" rows="3" name="result1" class="form-control" id="input_formation_suivie_duree" placeholder="Resultat attendu...">
+                                        <input type="textarea" rows="3" maxlength="50" name="result1" class="form-control" id="input_formation_suivie_duree" placeholder="Resultat attendu...">
                                     </div>
                                     <div class="col-sm-2">
-                                        <input type="textarea" rows="3" name="constat_final1" class="form-control" id="input_formation_suivie_duree" placeholder="Constat final...">
+                                        <input type="textarea" rows="3" maxlength="50" name="constat_final1" class="form-control" id="input_formation_suivie_duree" placeholder="Constat final...">
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <div class="col-sm-5">
-                                        <input type="textarea" rows="3" name="indic2" class="form-control" id="input_formation_suivie_duree" placeholder="Indicateur 2...">
+                                        <input type="textarea" rows="3" maxlength="50" name="indic2" class="form-control" id="input_formation_suivie_duree" placeholder="Indicateur 2...">
                                     </div>
                                     <div class="col-sm-2">
-                                        <input type="textarea" rows="3" name="constat2" class="form-control" id="input_formation_suivie_duree" placeholder="...">
+                                        <input type="textarea" rows="3" maxlength="50" name="constat2" class="form-control" id="input_formation_suivie_duree" placeholder="...">
                                     </div>
                                     <div class="col-sm-3">
-                                        <input type="textarea" rows="3" name="result2" class="form-control" id="input_formation_suivie_duree" placeholder="...">
+                                        <input type="textarea" rows="3" maxlength="50" name="result2" class="form-control" id="input_formation_suivie_duree" placeholder="...">
                                     </div>
                                     <div class="col-sm-2">
-                                        <input type="textarea" rows="3" name="constat_final2" class="form-control" id="input_formation_suivie_duree" placeholder="...">
+                                        <input type="textarea" rows="3" maxlength="50" name="constat_final2" class="form-control" id="input_formation_suivie_duree" placeholder="...">
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <div class="col-sm-5">
-                                        <input type="textarea" rows="3" name="indic3" class="form-control" id="input_formation_suivie_duree" placeholder="Indicateur 3...">
+                                        <input type="textarea" rows="3" maxlength="50" name="indic3" class="form-control" id="input_formation_suivie_duree" placeholder="Indicateur 3...">
                                     </div>
                                     <div class="col-sm-2">
-                                        <input type="textarea" rows="3" name="constat3" class="form-control" id="input_formation_suivie_duree" placeholder="...">
+                                        <input type="textarea" rows="3" maxlength="50" name="constat3" class="form-control" id="input_formation_suivie_duree" placeholder="...">
                                     </div>
                                     <div class="col-sm-3">
-                                        <input type="textarea" rows="3" name="result3" class="form-control" id="input_formation_suivie_duree" placeholder="...">
+                                        <input type="textarea" rows="3" maxlength="50" name="result3" class="form-control" id="input_formation_suivie_duree" placeholder="...">
                                     </div>
                                     <div class="col-sm-2">
-                                        <input type="textarea" rows="3" name="constat_final3" class="form-control" id="input_formation_suivie_duree" placeholder="...">
+                                        <input type="textarea" rows="3" maxlength="50" name="constat_final3" class="form-control" id="input_formation_suivie_duree" placeholder="...">
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <div class="col-sm-5">
-                                        <input type="textarea" rows="3" name="indic4" class="form-control" id="input_formation_suivie_duree" placeholder="Indicateur 4...">
+                                        <input type="textarea" rows="3" maxlength="50" name="indic4" class="form-control" id="input_formation_suivie_duree" placeholder="Indicateur 4...">
                                     </div>
                                     <div class="col-sm-2">
-                                        <input type="textarea" rows="3" name="constat4" class="form-control" id="input_formation_suivie_duree" placeholder="...">
+                                        <input type="textarea" rows="3" maxlength="50" name="constat4" class="form-control" id="input_formation_suivie_duree" placeholder="...">
                                     </div>
                                     <div class="col-sm-3">
-                                        <input type="textarea" rows="3" name="result4" class="form-control" id="input_formation_suivie_duree" placeholder="...">
+                                        <input type="textarea" rows="3" maxlength="50" name="result4" class="form-control" id="input_formation_suivie_duree" placeholder="...">
                                     </div>
                                     <div class="col-sm-2">
-                                        <input type="textarea" rows="3" name="constat_final4" class="form-control" id="input_formation_suivie_duree" placeholder="...">
+                                        <input type="textarea" rows="3" maxlength="50" name="constat_final4" class="form-control" id="input_formation_suivie_duree" placeholder="...">
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <div class="col-sm-5">
-                                        <input type="textarea" rows="3" name="indic5" class="form-control" id="input_formation_suivie_duree" placeholder="Indicateur 5...">
+                                        <input type="textarea" rows="3" maxlength="50" name="indic5" class="form-control" id="input_formation_suivie_duree" placeholder="Indicateur 5...">
                                     </div>
                                     <div class="col-sm-2">
-                                        <input type="textarea" rows="3" name="constat5" class="form-control" id="input_formation_suivie_duree" placeholder="...">
+                                        <input type="textarea" rows="3" maxlength="50" name="constat5" class="form-control" id="input_formation_suivie_duree" placeholder="...">
                                     </div>
                                     <div class="col-sm-3">
-                                        <input type="textarea" rows="3" name="result5" class="form-control" id="input_formation_suivie_duree" placeholder="...">
+                                        <input type="textarea" rows="3" maxlength="50" name="result5" class="form-control" id="input_formation_suivie_duree" placeholder="...">
                                     </div>
                                     <div class="col-sm-2">
-                                        <input type="textarea" rows="3" name="constat_final5" class="form-control" id="input_formation_suivie_duree" placeholder="...">
+                                        <input type="textarea" rows="3" maxlength="50" name="constat_final5" class="form-control" id="input_formation_suivie_duree" placeholder="...">
                                     </div>
                                 </div>
                                 <h5 id="titre_form_impact_formation">INDICATEURS DE PROGRES QUALITATIFS </h5> 
@@ -418,11 +421,7 @@
                             <button type="submit" id="btn_valider_impact_formation" class="btn btn-outline-primary">VALIDER L'EVALUATION</button>
                         </form>
                     </div>
-                </div>
-                <!-- <form class="form-horizontal" method="GET" action="{{ route('downloadPdfClient') }}">
-                {{ csrf_field() }}
-                   <button type="submit" class="btn btn-outline-primary" style="color: white;">Télécharger le fichier d'évaluation</button>
-                </form> -->  
+                </div> 
             </div>                                              
         </div>
     </div>

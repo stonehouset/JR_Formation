@@ -219,7 +219,25 @@ class HomeController extends Controller
     {
 
         $roleUser = auth()->user()->role;
-        $dataApprenant = Apprenant::where('user_id','=',auth()->user()->id)->first();
+
+        if ($roleUser == 0) {
+
+            $dataApprenant = Apprenant::where('user_id','=',auth()->user()->id)->first();
+       
+            $formation = Formation::where('nom', '=', $dataApprenant->groupe_formation)->first();
+
+            $number = $dataApprenant->id_pole_emploi;
+
+            $number = preg_replace("/(^.|.$)(*SKIP)(*F)|(.)/","*",$number);
+
+            $dataApprenant->setAttribute('date_debut', $formation->date_debut);
+            $dataApprenant->setAttribute('date_fin', $formation->date_fin);
+            $dataApprenant->setAttribute('id_pole_emploi',$number );
+            
+
+        }
+        
+
         $statut = null;
 
         if ($roleUser == 0) {
@@ -240,7 +258,12 @@ class HomeController extends Controller
 
         }
 
-        return view('profil',['statut' => $statut, 'apprenant' => $dataApprenant]);
+        if ($roleUser == 0) {
+
+            return view('profil',['statut' => $statut, 'apprenant' => $dataApprenant]);
+        }
+
+        return view('profil',['statut' => $statut]);
     }
 
     public function questionnaireFormation() // Affichage de la page compte rendu formateur avec Formations sans eval
@@ -282,6 +305,9 @@ class HomeController extends Controller
 
                     $formateurs = User::where('id','=',$formation->formateur_id)->get();
 
+                    $dateDebut = Carbon::parse($formation->date_debut)->format('d/m/Y');
+                    $dateFin = Carbon::parse($formation->date_fin)->format('d/m/Y');
+
                     foreach ($formateurs as $formateur) {
 
                         $nomFormateur =  $formateur->prenom.' '.$formateur->nom;
@@ -289,8 +315,7 @@ class HomeController extends Controller
                     }    
                 }
 
-                $dateDebut = Carbon::parse($apprenant->debut_tutorat)->format('d/m/Y');
-                $dateFin = Carbon::parse($apprenant->fin_tutorat)->format('d/m/Y');
+                
                 $dateNaissance = Carbon::parse($apprenant->date_naissance)->format('d/m/Y');
 
                 $userData[] = [
@@ -304,7 +329,8 @@ class HomeController extends Controller
                     'Adresse' => $apprenant->adresse,
                     'eMail' => $userApprenant->email,
                     'Telephone' => $userApprenant->numero_telephone,
-                    'ID Pole Emploi' => $apprenant->id_pole_emploi,  
+                    'ID Pole Emploi' => $apprenant->id_pole_emploi, 
+                    'ID Securite Sociale' => $apprenant->numero_ss,  
                     'Formation' => $apprenant->groupe_formation,
                     'Formateur' => $nomFormateur, 
                     'Date debut de formation' => $dateDebut, 

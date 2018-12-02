@@ -20,6 +20,34 @@ Route::get('/', function () {
 //Routes Post
 
 
+Route::group(['middleware' => ['admin']], function () {
+    
+    Route::get('/home', 'HomeController@index')->name('home');
+   
+});
+
+Route::group(['middleware' => ['client']], function () {
+    
+    Route::get('/interface_client', 'ClientController@index')->name('interface_client');
+
+});
+
+Route::group(['middleware' => ['formateur']], function () {
+    
+    Route::get('/interface_formateur', 'FormateurController@index')->name('interface_formateur');    
+	Route::get('/questionnaire_formation', 'HomeController@questionnaireFormation')->name('questionnaire_formation');
+ 
+
+});
+
+Route::group(['middleware' => ['apprenant']], function () {
+    
+    Route::get('/interface_apprenant', 'ApprenantController@index')->name('interface_apprenant');
+
+});
+    
+   	
+    
 Route::post('login', [ 'as' => 'login', 'uses' => 'Auth\AuthController@login']);
 
 Route::post('client', [ 'as' => 'client', 'uses' => 'ClientController@store']);
@@ -52,24 +80,21 @@ Route::post('change_user_password', [ 'as' => 'change_user_password', 'uses' => 
 
 Route::post('suivi_apprenant', [ 'as' => 'suivi_apprenant', 'uses' => 'ClientController@suiviApprenant']);
 
-Route::post('impact_formation', [ 'as' => 'impact_formation', 'uses' => 'ClientController@impactFormation']);
-
 Route::post('delete_user', [ 'as' => 'delete_user', 'uses' => 'HomeController@deleteUser']);
 
+Route::post('impact_formation', [ 'as' => 'impact_formation', 'uses' => 'ClientController@impactFormation']);
 
 //Routes Get
 
-Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/profil', 'HomeController@profil')->name('profil');
 
-Route::get('/questionnaire_formation', 'HomeController@questionnaireFormation')->name('questionnaire_formation');
 
-Route::get('/interface_apprenant', 'ApprenantController@index')->name('interface_apprenant');
 
-Route::get('/interface_client', 'ClientController@index')->name('interface_client');
 
-Route::get('/interface_formateur', 'FormateurController@index')->name('interface_formateur');
+
+
+
 
 Route::get('downloadPdf', [ 'as' => 'downloadPdf', 'uses' => 'ApprenantController@getDownload']);
 

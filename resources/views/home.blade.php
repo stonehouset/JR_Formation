@@ -245,19 +245,19 @@
                             </button>
                             <li class="list-group-item d-flex justify-content-between align-items-center" id="item_details_users" style="font-weight: bold;">                  
                                 Nombre d'utilisateurs total
-                                <span class="badge badge-primary badge-pill">{{ count($users) }}</span> 
+                                <h5><span class="badge badge-primary badge-pill">{{ count($users) }}</span></h5>
                             </li>
                             <li class="list-group-item d-flex justify-content-between align-items-center" id="item_details_users">
                                 Nombre d'apprenants
-                                <span class="badge badge-primary badge-pill">{{ count($apprenants) }}</span>
+                                <h5><span class="badge badge-primary badge-pill">{{ count($apprenants) }}</span></h5>
                             </li>
                             <li class="list-group-item d-flex justify-content-between align-items-center" id="item_details_users">
                                 Nombre de clients
-                                <span class="badge badge-primary badge-pill">{{ count($clients) }}</span>
+                                <h5><span class="badge badge-primary badge-pill">{{ count($clients) }}</span></h5>
                             </li>
                             <li class="list-group-item d-flex justify-content-between align-items-center" id="item_details_users">
                                 Nombre de formateurs
-                                <span class="badge badge-primary badge-pill">{{ count($formateurs) }}</span>
+                                <h5><span class="badge badge-primary badge-pill">{{ count($formateurs) }}</span></h5>
                             </li>
                         </ul>
                     </div>
@@ -269,19 +269,19 @@
                             </button>
                             <li class="list-group-item d-flex justify-content-between align-items-center" id="item_suivi_embauche" style="font-weight: bold;">
                                 Nombre d'embauchés total
-                                <span class="badge badge-primary badge-pill">{{$nbEmbauchesTotal}} | {{$pourcentageEmbauchesTotal}} %</span>
+                                <h5><span class="badge badge-primary badge-pill">{{$nbEmbauchesTotal}} ({{$pourcentageEmbauchesTotal}} %)</span></h5>
                             </li>
                             <li class="list-group-item d-flex justify-content-between align-items-center" id="item_suivi_embauche">
                                 Nombres d'embauchés à 2 mois
-                                <span class="badge badge-primary badge-pill">{{$nbEmbauches2moisTotal}} | {{$pourcentageEmbauches2MoisTotal}} %</span>
+                                <h5><span class="badge badge-primary badge-pill">{{$nbEmbauches2moisTotal}} ({{$pourcentageEmbauches2MoisTotal}} %)</span></h5>
                             </li>
                             <li class="list-group-item d-flex justify-content-between align-items-center" id="item_suivi_embauche">
                                 Nombres d'embauchés à 6 mois
-                                <span class="badge badge-primary badge-pill">{{$nbEmbauches6moisTotal}} | {{$pourcentageEmbauches6MoisTotal}} %</span>
+                                <h5><span class="badge badge-primary badge-pill">{{$nbEmbauches6moisTotal}} ({{$pourcentageEmbauches6MoisTotal}} %)</span></h5>
                             </li>
                             <li class="list-group-item d-flex justify-content-between align-items-center" id="item_suivi_embauche">
                                 Non embauchés
-                                <span class="badge badge-primary badge-pill">{{$pourcentageNonEmbauches}}</span>
+                                <h5><span class="badge badge-primary badge-pill">{{$pourcentageNonEmbauches}}</span></h5>
                             </li>
                         </ul>
                     </div>
@@ -332,11 +332,11 @@
                                                 {{$formation->client5->prenom}} {{$formation->client5->nom}}
                                                 @endif
                                             </td> 
-                                            <td><span class="badge badge-primary badge-pill">{{ count($formation->apprenants) }}</span></td>
-                                            <td><span class="badge badge-primary badge-pill">{{$formation->pourcentageSansDecimalSatif}} | ( {{$formation->nbVotant}} votes )</span></td>  
-                                            <td><span class="badge badge-primary badge-pill">{{$formation->nbApprenantsEmbauches}} {{$formation->pourcentageSansDecimalAppEmbauches}}</span></td> 
-                                            <td><span class="badge badge-primary badge-pill">{{$formation->nbApprenantsEmbauches2Mois}} {{$formation->pourcentageSansDecimalAppEmbauches2}}</span></td>  
-                                            <td><span class="badge badge-primary badge-pill">{{$formation->nbApprenantsEmbauches6Mois}} {{$formation->pourcentageSansDecimalAppEmbauches6}}</span></td>   
+                                            <td><h5><span class="badge badge-primary badge-pill">{{ count($formation->apprenants) }}</span></h5></td>
+                                            <td><h5><span class="badge badge-primary badge-pill">{{$formation->pourcentageSansDecimalSatif}} | ({{$formation->nbVotant}} votes)</span></h5></td>  
+                                            <td><h5><span class="badge badge-primary badge-pill">{{$formation->nbApprenantsEmbauches}} {{$formation->pourcentageSansDecimalAppEmbauches}}</span></h5></td> 
+                                            <td><h5><span class="badge badge-primary badge-pill">{{$formation->nbApprenantsEmbauches2Mois}} {{$formation->pourcentageSansDecimalAppEmbauches2}}</span></h5></td>  
+                                            <td><h5><span class="badge badge-primary badge-pill">{{$formation->nbApprenantsEmbauches6Mois}} {{$formation->pourcentageSansDecimalAppEmbauches6}}</span></h5></td>   
                                             <td>{{$formation->impact_formation}}</td>
                                             <td>{{$formation->compte_rendu_formateur}}</td>        
                                     </tr>
@@ -349,55 +349,53 @@
             </div>
         </div>
         <div class="row" id="gestion_formation">
-            <div class="col-lg-12">
-                <div class="card-body">
-                    <div class="card" style="margin-top: 1%;background-color:#2D3F58;border:hidden;border: 1px white solid;">
-                        <div class="card-header" id="header_tableau_apprenants" style="border-color: #E0002D;background-color: white;">
-                           
-                            FORMATIONS EN COURS 
-                            
-                        </div>
-                        <div id="tab_admin_formations">
-                            <table class="table table-striped table-dark">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">Nom</th>
-                                        <th scope="col">Debut</th>
-                                        <th scope="col">Fin</th>
-                                        <th scope="col">Formateur</th>
-                                        <th scope="col">Client(s)</th>
-                                        <th scope="col">Nb apprenants</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach($formations as $formation)
-                                    <tr>
-                                        <td>{{$formation->nom}}</td>
-                                        <td>{{\Carbon\Carbon::parse($formation->date_debut)->format('d/m/Y')}}</td>
-                                        <td>{{\Carbon\Carbon::parse($formation->date_fin)->format('d/m/Y')}}</td>
-                                        <td>{{$formation->formateur->prenom}} {{$formation->formateur->nom}}</td>  
-                                        <td>{{$formation->client1->prenom}} {{$formation->client1->nom}}<br>
-
-                                            @if ($formation->client2 != null)  
-                                            {{$formation->client2->prenom}} {{$formation->client2->nom}}<br>
-                                            @endif
-                                            @if ($formation->client3 != null)  
-                                            {{$formation->client3->prenom}} {{$formation->client3->nom}}<br>
-                                            @endif
-                                            @if ($formation->client4 != null)  
-                                            {{$formation->client4->prenom}} {{$formation->client4->nom}}<br>
-                                            @endif
-                                            @if ($formation->client5 != null)  
-                                            {{$formation->client5->prenom}} {{$formation->client5->nom}}
-                                            @endif
-                                        </td> 
-                                        <td>{{ count($formation->apprenants) }}</td>           
-                                    </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                        </div>
+            <div class="col-lg-12">               
+                <div class="card" id="card_forma_en_cours">
+                    <div class="card-header" id="header_tableau_apprenants">
+                       
+                        FORMATIONS EN COURS 
+                        
                     </div>
+                    <div id="tab_admin_formations">
+                        <table class="table table-striped table-dark">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Nom</th>
+                                    <th scope="col">Debut</th>
+                                    <th scope="col">Fin</th>
+                                    <th scope="col">Formateur</th>
+                                    <th scope="col">Client(s)</th>
+                                    <th scope="col">Nb apprenants</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($formations as $formation)
+                                <tr>
+                                    <td>{{$formation->nom}}</td>
+                                    <td>{{\Carbon\Carbon::parse($formation->date_debut)->format('d/m/Y')}}</td>
+                                    <td>{{\Carbon\Carbon::parse($formation->date_fin)->format('d/m/Y')}}</td>
+                                    <td>{{$formation->formateur->prenom}} {{$formation->formateur->nom}}</td>  
+                                    <td>{{$formation->client1->prenom}} {{$formation->client1->nom}}<br>
+
+                                        @if ($formation->client2 != null)  
+                                        {{$formation->client2->prenom}} {{$formation->client2->nom}}<br>
+                                        @endif
+                                        @if ($formation->client3 != null)  
+                                        {{$formation->client3->prenom}} {{$formation->client3->nom}}<br>
+                                        @endif
+                                        @if ($formation->client4 != null)  
+                                        {{$formation->client4->prenom}} {{$formation->client4->nom}}<br>
+                                        @endif
+                                        @if ($formation->client5 != null)  
+                                        {{$formation->client5->prenom}} {{$formation->client5->nom}}
+                                        @endif
+                                    </td> 
+                                    <td>{{ count($formation->apprenants) }}</td>           
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>              
                 </div>                                  
                 <div id="accordion" class="accordion_formateur">
                     <div class="card" style="border-color: white; color: #2D3F58;">

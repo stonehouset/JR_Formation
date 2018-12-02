@@ -16,7 +16,13 @@
 
                 background-color: #2D3F58;
                 color: #636b6f;
-                font-family: 'Raleway', sans-serif;
+                font-family: 'GothamLight';
+                src: url('/fonts/Gotham-Light.eot');
+                src: url('/fonts/Gotham-Light.otf') format('opentype'),
+                     url('/fonts/Gotham-Light.eot?iefix') format('embedded-opentype'),
+                     url('/fonts/Gotham-Light.woff') format('woff'),
+                     url('/fonts/Gotham-Light.ttf') format('truetype'),
+                     url('/fonts/Gotham-Light.svg#gothamlight') format('svg');
                 font-weight: 100;
                 width: 100%;
                 margin: 0;
@@ -32,7 +38,6 @@
                 letter-spacing: .1rem;
                 text-decoration: none;
                 text-transform: uppercase;
-                border: 1px #E0002D solid;
             } 
 
         </style>
@@ -45,9 +50,9 @@
             @if (Route::has('login'))
                 <div class="links" style="text-align: center;">
                     @auth
-                        <a href="{{ url('/home') }}" style="color: white;font-size: 25px;border: 1px #E0002D solid;box-shadow: 1px 1px 5px black;">ACCUEIL EXTRANET</a>
+                        <a href="{{ url('/home') }}" style="color: white;font-size: 25px;text-shadow: 2px 2px 4px black;padding: 0.5%;">ACCUEIL EXTRANET</a>
                     @else
-                        <a href="{{ route('login') }}" style="color: white;font-size: 25px;border: 1px #E0002D solid;box-shadow: 1px 1px 5px black;">ACCES EXTRANET</a>
+                        <a href="{{ route('login') }}" style="color: white;font-size: 25px;text-shadow: 2px 2px 4px black;padding: 0.5%;">ACCES EXTRANET</a>
                         <!-- <a href="{{ route('register') }}">S'enregistrer</a> -->
                     @endauth
                 </div>

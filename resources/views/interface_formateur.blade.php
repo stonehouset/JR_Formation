@@ -137,13 +137,13 @@
         <div class="form-group" id="form_ajout_com_journalier_formateur">
             <div class="row" id="commentaire_journalier_formation">
                 <div class="offset-lg-3 col-lg-6">
-                    <select class="custom-select" id="select_formation_com_journalier" name="formation">
+                    <select class="custom-select" required id="select_formation_com_journalier" name="formation">
                         <option disabled selected>Sélectionner une formation</option>
                         @foreach($formations as $formation)
                         <option value="{{$formation->id}}">{{$formation->nom}}</option> 
                         @endforeach    
                     </select>
-                    <textarea class="form-control" id="zone_text_com_jour" placeholder="Donnez votre ressenti globale de la journée sur le groupe de formation sélectionné (200 caractères max). " rows="5" name="contenu_commentaire" maxlength="500"></textarea>
+                    <textarea class="form-control" required id="zone_text_com_jour" placeholder="Donnez votre ressenti globale de la journée sur le groupe de formation sélectionné (200 caractères max). " rows="5" name="contenu_commentaire" maxlength="500"></textarea>
                     <button type="submit" id="btn_valider_com_jour" class="btn btn-outline-primary">AJOUTER COMMENTAIRE</button>
                 </div>
             </div>  

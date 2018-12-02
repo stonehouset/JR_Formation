@@ -3,9 +3,8 @@
 namespace JR_Formation\Http\Middleware;
 
 use Closure;
-use Response;
 
-class IsAdmin
+class IsApprenant
 {
     /**
      * Handle an incoming request.
@@ -18,10 +17,11 @@ class IsAdmin
 
     {
 
-        if ($request->user() && $request->user()->role != 3)
+        if ($request->user() && $request->user()->role != 0)
         {
 
             return redirect('login');
+
 
         }
 
