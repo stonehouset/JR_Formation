@@ -26,6 +26,20 @@ class CreateUsersTable extends Migration
             $table->timestamps();
             
         });
+
+        DB::table('users')->insert(
+
+            array(
+
+                'nom' => 'Rivet',
+                'prenom' => 'Julien',
+                'numero_telephone' => '0662820768',
+                'email' => 'ju.rivet1@gmail.com',
+                'password' => bcrypt('JrT_Formation42'), // secret
+                'role' => '3',
+               
+            )
+        );
     }
 
     /**

@@ -4,10 +4,10 @@ namespace JR_Formation\Http\Middleware;
 
 use Closure;
 
-class Admin
+class CheckRole
 {
     /**
-     * Handle an incoming request.
+     * Handle the incoming request.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \Closure  $next
@@ -15,7 +15,13 @@ class Admin
      */
     public function handle($request, Closure $next)
     {
+        if ($request->user()->role === 3)) {
 
-        return redirect()->route('home');
+            return redirect('/home');
+
+        }
+
+        return $next($request);
     }
+
 }

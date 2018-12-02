@@ -124,7 +124,7 @@ class ApprenantController extends Controller
 
         foreach ($customerArr as $item) {
 
-            if($item['date_naissance']!=null) {
+            if($item['date_naissance'] != null) {
 
                 $explodeDate = explode('/', $item['date_naissance']);
                 $day = $explodeDate[0];
@@ -135,33 +135,6 @@ class ApprenantController extends Controller
 
             }   
             // return $item['date_naissance'];
-
-            if($item['debut_tutorat']!=null) {
-
-                $explodeDate = explode('/', $item['debut_tutorat']);
-                $day = $explodeDate[0];
-                $month = $explodeDate[1];
-                $year = $explodeDate[2];               
-                $date = Carbon::createFromFormat('Y-m-d', $year.'-'.$month.'-'.$day )->toDateString();
-                $item['debut_tutorat'] = $date; 
-
-            }  
-
-            if($item['fin_tutorat']!=null) {
-
-                $explodeDate = explode('/', $item['fin_tutorat']);
-                $day = $explodeDate[0];
-                $month = $explodeDate[1];
-                $year = $explodeDate[2];               
-                $date = Carbon::createFromFormat('Y-m-d', $year.'-'.$month.'-'.$day )->toDateString();
-                $item['fin_tutorat'] = $date;  
-
-            }  
-
-            if($item['date_embauche'] == null) {
-
-                $item['date_embauche'] = null;
-            }
 
             $mdp = generatePassword();
 
@@ -192,9 +165,6 @@ class ApprenantController extends Controller
             $apprenant->lieu_naissance = $item['lieu_naissance'];
             $apprenant->nationalite = $item['nationalite'];
             $apprenant->adresse = $item['adresse'];
-            $apprenant->debut_tutorat = $item['debut_tutorat'];
-            $apprenant->fin_tutorat = $item['fin_tutorat'];
-            $apprenant->date_embauche = $item['date_embauche'];
 
             $apprenant->save();
 
@@ -210,7 +180,7 @@ class ApprenantController extends Controller
             // return view("emails.apprenants", []);
 
             Mail::to($item['email'])->send(new Contact($data));
-
+            
         }
       
         return redirect()->back()->with('success', 'Apprenants ajoutés!');    

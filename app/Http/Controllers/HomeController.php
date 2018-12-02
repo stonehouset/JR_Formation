@@ -43,22 +43,56 @@ class HomeController extends Controller
         $formateurs = User::where('role', '=', '1')->get();
         $apprenants = User::where('role', '=', '0')->get();
 
+        foreach ($apprenants as $apprenant) {
+            
+            $infosUserApprenant = Apprenant::where('user_id', $apprenant->id)->first();
+
+            $apprenant->setAttribute('commentaire_semaine1', $infosUserApprenant->commentaire_semaine1);
+            $apprenant->setAttribute('commentaire_semaine2', $infosUserApprenant->commentaire_semaine2);
+            $apprenant->setAttribute('groupe_formation', $infosUserApprenant->groupe_formation);
+            $apprenant->setAttribute('note_formation', $infosUserApprenant->note_formation);
+
+        }
+
         $totalApprenants = count($apprenants);
-        $EmbauchesTotal = Apprenant::where('date_embauche', '!=', null)->get();
-        $nbEmbauchesTotal = $EmbauchesTotal->count();
-        $pourcentageEmbauchesTotal = $nbEmbauchesTotal * 100/ $totalApprenants;
 
-        $Embauches2moisTotal = Apprenant::where('embauche_2_mois', 'oui')->get();
-        $nbEmbauches2moisTotal = $Embauches2moisTotal->count();
-        $pourcentageEmbauches2MoisTotal = $nbEmbauches2moisTotal * 100/ $totalApprenants;
+        if ($totalApprenants != 0) {
 
-        $Embauches6moisTotal = Apprenant::where('embauche_2_mois', 'oui')->get();
-        $nbEmbauches6moisTotal = $Embauches6moisTotal->count();
-        $pourcentageEmbauches6MoisTotal = $nbEmbauches6moisTotal * 100/ $totalApprenants;
+            $EmbauchesTotal = Apprenant::where('date_embauche', '!=', null)->get();
+            $nbEmbauchesTotal = $EmbauchesTotal->count();
+            $pourcentageEmbauchesTotal = $nbEmbauchesTotal * 100/ $totalApprenants;
+            $pourcentageEmbauchesTotal = round($pourcentageEmbauchesTotal);
 
-        $NonEmbauches = Apprenant::where('motif_non_embauche', '!=', null)->get();
-        $nbNonEmbauches = $NonEmbauches->count();
-        $pourcentageNonEmbauches = $nbNonEmbauches * 100/ $totalApprenants;
+            $Embauches2moisTotal = Apprenant::where('embauche_2_mois', 'oui')->get();
+            $nbEmbauches2moisTotal = $Embauches2moisTotal->count();
+            $pourcentageEmbauches2MoisTotal = $nbEmbauches2moisTotal * 100/ $totalApprenants;
+            $pourcentageEmbauches2MoisTotal = round($pourcentageEmbauches2MoisTotal);
+
+            $Embauches6moisTotal = Apprenant::where('embauche_2_mois', 'oui')->get();
+            $nbEmbauches6moisTotal = $Embauches6moisTotal->count();
+            $pourcentageEmbauches6MoisTotal = $nbEmbauches6moisTotal * 100/ $totalApprenants;
+            $pourcentageEmbauches6MoisTotal = round($pourcentageEmbauches6MoisTotal);
+
+            $NonEmbauches = Apprenant::where('motif_non_embauche', '!=', null)->get();
+            $nbNonEmbauches = $NonEmbauches->count();
+            $pourcentageNonEmbauches = $nbNonEmbauches * 100/ $totalApprenants;
+            $pourcentageNonEmbauches = round($pourcentageNonEmbauches);
+
+        }
+
+        else{
+
+            $nbEmbauchesTotal = '-';
+            $nbEmbauches2moisTotal = '-';
+            $nbEmbauches6moisTotal = '-';
+            $nbNonEmbauches = '-';
+            $pourcentageEmbauchesTotal = '-';
+            $pourcentageEmbauches2MoisTotal = '-';
+            $pourcentageEmbauches6MoisTotal = '-';
+            $pourcentageNonEmbauches = '-';
+
+        }
+        
 
         // return array($nbEmbauchesTotal, $nbEmbauches2moisTotal, $nbEmbauches6moisTotal);
         //Formations en cours,
@@ -98,27 +132,46 @@ class HomeController extends Controller
             if ($nbApprenants != 0) {
 
                 $notesApprenants = Apprenant::where('formation_id', $formation->id)->avg('note_formation');
-
                 $ApprenantsEmbauches = Apprenant::where('formation_id', $formation->id)->where('date_embauche', '!=', null)->get();
+                $ApprenantsEmbauches2Mois = Apprenant::where('formation_id', $formation->id)->where('embauche_2_mois', '=', 'oui')->get();
+                $ApprenantsEmbauches6Mois = Apprenant::where('formation_id', $formation->id)->where('embauche_6_mois', '=', 'oui')->get();
+                $apprenantsVoteNonNull = Apprenant::where('formation_id', $formation->id)->where('note_formation', '!=', null)->get();
+
+                $nbVotant = $apprenantsVoteNonNull->count();
+                $formation->setAttribute('nbVotant', $nbVotant);
 
                 $nbApprenantsEmbauches = $ApprenantsEmbauches->count();
+                $formation->setAttribute('nbApprenantsEmbauches', $nbApprenantsEmbauches);
 
-                $formation->setAttribute('nbApprenantsEmbauches', $nbApprenants);
+                $nbApprenantsEmbauches2Mois = $ApprenantsEmbauches2Mois->count();
+                $formation->setAttribute('nbApprenantsEmbauches2Mois', $nbApprenantsEmbauches2Mois);
+
+                $nbApprenantsEmbauches6Mois = $ApprenantsEmbauches6Mois->count();
+                $formation->setAttribute('nbApprenantsEmbauches6Mois', $nbApprenantsEmbauches6Mois);
 
                 $pourcentageSatisfaction = $notesApprenants * 5;
-
-                $formation->setAttribute('pourcentageSatisfaction', $pourcentageSatisfaction.' %');
+                $pourcentageSansDecimalSatif = round($pourcentageSatisfaction);
+                $formation->setAttribute('pourcentageSansDecimalSatif', $pourcentageSansDecimalSatif.' %');
 
                 $pourcentageApprenantEmbauches = $nbApprenantsEmbauches * 100 / $nbApprenants;
+                $pourcentageSansDecimalAppEmbauches = round($pourcentageApprenantEmbauches);
+                $formation->setAttribute('pourcentageSansDecimalAppEmbauches', '('.$pourcentageSansDecimalAppEmbauches.' %)');
 
-                $formation->setAttribute('pourcentageEmbauches', '('.$pourcentageApprenantEmbauches.' %)');
+                $pourcentageApprenantEmbauches2Mois = $nbApprenantsEmbauches2Mois * 100 / $nbApprenants;
+                $pourcentageSansDecimalAppEmbauches2 = round($pourcentageApprenantEmbauches2Mois);
+                $formation->setAttribute('pourcentageSansDecimalAppEmbauches2', '('.$pourcentageSansDecimalAppEmbauches2.' %)');
+
+                $pourcentageApprenantEmbauches6Mois = $nbApprenantsEmbauches6Mois * 100 / $nbApprenants;
+                $pourcentageSansDecimalAppEmbauches6 = round($pourcentageApprenantEmbauches6Mois);
+                $formation->setAttribute('pourcentageSansDecimalAppEmbauches6', '('.$pourcentageSansDecimalAppEmbauches6.' %)');
     
             }
             else{
 
-                $formation->setAttribute('pourcentageSatisfaction', '-');
-
-                $formation->setAttribute('pourcentageEmbauches', '-');
+                $formation->setAttribute('pourcentageSansDecimalSatif', '-');
+                $formation->setAttribute('pourcentageSansDecimalAppEmbauches', '-');
+                $formation->setAttribute('pourcentageSansDecimalAppEmbauches2', '-');
+                $formation->setAttribute('pourcentageSansDecimalAppEmbauches6', '-');
             }  
 
             $formateur = User::where('id','=', $formation->formateur_id)->first();

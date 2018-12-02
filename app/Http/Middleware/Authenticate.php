@@ -37,7 +37,7 @@ class Authenticate
 
             if ($request->ajax() || $request->wantsJson()) {
 
-                return response('Unauthorized.', 401);
+                return response('Non autorisé.', 401);
 
             } else {
 

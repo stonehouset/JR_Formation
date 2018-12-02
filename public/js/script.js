@@ -374,10 +374,3 @@ $(document).on('change', '#checkbox_1', function(){
 
 
 
-
-
-
-// $("#btn_entreprise").mouseleave(function(){
-//     $("#form_entreprise").hide();
-// });
-

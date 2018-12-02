@@ -11,8 +11,6 @@
 |
 */
 
-Route::get('/home', 'HomeController@index')->name('home');
-
 //Route page accueil.
 
 Route::get('/', function () {
@@ -20,6 +18,7 @@ Route::get('/', function () {
 });
 
 //Routes Post
+
 
 Route::post('login', [ 'as' => 'login', 'uses' => 'Auth\AuthController@login']);
 

@@ -4,23 +4,55 @@
         <meta charset="utf-8">
       </head>
       <body>
-        <h4>Madame, Monsieur </h4>
+        <h4>Madame, Monsieur {{ $data['nom'] }}</h4>
         <br>
-        <p>Vous allez suivre une formation dispensée par notre organisme JR Formation, pour mener à bien votre expérience votre profil a été créé sur notre extranet à l'adresse http://www.jr_formation/extranet.com</p>
+        @if ( $data['role']  == 3)
+          <p>Votre profil d'Administrateur a été créé sur notre extranet à l'adresse http://www.jrt_formation_extranet.com</p>
+        @endif
+        @if ( $data['role']  == 2)
+          <p>Votre profil de Client a été créé sur notre extranet à l'adresse http://www.jrt_formation_extranet.com</p>
+        @endif
+        @if ( $data['role']  == 1)
+          <p>Votre profil de Formateur a été créé sur notre extranet à l'adresse http://www.jrt_formation_extranet.com</p>
+        @endif
         <br>
-        <p>Vous pouvez dès à présent vous connecter grâce aux identifiants suivant :</p>
+        <p>Vous pouvez dès à présent vous connecter grâce aux identifiants suivants :</p>
         <ul>
-            <li><strong>ID -> </strong></li>
-            <li><strong>Mdp ->  </strong></li>
+            <li><strong>ID -> {{ $data['email'] }}</strong></li>
+            <li><strong>Mot de passe -> {{ $data['mdp'] }} </strong></li>
         </ul>
         <br>
-        <p>Vous trouverez votre programme de formation, ainsi que 2 questionnaires, l'un pour évaluer la formation, l'autre pour évaluer votre formateur. De plus vous pourrez publier un commentaire pour chaque semaine de formation. L'objectif étant d'améliorer nos formations continuellement</p>
-        <p>Merci pour le temps que vous nous consacrez et bon courage pour votre formation!</p>
+        @if ( $data['role'] == 3)
 
+          <p>Cet espace vous servira à gérer les utilisateurs (apprenants, formateurs, clients, admins) ainsi que les formations. </p>
+
+        @endif
+        @if ( $data['role'] == 2)
+
+          <p>Cet espace vous permet de visualiser et de gérer le suivie des apprenants à votre compte : </p>
+          <ul>
+            <li> Liste des apprenants.</li>
+            <li> Suivi des apprenants en entreprise.</li>
+            <li> Formulaire d'évaluation de l'impact de l'action de formation sur votre entreprise.</li>
+          </ul>
+
+        @endif
+        @if ( $data['role']  == 1)
+
+          <p>Cet espace vous permet de visualiser et de gérer le suivie des apprenants qui vous ont été attribués : </p>
+          <ul>
+            <li> Liste des apprenants</li>
+            <li> Possibilité d'envoyer un commentaire /jour /apprenant.</li>
+            <li> Possibilité d'envoyer un commentaire /jour /formation.</li>
+            <li> Possibilité de signaler le retard ou l'absence d'un apprenant.</li>
+            <li> Possibilité d'attribuer une note /20 à un apprenant.</li>
+          </ul>
+
+        @endif
+        <p>Par sécurité vous êtes invité à modifier votre mot passe dans l'onglet Profil->Modifier votre mot de passe</p>
         <p>A bientôt,</p>
 
-        <h4>L'équipe JR Formation.</h4>
+        <h4>L'équipe JRT Formation.</h4>
         <br>
         <br>
       </body>
-  </html>

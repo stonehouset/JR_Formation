@@ -59,7 +59,7 @@
             <div class="card" id="card_actions_formateur">         
                 <form id="form_register_commentaire" method="POST" action="{{ route('commentaire') }}">
                 {{ csrf_field() }} 
-                    <select class="custom-select" id="inputGroupSelect01" name="nom_apprenant_com">
+                    <select class="custom-select" id="inputGroupSelect01" required name="nom_apprenant_com">
                         <option value="" disabled selected>Sélectionnez un apprenant</option>
                         @foreach($formations as $formation)
                             @foreach($formation->apprenants as $apprenant)
@@ -72,7 +72,7 @@
                         @endforeach
                     </select>
                     <div id="com_formateur_to_apprenant_txt">
-                        <textarea class="form-control" id="exampleFormControlTextarea1" placeholder="Ecrivez un message à propos de l'apprenant sélectionné (500 caractères maximum)." rows="5" name="contenu_commentaire"></textarea>
+                        <textarea class="form-control" id="exampleFormControlTextarea1" placeholder="Ecrivez un message à propos de l'apprenant sélectionné (500 caractères maximum)." required rows="5" name="contenu_commentaire"></textarea>
                     </div>
                     <button type="submit" id="btn_ajouter_com_formateur_to_apprenant" class="btn btn-outline-primary">Ajouter</button>
                 </form> 
@@ -82,7 +82,7 @@
                     <div class="row">
                         <div class="col-lg-6">
                             <select class="custom-select" id="select_nom_apprenant_absouret" name="nom_apprenant_absence_retard">
-                                <option value="" disabled selected>Apprenant</option>
+                                <option disabled selected>Apprenant</option>
                                 @foreach($formations as $formation)
                                     @foreach($formation->apprenants as $apprenant)
                                         @foreach($apprenant->users as $user)
@@ -95,8 +95,8 @@
                             </select>
                         </div>
                         <div class="col-lg-6"> 
-                            <select class="custom-select" id="select_absence_retard_apprenant" name="absence_ou_retard">
-                                <option value="" disabled selected>Retard/Absence</option>
+                            <select class="custom-select" id="select_absence_retard_apprenant" required name="absence_ou_retard">
+                                <option disabled selected>Retard/Absence</option>
                                 <option value="1">Retard</option>
                                 <option value="2">Absence</option>     
                             </select>     
@@ -104,13 +104,13 @@
                     </div>
                     <button type="submit" id="btn_valider_retard_absence" class="btn btn-outline-primary">Signaler</button>
                 </form>
-                <button class="btn btn-outline-primary" disabled="true" id="label_note">Attribuer une note /20</button>
+                <button class="btn btn-outline-primary" disabled="true" id="label_note">Attribuer une note</button>
                 <form id="form_register_note" method="POST" action="{{ route('note_apprenant')}}">
                     {{ csrf_field() }}
                     <div class="row">
                         <div class="col-lg-6">
-                            <select class="custom-select" id="select_ajout_note_apprenant" name="nom_apprenant_note">
-                                <option value="" disabled>Apprenant</option>
+                            <select class="custom-select" id="select_ajout_note_apprenant" required name="nom_apprenant_note">
+                                <option disabled selected>Apprenant</option>
                                 @foreach($formations as $formation)
                                     @foreach($formation->apprenants as $apprenant)
                                         @foreach($apprenant->users as $user)
@@ -123,7 +123,7 @@
                             </select>
                         </div>
                         <div class="col-lg-6">
-                            <input id="note_apprenant" type="number" class="form-control" name="note_apprenant" value="" min="0" max="20" required >
+                            <input id="note_apprenant" type="number" class="form-control" name="note_apprenant" value="" min="0" max="20" required placeholder="/20">
                         </div>
                     </div>
                     <button type="submit" id="btn_valider_note" class="btn btn-outline-primary">Ajouter</button>
@@ -138,7 +138,7 @@
             <div class="row" id="commentaire_journalier_formation">
                 <div class="offset-lg-3 col-lg-6">
                     <select class="custom-select" id="select_formation_com_journalier" name="formation">
-                        <option value="" disabled selected>Sélectionner une formation</option>
+                        <option disabled selected>Sélectionner une formation</option>
                         @foreach($formations as $formation)
                         <option value="{{$formation->id}}">{{$formation->nom}}</option> 
                         @endforeach    

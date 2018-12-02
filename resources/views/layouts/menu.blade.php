@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'JRT_Formation') }}</title>
+    <title>JRT_Formation</title>
 
     <!-- Styles -->  
     <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
@@ -54,8 +54,7 @@
                 <li class="nav-item active" >
                     <a class="nav-link" href="/profil" id="text_nav_link">Profil <span class="sr-only">(current)</span></a>
                 </li>
-            </ul>    
-            <span id="date_jour">{{ date('d/m/Y') }}</span>    
+            </ul>        
             @guest
                 <li><a href="{{ route('login') }}" id="lien_connexion_deco">Connexion</a></li>
             @else

@@ -25,7 +25,7 @@
             <div class="offset-lg-3 col-lg-6" id="input_formation_quest_formateur">
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
-                        <span class="input-group-text" id="basic-addon1">Groupe de formation</span>
+                        <span class="input-group-text" id="basic-addon1">Groupe de formation à évaluer</span>
                     </div>
                     <select class="custom-select" id="inputGroupSelect01" name="nom_formation">
                         <option selected>Aucun sélectionné</option>

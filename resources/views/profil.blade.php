@@ -58,7 +58,7 @@
                 {{ csrf_field() }}
                     <input type="password" class="form-control" name="motdepasse" placeholder="Nouveau mot de passe" id="input_profil_mdp">
                     <input type="password" class="form-control" name="confirmPassword" placeholder="Confirmer le nouveau mot de passe" id="input_profil_confirm_mdp">
-                    <button type="submit" class="btn btn-outline-primary" id="btn_submit_change_mdp">Valider</button>
+                    <button type="submit" class="btn btn-outline-primary" id="btn_submit_change_mdp">VALIDER</button>
                 </form>
             </div>
         </div>

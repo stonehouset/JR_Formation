@@ -1,11 +1,20 @@
 @extends('layouts.menu')
 
 @section('content')
+
 <div class="card text-center" id="card_principale_home">
-    <div class="card-body">   
-        <button type="button" class="btn btn-outline-dark" id="btn_donnees">DONNEES GENERALES</button>
-        <button type="button" class="btn btn-outline-dark" id="btn_gestion_utilisateur">UTILISATEURS</button> 
-        <button type="button" class="btn btn-outline-dark" id="btn_gestion_formation">FORMATIONS</button> 
+    <div class="card-body">
+        <div class="row">
+            <div class="col-lg-4">
+                <button type="button" class="btn btn-outline-dark" id="btn_donnees">DONNEES GENERALES</button>      
+            </div>
+            <div class="col-lg-4">
+                <button type="button" class="btn btn-outline-dark" id="btn_gestion_utilisateur">UTILISATEURS</button> 
+            </div>
+            <div class="col-lg-4">
+                <button type="button" class="btn btn-outline-dark" id="btn_gestion_formation">FORMATIONS</button> 
+            </div>
+        </div>   
         @if (\Session::has('error'))
             <div class="alert alert-error" id="div_show_error">
                 {!! \Session::get('error') !!}   
@@ -18,7 +27,7 @@
         @endif        
         <div class="card-text" id="gestion_utilisateurs">  
             <div class="row">
-                <div class="col-lg-7" id="tableau_gestion_admin_infos_apprenants">
+                <div class="col-lg-8" id="tableau_gestion_admin_infos_apprenants">
                     <div class="card-header" id="header_tableau_apprenants">
                         APPRENANTS       
                         <a  href="{{route('apprenants_admin_csv')}}">extraire</a>                
@@ -27,24 +36,34 @@
                         <table class="table table-striped table-dark" >
                             <thead>
                                 <tr> 
-                                    <th scope="col">Prénom + Nom</th>                                     
+                                    <th scope="col">Prénom + Nom</th>  
+                                    <th scope="col">Groupe formation</th>                                    
                                     <th scope="col">Email</th>
-                                    <th scope="col">Téléphone</th>                    
+                                    <th scope="col">Téléphone</th>                                       
+                                    <th scope="col">Commentaire Semaine 1</th>
+                                    <th scope="col">Commentaire Semaine 2</th>
+                                    <th scope="col">Note formation</th>                
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach($apprenants as $apprenant)
-                                <tr>
-                                    <td>{{$apprenant->prenom}} {{$apprenant->nom}}</td>
-                                    <td>{{$apprenant->email}}</td>
-                                    <td>{{$apprenant->numero_telephone}}</td>                                        
-                                </tr>
-                                @endforeach
+                                @if ($apprenants != null)
+                                    @foreach($apprenants as $apprenant)
+                                    <tr>
+                                        <td>{{$apprenant->prenom}} {{$apprenant->nom}}</td>
+                                        <td>{{$apprenant->groupe_formation}}</td>
+                                        <td>{{$apprenant->email}}</td>
+                                        <td>{{$apprenant->numero_telephone}}</td>                                   
+                                        <td>{{$apprenant->commentaire_semaine1}}</td>
+                                        <td>{{$apprenant->commentaire_semaine2}}</td>
+                                        <td>{{$apprenant->note_formation}}</td>                                         
+                                    </tr>
+                                    @endforeach
+                                @endif
                             </tbody>
                         </table> 
                     </div>
                 </div>
-                <div class="col-lg-5" id="tableau_gestion_admin_infos_formateurs">                   
+                <div class="col-lg-4" id="tableau_gestion_admin_infos_formateurs">                   
                     <div class="card-header" id="header_tableau_apprenants">                      
                         FORMATEURS 
                         <a  href="{{route('apprenants_formateur_csv')}}" >extraire</a>                      
@@ -59,6 +78,7 @@
                                 </tr>
                             </thead>
                             <tbody>
+                            @if ($formateurs != null)
                                 @foreach($formateurs as $formateur)
                                 <tr>
                                     <td>{{$formateur->prenom}} {{$formateur->nom}}</td>
@@ -66,6 +86,7 @@
                                     <td>{{$formateur->numero_telephone}}</td>                                        
                                 </tr> 
                                 @endforeach
+                            @endif
                             </tbody>
                         </table>
                     </div> 
@@ -248,15 +269,15 @@
                             </button>
                             <li class="list-group-item d-flex justify-content-between align-items-center" id="item_suivi_embauche" style="font-weight: bold;">
                                 Nombre d'embauchés total
-                                <span class="badge badge-primary badge-pill">{{$nbEmbauchesTotal}} | {{$pourcentageEmbauchesTotal}}%</span>
+                                <span class="badge badge-primary badge-pill">{{$nbEmbauchesTotal}} | {{$pourcentageEmbauchesTotal}} %</span>
                             </li>
                             <li class="list-group-item d-flex justify-content-between align-items-center" id="item_suivi_embauche">
                                 Nombres d'embauchés à 2 mois
-                                <span class="badge badge-primary badge-pill">{{$nbEmbauches2moisTotal}} | {{$pourcentageEmbauches2MoisTotal}}%</span>
+                                <span class="badge badge-primary badge-pill">{{$nbEmbauches2moisTotal}} | {{$pourcentageEmbauches2MoisTotal}} %</span>
                             </li>
                             <li class="list-group-item d-flex justify-content-between align-items-center" id="item_suivi_embauche">
                                 Nombres d'embauchés à 6 mois
-                                <span class="badge badge-primary badge-pill">{{$nbEmbauches6moisTotal}} | {{$pourcentageEmbauches6MoisTotal}}%</span>
+                                <span class="badge badge-primary badge-pill">{{$nbEmbauches6moisTotal}} | {{$pourcentageEmbauches6MoisTotal}} %</span>
                             </li>
                             <li class="list-group-item d-flex justify-content-between align-items-center" id="item_suivi_embauche">
                                 Non embauchés
@@ -284,6 +305,8 @@
                                         <th scope="col">Nb apprenants</th>
                                         <th scope="col">% Satisfaction</th>
                                         <th scope="col">Nb Embauchés</th>
+                                        <th scope="col">A 2 mois</th>
+                                        <th scope="col">A 6 mois</th>
                                         <th scope="col">Impact Formation</th>
                                         <th scope="col">Compte Rendu</th>
                                     </tr>
@@ -309,9 +332,11 @@
                                                 {{$formation->client5->prenom}} {{$formation->client5->nom}}
                                                 @endif
                                             </td> 
-                                            <td>{{ count($formation->apprenants) }}</td>
-                                            <td>{{$formation->pourcentageSatisfaction}}</td>  
-                                            <td>{{$formation->nbApprenantsEmbauches}} {{$formation->pourcentageEmbauches}}</td>  
+                                            <td><span class="badge badge-primary badge-pill">{{ count($formation->apprenants) }}</span></td>
+                                            <td><span class="badge badge-primary badge-pill">{{$formation->pourcentageSansDecimalSatif}} | ( {{$formation->nbVotant}} votes )</span></td>  
+                                            <td><span class="badge badge-primary badge-pill">{{$formation->nbApprenantsEmbauches}} {{$formation->pourcentageSansDecimalAppEmbauches}}</span></td> 
+                                            <td><span class="badge badge-primary badge-pill">{{$formation->nbApprenantsEmbauches2Mois}} {{$formation->pourcentageSansDecimalAppEmbauches2}}</span></td>  
+                                            <td><span class="badge badge-primary badge-pill">{{$formation->nbApprenantsEmbauches6Mois}} {{$formation->pourcentageSansDecimalAppEmbauches6}}</span></td>   
                                             <td>{{$formation->impact_formation}}</td>
                                             <td>{{$formation->compte_rendu_formateur}}</td>        
                                     </tr>

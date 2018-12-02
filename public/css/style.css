@@ -21,6 +21,25 @@ body{
          url('/fonts/Gotham-Light.svg#gothamlight') format('svg');*/
 }
 
+#text_nav_link{
+
+	font-family: 'GothamLight';
+    src: url('/fonts/Gotham-Light.eot');
+    src: url('/fonts/Gotham-Light.otf') format('opentype'),
+         url('/fonts/Gotham-Light.eot?iefix') format('embedded-opentype'),
+         url('/fonts/Gotham-Light.woff') format('woff'),
+         url('/fonts/Gotham-Light.ttf') format('truetype'),
+         url('/fonts/Gotham-Light.svg#gothamlight') format('svg');
+
+    font-size: 22px;
+}
+
+
+.badge{
+
+	box-shadow: 1px 1px 4px black;
+}
+
 #titre_page_connexion {
 
 
@@ -198,12 +217,18 @@ body{
 
 #btn_deconnexion{
 
-	margin-left: 1%;
 	color: #E0002D;
 	height: 40px;
 	text-align: center;
-	padding-top: 0.5%;
 	border: hidden;
+	font-size: 18px;
+	font-family: 'GothamLight';
+    src: url('/fonts/Gotham-Light.eot');
+    src: url('/fonts/Gotham-Light.otf') format('opentype'),
+         url('/fonts/Gotham-Light.eot?iefix') format('embedded-opentype'),
+         url('/fonts/Gotham-Light.woff') format('woff'),
+         url('/fonts/Gotham-Light.ttf') format('truetype'),
+         url('/fonts/Gotham-Light.svg#gothamlight') format('svg');
 	
 
 }
@@ -321,12 +346,23 @@ body{
 
 #btn_donnees,#btn_gestion_formation,#btn_gestion_utilisateur{
 
-	min-width: 30%;
+	width: 100%;
+	margin: auto;
 	background-color: #2D3F58;
 	box-shadow: 1px 1px 5px black;
 	border: 1px solid #E0002D;	
 	color: white;
 	border-radius: 2px;
+	font-size: 20px;
+	font-family: 'GothamLight';
+    src: url('/fonts/Gotham-Light.eot');
+    src: url('/fonts/Gotham-Light.otf') format('opentype'),
+         url('/fonts/Gotham-Light.eot?iefix') format('embedded-opentype'),
+         url('/fonts/Gotham-Light.woff') format('woff'),
+         url('/fonts/Gotham-Light.ttf') format('truetype'),
+         url('/fonts/Gotham-Light.svg#gothamlight') format('svg');
+
+
 }
 
 .accordion_formateur{
@@ -342,7 +378,6 @@ body{
 #btn_gestion_utilisateur:hover{
 
 	background-color: white;
-	border: hidden;
 	color: #2D3F58;
 }
 
@@ -351,7 +386,7 @@ body{
 	margin-top: 0.5%;
 	width: 100%;
 	color: white;
-	border: 1px white solid;
+	border: 1px green solid;
 	
 
 }
@@ -370,14 +405,12 @@ body{
 #btn_donnees:hover{
 
 	background-color: white;
-	border: hidden;
 	color: #2D3F58;
 }
 
 #btn_gestion_formation:hover{
 
-	background-color: white;
-	border: hidden;
+	background-color: white;	
 	color: #2D3F58;
 }
 
@@ -677,6 +710,7 @@ li.list-group-item{
 	display: block;
 	margin-right:auto;
 	margin-left: auto;
+	color: white;
 	border: 1px green solid;
 
 }

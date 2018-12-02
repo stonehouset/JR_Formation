@@ -23,6 +23,14 @@ class FormateurController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function __construct()
+    {
+
+        $this->middleware('auth');
+        
+    }
+
     public function index() //Fonction d'envoi des donnees des formations d'un formateur a l'interface formateur.
     {
 

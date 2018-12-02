@@ -19,6 +19,8 @@ class MailWhenUserIsRegister extends Mailable
     public function __construct(Array $data)
     {
         $this->data = $data;
+
+        $this->subject('Création de profil JRT_Formation');
     }
 
     /**

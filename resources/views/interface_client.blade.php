@@ -124,7 +124,7 @@
                 Aujourd’hui nous souhaiterions connaître l’impact que celle-ci a eu sur la ou les personnes formées ainsi que pour votre entreprise.</h5><br>                
                 Un de nos conseillers pédagogiques se chargera de prendre contact avec vous afin de faire le point ensemble de votre évaluation. Au préalable, merci de bien vouloir consacrer quelques instants à remplir ce questionnaire en prévision de cet entretien. </p>
                 <div class="row">
-                    <div class="offset-lg-2 col-lg-8" id="contenu_form_impact">
+                    <div class="offset-lg-1 col-lg-10" id="contenu_form_impact">
                         <form class="form-horizontal" method="POST" action="{{route('impact_formation')}}">
                             {{csrf_field()}}
                             <h5 id="titre_form_impact_formation">INDENTIFICATION</h5>
@@ -415,7 +415,7 @@
                                     </div>
                                 </div>                             
                             </div>
-                            <button type="submit" id="btn_valider_impact_formation" class="btn btn-outline-primary">VALIDER LE QUESTIONNAIRE</button>
+                            <button type="submit" id="btn_valider_impact_formation" class="btn btn-outline-primary">VALIDER L'EVALUATION</button>
                         </form>
                     </div>
                 </div>
