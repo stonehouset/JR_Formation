@@ -23,12 +23,13 @@ $( document ).ready(function() {
     $('#btn_valider_suivi_client ').hide();
     $('#input_date_embauche').hide();
     $('#label_date_embauche').hide();
-    
+    $('#tableau_gestion_admin_infos_formateurs2').hide();
     $('#form_satisfaction_formateur').hide();
     $('#form_satisfaction_formation').hide();
     $('#form_com_semaine_apprenant').hide();
     $('#programme_form_pdf').hide();
     $('#btns_questionnaires').hide();
+
     
 
     
@@ -42,7 +43,7 @@ $( document ).ready(function() {
 
 	num_role = $( "#role" ).text();
 
-    console.log(num_role);
+ 
 
     if(num_role === 3){
 
@@ -64,19 +65,6 @@ $( document ).ready(function() {
 
 });
 
-
-$(function() {
-
-    $('#chkveg').multiselect({
-
-        includeSelectAllOption: true
-    });
-
-    $('#btnget').click(function(){
-
-        alert($('#chkveg').val());
-    });
-});
 
 $('#inputGroupSelect01').bind('change', function(event) {
 
@@ -107,6 +95,23 @@ $("#btn_donnees").click(function(){
     $("#contenu_form1").hide();
     $("#dropdownMenuButton").hide(); 
 });
+
+$("#btn_switch_to_client").click(function(){
+
+    $("#tableau_gestion_admin_infos_formateurs").hide();
+    $("#tableau_gestion_admin_infos_formateurs2").show('fast');
+ 
+});
+
+$("#btn_switch_to_form").click(function(){
+
+    $("#tableau_gestion_admin_infos_formateurs2").hide();
+    $("#tableau_gestion_admin_infos_formateurs").show('fast');
+  
+});
+
+
+
 
 $("#btn_questionnaires").click(function(){
 
@@ -370,6 +375,39 @@ $(document).on('change', '#checkbox_1', function(){
 
     $(this).css('color', 'green');
 });
+
+function search() {
+
+  // Declare variables
+  var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("myInput");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("myTable");
+  tr = table.getElementsByTagName("tr");
+
+  // Loop through all table rows, and hide those who don't match the search query
+    for (i = 0; i < tr.length; i++) {
+
+        td = tr[i].getElementsByTagName("td")[0];
+
+        if (td) {
+
+            txtValue = td.textContent || td.innerText;
+
+            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+
+                tr[i].style.display = "";
+
+            } else {
+
+                tr[i].style.display = "none";
+            }
+
+        }
+
+    }
+
+}
 
 
 

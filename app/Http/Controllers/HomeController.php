@@ -68,7 +68,7 @@ class HomeController extends Controller
             $pourcentageEmbauches2MoisTotal = $nbEmbauches2moisTotal * 100/ $totalApprenants;
             $pourcentageEmbauches2MoisTotal = round($pourcentageEmbauches2MoisTotal);
 
-            $Embauches6moisTotal = Apprenant::where('embauche_2_mois', 'oui')->get();
+            $Embauches6moisTotal = Apprenant::where('embauche_6_mois', 'oui')->get();
             $nbEmbauches6moisTotal = $Embauches6moisTotal->count();
             $pourcentageEmbauches6MoisTotal = $nbEmbauches6moisTotal * 100/ $totalApprenants;
             $pourcentageEmbauches6MoisTotal = round($pourcentageEmbauches6MoisTotal);
@@ -213,7 +213,7 @@ class HomeController extends Controller
 
         }              
         
-        return view('home', ['users' => $users, 'clients' => $clients, 'formateurs' => $formateurs, 'groupes_formation' => $groupes_formation, 'formations' => $formations, 'apprenants' => $apprenants, 'formations_finies' => $formationsTerminees, 'nbEmbauchesTotal' => $nbEmbauchesTotal , 'nbEmbauches2moisTotal' => $nbEmbauches2moisTotal , 'nbEmbauches6moisTotal' => $nbEmbauches6moisTotal, 'pourcentageEmbauchesTotal' => $pourcentageEmbauchesTotal ,'pourcentageEmbauches2MoisTotal' => $pourcentageEmbauches2MoisTotal ,'pourcentageEmbauches6MoisTotal' => $pourcentageEmbauches6MoisTotal, 'pourcentageNonEmbauches' => $pourcentageNonEmbauches]);
+        return view('home', ['users' => $users, 'clients' => $clients, 'formateurs' => $formateurs, 'groupes_formation' => $groupes_formation, 'formations' => $formations, 'apprenants' => $apprenants, 'formations_finies' => $formationsTerminees, 'nbEmbauchesTotal' => $nbEmbauchesTotal , 'nbEmbauches2moisTotal' => $nbEmbauches2moisTotal , 'nbEmbauches6moisTotal' => $nbEmbauches6moisTotal, 'pourcentageEmbauchesTotal' => $pourcentageEmbauchesTotal ,'pourcentageEmbauches2MoisTotal' => $pourcentageEmbauches2MoisTotal ,'pourcentageEmbauches6MoisTotal' => $pourcentageEmbauches6MoisTotal, 'nbNonEmbauches' => $nbNonEmbauches]);
     }
     public function profil()
     {

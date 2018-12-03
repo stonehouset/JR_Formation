@@ -261,9 +261,9 @@ class ClientController extends Controller
                 DB::table('apprenants')->where('user_id', $idApprenant)->update(['date_embauche' => $apprenantEmbauche->date_embauche]);
 
             }
-            else if ($embaucheOuNon != null && $dateEmbauche == null && $apprenantEmbauche->date_embauche == null) {
+            if ($embaucheOuNon != null && $dateEmbauche == null && $apprenantEmbauche->date_embauche == null) {
             
-                return redirect()->back()->with('error', 'Veuillez indiquer une date en cas d\'embauche!');
+                return redirect()->back()->with('error', 'Veuillez saisir une date en cas d\'embauche!');
             }
             else if($embaucheOuNon != null && $dateEmbauche != null && $apprenantEmbauche->date_embauche == null){
 
@@ -273,15 +273,11 @@ class ClientController extends Controller
 
                     ]);
             }
-            
+
+
             if ($apprenantEmbauche->embauche_2_mois != null && $embaucheA2Mois != null) {
                 
                 DB::table('apprenants')->where('user_id' ,'=' , $idApprenant)->update(['embauche_2_mois' => $apprenantEmbauche->embauche_2_mois]);
-            }
-
-            else if ($embaucheA2Mois == null && $motifPredefini2Mois == null && $motifNonEmbauche2Mois == null) {
-               
-                return redirect()->back()->with('error', 'Veuillez indiquer un motif si l\'apprenant n\'est plus présent!');
             }
 
             else if ($embaucheA2Mois != null && $motifPredefini2Mois == null && $motifNonEmbauche2Mois == null) {
@@ -307,9 +303,16 @@ class ClientController extends Controller
                 DB::table('apprenants')->where('user_id' ,'=' , $idApprenant)->update(['embauche_6_mois' => $apprenantEmbauche->embauche_6_mois]);
             }
 
-            else if ($embaucheA6Mois == null && $motifNonEmbauche6Mois == null) {
-               
-                return redirect()->back()->with('error', 'Veuillez indiquer un motif si l\'apprenant n\'est plus présent!');
+            else if ($embaucheA6Mois == null && $motifNonEmbauche6Mois != null && $embaucheA2Mois != null) {
+                
+
+                DB::table('apprenants')->where('user_id' ,'=' , $idApprenant)->update([
+
+                                        'embauche_6_mois' => $non,
+                                        'embauche_2_mois' => $oui,
+                                        'motif_non_embauche_6_mois' => $motifNonEmbauche6Mois
+
+                                        ]);
             }
 
             else if ($embaucheA6Mois != null && $motifPredefini2Mois == null && $motifNonEmbauche2Mois == null) {

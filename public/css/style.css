@@ -285,12 +285,37 @@ body{
 
 /*CSS Page accueil_admin*/
 
-#headingOne,#headingTwo,#headingFive{
+#headingOne,#headingTwo,#headingFive,#headingNine{
 
 
 	background-color: white;
 	border-radius: 2px;
 	box-shadow: 1px 1px 5px black;
+}
+
+#color_heading9{
+
+	color: red;
+}
+
+#input_suppr_form{
+
+	margin-top: 2%;
+}
+
+#collapseNine{
+
+	background-color: #2D3F58;
+	color: white;
+	padding-bottom: 1%;
+}
+
+#msg_warning_suppr{
+
+	border: 2px red solid;
+	background-color: white;
+	color: red;
+	margin-top: 2%;
 }
 
 
@@ -370,6 +395,40 @@ body{
 	margin-top: 1%;
 }
 
+#btn_switch_to_form,#btn_switch_to_client{
+
+	background-color: white;
+	color: #2D3F58;
+}
+
+#btn_switch_to_form:hover{
+
+	background-color: #2D3F58;
+	color: white;
+}
+
+#btn_switch_to_form:active{
+
+	cursor: wait;
+}
+
+
+#btn_switch_to_client:hover{
+
+	background-color: #2D3F58;
+	color: white;
+}
+
+#btn_switch_to_client:active{
+
+	cursor: wait;
+}
+
+
+.accordion_users{
+
+	margin-top: 1%;
+}
 
 #btn_gestion_utilisateur:hover{
 
@@ -632,7 +691,7 @@ body{
     position: static;
 }
 
-#tableau_gestion_admin_infos_apprenants,#tableau_gestion_admin_infos_formateurs{
+#tableau_gestion_admin_infos_apprenants,#tableau_gestion_admin_infos_formateurs,{
 
 	min-height: 270px;
 	width: 100%;
@@ -712,6 +771,12 @@ li.list-group-item{
 	margin-left: auto;
 	color: white;
 	border: 1px green solid;
+
+}
+
+#btn_submit_change_mdp:active{
+
+	cursor: wait;
 
 }
 
@@ -881,6 +946,16 @@ input[type=radio] {
 	margin-top: 0.5%;
 	text-align: center;
 	color: white;
+
+}
+
+#myInput{
+
+	border: 1px #2D3F58 solid;
+	margin-left: 2%;
+	width: 25%;
+	border-radius: 2px;
+	cursor: zoom-in;
 
 }
 
@@ -1583,6 +1658,13 @@ input[type=radio] {
 	
 }
 
+#btn_ajout_user_admin:active{
+
+
+	cursor: wait;
+	
+}
+
 #btn_ajout_liste_apprenants{
 
 	margin-top: 5%;
@@ -1610,6 +1692,11 @@ input[type=radio] {
 	width: 80%;
 	border: 1px white solid;
 	color: white;
+}
+
+#btn_get_excel_apprenant:active{
+
+	cursor: wait;
 }
 
 #form_register_apprenants{

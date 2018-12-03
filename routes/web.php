@@ -23,6 +23,7 @@ Route::get('/', function () {
 Route::group(['middleware' => ['admin']], function () {
     
     Route::get('/home', 'HomeController@index')->name('home');
+	Route::get('commentaires', [ 'as' => 'commentaires', 'uses' => 'CommentaireController@showCommentaires']);
    
 });
 
@@ -109,8 +110,6 @@ Route::get('apprenants_admin_csv', [ 'as' => 'apprenants_admin_csv', 'uses' => '
 Route::get('apprenants_formateur_csv', [ 'as' => 'apprenants_formateur_csv', 'uses' => 'HomeController@extractFormateurCsv']);
 
 Route::get('formateur_apprenants_csv', [ 'as' => 'formateur_apprenants_csv', 'uses' => 'FormateurController@extractApprenantCsv']);
-
-Route::get('commentaires', [ 'as' => 'commentaires', 'uses' => 'CommentaireController@showCommentaires']);
 
 Route::get('get_csv_apprenant', [ 'as' => 'get_csv_apprenant', 'uses' => 'HomeController@GetCSVApprenant']);
 

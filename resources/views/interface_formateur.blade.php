@@ -23,7 +23,7 @@
         <div class="col-lg-7">  
             <div class="card-header" id="header_tableau_apprenants_formateur">    
                 APPRENANTS 
-                <a href="{{route('formateur_apprenants_csv')}}">extraire (.xlsx)</a>        
+                <a href="{{route('formateur_apprenants_csv')}}">extraire</a>        
             </div>
             <div id="tab_infos_interface_formateur">
                 <table id="taille_tab_formateur" class="table table-striped table">
@@ -81,7 +81,7 @@
                     {{ csrf_field() }} 
                     <div class="row">
                         <div class="col-lg-6">
-                            <select class="custom-select" id="select_nom_apprenant_absouret" name="nom_apprenant_absence_retard">
+                            <select class="custom-select" required id="select_nom_apprenant_absouret" name="nom_apprenant_absence_retard">
                                 <option disabled selected>Apprenant</option>
                                 @foreach($formations as $formation)
                                     @foreach($formation->apprenants as $apprenant)

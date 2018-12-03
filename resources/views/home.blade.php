@@ -30,12 +30,13 @@
                 <div class="col-lg-8" id="tableau_gestion_admin_infos_apprenants">
                     <div class="card-header" id="header_tableau_apprenants">
                         APPRENANTS       
-                        <a  href="{{route('apprenants_admin_csv')}}">extraire</a>                
+                        <a  href="{{route('apprenants_admin_csv')}}">extraire</a> 
+                        <input type="text" id="myInput" onkeyup="search()" placeholder="nom ou prénom" title="cherche apprenant">               
                     </div>
                     <div id="tab_admin_apprenants">   
-                        <table class="table table-striped table-dark" >
+                        <table class="table table-striped table-dark" id="myTable">
                             <thead>
-                                <tr> 
+                                <tr id="myUL"> 
                                     <th scope="col">Prénom + Nom</th>  
                                     <th scope="col">Groupe formation</th>                                    
                                     <th scope="col">Email</th>
@@ -48,14 +49,14 @@
                             <tbody>
                                 @if ($apprenants != null)
                                     @foreach($apprenants as $apprenant)
-                                    <tr>
-                                        <td>{{$apprenant->prenom}} {{$apprenant->nom}}</td>
-                                        <td>{{$apprenant->groupe_formation}}</td>
-                                        <td>{{$apprenant->email}}</td>
-                                        <td>{{$apprenant->numero_telephone}}</td>                                   
-                                        <td>{{$apprenant->commentaire_semaine1}}</td>
-                                        <td>{{$apprenant->commentaire_semaine2}}</td>
-                                        <td>{{$apprenant->note_formation}}</td>                                         
+                                    <tr id="td">
+                                        <td class="td">{{$apprenant->prenom}} {{$apprenant->nom}}</td>
+                                        <td class="td">{{$apprenant->groupe_formation}}</td>
+                                        <td class="td">{{$apprenant->email}}</td>
+                                        <td class="td">{{$apprenant->numero_telephone}}</td>                                   
+                                        <td class="td">{{$apprenant->commentaire_semaine1}}</td>
+                                        <td class="td">{{$apprenant->commentaire_semaine2}}</td>
+                                        <td class="td">{{$apprenant->note_formation}}</td>                                         
                                     </tr>
                                     @endforeach
                                 @endif
@@ -66,7 +67,7 @@
                 <div class="col-lg-4" id="tableau_gestion_admin_infos_formateurs">                   
                     <div class="card-header" id="header_tableau_apprenants">                      
                         FORMATEURS 
-                        <a  href="{{route('apprenants_formateur_csv')}}" >extraire</a>                      
+                    <button type="button" id="btn_switch_to_client" class="btn btn-primary btn-sm">Clients</button>                   
                     </div>
                     <div id="tab_formateur_admin">
                         <table class="table table-striped table-dark" >
@@ -90,7 +91,34 @@
                             </tbody>
                         </table>
                     </div> 
-                </div>  
+                </div> 
+                <div class="col-lg-4" id="tableau_gestion_admin_infos_formateurs2">                   
+                    <div class="card-header" id="header_tableau_apprenants">                      
+                        CLIENTS <button type="button" id="btn_switch_to_form" class="btn btn-primary btn-sm">Formateurs</button>                       
+                    </div>
+                    <div id="tab_formateur_admin">
+                        <table class="table table-striped table-dark" >
+                            <thead>
+                                <tr> 
+                                    <th scope="col">Prénom + Nom</th>                                     
+                                    <th scope="col">Email</th>
+                                    <th scope="col">Téléphone</th>           
+                                </tr>
+                            </thead>
+                            <tbody>
+                            @if ($clients != null)
+                                @foreach($clients as $client)
+                                <tr>
+                                    <td>{{$client->prenom}} {{$client->nom}}</td>
+                                    <td>{{$client->email}}</td>
+                                    <td>{{$client->numero_telephone}}</td>                                        
+                                </tr> 
+                                @endforeach
+                            @endif
+                            </tbody>
+                        </table>
+                    </div> 
+                </div>
             </div>          
             <div id="accordion" class="accordion_users">
                 <div class="card" id="card_ajout_user">
@@ -281,7 +309,7 @@
                             </li>
                             <li class="list-group-item d-flex justify-content-between align-items-center" id="item_suivi_embauche">
                                 Non embauchés
-                                <h5><span class="badge badge-primary badge-pill">{{$pourcentageNonEmbauches}}</span></h5>
+                                <h5><span class="badge badge-primary badge-pill">{{$nbNonEmbauches}}</span></h5>
                             </li>
                         </ul>
                     </div>
@@ -402,13 +430,13 @@
                         <div class="card-header" id="headingFive" style="border-color: #E0002D; color: #2D3F58;">
                             <h5 class="mb-0">
                                 <button class="btn btn-link" data-toggle="collapse" data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
-                                AJOUTER UN GROUPE DE FORMATION 
+                                + GROUPE DE FORMATION 
                                 </button>
                             </h5>
                         </div>
                         <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#accordion">
-                            <form  method="POST" action="{{ route('formation') }}" enctype="multipart/form-data" autocomplete="off">
-                                    {{ csrf_field() }}
+                            <form method="POST" action="{{ route('formation') }}" enctype="multipart/form-data" autocomplete="off">
+                                {{ csrf_field() }}
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="col-lg-6">
@@ -512,6 +540,43 @@
                                 </div>
                             </form>
                         </div>
+                    </div>
+                </div>
+                <div class="card" style="border-color: red; color: #2D3F58;box-shadow: 1px 1px 5px black;">
+                    <div class="card-header" id="headingNine" style="color: red;">
+                        <h5 class="mb-0">
+                            <button class="btn btn-link" data-toggle="collapse" data-target="#collapseNine" aria-expanded="false" aria-controls="collapseNine" id="color_heading9">
+                            SUPPRIMER GROUPE DE FORMATION
+                            </button>
+                        </h5>
+                    </div>
+                    <div id="collapseNine" class="collapse" aria-labelledby="headingNine" data-parent="#accordion">
+                        <form method="POST" action="" enctype="multipart/form-data" autocomplete="off">
+                            {{ csrf_field() }}
+                            <div class="row">
+                                <div class="offset-lg-4 col-lg-4">
+                                    <h6 id="msg_warning_suppr">ATTENTION! Cette action supprimera toutes les données liées à la formation choisie (apprenants, commentaires, statistiques) de façon DEFINITIVE!</h6>
+                                    <div class="input-group mb-3" id="input_suppr_form">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="basic-addon1">Groupe de formation</span>
+                                        </div>
+                                        <select class="custom-select" id="inputGroupSelect01" required name="nom_formation">
+                                            <option selected disabled="true">Aucun sélectionné</option>
+
+                                            @foreach($groupes_formation as $groupe_formation)
+
+                                                <option value="{{$groupe_formation->groupe_formation}}">{{$groupe_formation->groupe_formation}}</option>
+
+                                            @endforeach    
+
+                                        </select> 
+                                    </div> 
+                                    <button type="submit" id="btn_suppr_user_admin" class="btn btn-outline-primary">
+                                        SUPPRIMER (cette action est irréversible)
+                                    </button>   
+                                </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>

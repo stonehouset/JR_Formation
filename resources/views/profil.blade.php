@@ -26,7 +26,7 @@
         <div class="col-lg-6">
             <ul class="list-group">
             	<li class="list-group-item" id="item_list_profil"><strong>@</strong> : {{Auth::user()->email}}</li>
-            	<li class="list-group-item" id="item_list_profil"><strong>Numéro de téléphone</strong> : {{Auth::user()->numero_telephone}}</li>
+            	<li class="list-group-item" id="item_list_profil"><strong>Téléphone</strong> : {{Auth::user()->numero_telephone}}</li>
             	<li class="list-group-item" id="item_list_profil"><strong>Créé le</strong> : {{\Carbon\Carbon::parse(Auth::user()->created_at)->format('d/m/Y')}}</li>
             </ul>
         </div>
