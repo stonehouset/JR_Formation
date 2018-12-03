@@ -7,7 +7,7 @@
         <h4>Madame, Monsieur {{ $data['nom'] }}</h4>
         <br>
         @if ( $data['role']  == 3)
-          <p>Votre profil d'Administrateur a été créé sur notre extranet à l'adresse http://www.jrt_formation_extranet.com</p>
+          <p>Votre profil d'Administrateur a été créé sur notre extranet à l'adresse http://www.jrt_formation-extranet.com</p>
         @endif
         @if ( $data['role']  == 2)
           <p>Votre profil de Client a été créé sur notre extranet à l'adresse http://www.jrt_formation_extranet.com</p>

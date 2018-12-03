@@ -23,17 +23,17 @@ class CleEtrangere extends Migration
         Schema::table('apprenants', function (Blueprint $table) {
 
             $table->foreign('formation_id')->references('id')->on('formations'); 
-            $table->foreign('user_id')->references('id')->on('users'); 
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade'); 
 
         });
 
         Schema::table('formations', function (Blueprint $table) {
             
-            $table->foreign('client_id1')->references('id')->on('users');
-            $table->foreign('client_id2')->references('id')->on('users'); 
-            $table->foreign('client_id3')->references('id')->on('users'); 
-            $table->foreign('client_id4')->references('id')->on('users'); 
-            $table->foreign('client_id5')->references('id')->on('users');  
+            $table->foreign('client_id1')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('client_id2')->references('id')->on('users')->onDelete('cascade'); 
+            $table->foreign('client_id3')->references('id')->on('users')->onDelete('cascade'); 
+            $table->foreign('client_id4')->references('id')->on('users')->onDelete('cascade'); 
+            $table->foreign('client_id5')->references('id')->on('users')->onDelete('cascade');  
             $table->foreign('formateur_id')->references('id')->on('users');
               
         });
@@ -41,14 +41,14 @@ class CleEtrangere extends Migration
         Schema::table('absences_retards', function (Blueprint $table) {
 
             $table->foreign('formateur_id')->references('id')->on('users'); 
-            $table->foreign('apprenant_id')->references('user_id')->on('apprenants'); 
+            $table->foreign('apprenant_id')->references('user_id')->on('apprenants')->onDelete('cascade'); 
 
         });
 
         Schema::table('commentaires', function (Blueprint $table) {
 
             $table->foreign('formateur_id')->references('id')->on('users'); 
-            $table->foreign('apprenant_id')->references('user_id')->on('apprenants'); 
+            $table->foreign('apprenant_id')->references('user_id')->on('apprenants')->onDelete('cascade'); 
 
         });
     }

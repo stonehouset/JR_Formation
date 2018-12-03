@@ -30,6 +30,6 @@ class MailWhenUserIsRegister extends Mailable
      */
     public function build()
     {
-         return $this->from('houselstein.thibaud.dev@gmail.com')->view('emails.bienvenue_utilisateur')->with(['data' => $this->data]);
+         return $this->from('jrtformation.envoiautomatique@gmail.com')->view('emails.bienvenue_utilisateur')->with(['data' => $this->data]);
     }
 }

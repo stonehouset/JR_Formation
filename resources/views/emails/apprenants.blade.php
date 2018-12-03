@@ -6,7 +6,7 @@
       <body>
         <h4>Madame, Monsieur {{ $data['nom'] }}</h4>
         <br>
-        <p>Vous allez suivre une formation dispensée par notre organisme JRT Formation, pour mener à bien votre expérience votre profil a été créé sur notre extranet à l'adresse http://www.jrt_formation/extranet.com</p>
+        <p>Vous allez suivre une formation dispensée par notre organisme JRT Formation, pour mener à bien votre expérience, votre profil a été créé sur notre extranet à l'adresse http://www.jrt_formation-extranet.com</p>
         <br>
         <p>Vous pouvez dès à présent vous connecter grâce aux identifiants suivants :</p>
         <ul>
@@ -21,10 +21,9 @@
             <li>Compléter un questionnaire pour évaluer la formation.</li>
             <li>Ecrire un commentaire sur chaque semaine de formation.</li>
         </ul>
-        <p>Merci pour le temps que vous nous consacrez et bon courage pour votre formation!</p>
         <p>Par sécurité vous êtes invité à modifier votre mot passe dans l'onglet Profil->Modifier votre mot de passe</p>
 
-        <p>A bientôt,</p>
+        <p>Bon courage et à bientôt,</p>
 
         <h4>L'équipe JRT Formation.</h4>
         <br>

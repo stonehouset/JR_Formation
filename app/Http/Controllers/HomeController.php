@@ -5,10 +5,13 @@ use Illuminate\Http\Request;
 use JR_Formation\User;
 use JR_Formation\Apprenant;
 use JR_Formation\Formation;
+use JR_Formation\Commentaire;
+use JR_Formation\AbsencesRetards;
 use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
 use Carbon\Carbon;
 use Auth;
+use Illuminate\Support\Facades\Storage;
 
 class HomeController extends Controller
 {
@@ -42,6 +45,8 @@ class HomeController extends Controller
         $clients = User::where('role', '=', '2')->get();
         $formateurs = User::where('role', '=', '1')->get();
         $apprenants = User::where('role', '=', '0')->get();
+
+        $usersNonApprenant = User::where('role', '=', '1')->orWhere('role', '=', '2')->orWhere('role', '=', '3')->get();
 
         foreach ($apprenants as $apprenant) {
             
@@ -213,12 +218,17 @@ class HomeController extends Controller
 
         }              
         
-        return view('home', ['users' => $users, 'clients' => $clients, 'formateurs' => $formateurs, 'groupes_formation' => $groupes_formation, 'formations' => $formations, 'apprenants' => $apprenants, 'formations_finies' => $formationsTerminees, 'nbEmbauchesTotal' => $nbEmbauchesTotal , 'nbEmbauches2moisTotal' => $nbEmbauches2moisTotal , 'nbEmbauches6moisTotal' => $nbEmbauches6moisTotal, 'pourcentageEmbauchesTotal' => $pourcentageEmbauchesTotal ,'pourcentageEmbauches2MoisTotal' => $pourcentageEmbauches2MoisTotal ,'pourcentageEmbauches6MoisTotal' => $pourcentageEmbauches6MoisTotal, 'nbNonEmbauches' => $nbNonEmbauches]);
+        return view('home', ['users' => $users, 'usersNonApprenant' => $usersNonApprenant, 'clients' => $clients, 'formateurs' => $formateurs, 'groupes_formation' => $groupes_formation, 'formations' => $formations, 'apprenants' => $apprenants, 'formations_finies' => $formationsTerminees, 'nbEmbauchesTotal' => $nbEmbauchesTotal , 'nbEmbauches2moisTotal' => $nbEmbauches2moisTotal , 'nbEmbauches6moisTotal' => $nbEmbauches6moisTotal, 'pourcentageEmbauchesTotal' => $pourcentageEmbauchesTotal ,'pourcentageEmbauches2MoisTotal' => $pourcentageEmbauches2MoisTotal ,'pourcentageEmbauches6MoisTotal' => $pourcentageEmbauches6MoisTotal, 'nbNonEmbauches' => $nbNonEmbauches]);
     }
     public function profil()
     {
 
         $roleUser = auth()->user()->role;
+
+        if (auth()->user()->formation_id == null && auth()->user()->role == 0) {
+
+            return view('interface_apprenant');
+        }
 
         if ($roleUser == 0) {
 
@@ -430,9 +440,9 @@ class HomeController extends Controller
 
         $idUserADelete = $request->suppr_user;
 
-        $user = DB::table('users')->where('id','=', $idUserADelete)->first();
+        $user = User::where('id','=', $idUserADelete)->first();
 
-        if ($user->role == 2 || $user->role == 3) {
+        if ($user->role == 1 || $user->role == 2) {
 
             DB::table('users')->where('id', '=', $idUserADelete)->delete();
 
@@ -456,5 +466,42 @@ class HomeController extends Controller
 
         return response()->download($file, 'fichier_type', $headers);
     }
+
+    public function supprFormation(Request $request)
+    {
+        
+        $formationChoisie = $request->nom_formation;
+
+        $formationBdd = Formation::where('nom', $formationChoisie)->first();
+
+        $apprenantsFormation = Apprenant::where('formation_id', $formationBdd->id )->get();
+
+        $commentairesGroupes = Commentaire::where('formation', $formationBdd->nom)->get();
+
+        foreach ($commentairesGroupes as $commentaire) {
+            
+
+            DB::table('commentaires')->where('formation', $commentaire->formation)->delete();
+
+        }
+
+        foreach($apprenantsFormation as $apprenant) {
+
+
+            DB::table('apprenants')->where('formation_id', '=', $formationBdd->id)->delete(); 
+
+            DB::table('users')->where('id', $apprenant->user_id)->delete();  
+
+        }
+
+        unlink(storage_path('app/programme_formation/'.$formationBdd->programme_formation));
+
+        DB::table('formations')->where('nom', '=', $formationChoisie)->delete();
+
+        return redirect()->back()->with('success', ' La formation '.$formationChoisie.' été supprimée ainsi que toutes les données liées !');
+
+    }
+
+    
     
 }

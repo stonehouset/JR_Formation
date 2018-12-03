@@ -34,6 +34,6 @@ class QuestionnaireFormation extends Mailable
     {
         $this->data = public_path() . '\storage\questionnaire_formation.xlsx';
 
-        return $this->from('houselstein.thibaud.dev@gmail.com')->view('emails.quest_formation')->attach($this->data);
+        return $this->from('jrtformation.envoiautomatique@gmail.com')->view('emails.quest_formation')->attach($this->data);
     }
 }

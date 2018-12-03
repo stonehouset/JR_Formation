@@ -11,7 +11,7 @@
 				<table class="table table-striped table-dark" >
                     <thead>
                         <tr> 
-                            <th scope="col">Auteur</th>  
+                            <th scope="col">Formateur</th>  
                             <th scope="col">Groupe formation</th> 
                             <th scope="col">Contenu</th>  
                             <th scope="col">Date</th>                                                                                                    
@@ -36,7 +36,7 @@
 				<table class="table table-striped table-dark" >
                     <thead>
                         <tr> 
-                            <th scope="col">Auteur</th>  
+                            <th scope="col">Formateur</th>  
                             <th scope="col">Apprenant</th> 
                             <th scope="col">Contenu</th> 
                             <th scope="col">Date</th>  

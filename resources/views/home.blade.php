@@ -208,6 +208,7 @@
                         <div class="card-body">                           
                             <div class="row"> 
                                 <div class="offset-lg-3 col-lg-6">
+                                <h6 id="msg_warning_suppr">ATTENTION! Le fichier est sensible à la casse ! veuillez utiliser le fichier type, et remplir tous les champs d'une ligne, sans AUCUN ACCENT!</h6>
                                     <form class="form-horizontal" method="GET" action="{{ route('get_csv_apprenant') }}" id="form_get_excel_apprent">
                                         {{ csrf_field() }}
                                         <br>
@@ -244,16 +245,17 @@
                                 {{ csrf_field() }} 
                                 <div class="row" id="div_suppr_user">
                                     <div class="offset-lg-4 col-lg-4">
-                                        <div class="form-group">           
+                                        <div class="form-group"> 
+                                            <h6 id="msg_warning_suppr">ATTENTION! Si l'utilisateur est formateur ou client vérifiez que toutes les formations associées a cet utilisateur soit supprimées, sinon une erreur sera générée par le serveur!</h6>          
                                             <select class="custom-select" required="" id="user_a_suppr" class="form-control" name="suppr_user">
                                                 <option selected disabled="true">Sélectionner un utilisateur à supprimer</option>
-                                                @foreach($users as $user)
+                                                @foreach($usersNonApprenant as $user)
                                                     <option value="{{$user->id}}" >{{$user->prenom}} {{$user->nom}}</option>
                                                 @endforeach             
                                             </select>   
                                         </div>
                                         <button type="submit" id="btn_suppr_user_admin" class="btn btn-outline-primary">
-                                            SUPPRIMER (cette action est irréversible)
+                                            SUPPRIMER (action irréversible)
                                         </button>
                                     </div>
                                 </div>
@@ -551,11 +553,11 @@
                         </h5>
                     </div>
                     <div id="collapseNine" class="collapse" aria-labelledby="headingNine" data-parent="#accordion">
-                        <form method="POST" action="" enctype="multipart/form-data" autocomplete="off">
+                        <form method="POST" action="{{ route('suppr_formation') }}" enctype="multipart/form-data" autocomplete="off">
                             {{ csrf_field() }}
                             <div class="row">
                                 <div class="offset-lg-4 col-lg-4">
-                                    <h6 id="msg_warning_suppr">ATTENTION! Cette action supprimera toutes les données liées à la formation choisie (apprenants, commentaires, statistiques) de façon DEFINITIVE!</h6>
+                                    <h6 id="msg_warning_suppr">ATTENTION! Cette action supprimera toutes les données liées à la formation choisie (apprenants, commentaires, statistiques, clients) de façon DEFINITIVE!</h6>
                                     <div class="input-group mb-3" id="input_suppr_form">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text" id="basic-addon1">Groupe de formation</span>
@@ -572,7 +574,7 @@
                                         </select> 
                                     </div> 
                                     <button type="submit" id="btn_suppr_user_admin" class="btn btn-outline-primary">
-                                        SUPPRIMER (cette action est irréversible)
+                                        SUPPRIMER (action irréversible)
                                     </button>   
                                 </div>
                             </div>

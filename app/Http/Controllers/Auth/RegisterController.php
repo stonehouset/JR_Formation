@@ -106,7 +106,7 @@ class RegisterController extends Controller
                'mdp' => $data['password']
             ];
 
-        Mail::to('houselstein.thibaud@gmail.com')->send(new MailWhenUserIsRegister($data));
+        Mail::to($data['email'])->send(new MailWhenUserIsRegister($data));
 
         return $user;
     }

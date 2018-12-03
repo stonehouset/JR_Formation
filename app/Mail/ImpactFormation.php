@@ -43,7 +43,7 @@ class ImpactFormation extends Mailable
         $this->data = public_path() . '\storage\impact_formation.xlsx';
 
         // $url = public_path() . '/storage\exports\questionnaire_formateur.xlsx'; 
-        return $this->from('houselstein.thibaud.dev@gmail.com')->view('emails.impact_formation')->attach($this->data);
+        return $this->from('jrtformation.envoiautomatique@gmail.com')->view('emails.impact_formation')->attach($this->data);
 
         
     }

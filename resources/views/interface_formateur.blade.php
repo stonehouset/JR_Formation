@@ -23,15 +23,16 @@
         <div class="col-lg-7">  
             <div class="card-header" id="header_tableau_apprenants_formateur">    
                 APPRENANTS 
-                <a href="{{route('formateur_apprenants_csv')}}">extraire</a>        
+                <input type="text" id="input_form" onkeyup="search2()"  placeholder="recherche par groupe" title="cherche formateur"> 
+                                   
             </div>
             <div id="tab_infos_interface_formateur">
                 <table id="taille_tab_formateur" class="table table-striped table">
                     <thead id="head_tab_apprenant_formateur">
-                        <tr>
-                            <th scope="col">Prénom</th>
-                            <th scope="col">Nom</th>
+                        <tr >
                             <th scope="col">Formation</th>
+                            <th scope="col">Prénom / Nom</th>
+                            <th scope="col">Fin formation</th>
                             <th scope="col">eMail</th> 
                             <th scope="col">Téléphone</th>                                            
                         </tr>
@@ -40,12 +41,12 @@
                         @foreach($formations as $formation)
                             @foreach($formation->apprenants as $apprenant)
                                 @foreach($apprenant->users as $user)
-                                <tr>                         
-                                    <td>{{$user->prenom}}</td>
-                                    <td>{{$user->nom}}</td>
-                                    <td>{{$apprenant->groupe_formation}}</td>
-                                    <td>{{$user->email}}</td>
-                                    <td>{{$user->numero_telephone}}</td>                                    
+                                <tr id="td"> 
+                                    <td class="td">{{$apprenant->groupe_formation}}</td>  
+                                    <td class="td">{{$user->prenom}} {{$user->nom}}</td>  
+                                    <td class="td">{{\Carbon\Carbon::parse($formation->date_fin)->format('d/m/Y')}}</td>                                   
+                                    <td class="td">{{$user->email}}</td>
+                                    <td class="td">{{$user->numero_telephone}}</td>                                    
                                 </tr>
                                 @endforeach
                             @endforeach
@@ -72,7 +73,7 @@
                         @endforeach
                     </select>
                     <div id="com_formateur_to_apprenant_txt">
-                        <textarea class="form-control" id="exampleFormControlTextarea1" placeholder="Ecrivez un message à propos de l'apprenant sélectionné (500 caractères maximum)." required rows="5" name="contenu_commentaire"></textarea>
+                        <textarea class="form-control" id="exampleFormControlTextarea1" placeholder="Ecrivez un message à propos de l'apprenant sélectionné (200 caractères maximum)." required rows="5" maxlength="200" name="contenu_commentaire"></textarea>
                     </div>
                     <button type="submit" id="btn_ajouter_com_formateur_to_apprenant" class="btn btn-outline-primary">Ajouter</button>
                 </form> 
@@ -131,23 +132,36 @@
             </div>                     
         </div>     
     </div>
-    <button type="button" class="btn btn-outline-primary" id="btn_form_com_jour_formateur" onclick="functionShowHideFormComJour();">COMMENTAIRE JOURNALIER DES FORMATIONS</button> 
-    <form class="form-horizontal" method="POST" action="{{ route('commentaire_journalier')}}">
-        {{csrf_field()}}
-        <div class="form-group" id="form_ajout_com_journalier_formateur">
-            <div class="row" id="commentaire_journalier_formation">
-                <div class="offset-lg-3 col-lg-6">
-                    <select class="custom-select" required id="select_formation_com_journalier" name="formation">
-                        <option disabled selected>Sélectionner une formation</option>
-                        @foreach($formations as $formation)
-                        <option value="{{$formation->id}}">{{$formation->nom}}</option> 
-                        @endforeach    
-                    </select>
-                    <textarea class="form-control" required id="zone_text_com_jour" placeholder="Donnez votre ressenti globale de la journée sur le groupe de formation sélectionné (200 caractères max). " rows="5" name="contenu_commentaire" maxlength="500"></textarea>
-                    <button type="submit" id="btn_valider_com_jour" class="btn btn-outline-primary">AJOUTER COMMENTAIRE</button>
-                </div>
-            </div>  
+    <br>
+    <div id="accordion" class="accordion_formateur1">
+        <div class="card" style="border-color: white; color: #2D3F58;">
+            <div class="card-header" id="headingTen" style="border-color: #E0002D; color: #2D3F58;">
+                <h5 class="mb-0">
+                    <button class="btn btn-link" data-toggle="collapse" data-target="#collapseTen" aria-expanded="false" aria-controls="collapseTen">
+                    COMMENTAIRE GROUPE 
+                    </button>
+                </h5>
+            </div>
+            <div id="collapseTen" class="collapse" aria-labelledby="headingTen" data-parent="#accordion">
+                <form class="form-horizontal" method="POST" action="{{ route('commentaire_journalier')}}">
+                    {{csrf_field()}}
+                    
+                    <div class="row" id="commentaire_journalier_formation">
+                        <div class="offset-lg-3 col-lg-6">
+                            <select class="custom-select" required id="select_formation_com_journalier" name="formation">
+                                <option disabled selected>Sélectionner une formation</option>
+                                @foreach($formations as $formation)
+                                <option value="{{$formation->id}}">{{$formation->nom}}</option> 
+                                @endforeach    
+                            </select>
+                            <textarea class="form-control" required id="zone_text_com_jour" placeholder="Donnez votre ressenti globale de la journée sur le groupe de formation sélectionné (200 caractères max). " rows="5" name="contenu_commentaire" maxlength="200"></textarea>
+                            <button type="submit" id="btn_valider_com_jour" class="btn btn-outline-primary">AJOUTER COMMENTAIRE</button>
+                        </div>
+                    </div>  
+                    
+                </form>
+            </div>
         </div>
-    </form>
+    </div>
 </div>
 @endsection

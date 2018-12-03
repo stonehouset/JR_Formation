@@ -1,6 +1,7 @@
 @extends('layouts.menu')
 
 @section('content') 
+@if (auth()->user()->formation_id != null && auth()->user()->role == 0)
 <div class="panel-body" id="body_interface_apprenant">
     <button type="button" id="btn_apprenant_programme" class="btn btn-outline-primary">PROGRAMME</button>
     <button type="button" id="btn_questionnaires" class="btn btn-outline-primary">QUESTIONNAIRES</button>
@@ -406,4 +407,8 @@
         </div>
     </div>
 </div>
+@endif
+
+
+
 @endsection

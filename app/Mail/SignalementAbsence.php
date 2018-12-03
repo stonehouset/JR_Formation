@@ -28,6 +28,6 @@ class SignalementAbsence extends Mailable
      */
     public function build()
     {
-        return $this->from('houselstein.thibaud.dev@gmail.com')->view('emails.signalement_absence')->with(['data' => $this->data]);
+        return $this->from('jrtformation.envoiautomatique@gmail.com')->view('emails.signalement_absence')->with(['data' => $this->data]);
     }
 }

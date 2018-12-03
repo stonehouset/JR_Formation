@@ -39,6 +39,11 @@ class ApprenantController extends Controller
         $apprenant = Apprenant::where('user_id','=',$idApprenant)->first();   
         $dateNow = Carbon::now();
         $formation = Formation::where('id','=',$apprenant->formation_id)->first(); //Recuperation des infos de l'apprenant connecte
+
+        if ($formation == null) {
+
+            return view('interface_apprenant');
+        }
         $dateDebutForm = $formation->date_debut;
         $datePlus4Jours = date('Y-m-d', strtotime($dateDebutForm. ' + 4 days'));
         $datePlus11Jours = date('Y-m-d', strtotime($dateDebutForm. ' + 11 days'));

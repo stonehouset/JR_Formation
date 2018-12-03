@@ -85,17 +85,14 @@ Route::post('delete_user', [ 'as' => 'delete_user', 'uses' => 'HomeController@de
 
 Route::post('impact_formation', [ 'as' => 'impact_formation', 'uses' => 'ClientController@impactFormation']);
 
+Route::post('suppr_formation', [ 'as' => 'suppr_formation', 'uses' => 'HomeController@supprFormation']);
+
+
+
 //Routes Get
 
 
 Route::get('/profil', 'HomeController@profil')->name('profil');
-
-
-
-
-
-
-
 
 Route::get('downloadPdf', [ 'as' => 'downloadPdf', 'uses' => 'ApprenantController@getDownload']);
 

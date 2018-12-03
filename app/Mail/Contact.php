@@ -40,7 +40,7 @@ class Contact extends Mailable
     {
 
        
-        return $this->from('houselstein.thibaud.dev@gmail.com')->view('emails.apprenants')->with(['data' => $this->data]);
+        return $this->from('jrtformation.envoiautomatique@gmail.com')->view('emails.apprenants')->with(['data' => $this->data]);
 
     }
 }

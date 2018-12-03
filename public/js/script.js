@@ -16,8 +16,6 @@ $( document ).ready(function() {
     $('#contenu_form_client').hide(); 
     $('#contenu_form_impact').hide(); 
     $('#form_impact_client').hide();
-    $('#form_ajout_com_journalier_formateur').hide(); 
-    $('#commentaire_journalier_formation').hide(); 
     $('#presence_2_mois').hide();  
     $('#presence_6_mois').hide();
     $('#btn_valider_suivi_client ').hide();
@@ -29,8 +27,6 @@ $( document ).ready(function() {
     $('#form_com_semaine_apprenant').hide();
     $('#programme_form_pdf').hide();
     $('#btns_questionnaires').hide();
-
-    
 
     
     if (true) {}
@@ -383,6 +379,39 @@ function search() {
   input = document.getElementById("myInput");
   filter = input.value.toUpperCase();
   table = document.getElementById("myTable");
+  tr = table.getElementsByTagName("tr");
+
+  // Loop through all table rows, and hide those who don't match the search query
+    for (i = 0; i < tr.length; i++) {
+
+        td = tr[i].getElementsByTagName("td")[0];
+
+        if (td) {
+
+            txtValue = td.textContent || td.innerText;
+
+            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+
+                tr[i].style.display = "";
+
+            } else {
+
+                tr[i].style.display = "none";
+            }
+
+        }
+
+    }
+
+}
+
+function search2() {
+
+  // Declare variables
+  var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("input_form");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("taille_tab_formateur");
   tr = table.getElementsByTagName("tr");
 
   // Loop through all table rows, and hide those who don't match the search query

@@ -285,7 +285,7 @@ body{
 
 /*CSS Page accueil_admin*/
 
-#headingOne,#headingTwo,#headingFive,#headingNine{
+#headingOne,#headingTwo,#headingFive,#headingNine,#headingTen{
 
 
 	background-color: white;
@@ -303,11 +303,12 @@ body{
 	margin-top: 2%;
 }
 
-#collapseNine{
+#collapseNine,#collapseTen{
 
 	background-color: #2D3F58;
 	color: white;
 	padding-bottom: 1%;
+	box-shadow: 1px 1px 5px black;
 }
 
 #msg_warning_suppr{
@@ -393,6 +394,11 @@ body{
 .accordion_formateur{
 
 	margin-top: 1%;
+}
+
+.accordion_formateur1{
+
+
 }
 
 #btn_switch_to_form,#btn_switch_to_client{
@@ -837,12 +843,6 @@ input[type=radio] {
 
 }
 
-#com_formateur_to_apprenant{
-
-	height: 500px;
-	
-}
-
 #form_register_commentaire,#form_register_note,#form_absence_retard{
 
 	background-color: #2D3F58;
@@ -929,6 +929,7 @@ input[type=radio] {
 
 	margin: auto;
 	margin-top: 6%;
+	padding-bottom: 2%;
 
 }
 
@@ -1398,6 +1399,9 @@ input[type=radio] {
 #row_principale_interface_formateur{
 
 	margin-top: 2%;
+
+
+
 }
 
 #card_principale_interface_formateur{
@@ -1705,3 +1709,14 @@ input[type=radio] {
 
 }
 
+#input_form{
+
+	width: 30%;
+	margin-left: 1%;
+	padding-bottom:1px;
+}
+
+#input_form:active{
+
+	cursor: zoom-in;
+}

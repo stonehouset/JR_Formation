@@ -19,7 +19,7 @@ class Commentaires extends Migration
             $table->dateTime('date_jour')->nullable();
             $table->unsignedInteger('apprenant_id')->nullable();
             $table->unsignedInteger('formateur_id')->nullable();
-            $table->text('commentaire', 500);
+            $table->text('commentaire', 200);
             $table->integer('type');
             $table->char('formation', 100)->nullable();
             
@@ -35,6 +35,6 @@ class Commentaires extends Migration
      */
     public function down()
     {
-        $table->foreign('id')->references('formateur_id')->on('users')->onDelete('cascade');
+       
     }
 }

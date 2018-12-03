@@ -4,7 +4,8 @@
         <meta charset="utf-8">
       </head>
       <body>
-        <h4>Julien, tu trouveras ci-joint un compte rendu de fin de formation d'un formateur</h4>
-        
+        <h4>Un Formateur a envoyé un compte rendu de fin de formation.</h4>
+        <br>
+        <h5>Ci-joint le fichier excel contenant les résultats.</h5>          
       </body>
   </html>
