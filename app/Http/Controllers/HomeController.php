@@ -102,7 +102,7 @@ class HomeController extends Controller
         // return array($nbEmbauchesTotal, $nbEmbauches2moisTotal, $nbEmbauches6moisTotal);
         //Formations en cours,
 
-        $formations = Formation::where('date_fin', '>=', $aujourdhui)->get();
+        $formations = Formation::all();
 
         foreach ($formations as $formation) {
 
@@ -121,6 +121,20 @@ class HomeController extends Controller
             $formation->setAttribute('client5', $client5);
             $formation->setAttribute('formateur', $formateur);
             $formation->setAttribute('apprenants', $apprenantsFormation);
+
+            if ($formation->date_fin < $aujourdhui) {
+
+                $formation->setAttribute('statut', 'terminée');
+            }
+            else if ($formation->date_debut < $aujourdhui && $formation->date_fin > $aujourdhui ) {
+
+                $formation->setAttribute('statut', 'En cours');
+            }
+
+            else  {
+
+                $formation->setAttribute('statut', 'A venir');
+            }
         
         }
 
@@ -225,14 +239,14 @@ class HomeController extends Controller
 
         $roleUser = auth()->user()->role;
 
-        if (auth()->user()->formation_id == null && auth()->user()->role == 0) {
-
-            return view('interface_apprenant');
-        }
-
         if ($roleUser == 0) {
 
             $dataApprenant = Apprenant::where('user_id','=',auth()->user()->id)->first();
+
+            if ($dataApprenant->formation_id == null && auth()->user()->role == 0) {
+
+                return view('interface_apprenant');
+            }
        
             $formation = Formation::where('nom', '=', $dataApprenant->groupe_formation)->first();
 

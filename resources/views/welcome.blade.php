@@ -44,7 +44,7 @@
     </head>
     <body style="background-color:#2D3F58;text-align: center;">
         <center>
-            <img src="/img/0001.jpg" alt="alt text" style="width:50%;margin-top: 10%;border: 2px #E0002D solid;box-shadow: 1px 1px 5px black;">
+            <img src="/img/0001.jpg" alt="alt text" style="max-width: 60%;height: auto;margin-top:10%;border: 2px #E0002D solid;box-shadow: 1px 1px 5px black;">
         </center> 
         <div class="row" style="margin-top: 8%;">
             @if (Route::has('login'))

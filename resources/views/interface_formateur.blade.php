@@ -15,7 +15,7 @@
     <div class="row"> 
         <div class="offset-lg-4 col-lg-4">     
             <h4 id="titre_interface_formateur">
-                GESTION DES APPRENANTS
+                VOS APPRENANTS
             </h4>    
         </div>
     </div>   

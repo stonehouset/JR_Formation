@@ -43,10 +43,7 @@
                         <div class="form-group" id="form_validation_form_connexion">  
                             <button type="submit" class="btn btn-outline-primary" id="btn_submit_login">
                                 CONNEXION
-                            </button>
-                            <a class="btn btn-link" href="{{ route('password.request') }}" id="lien_mdp_oublie">
-                                Mot de passe oublié?
-                            </a>  
+                            </button>  
                         </div>
                     </form>    
                 </div>

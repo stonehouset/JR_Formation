@@ -18,8 +18,8 @@
         <br>
         <p>Vous pouvez dès à présent vous connecter grâce aux identifiants suivants :</p>
         <ul>
-            <li><strong>ID -> {{ $data['email'] }}</strong></li>
-            <li><strong>Mot de passe -> {{ $data['mdp'] }} </strong></li>
+            <li><strong>ID : {{ $data['email'] }}</strong></li>
+            <li><strong>Mot de passe : {{ $data['mdp'] }} </strong></li>
         </ul>
         <br>
         @if ( $data['role'] == 3)
@@ -29,7 +29,7 @@
         @endif
         @if ( $data['role'] == 2)
 
-          <p>Cet espace vous permet de visualiser et de gérer le suivie des apprenants à votre compte : </p>
+          <p>Cet espace vous permet de visualiser et de gérer le suivi des apprenants à votre compte : </p>
           <ul>
             <li> Liste des apprenants.</li>
             <li> Suivi des apprenants en entreprise.</li>
@@ -39,7 +39,7 @@
         @endif
         @if ( $data['role']  == 1)
 
-          <p>Cet espace vous permet de visualiser et de gérer le suivie des apprenants qui vous ont été attribués : </p>
+          <p>Cet espace vous permet de visualiser et de gérer le suivi des apprenants qui vous ont été attribués : </p>
           <ul>
             <li> Liste des apprenants</li>
             <li> Possibilité d'envoyer un commentaire /jour /apprenant.</li>

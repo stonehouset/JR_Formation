@@ -37,18 +37,22 @@ class ApprenantController extends Controller
 
         $idApprenant = auth()->user()->id;
         $apprenant = Apprenant::where('user_id','=',$idApprenant)->first();   
-        $dateNow = Carbon::now();
+        $dateNow = date('Y-m-d');
+
         $formation = Formation::where('id','=',$apprenant->formation_id)->first(); //Recuperation des infos de l'apprenant connecte
 
         if ($formation == null) {
 
             return view('interface_apprenant');
         }
-        $dateDebutForm = $formation->date_debut;
-        $datePlus4Jours = date('Y-m-d', strtotime($dateDebutForm. ' + 4 days'));
-        $datePlus11Jours = date('Y-m-d', strtotime($dateDebutForm. ' + 11 days'));
 
-        return view('interface_apprenant', ['dateNow' => $dateNow , 'apprenant' => $apprenant, 'datePlus4Jours' => $datePlus4Jours, 'datePlus11Jours' => $datePlus11Jours]);
+        $dateDebutForm = $formation->date_debut;
+        $dateFinForm = $formation->date_fin;
+        $datePlus4Jours = date('Y-m-d', strtotime($dateDebutForm. ' + 4 days'));
+        $datePlusOnzeJours = date('Y-m-d', strtotime($dateDebutForm. ' + 11 days'));
+
+
+        return view('interface_apprenant', ['dateNow' => $dateNow , 'apprenant' => $apprenant, 'datePlus4Jours' => $datePlus4Jours, 'datePlusOnzeJours' => $datePlusOnzeJours, 'dateDebutForm' => $dateDebutForm, 'dateFinForm' => $dateFinForm]);
 
     }
 
@@ -115,7 +119,7 @@ class ApprenantController extends Controller
 
         function generatePassword($length = 10) { 
 
-            $chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789./][{};:';
+            $chars = 'abcdefghijklmnopqrstuvwxyz0123456789./][{};:';
             $count = mb_strlen($chars);
             $result;
 
@@ -349,6 +353,8 @@ class ApprenantController extends Controller
 
         File::delete('storage/questionnaire_formateur.xlsx');
 
+        DB::table('apprenants')->where('user_id' ,'=' , $apprenant)->update(['questionnaire_formateur' => 1]);
+
         return redirect()->back()->with('success', 'Questionnaire envoyé, merci!'); 
 
     }
@@ -378,7 +384,11 @@ class ApprenantController extends Controller
         $quest16 = "Qualité des supports pédagogiques de la formation";
         $quest17 = "Homogénéité du groupe";
         $quest18 = "Participation du groupe";
-        $quest19 = "Ambiance générale de la formation";   
+        $quest19 = "Ambiance générale de la formation"; 
+        $quest19 = "Ambiance générale de la formation";
+        $quest20 = "Vos commentaires sur cette formation";
+        $quest21 = "Vous avez particulierement apprécié";
+        $quest22 = "Vos suggestions d'amélioration";
 
         $rep1 = $request->radio1; //Recuperation des reponses du questinnaire.
         $rep2 = $request->radio2;
@@ -399,17 +409,20 @@ class ApprenantController extends Controller
         $rep17 = $request->radio17;
         $rep18 = $request->radio18;
         $rep19 = $request->radio19;
+        $rep20 = $request->commentaires_eval;
+        $rep21 = $request->apprecie_eval;
+        $rep22 = $request->sugg_amelio;
 
         $noteFormation = $request->note_formation;
 
-        if ($rep1 == null || $rep2 == null || $rep3 == null || $rep4 == null || $rep5 == null || $rep6 == null || $rep7 == null || $rep8 == null || $rep9 == null || $rep10 == null || $rep11 == null || $rep12 == null || $rep13 == null ||$rep14 == null || $rep15 == null || $rep16 == null || $rep17 == null || $rep18 == null || $rep18 == null) {
+        if ($rep1 == null || $rep2 == null || $rep3 == null || $rep4 == null || $rep5 == null || $rep6 == null || $rep7 == null || $rep8 == null || $rep9 == null || $rep10 == null || $rep11 == null || $rep12 == null || $rep13 == null ||$rep14 == null || $rep15 == null || $rep16 == null || $rep17 == null || $rep18 == null || $rep18 == null || $rep19 == null || $rep20 == null || $rep21 == null || $rep22 == null) {
             
             return redirect()->back()->withInput()->with('error', 'Merci de répondre à toutes les questions!');
         }
 
-        $arrayQuestions =  array($quest1,$quest2,$quest3,$quest4,$quest5,$quest6,$quest7,$quest8,$quest9,$quest10,$quest11,$quest12,$quest13,$quest14,$quest15,$quest16,$quest17,$quest18,$quest19);
+        $arrayQuestions =  array($quest1,$quest2,$quest3,$quest4,$quest5,$quest6,$quest7,$quest8,$quest9,$quest10,$quest11,$quest12,$quest13,$quest14,$quest15,$quest16,$quest17,$quest18,$quest19,$quest20,$quest21,$quest22);
 
-        $arrayReponses =  array($rep1,$rep2,$rep3,$rep4,$rep5,$rep6,$rep7,$rep8,$rep9,$rep10,$rep11,$rep12,$rep13,$rep14,$rep15,$rep16,$rep17,$rep18,$rep19);
+        $arrayReponses =  array($rep1,$rep2,$rep3,$rep4,$rep5,$rep6,$rep7,$rep8,$rep9,$rep10,$rep11,$rep12,$rep13,$rep14,$rep15,$rep16,$rep17,$rep18,$rep19,$rep20,$rep21,$rep22);
 
         $nomApprenant;
         $nomApprenant['nom'] = $dataApprenant->nom;
@@ -452,6 +465,8 @@ class ApprenantController extends Controller
         Mail::to('houselstein.thibaud@gmail.com')->send(new QuestionnaireFormation($array_file));//Envoi du mail a l'admin avec fichier excel.
 
         File::delete('storage/questionnaire_formation.xlsx');
+
+        DB::table('apprenants')->where('user_id' ,'=' , $apprenant)->update(['note_formation' => $noteFormation]);
 
         return redirect()->back()->with('success', 'Questionnaire envoyé, merci!'); 
 

@@ -383,7 +383,7 @@
                 <div class="card" id="card_forma_en_cours">
                     <div class="card-header" id="header_tableau_apprenants">
                        
-                        FORMATIONS EN COURS 
+                        FORMATIONS 
                         
                     </div>
                     <div id="tab_admin_formations">
@@ -396,6 +396,7 @@
                                     <th scope="col">Formateur</th>
                                     <th scope="col">Client(s)</th>
                                     <th scope="col">Nb apprenants</th>
+                                    <th scope="col">Statut</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -420,7 +421,8 @@
                                         {{$formation->client5->prenom}} {{$formation->client5->nom}}
                                         @endif
                                     </td> 
-                                    <td>{{ count($formation->apprenants) }}</td>           
+                                    <td>{{ count($formation->apprenants) }}</td> 
+                                    <td>{{ $formation->statut }}</td>         
                                 </tr>
                                 @endforeach
                             </tbody>

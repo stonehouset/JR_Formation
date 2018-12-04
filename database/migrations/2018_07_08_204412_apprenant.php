@@ -28,6 +28,7 @@ class Apprenant extends Migration
             $table->date('date_embauche')->nullable();
             $table->char('motif_non_embauche', 100)->nullable();
             $table->char('note_formation', 5)->nullable();
+            $table->integer('questionnaire_formateur')->default(0);
             $table->char('note_formateur', 5)->nullable();
             $table->char('embauche_2_mois', 10)->nullable();
             $table->char('embauche_6_mois', 10)->nullable();

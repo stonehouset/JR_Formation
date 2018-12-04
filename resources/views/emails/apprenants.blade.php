@@ -10,8 +10,8 @@
         <br>
         <p>Vous pouvez dès à présent vous connecter grâce aux identifiants suivants :</p>
         <ul>
-            <li><strong>ID -> {{ $data['email'] }}</strong></li>
-            <li><strong>Mdp -> {{ $data['mdp'] }} </strong></li>
+            <li><strong>ID : {{ $data['email'] }}</strong></li>
+            <li><strong>Mdp : {{ $data['mdp'] }} </strong></li>
         </ul>
         <br>
         <p>Cet espace vous permet de :</p>

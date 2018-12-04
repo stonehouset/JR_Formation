@@ -39,6 +39,7 @@ class CreateUsersTable extends Migration
                 'role' => '3',
                
             )
+
         );
     }
 
