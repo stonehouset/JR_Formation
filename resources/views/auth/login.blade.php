@@ -3,16 +3,16 @@
 @section('content')
 <div class="container">
     <div class="row">
-        <h3 id="titre_page_connexion">CONNEXION</h3>
         <div class="offset-lg-3 col-lg-6 col-sm-12">
             <div class="panel panel-default">
-                <div class="panel-body" id="formulaire_page_connexion">      
+                <div class="panel-body" id="formulaire_page_connexion">
+                    <h3 id="titre_page_connexion">IDENTIFICATION</h3>      
                     <form class="form-horizontal" method="POST" action="{{ route('login') }}">
                         {{ csrf_field() }}
                         <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
                             <label for="email" class="control-label" id="label_email_form_connexion">Email</label>
                             <div class="offset-lg-1 col-lg-10">
-                                <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required autofocus>
+                                <input id="email" type="email" class="form-control" name="email" placeholder="jrtformation@formation.com" value="{{ old('email') }}" required autofocus>
                                 @if ($errors->has('email'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('email') }}</strong>
@@ -21,9 +21,9 @@
                             </div>
                         </div>
                         <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                            <label for="password" class="control-label" id="label_mdp_form_connexion">Mot de passe</label>
+                            <label for="password" class="control-label" id="label_mdp_form_connexion">Mot de passe <button disabled id="info_mdp_login" onclick="infos();">? </button></label>
                             <div class="offset-lg-1 col-lg-10">
-                                <input id="password" type="password" class="form-control" name="password" required>
+                                <input id="password" type="password" class="form-control" placeholder="Mot de passe" name="password" required>
                                 @if ($errors->has('password'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('password') }}</strong>
@@ -40,10 +40,12 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="form-group" id="form_validation_form_connexion">  
-                            <button type="submit" class="btn btn-outline-primary" id="btn_submit_login">
-                                CONNEXION
-                            </button>  
+                        <div class="form-group" id="form_validation_form_connexion">
+                            <div class="offset-lg-1 col-lg-10">  
+                                <button type="submit" class="btn btn-outline-primary" id="btn_submit_login">
+                                    CONNEXION
+                                </button> 
+                            </div> 
                         </div>
                     </form>    
                 </div>

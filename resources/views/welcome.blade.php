@@ -1,4 +1,4 @@
-<!doctype html>
+
 <html lang="{{ app()->getLocale() }}" style="background-color:#2D3F58;">
     <head>
         <meta charset="utf-8">
@@ -40,19 +40,53 @@
                 text-transform: uppercase;
             } 
 
+            #img_logo{
+
+                max-width: 70%;
+                margin-top:15%;
+                border: 2px #E0002D solid;
+                box-shadow: 1px 1px 5px black;
+                border-radius: 2px;
+
+            }
+
+            #btn_acces_accueil,#btn_acces_extranet{
+
+                color: white;
+                font-size: 25px;
+                text-shadow: 2px 2px 4px black;
+                padding: 0.5%;
+                border:1px white solid;
+                box-shadow: 1px 1px 5px black;
+            }
+
+            #btn_acces_accueil:hover{
+
+                background-color: blue;
+            }
+
+             #btn_acces_extranet:hover{
+
+                background-color: #6495ED;
+            }
+
         </style>
     </head>
-    <body style="background-color:#2D3F58;text-align: center;">
-        <center>
-            <img src="/img/0001.jpg" alt="alt text" style="max-width: 60%;height: auto;margin-top:10%;border: 2px #E0002D solid;box-shadow: 1px 1px 5px black;">
-        </center> 
+    <body style="background-color:#2D3F58;">
+        <div class="row">
+            <div class="offset-lg-2 col-lg-10">
+                <center>
+                    <img src="/img/0001.png" alt="logo_jrt_formation" id="img_logo">
+                </center> 
+            </div>
+        </div>
         <div class="row" style="margin-top: 8%;">
             @if (Route::has('login'))
                 <div class="links" style="text-align: center;">
                     @auth
-                        <a href="{{ url('/home') }}" style="color: white;font-size: 25px;text-shadow: 2px 2px 4px black;padding: 0.5%;">ACCUEIL EXTRANET</a>
+                        <button class="btn btn-outline"></button><a href="{{ url('/home') }}" id="btn_acces_accueil">ACCUEIL EXTRANET</a>
                     @else
-                        <a href="{{ route('login') }}" style="color: white;font-size: 25px;text-shadow: 2px 2px 4px black;padding: 0.5%;">ACCES EXTRANET</a>
+                        <a href="{{ route('login') }}" id="btn_acces_extranet">ACCES EXTRANET</a>
                         <!-- <a href="{{ route('register') }}">S'enregistrer</a> -->
                     @endauth
                 </div>

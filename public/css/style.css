@@ -12,16 +12,10 @@ html{
 body{
 
 	background-color: #2D3F58;
-	/*font-family: 'GothamLight';
-    src: url('/fonts/Gotham-Light.eot');
-    src: url('/fonts/Gotham-Light.otf') format('opentype'),
-         url('/fonts/Gotham-Light.eot?iefix') format('embedded-opentype'),
-         url('/fonts/Gotham-Light.woff') format('woff'),
-         url('/fonts/Gotham-Light.ttf') format('truetype'),
-         url('/fonts/Gotham-Light.svg#gothamlight') format('svg');*/
+	
 }
 
-#text_nav_link,#titre_page_connexion,#titre_page_commentaire,#titre_interface_formateur,#titre_profil,#titre_questionnaire_formateur,#titre_interface_client{
+#text_nav_link,#titre_page_connexion,#titre_page_commentaire,#titre_interface_formateur,#titre_profil,#titre_questionnaire_formateur,#titre_interface_client,#header_item_utilisateur,#header_tableau_apprenants,#header_tableau_apprenants_formateur,#label_retard_absence,#label_note{
 
 	font-family: 'GothamLight';
     src: url('/fonts/Gotham-Light.eot');
@@ -34,6 +28,36 @@ body{
     font-size: 22px;
 }
 
+#header_com_groupe,#btn_suppr_user_haut,#header_ajout_formation,#color_heading9,#header_liste_apprenants,#header_add_user,#entete_liste_com{
+
+	font-family: 'GothamLight';
+    src: url('/fonts/Gotham-Light.eot');
+    src: url('/fonts/Gotham-Light.otf') format('opentype'),
+         url('/fonts/Gotham-Light.eot?iefix') format('embedded-opentype'),
+         url('/fonts/Gotham-Light.woff') format('woff'),
+         url('/fonts/Gotham-Light.ttf') format('truetype'),
+         url('/fonts/Gotham-Light.svg#gothamlight') format('svg');
+    color: #2D3F58;
+    text-align: center;
+}
+
+#titre_modif_mdp,#sous_titre_modif_mdp{
+
+	font-family: 'GothamLight';
+    src: url('/fonts/Gotham-Light.eot');
+    src: url('/fonts/Gotham-Light.otf') format('opentype'),
+         url('/fonts/Gotham-Light.eot?iefix') format('embedded-opentype'),
+         url('/fonts/Gotham-Light.woff') format('woff'),
+         url('/fonts/Gotham-Light.ttf') format('truetype'),
+         url('/fonts/Gotham-Light.svg#gothamlight') format('svg');
+
+}
+
+#row_profil_mdp{
+
+	margin-top: 2%;
+}
+
 
 .badge{
 
@@ -43,9 +67,9 @@ body{
 #titre_page_connexion {
 
 
-	margin: auto;
+	
 	color: white;
-	width: 50%;
+	width: 100%;
 	text-shadow: 2px 2px 4px black;
 	padding-bottom: 1%;
 	padding-top: 1%;
@@ -215,7 +239,7 @@ body{
 
 }
 
-#btn_deconnexion{
+#btn_deconnexion,#label_email_form_connexion,#label_mdp_form_connexion,#input_checkbox_form_connexion,#btn_submit_login{
 
 	color: #E0002D;
 	height: 40px;
@@ -316,7 +340,10 @@ body{
 	border: 2px red solid;
 	background-color: white;
 	color: red;
+	margin-bottom: 5%; 
 	margin-top: 2%;
+	padding: 1%;
+	box-shadow: 1px 1px 5px black;
 }
 
 
@@ -391,6 +418,12 @@ body{
 
 }
 
+#email,#password{
+
+	box-shadow: 1px 1px 5px black;
+
+}
+
 .accordion_formateur{
 
 	margin-top: 1%;
@@ -460,6 +493,7 @@ body{
 #collapseSix{
 
 	box-shadow: 1px 1px 5px red;
+	background-color: #2D3F58;
 }
 
 #collapseFive{
@@ -498,6 +532,10 @@ body{
 	border: 1px solid red;	
 	border-radius: 2px;
 	color: white;
+	box-shadow: 1px 1px 5px black;
+	margin-top: 5%;
+	margin-bottom: 2%;
+	width: 100%;
 
 }
 
@@ -722,8 +760,30 @@ body{
 
 	overflow-y:scroll;
 	position: static;
-	height: 350px;
+	height: 230px;
+	border: 1px white solid;
+	box-shadow: 1px 1px 5px black;
+	background-color: #2D3F58;
 }
+
+#inputGroupSelect01,#choix_dat_form,#btn_ajout_confirm_formation,#btn_get_excel_apprenant,#btn_ajout_liste_apprenants{
+
+	box-shadow: 1px 1px 5px black;
+
+}
+
+span{
+
+	box-shadow: 1px 1px 5px black;
+}
+
+
+.custom-file{
+
+	margin-bottom: 2%;
+	box-shadow: 1px 1px 5px black;
+}
+
 
 
 .nav-item{
@@ -803,7 +863,7 @@ li.list-group-item{
 	border-color: white;
 	border-radius: 2px;
 	color: #2D3F58;
-	height: 70px;
+	height: 50px;
 	box-shadow: 1px 1px 5px black;
 
 }
@@ -872,7 +932,7 @@ input[type=radio] {
 	margin: auto;
 	margin-top: 15%;
 	box-shadow: 1px 1px 5px black;
-	border: 1px green solid;
+	border: 1px white solid;
 	border-radius: 2px;
 	padding-bottom: 2%;
 	padding-top: 2%;
@@ -884,6 +944,10 @@ input[type=radio] {
 	border-radius: 2px;
 	border: 1px green solid;
 	color: white;
+	width: 100%;
+	height: 50px;
+	margin-top: 5%;
+	box-shadow: 1px 1px 5px black;
 }
 
 #btn_submit_login:hover{
@@ -897,9 +961,40 @@ input[type=radio] {
 	color: white;
 }
 
-#label_mdp_form_connexion,#label_email_form_connexion{
+#info_mdp_login{
 
-	margin-top: 2%;
+	color: white;
+	background-color: #2D3F58; 
+	box-shadow: 1px 1px 5px black;
+	text-align:center;
+	font-size: 15px;
+	margin-left: 1%;
+	border-radius: 50%;
+	
+
+}
+
+#info_mdp_login:hover{
+
+
+	background-color: green; 
+	
+
+}
+#label_mdp_form_connexion{
+
+	margin-top: 4%;
+	margin-bottom: 2%;
+	color: white;
+	font-size: 20px;
+	display: block;
+	text-align: center;
+	
+}
+
+#label_email_form_connexion{
+
+	margin-top: 10%;
 	margin-bottom: 2%;
 	color: white;
 	font-size: 20px;
@@ -954,7 +1049,7 @@ input[type=radio] {
 
 	border: 1px #2D3F58 solid;
 	margin-left: 2%;
-	width: 25%;
+	max-width: 20%;
 	border-radius: 2px;
 	cursor: zoom-in;
 
@@ -1689,6 +1784,7 @@ input[type=radio] {
 #user_a_suppr{
 
 	border: 1px red solid;
+	box-shadow: 1px 1px 5px black;
 }
 
 #btn_get_excel_apprenant{
@@ -1706,6 +1802,10 @@ input[type=radio] {
 #form_register_apprenants{
 
 	margin-top: 3.2%;
+	width: 80%;
+	margin-left:auto;
+	margin-right: auto;
+	background-color: #2D3F58;
 
 }
 

@@ -82,9 +82,11 @@ class ApprenantController extends Controller
 
     public function csvToArray($filename = '', $delimiter = ';') //Fonction de récupération du fichier CSV pour créer un tableau de données.
     {
-        if (!file_exists($filename) || !is_readable($filename))
+        if (!file_exists($filename) || !is_readable($filename)){
 
-            return false;
+            return 'erreur fichié';
+
+        }
 
         $header = null;
         $data = array();

@@ -46,6 +46,7 @@ class RegisterController extends Controller
 
     public function register(Request $request)
     {
+
         $this->validator($request->all())->validate();
 
         event(new Registered($user = $this->create($request->all())));
@@ -56,6 +57,7 @@ class RegisterController extends Controller
                         ?: redirect($this->redirectPath());
 
         return $request->all();
+
     }
 
     /**
@@ -106,7 +108,7 @@ class RegisterController extends Controller
                'mdp' => $data['password']
             ];
 
-        Mail::to($data['email'])->send(new MailWhenUserIsRegister($data));
+            // Mail::to('houselstein.thibaud@gmail.com')->send(new MailWhenUserIsRegister($data));
 
         return $user;
     }

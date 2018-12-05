@@ -30,7 +30,7 @@
                 <div class="col-lg-8" id="tableau_gestion_admin_infos_apprenants">
                     <div class="card-header" id="header_tableau_apprenants">
                         APPRENANTS       
-                        <a  href="{{route('apprenants_admin_csv')}}">extraire</a> 
+                        <a  href="{{route('apprenants_admin_csv')}}">&#8659;</a> 
                         <input type="text" id="myInput" onkeyup="search()" placeholder="nom ou prénom" title="cherche apprenant">               
                     </div>
                     <div id="tab_admin_apprenants">   
@@ -94,7 +94,8 @@
                 </div> 
                 <div class="col-lg-4" id="tableau_gestion_admin_infos_formateurs2">                   
                     <div class="card-header" id="header_tableau_apprenants">                      
-                        CLIENTS <button type="button" id="btn_switch_to_form" class="btn btn-primary btn-sm">Formateurs</button>                       
+                        CLIENTS 
+                        <button type="button" id="btn_switch_to_form" class="btn btn-primary btn-sm">Formateurs</button>                       
                     </div>
                     <div id="tab_formateur_admin">
                         <table class="table table-striped table-dark" >
@@ -124,7 +125,7 @@
                 <div class="card" id="card_ajout_user">
                     <div class="card-header" id="headingOne">
                         <h5 class="mb-0">
-                            <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                            <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne" id="header_add_user">
                                 + UTILISATEUR
                             </button>
                         </h5>
@@ -199,7 +200,7 @@
                 <div class="card" id="card_ajout_apprenant">
                     <div class="card-header" id="headingTwo">
                         <h5 class="mb-0">
-                            <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                            <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo" id="header_liste_apprenants">
                             + LISTE D'APPRENANTS
                             </button>
                         </h5>
@@ -208,7 +209,7 @@
                         <div class="card-body">                           
                             <div class="row"> 
                                 <div class="offset-lg-3 col-lg-6">
-                                <h6 id="msg_warning_suppr">ATTENTION! Le fichier est sensible à la casse ! veuillez utiliser le fichier type, et remplir tous les champs d'une ligne, sans AUCUN ACCENT!</h6>
+                                <h6 id="msg_warning_suppr">ATTENTION! Le fichier est sensible à la casse ! veuillez utiliser le fichier : fichier_type.csv, et remplir tous les champs d'une ligne, sans AUCUN ACCENT!</h6>
                                     <form class="form-horizontal" method="GET" action="{{ route('get_csv_apprenant') }}" id="form_get_excel_apprent">
                                         {{ csrf_field() }}
                                         <br>
@@ -240,27 +241,27 @@
                         </h5>
                     </div>
                     <div id="collapseSix" class="collapse" aria-labelledby="headingSix" data-parent="#accordion">
-                        <div class="card-body">
-                            <form id="form_register_apprenants" enctype="multipart/form-data" method="POST" action="{{ route('delete_user')}}">
-                                {{ csrf_field() }} 
-                                <div class="row" id="div_suppr_user">
-                                    <div class="offset-lg-4 col-lg-4">
-                                        <div class="form-group"> 
-                                            <h6 id="msg_warning_suppr">ATTENTION! Si l'utilisateur est formateur ou client vérifiez que toutes les formations associées a cet utilisateur soit supprimées, sinon une erreur sera générée par le serveur!</h6>          
-                                            <select class="custom-select" required="" id="user_a_suppr" class="form-control" name="suppr_user">
-                                                <option selected disabled="true">Sélectionner un utilisateur à supprimer</option>
-                                                @foreach($usersNonApprenant as $user)
-                                                    <option value="{{$user->id}}" >{{$user->prenom}} {{$user->nom}}</option>
-                                                @endforeach             
-                                            </select>   
-                                        </div>
-                                        <button type="submit" id="btn_suppr_user_admin" class="btn btn-outline-primary">
-                                            SUPPRIMER (action irréversible)
-                                        </button>
+                        
+                        <form id="form_register_apprenants" enctype="multipart/form-data" method="POST" action="{{ route('delete_user')}}">
+                            {{ csrf_field() }} 
+                            <div class="row" id="div_suppr_user">
+                                <div class="offset-lg-3 col-lg-6">
+                                    <div class="form-group"> 
+                                        <h6 id="msg_warning_suppr">ATTENTION! Si l'utilisateur est formateur ou client vérifiez que toutes les formations associées a cet utilisateur soit supprimées, sinon une erreur sera générée par le serveur!</h6>          
+                                        <select class="custom-select" required="" id="user_a_suppr" class="form-control" name="suppr_user">
+                                            <option selected disabled="true">Sélectionner un utilisateur à supprimer</option>
+                                            @foreach($usersNonApprenant as $user)
+                                                <option value="{{$user->id}}" >{{$user->prenom}} {{$user->nom}} </option>
+                                            @endforeach             
+                                        </select>   
                                     </div>
+                                    <button type="submit" id="btn_suppr_user_admin" class="btn btn-outline-primary">
+                                        SUPPRIMER (action irréversible)
+                                    </button>
                                 </div>
-                            </form>
-                        </div>
+                            </div>
+                        </form>
+                        
                     </div>
                 </div>                             
             </div>
@@ -320,7 +321,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="card" style="margin-top: 1%;background-color:#2D3F58;border:hidden;border: 1px white solid;">
-                        <div class="card-header" id="header_tableau_apprenants" style="border-color: #E0002D;background-color: white;">                      
+                        <div class="card-header" id="header_tableau_apprenants">                      
                             FORMATIONS TERMINEES
                             
                         </div>
@@ -433,7 +434,7 @@
                     <div class="card" style="border-color: white; color: #2D3F58;">
                         <div class="card-header" id="headingFive" style="border-color: #E0002D; color: #2D3F58;">
                             <h5 class="mb-0">
-                                <button class="btn btn-link" data-toggle="collapse" data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                                <button class="btn btn-link" id="header_ajout_formation" data-toggle="collapse" data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
                                 + GROUPE DE FORMATION 
                                 </button>
                             </h5>
@@ -464,14 +465,14 @@
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text" id="basic-addon1">Date début</span>
                                                 </div>
-                                                <input type="date" class="form-control" placeholder="01/01/2018" aria-label="date_debut_formation" aria-describedby="basic-addon2"  required name="debut_formation">
-                                            </div>
+                                                <input type="date" class="form-control" placeholder="01/01/2018" aria-label="date_debut_formation" aria-describedby="basic-addon2" id="choix_dat_form" required name="debut_formation">
+                                            </div> 
                                             <div class="input-group mb-3">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text" id="basic-addon1">Date fin</span>
                                                 </div>
-                                                <input type="date" class="form-control" placeholder="01/01/2018" aria-label="date_fin_formation" aria-describedby="basic-addon2" required name="fin_formation">
-                                            </div>                                                
+                                                <input type="date" class="form-control" placeholder="01/01/2018" aria-label="date_fin_formation" aria-describedby="basic-addon2" id="choix_dat_form" required name="fin_formation">
+                                            </div>                                                  
                                         </div>
                                         <div class="col-lg-6">
                                             <div class="input-group mb-3">
@@ -479,42 +480,47 @@
                                                     <span class="input-group-text" id="basic-addon1">Client(s)</span>
                                                 </div>
                                                 <select class="custom-select" required id="inputGroupSelect01" name="nom_client1">
-                                                    <option selected="true" disabled="true">Aucun sélectionné</option>
+                                                    <option selected="true" disabled="true">Client 1</option>
                                                     @foreach($clients as $client)
 
-                                                    <option value="{{$client->id}}"><label class="checkbox">{{$client->prenom}} {{$client->nom}}</option>
+                                                    <option value="{{$client->id}}">{{$client->prenom}} {{$client->nom}}</option>
 
                                                     @endforeach    
                                                 </select>
                                                 <select class="custom-select" id="inputGroupSelect01" name="nom_client2">
-                                                    <option selected disabled="true">Aucun sélectionné</option>
+                                                    <option selected disabled="true">Client 2</option>
                                                     @foreach($clients as $client)
 
-                                                    <option value="{{$client->id}}"><label class="checkbox">{{$client->prenom}} {{$client->nom}}</option>
+                                                    <option value="{{$client->id}}">{{$client->prenom}} {{$client->nom}}</option>
 
                                                     @endforeach    
-                                                </select>
+                                                </select>                                           
+                                            </div>
+                                            <div class="input-group mb-3">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text" id="basic-addon1">Client(s)</span>
+                                                </div>
                                                 <select class="custom-select" id="inputGroupSelect01" name="nom_client3">
-                                                    <option selected disabled="true">Aucun sélectionné</option>
+                                                    <option selected disabled="true">Client 3</option>
                                                     @foreach($clients as $client)
 
-                                                    <option value="{{$client->id}}"><label class="checkbox">{{$client->prenom}} {{$client->nom}}</option>
+                                                    <option value="{{$client->id}}">{{$client->prenom}} {{$client->nom}}</option>
 
                                                     @endforeach    
                                                 </select>
                                                 <select class="custom-select" id="inputGroupSelect01" name="nom_client4">
-                                                    <option selected disabled="true">Aucun sélectionné</option>
+                                                    <option selected disabled="true">Client 4</option>
                                                     @foreach($clients as $client)
 
-                                                    <option value="{{$client->id}}"><label class="checkbox">{{$client->prenom}} {{$client->nom}}</option>
+                                                    <option value="{{$client->id}}">{{$client->prenom}} {{$client->nom}}</option>
 
                                                     @endforeach    
                                                 </select>
                                                 <select class="custom-select" id="inputGroupSelect01" name="nom_client5">
-                                                    <option selected="true" disabled="true">Aucun sélectionné</option>
+                                                    <option selected="true" disabled="true">Client 5</option>
                                                     @foreach($clients as $client)
 
-                                                    <option value="{{$client->id}}"><label class="checkbox">{{$client->prenom}} {{$client->nom}}</option>
+                                                    <option value="{{$client->id}}">{{$client->prenom}} {{$client->nom}}</option>
 
                                                     @endforeach    
                                                 </select>
@@ -531,13 +537,13 @@
 
                                                     @endforeach    
                                                 </select>
-                                            </div>
+                                            </div>                                                                                         
+                                        </div>
+                                        <div class="offset-lg-3 col-lg-6">
                                             <div class="custom-file">                                         
                                                 <input type="file" name="programme_formation" class="custom-file-input" id="programme_formation" required>
                                                 <label class="custom-file-label" for="file">Programme de formation</label>
-                                            </div>                                                
-                                        </div>
-                                        <div class="offset-lg-3 col-lg-6">
+                                            </div> 
                                             <button type="submit" class="btn btn-outline-primary" id="btn_ajout_confirm_formation">AJOUTER</button> 
                                         </div>  
                                     </div>                             
@@ -548,9 +554,9 @@
                 </div>
                 <div class="card" style="border-color: red; color: #2D3F58;box-shadow: 1px 1px 5px black;">
                     <div class="card-header" id="headingNine" style="color: red;">
-                        <h5 class="mb-0">
+                        <h5 class="mb-0" style="text-align: center;">
                             <button class="btn btn-link" data-toggle="collapse" data-target="#collapseNine" aria-expanded="false" aria-controls="collapseNine" id="color_heading9">
-                            SUPPRIMER GROUPE DE FORMATION
+                            SUPPRIMER UN GROUPE 
                             </button>
                         </h5>
                     </div>
@@ -559,7 +565,7 @@
                             {{ csrf_field() }}
                             <div class="row">
                                 <div class="offset-lg-4 col-lg-4">
-                                    <h6 id="msg_warning_suppr">ATTENTION! Cette action supprimera toutes les données liées à la formation choisie (apprenants, commentaires, statistiques, clients) de façon DEFINITIVE!</h6>
+                                    <h6 id="msg_warning_suppr">ATTENTION! Cette action supprimera toutes les données liées au groupe de formation choisi (apprenants, commentaires, statistiques, clients) de façon DEFINITIVE!</h6>
                                     <div class="input-group mb-3" id="input_suppr_form">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text" id="basic-addon1">Groupe de formation</span>
@@ -567,9 +573,9 @@
                                         <select class="custom-select" id="inputGroupSelect01" required name="nom_formation">
                                             <option selected disabled="true">Aucun sélectionné</option>
 
-                                            @foreach($groupes_formation as $groupe_formation)
+                                            @foreach($formations as $formation)
 
-                                                <option value="{{$groupe_formation->groupe_formation}}">{{$groupe_formation->groupe_formation}}</option>
+                                                <option value="{{$formation->nom}}">{{$formation->nom}}</option>
 
                                             @endforeach    
 

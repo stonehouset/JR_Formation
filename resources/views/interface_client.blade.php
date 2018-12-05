@@ -21,7 +21,7 @@
             </h5>  
             <div id="card_tab_apprenant_client">
                 <div class="card-header" id="header_tableau_apprenants">                  
-                    APPRENANTS  
+                    APPRENANTS A MON COMPTE
                 </div>
                 <div id="tab_infos_inteface_client">
                     <table class="table table-striped table">

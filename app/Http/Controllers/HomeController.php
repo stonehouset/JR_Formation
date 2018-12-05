@@ -41,7 +41,7 @@ class HomeController extends Controller
         $aujourdhui = date('Y-m-d');
         $users = User::all();
         $statut = null;
-        $groupes_formation = Apprenant::distinct()->get(['groupe_formation']);
+        $groupes_formation = Apprenant::distinct()->where('formation_id', null)->get(['groupe_formation']);
         $clients = User::where('role', '=', '2')->get();
         $formateurs = User::where('role', '=', '1')->get();
         $apprenants = User::where('role', '=', '0')->get();
@@ -124,7 +124,7 @@ class HomeController extends Controller
 
             if ($formation->date_fin < $aujourdhui) {
 
-                $formation->setAttribute('statut', 'terminée');
+                $formation->setAttribute('statut', 'Terminée');
             }
             else if ($formation->date_debut < $aujourdhui && $formation->date_fin > $aujourdhui ) {
 
@@ -313,14 +313,26 @@ class HomeController extends Controller
     public function extractApprenantCsv()
     {
  
-        $userApprenants = User::where('role', '=', '0')->get();   
+        $userApprenants = User::where('role', '=', '0')->get();  
+
+        if ($userApprenants == null) {
+
+            return redirect()->back()->with('error', 'Aucun apprenant ajouté, tableau vide.');
+
+        }
 
         foreach ($userApprenants as $userApprenant) {
 
             $apprenants = Apprenant::where('user_id','=', $userApprenant->id)->get();
+
             $userApprenant->setAttribute('apprenants', $apprenants);
 
             foreach ($apprenants as $apprenant) {
+
+                if($apprenant->id_formation == null){
+
+                return redirect()->back()->with('error', 'Les apprenants ont été ajoutés, merci de créer leur formation pour extraire le tableau.');
+                }
 
                 $formations = Formation::where('id', '=', $apprenant->formation_id)->get();
                 $apprenant->setAttribute('formations', $formations);
@@ -454,6 +466,12 @@ class HomeController extends Controller
 
         $idUserADelete = $request->suppr_user;
 
+        if($idUserADelete == null){
+
+                return redirect()->back()->with('error', 'Veuillez sélectionner un utilisateur!');
+
+        }
+
         $user = User::where('id','=', $idUserADelete)->first();
 
         if ($user->role == 1 || $user->role == 2) {
@@ -485,6 +503,11 @@ class HomeController extends Controller
     {
         
         $formationChoisie = $request->nom_formation;
+
+        if ($formationChoisie == null) {
+            
+            return redirect()->back()->with('error', 'Veuillez sélectionner une formation!');
+        }
 
         $formationBdd = Formation::where('nom', $formationChoisie)->first();
 

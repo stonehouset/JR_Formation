@@ -2,7 +2,6 @@
 $( document ).ready(function() {
 
     $('input[type=checkbox]').prop("checked", false);
-
     $("#contenu_form1").hide();
     $("#contenu_form2").hide();
     $("#contenu_form3").hide();
@@ -82,6 +81,17 @@ $("#btn_gestion_utilisateur").click(function(){
     $(".boutons_gestion_utilisateur").show();
     $("#gestion_utilisateurs").show("fast");
 });
+
+$("#info_mdp_login").hover(function(){
+
+    $("#password").attr("placeholder", "Votre mot de passe vous a été communiqué par mail");
+});
+
+$("#info_mdp_login").click(function(){
+
+    $("#password").attr("placeholder", "Votre mot de passe vous a été communiqué par mail");
+});
+
 
 $("#btn_donnees").click(function(){
 

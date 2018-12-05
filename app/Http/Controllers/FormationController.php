@@ -57,7 +57,7 @@ class FormationController extends Controller
             return redirect()->back()->with('error', 'La date de fin de formation ne peut pas être antérieure à la date de début!');
         }
 
-        if ($request->nom_client1 == $request->nom_client2 || $request->nom_client1 == $request->nom_client3 || $request->nom_client1 == $request->nom_client4 || $request->nom_client1 == $request->nom_client5) {
+        if ($request->nom_client1 == $request->nom_client2 || $request->nom_client1 == $request->nom_client3 || $request->nom_client1 == $request->nom_client4 || $request->nom_client1 == $request->nom_client5) { 
             
             return redirect()->back()->with('error', 'Merci de sélectionner un client une seule fois!');
 
@@ -81,9 +81,6 @@ class FormationController extends Controller
         $apprenants = Apprenant::where('groupe_formation', '=' , $request->nom_formation)->get();
 
         $programme_formation = $request->file('programme_formation');
-
-        
-
 
         $nom_programme_formation = $programme_formation->getClientOriginalName();
 
@@ -131,8 +128,7 @@ class FormationController extends Controller
 
         foreach ($apprenants as $apprenant) {
 
-            DB::table('apprenants')->where('user_id' ,'=' , $apprenant->user_id)->update(['formation_id' => $idFormation]);
-            
+            DB::table('apprenants')->where('user_id' ,'=' , $apprenant->user_id)->update(['formation_id' => $idFormation]);      
         }
 
         return redirect()->back()->with('success', 'Le groupe de formation a été ajouté!'); 

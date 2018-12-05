@@ -50,7 +50,7 @@
                 </div>
             </div>
         @endif
-        <div class="row">
+        <div class="row" id="row_profil_mdp">
             <div class="offset-lg-4 col-lg-4">
                 <div id="div_modif_password">
                     <h4 id="titre_modif_mdp">Modifier votre mot de passe</h4>

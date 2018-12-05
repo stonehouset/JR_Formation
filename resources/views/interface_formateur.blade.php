@@ -15,14 +15,14 @@
     <div class="row"> 
         <div class="offset-lg-4 col-lg-4">     
             <h4 id="titre_interface_formateur">
-                VOS APPRENANTS
+                INTERFACE FORMATEUR
             </h4>    
         </div>
     </div>   
     <div class="row" id="row_principale_interface_formateur">       
         <div class="col-lg-7">  
             <div class="card-header" id="header_tableau_apprenants_formateur">    
-                APPRENANTS 
+                MES APPRENANTS 
                 <input type="text" id="input_form" onkeyup="search2()"  placeholder="recherche par groupe" title="cherche formateur"> 
                                    
             </div>
@@ -137,7 +137,7 @@
         <div class="card" style="border-color: white; color: #2D3F58;">
             <div class="card-header" id="headingTen" style="border-color: #E0002D; color: #2D3F58;">
                 <h5 class="mb-0">
-                    <button class="btn btn-link" data-toggle="collapse" data-target="#collapseTen" aria-expanded="false" aria-controls="collapseTen">
+                    <button class="btn btn-link" id="header_com_groupe" data-toggle="collapse" data-target="#collapseTen" aria-expanded="false" aria-controls="collapseTen">
                     COMMENTAIRE GROUPE 
                     </button>
                 </h5>
