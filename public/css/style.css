@@ -3,59 +3,46 @@
 
 html{
 
-	width: 100%;
-	background-color: #2D3F58;
-	
+
+	background-color: transparent;
 	
 }
 
 body{
 
-	background-color: #2D3F58;
+	background-image: url("/img/image.png");
+  	background-repeat: no-repeat;
+  	background-size: cover
 	
+}
+
+#titre_auto_eval,#btn_donnees,#btn_gestion_formation,#btn_gestion_utilisateur,#btn_deconnexion,#label_email_form_connexion,#label_mdp_form_connexion,#input_checkbox_form_connexion,#btn_submit_login,#titre_form_impact_formation,#titre_form_impact_formation1,#titre_modif_mdp,#sous_titre_modif_mdp,#btn_apprenant_quest_formation,#btn_apprenant_quest_formateur,#btn_apprenant_com_fin_sem,#btn_questionnaires,#btn_apprenant_programme,#btn_disabled_validation_com2_formation,#head_tab_apprenant_client,#btn_form_client,#btn_impact_form_client,#header_com_groupe,#btn_suppr_user_haut,#header_ajout_formation,#color_heading9,#header_liste_apprenants,#header_add_user,#entete_liste_com,#text_nav_link,#titre_page_connexion,#titre_page_commentaire,#titre_interface_formateur,#titre_profil,#titre_questionnaire_formateur,#titre_interface_client,#header_item_utilisateur,#header_tableau_apprenants,#header_tableau_apprenants_formateur,#label_retard_absence,#label_note{
+
+	font-family: 'GothamLight';
+    src: url('/fonts/Gotham-Light.eot');
+    src: url('/fonts/Gotham-Light.otf') format('opentype'),
+         url('/fonts/Gotham-Light.eot?iefix') format('embedded-opentype'),
+         url('/fonts/Gotham-Light.woff') format('woff'),
+         url('/fonts/Gotham-Light.ttf') format('truetype'),
+         url('/fonts/Gotham-Light.svg#gothamlight') format('svg');
+
 }
 
 #text_nav_link,#titre_page_connexion,#titre_page_commentaire,#titre_interface_formateur,#titre_profil,#titre_questionnaire_formateur,#titre_interface_client,#header_item_utilisateur,#header_tableau_apprenants,#header_tableau_apprenants_formateur,#label_retard_absence,#label_note{
 
-	font-family: 'GothamLight';
-    src: url('/fonts/Gotham-Light.eot');
-    src: url('/fonts/Gotham-Light.otf') format('opentype'),
-         url('/fonts/Gotham-Light.eot?iefix') format('embedded-opentype'),
-         url('/fonts/Gotham-Light.woff') format('woff'),
-         url('/fonts/Gotham-Light.ttf') format('truetype'),
-         url('/fonts/Gotham-Light.svg#gothamlight') format('svg');
 
     font-size: 22px;
 }
 
-#header_com_groupe,#btn_suppr_user_haut,#header_ajout_formation,#color_heading9,#header_liste_apprenants,#header_add_user,#entete_liste_com{
+#head_tab_apprenant_client,#btn_form_client,#btn_impact_form_client,#header_com_groupe,#btn_suppr_user_haut,#header_ajout_formation,#color_heading9,#header_liste_apprenants,#header_add_user,#entete_liste_com{
 
-	font-family: 'GothamLight';
-    src: url('/fonts/Gotham-Light.eot');
-    src: url('/fonts/Gotham-Light.otf') format('opentype'),
-         url('/fonts/Gotham-Light.eot?iefix') format('embedded-opentype'),
-         url('/fonts/Gotham-Light.woff') format('woff'),
-         url('/fonts/Gotham-Light.ttf') format('truetype'),
-         url('/fonts/Gotham-Light.svg#gothamlight') format('svg');
-    color: #2D3F58;
+    color: black;
     text-align: center;
-}
-
-#titre_modif_mdp,#sous_titre_modif_mdp{
-
-	font-family: 'GothamLight';
-    src: url('/fonts/Gotham-Light.eot');
-    src: url('/fonts/Gotham-Light.otf') format('opentype'),
-         url('/fonts/Gotham-Light.eot?iefix') format('embedded-opentype'),
-         url('/fonts/Gotham-Light.woff') format('woff'),
-         url('/fonts/Gotham-Light.ttf') format('truetype'),
-         url('/fonts/Gotham-Light.svg#gothamlight') format('svg');
-
 }
 
 #row_profil_mdp{
 
-	margin-top: 2%;
+	margin-top: 1%;
 }
 
 
@@ -66,8 +53,6 @@ body{
 
 #titre_page_connexion {
 
-
-	
 	color: white;
 	width: 100%;
 	text-shadow: 2px 2px 4px black;
@@ -152,8 +137,6 @@ body{
 	box-shadow: 1px 1px 5px black;
 }
 
-
-
 #welcome_extranet{
 
 	margin-top: 2%;
@@ -199,14 +182,11 @@ body{
 	text-align: center;
 	vertical-align: middle;
 	text-transform: uppercase;
-	border: 1px #E0002D solid;
-	
-	
+	border: 1px #E0002D solid;	
 
 }
 
 #initials_user:hover{
-
 	
 	background-color: #2D3F58;
 	color: white;
@@ -230,7 +210,6 @@ body{
 	border-radius: 1px;
 }
 
-
 .nav-item:hover{
 
 	box-shadow: 1px 1px 10px #2D3F58;
@@ -246,17 +225,8 @@ body{
 	text-align: center;
 	border: hidden;
 	font-size: 18px;
-	font-family: 'GothamLight';
-    src: url('/fonts/Gotham-Light.eot');
-    src: url('/fonts/Gotham-Light.otf') format('opentype'),
-         url('/fonts/Gotham-Light.eot?iefix') format('embedded-opentype'),
-         url('/fonts/Gotham-Light.woff') format('woff'),
-         url('/fonts/Gotham-Light.ttf') format('truetype'),
-         url('/fonts/Gotham-Light.svg#gothamlight') format('svg');
 	
-
 }
-
 
 #btn_deconnexion:hover{
 
@@ -266,8 +236,6 @@ body{
 	color: white;
 	border-radius: 1px;
 }
-
-
 
 #exampleFormControlTextarea1{
 
@@ -279,11 +247,10 @@ body{
 	width: 50%;
 }
 
-
 .card-body,.panel-body,.card-header{
-
-	background-color: #2D3F58;
 	
+	border: none;
+	box-shadow: none;
 
 }
 
@@ -311,7 +278,6 @@ body{
 
 #headingOne,#headingTwo,#headingFive,#headingNine,#headingTen{
 
-
 	background-color: white;
 	border-radius: 2px;
 	box-shadow: 1px 1px 5px black;
@@ -329,10 +295,11 @@ body{
 
 #collapseNine,#collapseTen{
 
-	background-color: #2D3F58;
+	background-color: transparent;
 	color: white;
 	padding-bottom: 1%;
 	box-shadow: 1px 1px 5px black;
+	border: 1px white solid;
 }
 
 #msg_warning_suppr{
@@ -381,6 +348,11 @@ body{
 
 }
 
+#contenu_donnees{
+
+	height: 200px;
+}
+
 #btn_ajout_confirm_apprenant{
 
 	width: 100%;
@@ -401,20 +373,12 @@ body{
 
 	width: 100%;
 	margin: auto;
-	background-color: #2D3F58;
+	background-color: transparent;
 	box-shadow: 1px 1px 5px black;
 	border: 1px solid #E0002D;	
 	color: white;
 	border-radius: 2px;
 	font-size: 20px;
-	font-family: 'GothamLight';
-    src: url('/fonts/Gotham-Light.eot');
-    src: url('/fonts/Gotham-Light.otf') format('opentype'),
-         url('/fonts/Gotham-Light.eot?iefix') format('embedded-opentype'),
-         url('/fonts/Gotham-Light.woff') format('woff'),
-         url('/fonts/Gotham-Light.ttf') format('truetype'),
-         url('/fonts/Gotham-Light.svg#gothamlight') format('svg');
-
 
 }
 
@@ -427,11 +391,12 @@ body{
 .accordion_formateur{
 
 	margin-top: 1%;
+	border-radius: 1px;
 }
 
-.accordion_formateur1{
+#card_com_jour{
 
-
+	background-color: transparent;
 }
 
 #btn_switch_to_form,#btn_switch_to_client{
@@ -490,15 +455,21 @@ body{
 
 }
 
+#card_suppr_user{
+
+	background-color: transparent;
+}
+
 #collapseSix{
 
 	box-shadow: 1px 1px 5px red;
-	background-color: #2D3F58;
+	background-color: transparent;
 }
 
 #collapseFive{
 
 	box-shadow: 1px 1px 5px black;
+	background-color: transparent;
 }
 
 #btn_donnees:hover{
@@ -528,7 +499,6 @@ body{
 #btn_suppr_user_admin{
 
 
-	background-color: #2D3F58;
 	border: 1px solid red;	
 	border-radius: 2px;
 	color: white;
@@ -640,16 +610,17 @@ body{
 
 #btn_form_client,#btn_impact_form_client{
 
-	margin-top: 2%;
+	margin-top: 1%;
 	width: 100%;
 	height: 60px;
 	background-color: white;
 	border-radius: 2px;
 	border: 1px #2D3F58 solid;
-	color: #2D3F58;
-	font-size: 15px;
+	font-size: 20px;
 	box-shadow: 1px 1px 5px black;
+	color: black;
 }
+
 #btn_telecharger_tab_formateur_admin,#btn_telecharger_tab_formateur_admin{
 
 	width: 100%;
@@ -671,8 +642,11 @@ body{
 }
 
 
+
+
 #body_interface_formateur,#body_interface_client{
 
+	background-color: transparent;
 	text-align: center;
 	width: 95%;
 	margin-top: 0.5%;
@@ -682,6 +656,7 @@ body{
 
 #body_interface_apprenant{
 
+	background-color: transparent;
 	text-align: center;
 	width: 95%;
 	margin-top: 0.5%;
@@ -718,12 +693,16 @@ body{
 	margin-top: 1%;
 }
 
-#row_profil{
+#row_profil,#row_profilApp{
 
-	margin-top: 1%;
 	margin-left: auto;
 	margin-right: auto;
 	width: 100%;
+}
+
+#row_profilApp{
+
+	margin-top: 1%;
 }
 
 #tableau_gestion_admin_infos_users,#tab_infos_inteface_client {
@@ -748,9 +727,9 @@ body{
 
 #tab_admin_apprenants,#tab_formateur_admin{
 
+	height: 400px;
 	overflow-y:scroll;
 	position: static;
-	height: 400px;
 	box-shadow: 1px 1px 5px black;
 	border: 1px white solid;
 
@@ -758,17 +737,29 @@ body{
 
 #tab_admin_formations{
 
-	overflow-y:scroll;
-	position: static;
-	height: 230px;
+	
+	height: 270px;
 	border: 1px white solid;
 	box-shadow: 1px 1px 5px black;
-	background-color: #2D3F58;
+	overflow-y:scroll;
+	position: static;
+	background-color: transparent;
 }
 
-#inputGroupSelect01,#choix_dat_form,#btn_ajout_confirm_formation,#btn_get_excel_apprenant,#btn_ajout_liste_apprenants{
+#collapseOne{
+
+	background-color: transparent;
+}
+
+#btn_valider_com_jour,#btn_ajouter_com_formateur_to_apprenant,#btn_valider_retard_absence,#btn_valider_note,#inputGroupSelect01,#btn_ajout_user_admin,#role,#nom,#numero_telephone,#prenom,#password-confirm,#exampleFormControlTextarea2,#choix_dat_form,#btn_ajout_confirm_formation,#btn_get_excel_apprenant,#btn_ajout_liste_apprenants,#select_formation_com_journalier,#btn_submit_change_mdp{
 
 	box-shadow: 1px 1px 5px black;
+
+}
+
+#exampleFormControlTextareaApp,#inputGroupSelectapp,#btn_ajouter_com_formateur_to_apprenant,#btn_valider_retard_absence,#btn_valider_note{
+
+	border-radius: 2px;
 
 }
 
@@ -848,9 +839,9 @@ li.list-group-item{
 
 #item_details_users,#item_suivi_embauche{
 
-	height: 70px;
+	background-color: rgba(255, 255, 255, 0.1);
+	height: 60px;
 	padding-bottom: 1px;
-	background-color: #2D3F58;
 	color: white;
 	border: 1px white solid;
 
@@ -868,6 +859,12 @@ li.list-group-item{
 
 }
 
+#head_tab_apprenants_admin{
+
+	background-color: #2D3F58;
+	color: white;
+}
+
 h6{
 
 	width: 100%;
@@ -879,6 +876,11 @@ h6{
 	display: inline-block;
 	text-align: left;
 
+}
+
+#myTable{
+
+	background-color: white;
 }
 
 
@@ -905,7 +907,7 @@ input[type=radio] {
 
 #form_register_commentaire,#form_register_note,#form_absence_retard{
 
-	background-color: #2D3F58;
+	background-color: transparent;
 }
 
 #input_com_formateur_to_apprenant{
@@ -921,6 +923,7 @@ input[type=radio] {
 #com_formateur_to_apprenant_txt{
 
 	margin-top: 1%;
+	
 }
 
 
@@ -929,20 +932,26 @@ input[type=radio] {
 
 #formulaire_page_connexion{
 
+	background-color: rgba(45, 63, 88, 0.6); 
+	/*background-color: rgba(255, 255, 255, 0.2);*/
+	background-position: center;
+  	background-repeat: no-repeat;
+  	background-size: cover
 	margin: auto;
 	margin-top: 15%;
 	box-shadow: 1px 1px 5px black;
-	border: 1px white solid;
+	border: 1px #E0002D solid;
 	border-radius: 2px;
 	padding-bottom: 2%;
 	padding-top: 2%;
 
 }
 
+
 #btn_submit_login{
 
 	border-radius: 2px;
-	border: 1px green solid;
+	border: 1px #E0002D solid;
 	color: white;
 	width: 100%;
 	height: 50px;
@@ -1074,7 +1083,7 @@ input[type=radio] {
 	margin: 1%;
 	margin-top: 0%;
 	border-top: hidden;
-	background-color: #2D3F58;
+
 	
 }
 
@@ -1126,7 +1135,7 @@ input[type=radio] {
 
 #cadre_scroll_commentaire{
 
-	height: 500px;
+	height: 550px;
 	overflow-y:scroll;
 	position: static;
 	border: 1px white solid;
@@ -1135,13 +1144,9 @@ input[type=radio] {
 
 #row_commentaires{
 
-	background-color: #2D3F58;
-	border: 1px #2D3F58 solid;
 	border-radius: 2px;
 	margin-top: 1%;
 	
-
-
 }
 
 #btn_submit_change_mdp{
@@ -1167,10 +1172,10 @@ input[type=radio] {
 
 #container_questionnaire_auto_evaluation{
 
-	
 	margin-top: 1%;
 	border-radius: 2px;
 }
+
 
 #contenu_form_questionnaire_autoeval{
 
@@ -1180,7 +1185,7 @@ input[type=radio] {
 
 #section_auto_eval{
 
-	border: 1px white solid;
+	border: 1px #E0002D solid;
 	margin-top: 0.5%;
 	border-radius: 2px;
 	box-shadow: 1px 1px 5px black;
@@ -1189,7 +1194,7 @@ input[type=radio] {
 
 #section_contenu_pedago{
 
-	border: 1px white solid;
+	border: 1px #E0002D solid;
 	margin-top: 0.5%;
 	border-radius: 2px;
 	box-shadow: 1px 1px 5px black;
@@ -1198,7 +1203,7 @@ input[type=radio] {
 
 #section_materiel_logistique{
 
-	border: 1px white solid;
+	border: 1px #E0002D solid;
 	margin-top: 0.5%;
 	border-radius: 2px;
 	box-shadow: 1px 1px 5px black;
@@ -1207,7 +1212,7 @@ input[type=radio] {
 
 #section_et_demain{
 
-	border: 1px white solid;
+	border: 1px #E0002D solid;
 	margin-top: 0.5%;
 	border-radius: 2px;
 	box-shadow: 1px 1px 5px black;
@@ -1226,7 +1231,6 @@ input[type=radio] {
 	padding-bottom: 1%;
 	text-shadow: 2px 2px 4px black;
 	background-color: #2D3F58;
-	box-shadow: 1px 1px 5px black;
 	padding-top: 1%;
 }
 
@@ -1257,7 +1261,7 @@ input[type=radio] {
 
 #question_perf_form{
 
-	background-color: #2D3F58;
+	background-color: transparent;
 	border: hidden;
 	height: 70px;
 	text-align: center;
@@ -1267,7 +1271,7 @@ input[type=radio] {
 
 #questions_matos{
 
-	background-color: #2D3F58;
+	background-color: transparent;
 	border: hidden;
 	text-align: center;
 	color: white;
@@ -1286,7 +1290,7 @@ input[type=radio] {
 	width: 100%;
 	height: 60px;
 	margin-bottom: 2%;
-	margin-top: 2%;
+	margin-top: 5%;
 	border: 1px green solid;
 	box-shadow: 1px 1px 5px black;
 	border-radius: 2%;
@@ -1295,13 +1299,60 @@ input[type=radio] {
 	font-size: 20px;
 }
 
-#btn_validation_form_formateur:hover{
+#btn_validation_form_formation{
 
 	width: 100%;
+	height: 50px;
+	margin-bottom: 2%;
+	margin-top: 4%;
+	border: 1px green solid;
+	box-shadow: 1px 1px 5px black;
+	border-radius: 2%;
+	color: white;
+	background-color: #2D3F58;
+	font-size: 20px;
+}
+
+#btn_validation_com1_formation{
+
+	width: 100%;
+	height: 50px;
+	margin-bottom: 2%;
+	margin-top: 4%;
+	border: 1px green solid;
+	box-shadow: 1px 1px 5px black;
+	border-radius: 2%;
+	color: white;
+	background-color: #2D3F58;
+	font-size: 20px;
+
+}
+
+#btn_validation_form_formation:hover{
+
 	border: 1px white solid;
 	background-color: green;
-	border-radius: 2%;
+	
 }
+
+#btn_validation_form_formateur:hover{
+
+	border: 1px white solid;
+	background-color: green;
+}
+
+#btn_validation_com1_formateur:hover{
+
+	border: 1px white solid;
+	background-color: green;
+}
+
+#btn_validation_com2_formateur:hover{
+
+	border: 1px white solid;
+	background-color: green;
+}
+
 
 
 
@@ -1314,14 +1365,19 @@ input[type=radio] {
 	height: 50px;
 	width: 100%;
 	border: 1px green solid;
+	box-shadow: 1px 1px 5px black;
 }
 
 #btn_valider_suivi_client:hover{
 
 
 	background-color: green;
-	color: white;
 
+}
+
+#row_interface_client{
+
+	background-color: transparent;
 }
 
 #card_tab_apprenant_client{
@@ -1336,8 +1392,7 @@ input[type=radio] {
 
 #titre_interface_client{
 
-	background-color: #2D3F58;
-	border-color: #E0002D;
+	background-color: transparent;
 	color: white;
 	font-size: 27px;
 	text-shadow: 2px 2px 4px black;
@@ -1349,7 +1404,7 @@ input[type=radio] {
 	height: 50px;
 	font-size: 20px;
 	box-shadow: 1px 1px 5px black;
-	color: #2D3F58;
+	color: black;
 	text-align: center;
 	background-color: white;
 
@@ -1370,6 +1425,7 @@ input[type=radio] {
 	color: #2D3F58;
 	text-align: center;
 	background-color: white;
+	border-radius: 1px;
 }
 
 #head_tab_apprenant_client,#head_tab_apprenant_formateur{
@@ -1398,6 +1454,7 @@ input[type=radio] {
 	border: 1px white solid;
 	box-shadow: 1px 1px 5px black;
 	padding: 1%;
+	background-color: transparent;
 	color: white;
 }
 
@@ -1409,8 +1466,9 @@ input[type=radio] {
 #presence_2_mois,#presence_6_mois,#div_checkbox_embauche{
 
 	margin-top: 2%;
-	box-shadow: 1px 1px 5px black;
 	padding: 1%;
+	box-shadow: 1px 1px 5px black;
+	border: 1px white solid;
 	
 }
 
@@ -1420,10 +1478,6 @@ input[type=radio] {
 	box-shadow: 1px 1px 5px black;
 }
 
-#label_select_stagiaire{
-
-	color: white;
-}
 
 #input_hierarchie_entreprise_fonction,#input_formation_suivie_duree{
 
@@ -1450,6 +1504,24 @@ input[type=radio] {
 	text-shadow: 2px 2px 4px black;
 	padding-top: 2%;
 }
+
+
+#titre_form_impact_formation1{
+
+	text-align: center;
+	color: white;
+	margin-bottom: 3%;
+	text-shadow: 2px 2px 4px black;
+	padding-top: 2%;
+}
+
+#select_stagiaire_form_client{
+
+	box-shadow: 1px 1px 5px black;
+	border-radius: 2px;
+
+}
+
 
 #titre_form_identification{
 
@@ -1481,6 +1553,7 @@ input[type=radio] {
 	margin-bottom: 2%;
 	color: white;
 	border-color: green;
+	box-shadow: 1px 1px 5px black;
 }
 
 #btn_valider_impact_formation:hover{
@@ -1546,17 +1619,21 @@ input[type=radio] {
 #card_actions_formateur{
 
 	border: hidden;
-	box-shadow: 1px 1px 5px black;
+	background-color: transparent;
+
 }
 
 #label_retard_absence,#label_note{
 
-	color: white;
-	background-color: #2D3F58;
+	margin-top: 22px;
+	color: black;
+	background-color: white;
 	border: 2px white solid;
+	border-radius: 1px;
+	box-shadow: 1px 1px 5px black;
 	font-weight: bold;
 	height: 47px;
-	text-shadow: 2px 2px 4px black;
+
 
 }
 
@@ -1603,7 +1680,7 @@ input[type=radio] {
 #select_ajout_note_apprenant,#select_absence_retard_apprenant,#select_nom_apprenant_absouret,#note_apprenant{
 
 	border-color: #E0002D;
-	margin-top: 1.5%;
+	margin-top: 5px;
 }
 
 #btn_valider_retard_absence{
@@ -1648,7 +1725,7 @@ input[type=radio] {
 
 #btn_valider_com_jour{
 
-	margin-top: 1%;
+	margin-top: 3%;
 	width: 100%;
 	border: 1px green solid;
 	color: white;
@@ -1672,13 +1749,13 @@ input[type=radio] {
 
 #card_principale_home{
 
-	background-color: #2D3F58;
+	background-color: transparent;
+	border: hidden;
 }
 
 #tab_gestion_admin_inf{
 
-	margin-top: 2%;
-	background-color: #2D3F58;
+	margin-top: 2%;	
 	border: hidden; 
 	border-bottom: 1px white solid;
 }
@@ -1696,6 +1773,7 @@ input[type=radio] {
 	border-color: white; 
 	color: #2D3F58;
 	box-shadow: 1px 1px 5px black;
+	background-color: transparent;
 }
 
 #card_ajout_apprenant{
@@ -1703,7 +1781,9 @@ input[type=radio] {
 	border-color: white;
 	color: #2D3F58;
 	box-shadow: 1px 1px 5px black;
+	background-color: transparent;
 }
+
 
 #headingTwo{
 
@@ -1714,7 +1794,6 @@ input[type=radio] {
 #card_liste_apprenants_admin{
 
 	margin-top: 2%;
-	background-color: #2D3F58;
 	border: hidden;
 	border-bottom: 1px white solid;
 }
@@ -1789,7 +1868,7 @@ input[type=radio] {
 
 #btn_get_excel_apprenant{
 
-	width: 80%;
+	width: 100%;
 	border: 1px white solid;
 	color: white;
 }
@@ -1802,10 +1881,9 @@ input[type=radio] {
 #form_register_apprenants{
 
 	margin-top: 3.2%;
-	width: 80%;
+	
 	margin-left:auto;
 	margin-right: auto;
-	background-color: #2D3F58;
 
 }
 
@@ -1820,3 +1898,36 @@ input[type=radio] {
 
 	cursor: zoom-in;
 }
+
+#form_suivi_client{
+
+	background-color: transparent;
+}
+
+.loader {
+
+  border: 6px solid #f3f3f3; /* Light grey */
+  border-top: 6px solid #2D3F58; /* Blue */
+  border-radius: 50%;
+  width: 26px;
+  height: 26px;
+  margin-right: auto;
+  margin-left: auto;
+  animation: spin 2s linear infinite;
+  text-align: center;
+
+}
+
+@keyframes spin {
+
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+
+}
+
+#form_suppr_form{
+
+	background-color: transparent;
+}
+
+

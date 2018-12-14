@@ -85,7 +85,6 @@ class ApprenantController extends Controller
         if (!file_exists($filename) || !is_readable($filename)){
 
             return 'erreur fichié';
-
         }
 
         $header = null;
@@ -150,6 +149,12 @@ class ApprenantController extends Controller
             $mdp = generatePassword();
 
             $item['password'] = $mdp;
+
+            $user = User::where('email', '=', $item['email'])->first();
+            if ($user != null) {
+                
+                return redirect()->back()->with('error', 'L\'adresse email : '.$user->email.' est déja utilisée par un utilisateur!'); 
+            }
      
             $user = new User;
 
@@ -189,8 +194,14 @@ class ApprenantController extends Controller
             ];
 
             // return view("emails.apprenants", []);
+            try{
 
-            Mail::to($item['email'])->send(new Contact($data));
+                Mail::to($item['email'])->send(new Contact($data));
+            }
+            catch(\Exception $e){
+
+                return redirect()->back()->with('error', 'une erreur est survenue lors de l\'envoi des données à l\'adresse : '.$item['email'].' !'); 
+            }
             
         }
       

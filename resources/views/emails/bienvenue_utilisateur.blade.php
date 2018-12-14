@@ -7,19 +7,19 @@
         <h4>Madame, Monsieur {{ $data['nom'] }}</h4>
         <br>
         @if ( $data['role']  == 3)
-          <p>Votre profil d'Administrateur a été créé sur notre extranet à l'adresse http://www.jrt_formation-extranet.com</p>
+          <p>Votre profil d'Administrateur a été créé sur notre extranet à l'adresse http://www.jrt-formation-extranet.fr</p>
         @endif
         @if ( $data['role']  == 2)
-          <p>Votre profil de Client a été créé sur notre extranet à l'adresse http://www.jrt_formation_extranet.com</p>
+          <p>Votre profil de Client a été créé sur notre extranet à l'adresse http://www.jrt-formation-extranet.fr</p>
         @endif
         @if ( $data['role']  == 1)
-          <p>Votre profil de Formateur a été créé sur notre extranet à l'adresse http://www.jrt_formation_extranet.com</p>
+          <p>Votre profil de Formateur a été créé sur notre extranet à l'adresse http://www.jrt-formation-extranet.fr</p>
         @endif
         <br>
-        <p>Vous pouvez dès à présent vous connecter grâce aux identifiants suivants :</p>
+        <p>Vous pouvez vous connecter grâce aux identifiants suivants :</p>
         <ul>
             <li><strong>ID : {{ $data['email'] }}</strong></li>
-            <li><strong>Mot de passe : {{ $data['mdp'] }} </strong></li>
+            <li><strong>Mot de passe : {{ $data['mdp'] }}</strong></li>
         </ul>
         <br>
         @if ( $data['role'] == 3)
@@ -49,7 +49,7 @@
           </ul>
 
         @endif
-        <p>Par sécurité vous êtes invité à modifier votre mot passe dans l'onglet Profil->Modifier votre mot de passe</p>
+        <p>Par sécurité vous êtes invité à modifier votre mot passe dans l'onglet Profil -> Modifier votre mot de passe</p>
         <p>A bientôt,</p>
 
         <h4>L'équipe JRT Formation.</h4>

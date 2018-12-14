@@ -1,6 +1,8 @@
 
 $( document ).ready(function() {
 
+    $('#form_satisfaction_formation').hide();
+    $('#form_satisfaction_formateur').hide();
     $('input[type=checkbox]').prop("checked", false);
     $("#contenu_form1").hide();
     $("#contenu_form2").hide();
@@ -22,9 +24,8 @@ $( document ).ready(function() {
     $('#label_date_embauche').hide();
     $('#tableau_gestion_admin_infos_formateurs2').hide();
     $('#form_satisfaction_formateur').hide();
-    $('#form_satisfaction_formation').hide();
+    $('.loader').hide();
     $('#form_com_semaine_apprenant').hide();
-    $('#programme_form_pdf').hide();
     $('#btns_questionnaires').hide();
 
     
@@ -37,8 +38,6 @@ $( document ).ready(function() {
     }, 3000);
 
 	num_role = $( "#role" ).text();
-
- 
 
     if(num_role === 3){
 
@@ -117,8 +116,6 @@ $("#btn_switch_to_form").click(function(){
 });
 
 
-
-
 $("#btn_questionnaires").click(function(){
 
 
@@ -152,7 +149,7 @@ $("#btn_apprenant_com_fin_sem").click(function(){
     $("#form_satisfaction_formateur").hide();
     $("#form_satisfaction_formation").hide();
     $("#programme_form_pdf").hide(); 
-    $('#form_com_semaine_apprenant').show("fast");
+    $("#form_com_semaine_apprenant").show("fast");
     $("#btns_questionnaires").hide();
     
 });
@@ -162,7 +159,7 @@ $("#btn_apprenant_programme").click(function(){
     $("#form_satisfaction_formateur").hide();
     $("#form_satisfaction_formation").hide();
     $("#form_com_semaine_apprenant").hide();
-    $('#programme_form_pdf').show("fast");
+    $("#programme_form_pdf").show("fast");
     $("#btns_questionnaires").hide();
      
 });
@@ -171,15 +168,13 @@ function doalert(checkboxElem) {
 
   if (checkboxElem.checked) {
 
-    $('#presence_2_mois').show("fast");
-    $('#btn_valider_suivi_client').show("fast");
+    $("#presence_2_mois").show("fast");
+    $("#btn_valider_suivi_client").show("fast");
     $('#input_date_embauche').show("fast");
     $('#label_date_embauche').show("fast");
     $('#motif_non_embauche').hide("fast");
     $('#label_motif_non_embauche').hide("fast");
     
-    
-
   } else {
 
     $('#presence_2_mois').hide("fast");
@@ -190,24 +185,20 @@ function doalert(checkboxElem) {
     $('#input_date_embauche').hide("fast");
     $('#label_date_embauche').hide("fast");
     
-    
-    
-
   }
 
 }
 
 $('#motif_non_embauche').on('keyup', function() {
 
-     if (this.value.length > 1) {
+    if (this.value.length > 1) {
         
         $('#btn_valider_suivi_client').show("fast");
-     }
-     else {
+    }
+    else {
 
         $('#btn_valider_suivi_client').hide();
-     }
-
+    }
 });
 
 function doalert2(checkboxElem) {
@@ -249,7 +240,6 @@ function doalert3(checkboxElem) {
 
 }
 
-
 $("#btn_gestion_utilisateur").click(function(){
 
     $("#contenu_donnees").hide();
@@ -263,8 +253,7 @@ $("#btn_gestion_formation").click(function(){
     $("#contenu_donnees").hide();
     $("#contenu_form2").hide();
     $("#contenu_form1").hide();
-    $("#gestion_utilisateurs").hide();
-    
+    $("#gestion_utilisateurs").hide();    
     $("#contenu_form3").hide();
     $("#dropdownMenuButton").hide();  
     $("#gestion_formation").show("fast");  
@@ -371,7 +360,6 @@ function functionRole(){
     if(role == 0){
 
         $("#role").attr('text', 'Apprenant');
-
     }
 
     console.log(role);
@@ -447,6 +435,134 @@ function search2() {
     }
 
 }
+
+$('#form_login').submit(function() {
+
+    $('#label_btn_login').hide();
+    $('.loader').show();
+});
+
+$('#register_user').submit(function() {
+
+    $('#label_btn_register').hide();
+    $('.loader').show();
+});
+
+$('#form_register_apprenants').submit(function() {
+
+    $('#label_btn_submit_add_appr').hide();
+    $('.loader').show();
+});
+
+$('#form_change_mdp').submit(function() {
+
+    $('#label_btn_submit_change_mdp').hide();
+    $('.loader').show();
+});
+
+$('#form_suppr_users').submit(function() {
+
+    $('#label_btn_submit_suppr_user').hide();
+    $('.loader').show();
+});
+
+
+$('#form_add_formation').submit(function() {
+
+    $('#label_btn_submit_add_form').hide();
+    $('.loader').show();
+});
+
+$('#form_suppr_form').submit(function() {
+
+    $('#label_btn_submit_suppr_form').hide();
+    $('.loader').show();
+});
+
+$('#form_suivi_app_client').submit(function() {
+
+    $('#label_btn_valid_suivi').hide();
+    $('.loader').show();
+});
+
+$('#form_eval_impact_client').submit(function() {
+
+    $('#label_btn_valid_eval').hide();
+    $('.loader').show();
+});
+
+$('#form_register_commentaire').submit(function() {
+
+    $('#label_btn_add_com_forma').hide();
+    $('#loader1').show();
+});
+
+$('#form_absence_retard').submit(function() {
+
+    $('#label_btn_add_absret_forma').hide();
+    $('#loader2').show();
+});
+
+$('#form_register_note').submit(function() {
+
+    $('#label_btn_add_note_forma').hide();
+    $('#loader3').show();
+});
+
+$('#form_com_jour_forma').submit(function() {
+
+    $('#label_btn_add_come_form_forma').hide();
+    $('#loader4').show();
+});
+
+$('#form_compte_rendu').submit(function() {
+
+    $('#label_btn_add_eval_form').hide();
+    $('.loader').show();
+});
+
+$('#form_quest_formateur_app').submit(function() {
+
+    $('#label_btn_valid_quest_formateur').hide();
+    $('.loader').show();
+});
+
+$('#form_quest_formation_app').submit(function() {
+
+    $('#label_btn_valid_quest_formation').hide();
+    $('.loader').show();
+});
+
+$('#com_sem1').submit(function() {
+
+    $('#label_btn_valid_com1').hide();
+    $('.loader').show();
+});
+
+$('#com_sem2').submit(function() {
+
+    $('#label_btn_valid_com2').hide();
+    $('.loader').show();
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -6,9 +6,9 @@
       <body>
         <h4>Madame, Monsieur {{ $data['nom'] }}</h4>
         <br>
-        <p>Vous allez suivre une formation dispensée par notre organisme JRT Formation, pour mener à bien votre expérience, votre profil a été créé sur notre extranet à l'adresse http://www.jrt_formation-extranet.com</p>
+        <p>Vous allez suivre une formation dispensée par notre organisme JRT Formation, pour mener à bien votre expérience, votre profil a été créé sur notre extranet à l'adresse www.jrt-formation-extranet.fr</p>
         <br>
-        <p>Vous pouvez dès à présent vous connecter grâce aux identifiants suivants :</p>
+        <p>Vous pouvez vous connecter grâce aux identifiants suivants :</p>
         <ul>
             <li><strong>ID : {{ $data['email'] }}</strong></li>
             <li><strong>Mdp : {{ $data['mdp'] }} </strong></li>

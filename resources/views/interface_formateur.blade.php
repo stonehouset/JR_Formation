@@ -15,16 +15,15 @@
     <div class="row"> 
         <div class="offset-lg-4 col-lg-4">     
             <h4 id="titre_interface_formateur">
-                INTERFACE FORMATEUR
+                Interface Formateur
             </h4>    
         </div>
     </div>   
     <div class="row" id="row_principale_interface_formateur">       
         <div class="col-lg-7">  
             <div class="card-header" id="header_tableau_apprenants_formateur">    
-                MES APPRENANTS 
-                <input type="text" id="input_form" onkeyup="search2()"  placeholder="recherche par groupe" title="cherche formateur"> 
-                                   
+                APPRENANTS 
+                <input type="text" id="input_form" onkeyup="search2()"  placeholder="recherche par groupe" title="cherche formateur">
             </div>
             <div id="tab_infos_interface_formateur">
                 <table id="taille_tab_formateur" class="table table-striped table">
@@ -44,23 +43,22 @@
                                 <tr id="td"> 
                                     <td class="td">{{$apprenant->groupe_formation}}</td>  
                                     <td class="td">{{$user->prenom}} {{$user->nom}}</td>  
-                                    <td class="td">{{\Carbon\Carbon::parse($formation->date_fin)->format('d/m/Y')}}</td>                                   
+                                    <td class="td">{{\Carbon\Carbon::parse($formation->date_fin)->format('d/m/Y')}}</td>  
                                     <td class="td">{{$user->email}}</td>
-                                    <td class="td">{{$user->numero_telephone}}</td>                                    
+                                    <td class="td">0{{$user->numero_telephone}}</td>                                    
                                 </tr>
                                 @endforeach
                             @endforeach
                         @endforeach
                     </tbody>
-                </table>  
-                               
+                </table>            
             </div>                                             
         </div>
         <div class="col-lg-5" id="com_formateur_to_apprenant">            
             <div class="card" id="card_actions_formateur">         
                 <form id="form_register_commentaire" method="POST" action="{{ route('commentaire') }}">
                 {{ csrf_field() }} 
-                    <select class="custom-select" id="inputGroupSelect01" required name="nom_apprenant_com">
+                    <select class="custom-select" id="inputGroupSelectapp" required name="nom_apprenant_com">
                         <option value="" disabled selected>Sélectionnez un apprenant</option>
                         @foreach($formations as $formation)
                             @foreach($formation->apprenants as $apprenant)
@@ -73,9 +71,14 @@
                         @endforeach
                     </select>
                     <div id="com_formateur_to_apprenant_txt">
-                        <textarea class="form-control" id="exampleFormControlTextarea1" placeholder="Ecrivez un message à propos de l'apprenant sélectionné (200 caractères maximum)." required rows="5" maxlength="200" name="contenu_commentaire"></textarea>
+                        <textarea class="form-control" id="exampleFormControlTextareaApp" placeholder="Ecrivez un message à propos de l'apprenant sélectionné (200 caractères maximum)." required rows="3" maxlength="200" name="contenu_commentaire"></textarea>
                     </div>
-                    <button type="submit" id="btn_ajouter_com_formateur_to_apprenant" class="btn btn-outline-primary">Ajouter</button>
+                    <button type="submit" id="btn_ajouter_com_formateur_to_apprenant" class="btn btn-outline-primary">
+                        <div id="label_btn_add_com_forma">
+                            AJOUTER
+                        </div>
+                        <div class="loader" id="loader1"></div>
+                    </button>
                 </form> 
                 <button class="btn btn-outline-primary" disabled="true" id="label_retard_absence">Signaler un retard ou une absence</button>
                 <form id="form_absence_retard" method="POST" action="{{ route('absence_retard') }}">
@@ -103,7 +106,12 @@
                             </select>     
                         </div>
                     </div>
-                    <button type="submit" id="btn_valider_retard_absence" class="btn btn-outline-primary">Signaler</button>
+                    <button type="submit" id="btn_valider_retard_absence" class="btn btn-outline-primary">
+                        <div id="label_btn_add_absret_forma">
+                            SIGNALER
+                        </div>
+                        <div class="loader" id="loader2"></div>
+                    </button>
                 </form>
                 <button class="btn btn-outline-primary" disabled="true" id="label_note">Attribuer une note</button>
                 <form id="form_register_note" method="POST" action="{{ route('note_apprenant')}}">
@@ -127,15 +135,20 @@
                             <input id="note_apprenant" type="number" class="form-control" name="note_apprenant" value="" min="0" max="20" required placeholder="/20">
                         </div>
                     </div>
-                    <button type="submit" id="btn_valider_note" class="btn btn-outline-primary">Ajouter</button>
+                    <button type="submit" id="btn_valider_note" class="btn btn-outline-primary">
+                        <div id="label_btn_add_note_forma">
+                            AJOUTER
+                        </div>
+                        <div class="loader" id="loader3"></div>
+                    </button>
                 </form>
             </div>                     
         </div>     
     </div>
     <br>
     <div id="accordion" class="accordion_formateur1">
-        <div class="card" style="border-color: white; color: #2D3F58;">
-            <div class="card-header" id="headingTen" style="border-color: #E0002D; color: #2D3F58;">
+        <div class="card" id="card_com_jour">
+            <div class="card-header" id="headingTen">
                 <h5 class="mb-0">
                     <button class="btn btn-link" id="header_com_groupe" data-toggle="collapse" data-target="#collapseTen" aria-expanded="false" aria-controls="collapseTen">
                     COMMENTAIRE GROUPE 
@@ -143,7 +156,7 @@
                 </h5>
             </div>
             <div id="collapseTen" class="collapse" aria-labelledby="headingTen" data-parent="#accordion">
-                <form class="form-horizontal" method="POST" action="{{ route('commentaire_journalier')}}">
+                <form class="form-horizontal" method="POST" action="{{ route('commentaire_journalier')}}" id="form_com_jour_forma">
                     {{csrf_field()}}
                     
                     <div class="row" id="commentaire_journalier_formation">
@@ -155,7 +168,12 @@
                                 @endforeach    
                             </select>
                             <textarea class="form-control" required id="zone_text_com_jour" placeholder="Donnez votre ressenti globale de la journée sur le groupe de formation sélectionné (200 caractères max). " rows="5" name="contenu_commentaire" maxlength="200"></textarea>
-                            <button type="submit" id="btn_valider_com_jour" class="btn btn-outline-primary">AJOUTER COMMENTAIRE</button>
+                            <button type="submit" id="btn_valider_com_jour" class="btn btn-outline-primary">
+                                <div id="label_btn_add_come_form_forma">
+                                    AJOUTER
+                                </div>
+                                <div class="loader" id="loader4"></div>
+                            </button>
                         </div>
                     </div>  
                     

@@ -31,11 +31,11 @@
                     <div class="card-header" id="header_tableau_apprenants">
                         APPRENANTS       
                         <a  href="{{route('apprenants_admin_csv')}}">&#8659;</a> 
-                        <input type="text" id="myInput" onkeyup="search()" placeholder="nom ou prénom" title="cherche apprenant">               
+                        <input type="text" id="myInput" onkeyup="search()" placeholder="nom ou prénom" title="cherche apprenant">
                     </div>
                     <div id="tab_admin_apprenants">   
-                        <table class="table table-striped table-dark" id="myTable">
-                            <thead>
+                        <table class="table table-striped table" id="myTable">
+                            <thead id="head_tab_apprenants_admin">
                                 <tr id="myUL"> 
                                     <th scope="col">Prénom + Nom</th>  
                                     <th scope="col">Groupe formation</th>                                    
@@ -46,7 +46,7 @@
                                     <th scope="col">Note formation</th>                
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody id="body_tab_apprenants_admin">
                                 @if ($apprenants != null)
                                     @foreach($apprenants as $apprenant)
                                     <tr id="td">
@@ -132,13 +132,13 @@
                     </div>
                     <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
                         <div class="card-body">                                                       
-                            <form class="form-horizontal" method="POST" action="{{ route('register') }}">
+                            <form class="form-horizontal" method="POST" action="{{ route('register') }}" id="register_user">
                             {{ csrf_field() }}
                                 <div class="row">
                                     <div class="offset-lg-3 col-lg-6">
                                         <div class="form-group">
                                             <label for="prenom" id="label_form_user_admin" style="" class="control-label">Rôle</label>    
-                                            <select class="custom-select" id="role" class="form-control" name="role">
+                                            <select class="custom-select" required id="role" class="form-control" name="role">
                                                 <option disabled selected>Type d'utilisateur</option>
                                                 <option value="3" >Admin</option>
                                                 <option value="2" >Client</option>
@@ -187,9 +187,12 @@
                                             <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
                                         </div>                                                  
                                     </div>
-                                    <div class="offset-lg-3 col-lg-6">
+                                    <div class="offset-lg-4 col-lg-4">
                                         <button type="submit" id="btn_ajout_user_admin" class="btn btn-outline-primary">
-                                            Enregistrer
+                                            <div id="label_btn_register">
+                                                Enregistrer
+                                            </div>
+                                            <div class="loader"></div> 
                                         </button> 
                                     </div>
                                 </div>
@@ -208,7 +211,7 @@
                     <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
                         <div class="card-body">                           
                             <div class="row"> 
-                                <div class="offset-lg-3 col-lg-6">
+                                <div class="offset-lg-4 col-lg-4">
                                 <h6 id="msg_warning_suppr">ATTENTION! Le fichier est sensible à la casse ! veuillez utiliser le fichier : fichier_type.csv, et remplir tous les champs d'une ligne, sans AUCUN ACCENT!</h6>
                                     <form class="form-horizontal" method="GET" action="{{ route('get_csv_apprenant') }}" id="form_get_excel_apprent">
                                         {{ csrf_field() }}
@@ -222,9 +225,12 @@
                                         <div class="custom-file">                                         
                                             <input type="file" name="fichier_csv_apprenants" class="custom-file-input" id="validatedCustomFile" required>
                                             <label class="custom-file-label" for="file"> &#8595; Importer le fichier complété</label>
-                                        </div>                                                                                           
+                                        </div>                                                                                
                                         <button type="submit" id="btn_ajout_liste_apprenants" class="btn btn-outline-primary">
-                                            Ajouter
+                                            <div id="label_btn_submit_add_appr">
+                                                AJOUTER
+                                            </div>
+                                            <div class="loader"></div> 
                                         </button>
                                     </form>
                                 </div>
@@ -240,12 +246,11 @@
                             </button>
                         </h5>
                     </div>
-                    <div id="collapseSix" class="collapse" aria-labelledby="headingSix" data-parent="#accordion">
-                        
-                        <form id="form_register_apprenants" enctype="multipart/form-data" method="POST" action="{{ route('delete_user')}}">
+                    <div id="collapseSix" class="collapse" aria-labelledby="headingSix" data-parent="#accordion">                      
+                        <form id="form_suppr_users" enctype="multipart/form-data" method="POST" action="{{ route('delete_user')}}">
                             {{ csrf_field() }} 
                             <div class="row" id="div_suppr_user">
-                                <div class="offset-lg-3 col-lg-6">
+                                <div class="offset-lg-4 col-lg-4">
                                     <div class="form-group"> 
                                         <h6 id="msg_warning_suppr">ATTENTION! Si l'utilisateur est formateur ou client vérifiez que toutes les formations associées a cet utilisateur soit supprimées, sinon une erreur sera générée par le serveur!</h6>          
                                         <select class="custom-select" required="" id="user_a_suppr" class="form-control" name="suppr_user">
@@ -255,8 +260,14 @@
                                             @endforeach             
                                         </select>   
                                     </div>
-                                    <button type="submit" id="btn_suppr_user_admin" class="btn btn-outline-primary">
-                                        SUPPRIMER (action irréversible)
+
+                                </div>
+                                <div class="offset-lg-4 col-lg-4">
+                                    <button type="submit" id="btn_suppr_user_admin" class="btn btn-outline-primary">             
+                                        <div id="label_btn_submit_suppr_user">
+                                            SUPPRIMER (irréversible)
+                                        </div>
+                                        <div class="loader"></div>
                                     </button>
                                 </div>
                             </div>
@@ -320,7 +331,7 @@
             </div>
             <div class="row">
                 <div class="col-lg-12">
-                    <div class="card" style="margin-top: 1%;background-color:#2D3F58;border:hidden;border: 1px white solid;">
+                    <div class="card" style="margin-top: 1%;border: 1px white solid;">
                         <div class="card-header" id="header_tableau_apprenants">                      
                             FORMATIONS TERMINEES
                             
@@ -431,7 +442,7 @@
                     </div>              
                 </div>                                  
                 <div id="accordion" class="accordion_formateur">
-                    <div class="card" style="border-color: white; color: #2D3F58;">
+                    <div class="card" style="border-color: white; color: #2D3F58;background-color: transparent;">
                         <div class="card-header" id="headingFive" style="border-color: #E0002D; color: #2D3F58;">
                             <h5 class="mb-0">
                                 <button class="btn btn-link" id="header_ajout_formation" data-toggle="collapse" data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
@@ -440,7 +451,7 @@
                             </h5>
                         </div>
                         <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#accordion">
-                            <form method="POST" action="{{ route('formation') }}" enctype="multipart/form-data" autocomplete="off">
+                            <form method="POST" action="{{ route('formation') }}" enctype="multipart/form-data" autocomplete="off" id="form_add_formation">
                                 {{ csrf_field() }}
                                 <div class="card-body">
                                     <div class="row">
@@ -544,7 +555,12 @@
                                                 <input type="file" name="programme_formation" class="custom-file-input" id="programme_formation" required>
                                                 <label class="custom-file-label" for="file">Programme de formation</label>
                                             </div> 
-                                            <button type="submit" class="btn btn-outline-primary" id="btn_ajout_confirm_formation">AJOUTER</button> 
+                                            <button type="submit" class="btn btn-outline-primary" id="btn_ajout_confirm_formation">   
+                                                <div id="label_btn_submit_add_form">
+                                                    AJOUTER
+                                                </div>
+                                                <div class="loader"></div>
+                                            </button> 
                                         </div>  
                                     </div>                             
                                 </div>
@@ -552,7 +568,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="card" style="border-color: red; color: #2D3F58;box-shadow: 1px 1px 5px black;">
+                <div class="card" style="border-color: red; color: #2D3F58;box-shadow: 1px 1px 5px black;background-color: transparent;">
                     <div class="card-header" id="headingNine" style="color: red;">
                         <h5 class="mb-0" style="text-align: center;">
                             <button class="btn btn-link" data-toggle="collapse" data-target="#collapseNine" aria-expanded="false" aria-controls="collapseNine" id="color_heading9">
@@ -561,7 +577,7 @@
                         </h5>
                     </div>
                     <div id="collapseNine" class="collapse" aria-labelledby="headingNine" data-parent="#accordion">
-                        <form method="POST" action="{{ route('suppr_formation') }}" enctype="multipart/form-data" autocomplete="off">
+                        <form method="POST" action="{{ route('suppr_formation') }}" enctype="multipart/form-data" autocomplete="off" id="form_suppr_form">
                             {{ csrf_field() }}
                             <div class="row">
                                 <div class="offset-lg-4 col-lg-4">
@@ -570,7 +586,7 @@
                                         <div class="input-group-prepend">
                                             <span class="input-group-text" id="basic-addon1">Groupe de formation</span>
                                         </div>
-                                        <select class="custom-select" id="inputGroupSelect01" required name="nom_formation">
+                                        <select class="custom-select" id="inputGroupSelect01" name="nom_formation">
                                             <option selected disabled="true">Aucun sélectionné</option>
 
                                             @foreach($formations as $formation)
@@ -581,8 +597,11 @@
 
                                         </select> 
                                     </div> 
-                                    <button type="submit" id="btn_suppr_user_admin" class="btn btn-outline-primary">
-                                        SUPPRIMER (action irréversible)
+                                    <button type="submit" id="btn_suppr_user_admin" class="btn btn-outline-primary">                 
+                                        <div id="label_btn_submit_suppr_form">
+                                            SUPPRIMER (irréversible)
+                                        </div>
+                                        <div class="loader"></div>
                                     </button>   
                                 </div>
                             </div>

@@ -16,36 +16,40 @@
         <div class="col-lg-12">
             <h5 class="mb-0" id="titre_interface_client">
 
-                INTERFACE CLIENT 
+                Interface Client
                 
             </h5>  
             <div id="card_tab_apprenant_client">
                 <div class="card-header" id="header_tableau_apprenants">                  
-                    APPRENANTS A MON COMPTE
+                    Apprenants à mon compte
                 </div>
                 <div id="tab_infos_inteface_client">
                     <table class="table table-striped table">
                         <thead id="head_tab_apprenant_client">                                    
                             <tr>
-                                <th scope="col">Prénom</th>
-                                <th scope="col">Nom</th>
                                 <th scope="col">Formation</th>
-                                <th scope="col">eMail</th>
+                                <th scope="col">Prénom</th>
+                                <th scope="col">Nom</th>   
+                                <th scope="col">Email</th>
                                 <th scope="col">Téléphone</th>
-                                <th scope="col">Embauché</th>       
+                                <th scope="col">Embauché</th>
+                                <th scope="col">Après 2 mois</th> 
+                                <th scope="col">Après 6 mois</th>        
                             </tr>
                         </thead>
                         <tbody>
                             @foreach($formations as $formation)
                                 @foreach($formation->apprenants as $apprenant)
                                     @foreach($apprenant->users as $user)
-                                    <tr>                         
+                                    <tr>
+                                        <td>{{$apprenant->groupe_formation}}</td>                         
                                         <td>{{$user->prenom}}</td>
                                         <td>{{$user->nom}}</td>
-                                        <td>{{$apprenant->groupe_formation}}</td>
                                         <td>{{$user->email}}</td>
-                                        <td>{{$user->numero_telephone}}</td> 
-                                        <td>{{$apprenant->embauche}}</td>                                   
+                                        <td>0{{$user->numero_telephone}}</td> 
+                                        <td>{{$apprenant->embauche}}</td>
+                                        <td>{{$apprenant->embauche_2_mois}}</td>
+                                        <td>{{$apprenant->embauche_6_mois}}</td>                                   
                                     </tr>
                                     @endforeach
                                 @endforeach
@@ -55,13 +59,15 @@
                 </div>
                 <!-- <a  href="{{route('apprenants_csv')}}" id="lien_download_tab_client">Extraire les données des apprenants en fichier Excel</a> -->
             </div>
-            <button type="button" class="btn btn-outline-primary" id="btn_form_client" onclick="functionShowHideFormClient();">SUIVI DES PLACEMENTS EN ENTREPRISE</button> 
-            <form class="form-horizontal" method="POST" action="{{route('suivi_apprenant')}}">
+            <button type="button" class="btn btn-outline-primary" id="btn_form_client" onclick="functionShowHideFormClient();">Placements en entreprise</button> 
+            <form class="form-horizontal" method="POST" action="{{route('suivi_apprenant')}}" id="form_suivi_app_client">
                 {{csrf_field()}}
                 <div class="form-group" id="form_suivi_client">
-                    <div class="row">
+                    <h5 id="titre_form_impact_formation1">SUIVI DES APPRENANTS EN ENTREPRISE</h5>  
+                    <h5>Merci de bien vouloir consacrer quelques instants à remplir ce formulaire pour mettre le statut des apprenants à jour. Vous pouvez le compléter au fur et à mesure du temps, si vous avez déja indiqué une date d'embauche pour un apprenant, vous pouvez laisser le champs associé vide.</h5>
+                    <div class="row" style="margin-top: 2%;">
                         <div class="offset-lg-4 col-lg-4">
-                            <label for="exampleFormControlSelect1" id="label_select_stagiaire">Sélectionner un apprenant</label>
+                            <label for="exampleFormControlSelect1" id="label_select_stagiaire">Sélectionnez un apprenant</label>
                             <select class="form-control" id="select_stagiaire_form_client" required name="id_apprenant">
                                 <option selected disabled>Aucun sélectionné</option>
                                 @foreach($formations as $formation)
@@ -86,7 +92,7 @@
                                 <input type="date" class="form-control" placeholder="en date du :" aria-label="date_embauche" aria-describedby="basic-addon2" id="input_date_embauche" name="date_embauche">
                                 <br>
                                 <label for="motif_non_embauche" id="label_motif_non_embauche">Motif</label>
-                                <textarea class="form-control" name="motif_non_embauche" id="motif_non_embauche" rows="1" placeholder="Entrer un motif si l'apprenant n'a pas été embauché (100 caractères maximum)." maxlength="100"></textarea>
+                                <textarea class="form-control" name="motif_non_embauche" id="motif_non_embauche" rows="1" placeholder="Entrez un motif si l'apprenant n'a pas été embauché (100 caractères maximum)." maxlength="100"></textarea>
                             </div>                        
                             <div id="presence_2_mois">
                                 <input class="form-check-input" type="checkbox" id="autoSizingCheck" name="embauche_2_mois" value="1" onchange="doalert2(this)">                                
@@ -94,7 +100,7 @@
                                 Présence à 2 mois (Oui si coché)
                                 </label>
                                 <br>
-                                <label for="motif_predefini_2_mois" id="label_select_motif_2_mois">Sélectionner un motif</label>
+                                <label for="motif_predefini_2_mois" id="label_select_motif_2_mois">Sélectionnez un motif</label>
                                 <select class="custom-select" id="motif_predefini_2_mois" name="motif_predefini">
                                     <option disabled selected>Motif</option>
                                     <option value="Fin période d'essai à l'initiative de l'employeur">Fin période d'essai à l'initiative de l'employeur</option>
@@ -115,22 +121,27 @@
                             </div>
                         </div>                         
                         <div class="offset-lg-3 col-lg-6">                     
-                            <button type="submit" class="btn btn-outline-primary" id="btn_valider_suivi_client">VALIDER LE SUIVI</button>
+                            <button type="submit" class="btn btn-outline-primary" id="btn_valider_suivi_client">
+                                <div id="label_btn_valid_suivi">
+                                    VALIDER LE SUIVI
+                                </div>
+                                <div class="loader"></div> 
+                            </button>
                         </div>                                               
                     </div>
                 </div>
             </form>
-            <button type="button" class="btn btn-outline-primary" id="btn_impact_form_client" onclick="functionShowHideFormImpact();">IMPACT DE L'ACTION DE FORMATION</button> 
+            <button type="button" class="btn btn-outline-primary" id="btn_impact_form_client" onclick="functionShowHideFormImpact();">Impact de la formation</button> 
             <div class="form-group" id="form_impact_client"> 
-                <h5 id="titre_form_impact_formation">EVALUATION DES IMPACTS « A FROID » PAR L’ENTREPRISE</h5>
+                <h5 id="titre_form_impact_formation1">EVALUATION DES IMPACTS « A FROID » PAR L’ENTREPRISE</h5>
                 <p><h5>Il y a environs 3 mois de cela, un ou plusieurs de vos salariés ont suivi une formation dispensée par notre organisme de formation.<br> 
                 Aujourd’hui nous souhaiterions connaître l’impact que celle-ci a eu sur la ou les personnes formées ainsi que pour votre entreprise.</h5><br>                
                 Un de nos conseillers pédagogiques se chargera de prendre contact avec vous afin de faire le point ensemble de votre évaluation. Au préalable, merci de bien vouloir consacrer quelques instants à remplir ce questionnaire en prévision de cet entretien. </p>
                 <div class="row">
                     <div class="offset-lg-1 col-lg-10" id="contenu_form_impact">
-                        <form class="form-horizontal" method="POST" action="{{route('impact_formation')}}">
+                        <form class="form-horizontal" method="POST" action="{{route('impact_formation')}}" id="form_eval_impact_client">
                             {{csrf_field()}}
-                            <h5 id="titre_form_impact_formation">INDENTIFICATION</h5>
+                            <h5 id="titre_form_impact_formation1">INDENTIFICATION</h5>
                             <div class="form-group row">
                                 <label for="input_nom_entreprise" class="offset-sm-2 col-sm-4 col-form-label">¤ ENTREPRISE</label>
                                 <div class="col-sm-4">
@@ -147,9 +158,7 @@
                             <div class="form-group row">
                                 <label for="input_formation_suivie" class="offset-sm-2 col-sm-4 col-form-label">¤ FORMATION SUIVIE</label>
                                 <div class="col-sm-4">
-                                    <!-- <input type="textarea" name="formation_suivie_entreprise_intitule" class="form-control" id="input_formation_suivie" placeholder="Intitulé :">
-                                    <input type="textarea" name="formation_suivie_entreprise_duree" class="form-control" id="input_formation_suivie_duree" placeholder="Durée :"> -->
-                                    <select class="custom-select" id="inputGroupSelect01" name="nom_formation">
+                                    <select class="custom-select" id="inputGroupSelect011" name="nom_formation">
                                         <option selected disabled="true">Aucun sélectionné</option>
 
                                             @foreach($formations_terminees as $formation)
@@ -418,7 +427,12 @@
                                     </div>
                                 </div>                             
                             </div>
-                            <button type="submit" id="btn_valider_impact_formation" class="btn btn-outline-primary">VALIDER L'EVALUATION</button>
+                            <button type="submit" id="btn_valider_impact_formation" class="btn btn-outline-primary"> 
+                                <div id="label_btn_valid_eval">
+                                    VALIDER L'EVALUATION
+                                </div>
+                                <div class="loader"></div> 
+                            </button>
                         </form>
                     </div>
                 </div> 

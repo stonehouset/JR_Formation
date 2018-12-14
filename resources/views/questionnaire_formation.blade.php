@@ -2,46 +2,42 @@
 
 @section('content')
 @if (\Session::has('error'))
-        <div class="alert alert-error" id="div_show_error">          
+    <div class="alert alert-error" id="div_show_error">          
         {!! \Session::get('error') !!}         
-        </div>
-    @endif
-    @if (\Session::has('success'))
+    </div>
+@endif
+@if (\Session::has('success'))
     <div class="alert alert-success" id="div_show_success">       
         {!! \Session::get('success') !!}    
     </div>
-    @endif
-<div class="row">
-    <div class="offset-lg-3 col-lg-6 col-md-10 col-sm-12">
-        <h3 id="titre_questionnaire_formateur">
-            COMPTE RENDU DE FORMATION
-        </h3>
+@endif
+<div class="container">
+    <div class="row">
+        <div class="offset-lg-3 col-lg-6">
+            <h3 id="titre_questionnaire_formateur">
+                Compte Rendu de Formation
+            </h3>
+        </div>
     </div>
-</div>
-<div class="container" id="container_questionnaire_auto_evaluation">
-    <form class="form-horizontal" method="POST" action="{{ route('send_compte_rendu_formarteur')}}">
-    {{ csrf_field() }}
-        <div class="row">
-            <div class="offset-lg-3 col-lg-6" id="input_formation_quest_formateur">
+    <div class="row">
+        <form method="POST" action="{{ route('send_compte_rendu_formarteur')}}" id="form_compte_rendu">
+        {{ csrf_field() }}
+            <div class="offset-lg-3 col-lg-6">
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
                         <span class="input-group-text" id="basic-addon1">Groupe de formation à évaluer</span>
                     </div>
                     <select class="custom-select" id="inputGroupSelect01" name="nom_formation">
                         <option selected>Aucun sélectionné</option>
-
                             @foreach($formations as $formation)
 
                                 <option selected value="{{$formation->id}}">{{$formation->nom}}</option>
 
                             @endforeach    
-
                     </select>
                 </div>
             </div>
-        </div>
-        <div class="row" id="contenu_form_questionnaire_autoeval">
-            <div class="col-lg-12">
+            <div class="col-lg-12" id="contenu_form_questionnaire_autoeval">
                 <div class="row">
                     <div class="offset-lg-1 col-lg-10" id="section_auto_eval">              
                         <h4 id="titre_auto_eval">1/ Auto évaluation</h4>
@@ -173,11 +169,16 @@
                 </div>
                 <div class="row">
                     <div class="col-lg-12" id="section_validation">              
-                        <button type="submit" id="btn_validation_form_formateur" class="btn btn-outline-primary">Valider le questionnaire</button>  
+                        <button type="submit" id="btn_validation_form_formateur" class="btn btn-outline-primary">
+                            <div id="label_btn_add_eval_form">
+                                VALIDER
+                            </div>
+                            <div class="loader"></div>
+                        </button>  
                     </div>  
                 </div>    
             </div>
-        </div>
-    </form>
+        </form>
+    </div>
 </div>
 @endsection

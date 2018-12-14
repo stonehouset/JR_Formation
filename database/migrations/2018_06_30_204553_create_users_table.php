@@ -35,11 +35,7 @@ class CreateUsersTable extends Migration
                 'prenom' => 'Julien',
                 'numero_telephone' => '0662820768',
                 'email' => 'ju.rivet1@gmail.com',
-<<<<<<< HEAD
                 'password' => bcrypt('**********'), 
-=======
-                'password' => bcrypt('********'), // secret
->>>>>>> ab19d5fd74ff19390b23c519e39dcf4ba34ee6cb
                 'role' => '3',
                
             )

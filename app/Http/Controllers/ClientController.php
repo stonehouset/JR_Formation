@@ -33,7 +33,6 @@ class ClientController extends Controller
         
     }
 
-
     public function index()
     {
         $users = User::all();
@@ -60,12 +59,8 @@ class ClientController extends Controller
 
         foreach ($formations as $formation) {
             
-            $apprenants = Apprenant::where('formation_id','=',$formation->id)->
-                                     where('motif_non_embauche', '=', null)->
-                                     where('motif_predefini', '=', null)->
-                                     orWhere('motif_non_embauche_2_mois', '=', null)->
-                                     orWhere('motif_non_embauche_6_mois', '=', null)->
-                                     get();
+            $apprenants = Apprenant::where('formation_id','=',$formation->id)->get();
+                                     
 
             // return $apprenants;
 
@@ -109,7 +104,6 @@ class ClientController extends Controller
         return response()->download($file, 'eval_a_froid.pdf', $headers);
     }
 
-
     public function extractCsv()
     {
  
@@ -139,7 +133,6 @@ class ClientController extends Controller
                     $dateFin = Carbon::parse($apprenant->fin_tutorat)->format('d/m/Y');
  
                     $userData[] = [
-
                         
                         'Nom' => $user->nom,
                         'Prenom' => $user->prenom,
@@ -155,7 +148,6 @@ class ClientController extends Controller
                     
                     ];
                 }
-
             }
 
             return $userData;
@@ -186,42 +178,22 @@ class ClientController extends Controller
     {
 
         $idApprenant = $request->id_apprenant; // ID de l'apprenant choisi.
-
         $dateEmbauche = $request->date_embauche;
-
         $userApprenant = User::where('id', $idApprenant)->first(); //Infos user de l'apprenant.
-
-        $infosApprenant = Apprenant::where('user_id', $idApprenant)->first(); //Infos apprenant de l'apprenant.
-
+        $apprenantEmbauche = Apprenant::where('user_id', $idApprenant)->first(); //Infos apprenant de l'apprenant.
         $embaucheOuNon = $request->embauche_ou_non; //Recuperation de la valeur de la checkbox embauche_ou_nom.
-
         $motifNonEmbauche = $request->motif_non_embauche; //Contenu du motif si apprenant non embauche
-
         $embaucheA2Mois = $request->embauche_2_mois; // Valeur checkbox embauche_2_mois.
-
         $embaucheA6Mois = $request->embauche_6_mois; // Valeur checkbox embauche_6_mois.
-
         $motifPredefini2Mois = $request->motif_predefini;
-
         $motifNonEmbauche2Mois = $request->motif_non_embauche_2_mois; //Contenu motif non_embauche_2_mois.
-
         $motifNonEmbauche6Mois = $request->motif_non_embauche_6_mois; //Contenu motif non_embauche_6_mois.
-
         $non = 'non';
-
         $oui = 'oui';
 
         if ($idApprenant == null) {
 
            return redirect()->back()->with('error', 'Vous n\'avez pas sélectionné d\'apprenant!');
-        }
-
-        $apprenantEmbauche = Apprenant::where('user_id', $idApprenant)->first();
-
-        if ($apprenantEmbauche->motif_non_embauche != null && $apprenantEmbauche->date_embauche == null) {
-
-            return redirect()->back()->with('error', 'Vous avez déja signalé cet apprenant comme non embauché!');
-
         }
 
         if ($embaucheOuNon == null && $motifNonEmbauche == null) {
@@ -234,7 +206,17 @@ class ClientController extends Controller
             return redirect()->back()->with('error', 'Aucun motif nécéssaire si l\'apprenant a été embauché!');
         }
 
-        if ($embaucheOuNon == null && $motifNonEmbauche != null ) {
+        if ($apprenantEmbauche->motif_non_embauche != null && $motifNonEmbauche == null && $apprenantEmbauche->date_embauche == null) {
+
+            return redirect()->back()->with('error', 'Vous avez déja signalé cet apprenant comme non embauché!');
+        }
+
+        if ($apprenantEmbauche->date_embauche != null && $motifNonEmbauche != null) {
+
+            return redirect()->back()->with('error', 'Vous avez déja signalé cet apprenant comme embauché!');
+        }  
+
+        if ($embaucheOuNon == null && $motifNonEmbauche != null && $apprenantEmbauche->date_embauche == null) {
             
             DB::table('apprenants')->where('user_id' ,'=' , $idApprenant)->update([
 
@@ -259,15 +241,20 @@ class ClientController extends Controller
             
                 return redirect()->back()->with('error', 'Veuillez saisir une date en cas d\'embauche!');
             }
+            else if($embaucheOuNon != null && $dateEmbauche == null && $apprenantEmbauche->date_embauche != null){
+
+                $dateEmbauche = $apprenantEmbauche->date_embauche;
+            }
             else if($embaucheOuNon != null && $dateEmbauche != null && $apprenantEmbauche->date_embauche == null){
 
                 DB::table('apprenants')->where('user_id', $idApprenant)->update([
 
                     'date_embauche' => $dateEmbauche,
+                    'embauche_2_mois' => '-',
+                    'embauche_6_mois' => '-'
 
                     ]);
             }
-
 
             if ($apprenantEmbauche->embauche_2_mois != null && $embaucheA2Mois != null) {
                 
@@ -287,7 +274,7 @@ class ClientController extends Controller
                                                 'embauche_2_mois' => $non,
                                                 'motif_predefini' => $motifPredefini2Mois,
                                                 'motif_non_embauche_2_mois' => $motifNonEmbauche2Mois,
-                                                'embauche_6_mois' => $non
+                                                'embauche_6_mois' => '-'
 
                                                 ]);
 
@@ -486,7 +473,7 @@ class ClientController extends Controller
             $array_file = [];
             array_push($array_file, $file);
 
-            Mail::to('houselstein.thibaud@gmail.com')->send(new ImpactFormation($array_file));
+            // Mail::to('houselstein.thibaud@gmail.com')->send(new ImpactFormation($array_file));
 
             File::delete('storage/impact_formation.xlsx');
 
@@ -517,16 +504,16 @@ class ClientController extends Controller
     {
 
 
-        $client = new Client;
+        // $client = new Client;
 
-        $client->nom = $request->nom_client;
-        $client->email = $request->email_client;
-        $client->numero_telephone = $request->tel_client;
-        $client->mdp = $request->mdp;
+        // $client->nom = $request->nom_client;
+        // $client->email = $request->email_client;
+        // $client->numero_telephone = $request->tel_client;
+        // $client->mdp = $request->mdp;
 
-        $client->save();
+        // $client->save();
 
-        return redirect('/home');
+        // return redirect('/home');
 
 
 

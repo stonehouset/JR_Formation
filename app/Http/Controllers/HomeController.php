@@ -258,10 +258,8 @@ class HomeController extends Controller
             $dataApprenant->setAttribute('date_fin', $formation->date_fin);
             $dataApprenant->setAttribute('id_pole_emploi',$number );
             
-
         }
         
-
         $statut = null;
 
         if ($roleUser == 0) {
@@ -329,9 +327,9 @@ class HomeController extends Controller
 
             foreach ($apprenants as $apprenant) {
 
-                if($apprenant->id_formation == null){
+                if($apprenant->formation_id == null){
 
-                return redirect()->back()->with('error', 'Les apprenants ont été ajoutés, merci de créer leur formation pour extraire le tableau.');
+                return redirect()->back()->with('error', 'Merci d\'affecter tous les apprenants à une formation pour pouvoir extraire le tableau.');
                 }
 
                 $formations = Formation::where('id', '=', $apprenant->formation_id)->get();
@@ -350,8 +348,7 @@ class HomeController extends Controller
                         
                     }    
                 }
-
-                
+   
                 $dateNaissance = Carbon::parse($apprenant->date_naissance)->format('d/m/Y');
 
                 $userData[] = [
