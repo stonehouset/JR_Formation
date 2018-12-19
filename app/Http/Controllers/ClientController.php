@@ -7,6 +7,7 @@ use JR_Formation\Formation;
 use JR_Formation\Apprenant;
 use Illuminate\Http\Request;
 use JR_Formation\User;
+use JR_Formation\Questionnaire;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Mail;
 use JR_Formation\Mail\ImpactFormation;
@@ -57,6 +58,8 @@ class ClientController extends Controller
                                         ->get();
 
 
+        $impactFormation = Questionnaire::where('id',4)->first(); 
+
         foreach ($formations as $formation) {
             
             $apprenants = Apprenant::where('formation_id','=',$formation->id)->get();
@@ -85,7 +88,7 @@ class ClientController extends Controller
      
         }
 
-        return view('interface_client', ['formations' => $formations, 'formations_terminees' => $formationsTerminees]);
+        return view('interface_client', ['formations' => $formations, 'formations_terminees' => $formationsTerminees, 'impactFormation' => $impactFormation]);
     }
 
     public function getDownload()

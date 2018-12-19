@@ -7,6 +7,7 @@ use JR_Formation\Apprenant;
 use JR_Formation\Formation;
 use JR_Formation\Commentaire;
 use JR_Formation\AbsencesRetards;
+use JR_Formation\Questionnaire;
 use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
 use Carbon\Carbon;
@@ -299,13 +300,15 @@ class HomeController extends Controller
                            ->where('formateur_id', '=', $idFormateur)
                            ->get();
 
+        $autoEval = Questionnaire::where('id',3)->first();                           
+
         if ($formationsTermineesSansEval == null) {
 
             return view('questionnaire_formation');
         }
 
 
-        return view('questionnaire_formation',['formations' => $formationsTermineesSansEval]);
+        return view('questionnaire_formation',['formations' => $formationsTermineesSansEval, 'autoEval' => $autoEval]);
     }
 
     public function extractApprenantCsv()
@@ -465,7 +468,7 @@ class HomeController extends Controller
 
         if($idUserADelete == null){
 
-                return redirect()->back()->with('error', 'Veuillez sélectionner un utilisateur!');
+            return redirect()->back()->with('error', 'Veuillez sélectionner un utilisateur!');
 
         }
 
@@ -479,6 +482,19 @@ class HomeController extends Controller
         }
    
     }
+
+    public function showQuestionnaires()
+    {
+
+        $evalFormateur = Questionnaire::where('id',1)->first();
+        $evalFormation = Questionnaire::where('id',2)->first();
+        $impactFormation = Questionnaire::where('id',4)->first();
+        $autoEval = Questionnaire::where('id',3)->first();
+
+        return view('questionnaires', ['evalFormation' => $evalFormation, 'evalFormateur' => $evalFormateur, 'impactFormation' => $impactFormation, 'autoEval' => $autoEval]);
+   
+    }
+
 
     public function getCSVApprenant()
     {

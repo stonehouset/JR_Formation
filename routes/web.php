@@ -14,7 +14,9 @@
 //Route page accueil.
 
 Route::get('/', function () {
+
     return view('welcome');
+    
 });
 
 Route::group(['middleware' => ['admin']], function () {
@@ -23,6 +25,8 @@ Route::group(['middleware' => ['admin']], function () {
 	Route::get('commentaires', [ 'as' => 'commentaires', 'uses' => 'CommentaireController@showCommentaires']);
 	Route::get('apprenants_admin_csv', [ 'as' => 'apprenants_admin_csv', 'uses' => 'HomeController@extractApprenantCsv']);
 	Route::get('get_csv_apprenant', [ 'as' => 'get_csv_apprenant', 'uses' => 'HomeController@GetCSVApprenant']);
+	Route::get('questionnaires', [ 'as' => 'questionnaires', 'uses' => 'HomeController@showQuestionnaires']);
+
 
 	Route::post('client', [ 'as' => 'client', 'uses' => 'ClientController@store']);
 	Route::post('formateur', [ 'as' => 'formateur', 'uses' => 'FormateurController@store']);
@@ -30,6 +34,10 @@ Route::group(['middleware' => ['admin']], function () {
 	Route::post('formation', [ 'as' => 'formation', 'uses' => 'FormationController@store']);
 	Route::post('suppr_formation', [ 'as' => 'suppr_formation', 'uses' => 'HomeController@supprFormation']);
 	Route::post('delete_user', [ 'as' => 'delete_user', 'uses' => 'HomeController@deleteUser']);
+	Route::post('evalFormateur', [ 'as' => 'evalFormateur', 'uses' => 'QuestionnaireController@updateEvalFormateur']);
+	Route::post('evalFormation', [ 'as' => 'evalFormation', 'uses' => 'QuestionnaireController@updateEvalFormation']);
+	Route::post('autoEval', [ 'as' => 'autoEval', 'uses' => 'QuestionnaireController@updateAutoEval']);
+	Route::post('impactFormation', [ 'as' => 'impactFormation', 'uses' => 'QuestionnaireController@updateImpactFormation']);
    
 });
 
@@ -64,31 +72,21 @@ Route::group(['middleware' => ['apprenant']], function () {
 	Route::post('comFormSem1', [ 'as' => 'comFormSem1', 'uses' => 'ApprenantController@ajoutComSem1']);
 	Route::post('comFormSem2', [ 'as' => 'comFormSem2', 'uses' => 'ApprenantController@ajoutComSem2']);
 
-
 });
-
-    
+   
 //Routes Post
 
 Route::post('login', [ 'as' => 'login', 'uses' => 'Auth\AuthController@login']);
-
 Route::post('change_user_password', [ 'as' => 'change_user_password', 'uses' => 'HomeController@changeUserPassword']);
-
 
 //Routes Get
 
 Route::get('/profil', 'HomeController@profil')->name('profil');
-
 Route::get('downloadPdf', [ 'as' => 'downloadPdf', 'uses' => 'ApprenantController@getDownload']);
-
 Route::get('downloadPdfClient', [ 'as' => 'downloadPdfClient', 'uses' => 'ClientController@getDownload']);
-
 Route::get('/layouts.menu', 'HomeController@initials')->name('layouts.menu');
-
 Route::get('apprenants_csv', [ 'as' => 'apprenants_csv', 'uses' => 'ClientController@extractCsv']);
-
 Route::get('apprenants_formateur_csv', [ 'as' => 'apprenants_formateur_csv', 'uses' => 'HomeController@extractFormateurCsv']);
-
 Route::get('formateur_apprenants_csv', [ 'as' => 'formateur_apprenants_csv', 'uses' => 'FormateurController@extractApprenantCsv']);
 
 

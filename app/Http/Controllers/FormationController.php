@@ -50,20 +50,13 @@ class FormationController extends Controller
      */
     public function store(Request $request)
     {
-
-
+        
         if($request->fin_formation < $request->debut_formation){
 
             return redirect()->back()->with('error', 'La date de fin de formation ne peut pas être antérieure à la date de début!');
         }
 
-        if ($request->nom_client1 == $request->nom_client2 || $request->nom_client1 == $request->nom_client3 || $request->nom_client1 == $request->nom_client4 || $request->nom_client1 == $request->nom_client5) { 
-            
-            return redirect()->back()->with('error', 'Merci de sélectionner un client une seule fois!');
-
-        }
-
-        if ($request->nom_client1 == null) {
+        if ($request->client == null) {
             
             return redirect()->back()->with('error', 'Merci de sélectionner au moins 1 client!');
         }
@@ -86,8 +79,6 @@ class FormationController extends Controller
 
         // return $apprenants;
 
-        // Storage::put($nom_programme_formation, $programme_formation);
-
         Storage::putFileAs('programme_formation', new File($programme_formation), $nom_programme_formation);
 
         $formation = new Formation;
@@ -95,31 +86,33 @@ class FormationController extends Controller
         $formation->nom = $request->nom_formation;
         $formation->date_debut = $request->debut_formation;
         $formation->date_fin = $request->fin_formation;
-        $formation->client_id1 = $request->nom_client1;
 
-        if ($request->nom_client2 != null) {
-            
-            $formation->client_id2 = $request->nom_client2;
-        }
+        for ($i=0; $i < count($request->client); $i++) { 
 
-        if ($request->nom_client3 != null) {
-            
-            $formation->client_id3 = $request->nom_client3;
-        }
+            if ($i == 0) {
+                $formation->client_id1 = $request->client[$i];
+            }
 
-        if ($request->nom_client4 != null) {
-            
-            $formation->client_id4 = $request->nom_client4;
-        }
+            if ($i == 1) {
+                $formation->client_id2 = $request->client[$i];
+            }
 
-        if ($request->nom_client5 != null) {
-            
-            $formation->client_id5 = $request->nom_client5;
+            if ($i == 2) {
+                $formation->client_id3 = $request->client[$i];
+            }
+
+            if ($i == 3) {
+                $formation->client_id4 = $request->client[$i];
+            }
+
+            if ($i == 4) {
+                $formation->client_id5 = $request->client[$i];
+            }
         }
         
         $formation->formateur_id = $request->nom_formateur;
         $formation->programme_formation = $nom_programme_formation;
-
+    
         $formation->save();
 
         $idFormation = DB::getPdo()->lastInsertId();

@@ -7,6 +7,7 @@ use JR_Formation\Commentaire;
 use JR_Formation\Formation;
 use JR_Formation\Apprenant;
 use JR_Formation\User;
+use JR_Formation\Questionnaire;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Mail;
@@ -41,6 +42,7 @@ class FormateurController extends Controller
         $formationsEnCours = Formation::where('date_debut', '<=', $aujourdhui)
                            ->where('date_fin', '>=', $aujourdhui)
                            ->get();
+
 
         foreach ($formationsEnCours as $formation) {
     

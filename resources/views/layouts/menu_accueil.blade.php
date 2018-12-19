@@ -14,14 +14,8 @@
     <body style="background-color: #2D3F58;">
         <nav class="navbar navbar-expand-lg navbar navbar-lg navbar-light bg-light" style="box-shadow: 1px 1px 5px #E0002D;">
             <a class="navbar-brand" href="/">
-                <img src="/img/0001.png" class="css-class" alt="alt text" style="max-width:210px;max-height:150px;box-shadow: 1px 1px 5px #2D3F58;">
+                <img src="/img/0001.png" class="css-class" alt="logo_jrt-formation" style="max-width:210px;max-height:150px;box-shadow: 1px 1px 5px #2D3F58;">
             </a>
-            <!-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button> -->
-            <!-- <li class="nav-item active" >
-                <a class="nav-link" href="/register" style="color:#2D3F58;">S'enregistrer<span class="sr-only"></span></a>
-            </li> -->
         </nav>  
         @yield('content')
         <!-- Scripts -->

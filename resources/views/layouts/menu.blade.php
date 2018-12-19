@@ -15,7 +15,7 @@
     <body>
         <nav class="navbar navbar-expand-lg navbar navbar-lg navbar-light bg-light" style="box-shadow: 1px 1px 5px #E0002D;">
             <a class="navbar-brand" href="/">
-                <img src="/img/0001.png" class="css-class" alt="alt text" id="img_menu"> 
+                <img src="/img/0001.png" class="css-class" alt="logo_jrt-formation" id="img_menu"> 
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -30,6 +30,11 @@
                     @if(Auth::user()->role === 3)
                     <li class="nav-item active" >
                         <a class="nav-link" href="/commentaires" id="text_nav_link">Commentaires<span class="sr-only">(current)</span></a>
+                    </li>
+                    @endif
+                    @if(Auth::user()->role === 3)
+                    <li class="nav-item active" >
+                        <a class="nav-link" href="/questionnaires" id="text_nav_link">Questionnaires<span class="sr-only">(current)</span></a>
                     </li>
                     @endif
                     @if(Auth::user()->role === 0)

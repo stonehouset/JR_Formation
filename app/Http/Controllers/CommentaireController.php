@@ -69,7 +69,7 @@ class CommentaireController extends Controller
 
         if ($datePlus10Heures > $dateJour) {
 
-             return redirect()->back()->with('error', 'Vous avez déja écrit un message à ce stagiaire aujourd\'hui!');
+             return redirect()->back()->with('error', 'Vous avez déja écrit un message à propos de ce stagiaire aujourd\'hui!');
 
         }
 

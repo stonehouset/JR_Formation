@@ -5,6 +5,16 @@
     <h3 id="titre_profil">
         Profil
     </h3>
+    @if (\Session::has('error'))
+        <div class="alert alert-error" id="div_show_error">          
+            {!! \Session::get('error') !!}</li>              
+        </div>
+    @endif
+    @if (\Session::has('success'))
+        <div class="alert alert-success" id="div_show_success">          
+            {!! \Session::get('success') !!}</li> 
+        </div>
+    @endif
 	<div class="row" id="row_profil">
         <div class="col-lg-6">  
             <ul class="list-group">
@@ -62,16 +72,6 @@
             </div>
         </div>
     </div>
-    @if (\Session::has('error'))
-        <div class="alert alert-error" id="div_show_error">          
-            {!! \Session::get('error') !!}</li>              
-        </div>
-    @endif
-    @if (\Session::has('success'))
-        <div class="alert alert-success" id="div_show_success">          
-            {!! \Session::get('success') !!}</li> 
-        </div>
-    @endif
 </div>
 
 @endsection

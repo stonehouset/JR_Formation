@@ -5,6 +5,7 @@ namespace JR_Formation\Http\Controllers;
 use JR_Formation\Apprenant;
 use JR_Formation\Formation;
 use JR_Formation\User;
+use JR_Formation\Questionnaire;
 use Illuminate\Http\Request;
 use Carbon\Carbon; 
 use JR_Formation\Http\Requests\ContactRequest; 
@@ -41,6 +42,9 @@ class ApprenantController extends Controller
 
         $formation = Formation::where('id','=',$apprenant->formation_id)->first(); //Recuperation des infos de l'apprenant connecte
 
+        $evalFormateur = Questionnaire::where('id',1)->first();
+        $evalFormation = Questionnaire::where('id',2)->first();
+
         if ($formation == null) {
 
             return view('interface_apprenant');
@@ -51,8 +55,9 @@ class ApprenantController extends Controller
         $datePlus4Jours = date('Y-m-d', strtotime($dateDebutForm. ' + 4 days'));
         $datePlusOnzeJours = date('Y-m-d', strtotime($dateDebutForm. ' + 11 days'));
 
+        
 
-        return view('interface_apprenant', ['dateNow' => $dateNow , 'apprenant' => $apprenant, 'datePlus4Jours' => $datePlus4Jours, 'datePlusOnzeJours' => $datePlusOnzeJours, 'dateDebutForm' => $dateDebutForm, 'dateFinForm' => $dateFinForm]);
+        return view('interface_apprenant', ['dateNow' => $dateNow , 'apprenant' => $apprenant, 'datePlus4Jours' => $datePlus4Jours, 'datePlusOnzeJours' => $datePlusOnzeJours, 'dateDebutForm' => $dateDebutForm, 'dateFinForm' => $dateFinForm, 'evalFormateur' => $evalFormateur, 'evalFormation' => $evalFormation]);
 
     }
 

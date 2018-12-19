@@ -1,6 +1,7 @@
 
 $( document ).ready(function() {
 
+    $('#infos_jrt_formation').hide();
     $('#form_satisfaction_formation').hide();
     $('#form_satisfaction_formateur').hide();
     $('input[type=checkbox]').prop("checked", false);
@@ -27,15 +28,36 @@ $( document ).ready(function() {
     $('.loader').hide();
     $('#form_com_semaine_apprenant').hide();
     $('#btns_questionnaires').hide();
-
+    $('#container_form_eval_formateur_admin').hide();
+    $('#container_form_eval_formation_admin').hide();
+    $('#container_form_eval_autoeval_admin').hide();
+    $('#container_impact_forma_admin').hide();
     
-    if (true) {}
     
-    setTimeout(function() {
+    if($('#div_show_error').is(':visible') || $('#div_show_success').is(':visible')){
 
-        $('.alert-error,.alert-success').fadeOut('fast');
+        $('#btns_gestion_admin').hide();
+        $('#titre_profil').hide();
+        $('#btns_nav_apprenants').hide();
+        $('#titre_row_interface_formateur').hide();
+        $('#row_titre_compte_rendu').hide();
+        $('#titre_interface_client').hide();
+        $('#btns_modif_questionnaires').hide();
+        
+        
+               
+        $('#div_show_error').delay(2900).fadeOut('fast');
+        $('#div_show_success').delay(2900).fadeOut('fast');
 
-    }, 3000);
+        $('#btns_gestion_admin').delay(3000).fadeIn('fast');
+        $('#titre_profil').delay(3000).fadeIn('fast');
+        $('#btns_nav_apprenants').delay(3000).fadeIn('fast');
+        $('#titre_row_interface_formateur').delay(3000).fadeIn('fast');
+        $('#row_titre_compte_rendu').delay(3000).fadeIn('fast');
+        $('#titre_interface_client').delay(3000).fadeIn('fast');
+        $('#btns_modif_questionnaires').delay(3000).fadeIn('fast');
+    };
+    
 
 	num_role = $( "#role" ).text();
 
@@ -75,6 +97,14 @@ $('#inputGroupSelect01').bind('change', function(event) {
     }
 });
 
+$("#lien_ousuisje").click(function(){
+
+    
+    $("#infos_jrt_formation").slideToggle('fast');
+    $("#logo_accueil").slideToggle('fast');
+   
+});
+
 $("#btn_gestion_utilisateur").click(function(){
 
     $(".boutons_gestion_utilisateur").show();
@@ -90,7 +120,6 @@ $("#info_mdp_login").click(function(){
 
     $("#password").attr("placeholder", "Votre mot de passe vous a été communiqué par mail");
 });
-
 
 $("#btn_donnees").click(function(){
 
@@ -161,6 +190,50 @@ $("#btn_apprenant_programme").click(function(){
     $("#form_com_semaine_apprenant").hide();
     $("#programme_form_pdf").show("fast");
     $("#btns_questionnaires").hide();
+     
+});
+
+$("#btn_quest_eval_formateur").click(function(){
+
+    
+    $("#container_form_eval_formateur_admin").show("fast");
+    $("#container_form_eval_formation_admin").hide();
+    $("#container_form_eval_autoeval_admin").hide();
+    $("#container_impact_forma_admin").hide();
+    
+     
+});
+
+$("#btn_quest_eval_formation").click(function(){
+
+    
+    
+    $("#container_form_eval_formation_admin").show("fast");
+    $("#container_form_eval_autoeval_admin").hide();
+    $("#container_impact_forma_admin").hide();
+    $("#container_form_eval_formateur_admin").hide();
+     
+});
+
+$("#btn_quest_auto_eval").click(function(){
+
+    
+    
+    $("#container_form_eval_autoeval_admin").show("fast");
+    $("#container_impact_forma_admin").hide();
+    $("#container_form_eval_formateur_admin").hide();
+    $("#container_form_eval_formation_admin").hide();
+     
+});
+
+$("#btn_quest_impact_forma").click(function(){
+
+
+    $("#container_impact_forma_admin").show("fast");
+    $("#container_form_eval_autoeval_admin").hide();
+    $("#container_form_eval_formateur_admin").hide();
+    $("#container_form_eval_formation_admin").hide();
+    
      
 });
 
@@ -544,6 +617,39 @@ $('#com_sem2').submit(function() {
     $('#label_btn_valid_com2').hide();
     $('.loader').show();
 });
+
+$('#com_sem2').submit(function() {
+
+    $('#label_btn_valid_com2').hide();
+    $('.loader').show();
+});
+
+$('#form_eval_formateur_modifiable').submit(function() {
+
+    $('#label_btn_valid_quest_formateur_admin').hide();
+    $('.loader').show();
+});
+
+$('#form_eval_formation_modifiable').submit(function() {
+
+    $('#label_btn_valid_quest_formation_admin').hide();
+    $('.loader').show();
+});
+
+$('#form_compte_rendu_admin').submit(function() {
+
+    $('#label_btn_add_eval_form_admin').hide();
+    $('.loader').show();
+});
+
+$('#form_impact_client_admin').submit(function() {
+
+    $('#label_btn_valid_eval_admin').hide();
+    $('.loader').show();
+});
+
+
+
 
 
 

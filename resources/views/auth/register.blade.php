@@ -39,7 +39,7 @@
                         <div class="form-group">
                             <label for="prenom" class="col-md-4 control-label">N° Téléphone</label>
                             <div class="col-md-6">
-                                <input id="numero_telephone" type="tel" class="form-control" name="numero_telephone" value="" required autofocus>
+                                <input id="numero_telephone" type="number" class="form-control" name="numero_telephone" value="" required autofocus>
                             </div>
                         </div>
                         <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
