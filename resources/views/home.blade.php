@@ -24,7 +24,17 @@
                 <div class="alert alert-success" id="div_show_success">
                     {!! \Session::get('success') !!}  
                 </div>
-            @endif    
+            @endif  
+            @if ($errors->has('password'))
+                <div class="alert alert-error" id="div_show_error">
+                    <strong>Les mots de passe ne correspondent pas</strong>
+                </div>
+            @endif  
+            @if ($errors->has('email'))
+                <div class="alert alert-error" id="div_show_error">
+                    <strong>Cet email est déja utilisé</strong>
+                </div>
+            @endif 
             <div class="card-text" id="contenu_donnees">
                 <div class="panel-body" >
                     <div class="row" id="liste_infos_generales_admin">
@@ -239,7 +249,7 @@
                     <div class="col-lg-6" id="tableau_gestion_admin_infos_formateurs2">                   
                         <div class="card-header" id="header_tableau_apprenants">                      
                             Clients
-                            <button id="btn_switch_to_form">App</button>                       
+                            <button id="btn_switch_to_form">+</button>                       
                         </div>
                         <div id="tab_formateur_admin">
                             <table class="table table-striped table-dark" >
@@ -304,11 +314,7 @@
                                                 <label for="password" id="label_form_user_admin" class="control-label">Mot de passe</label> 
                                                 <input id="password" type="password" class="form-control" name="password" required>
 
-                                                @if ($errors->has('password'))
-                                                    <span class="help-block">
-                                                        <strong>Les mots de passe ne correspondent pas</strong>
-                                                    </span>
-                                                @endif  
+                                                  
                                             </div>      
                                         </div>
                                         <div class="col-lg-6">
@@ -321,11 +327,7 @@
                                                 <label for="email" id="label_form_user_admin" class="control-label">eMail</label>
                                                 <input id="email" type="email"
                                                  class="form-control" name="email" value="{{ old('email') }}" required>
-                                                @if ($errors->has('email'))
-                                                    <span class="help-block">
-                                                        <strong>Cet email est déja utilisé</strong>
-                                                    </span>
-                                                @endif  
+                                                 
                                             </div>
                                             <div class="form-group">
                                                 <label for="password-confirm" id="label_form_user_admin" class="control-label">Confirmer le mot de passe</label>

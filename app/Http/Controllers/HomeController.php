@@ -295,11 +295,6 @@ class HomeController extends Controller
         if ($roleUser == 0) {
 
             $dataApprenant = Apprenant::where('user_id','=',auth()->user()->id)->first();
-
-            if ($dataApprenant->formation_id == null && auth()->user()->role == 0) {
-
-                return view('interface_apprenant');
-            }
        
             $formation = Formation::where('nom', '=', $dataApprenant->groupe_formation)->first();
 
@@ -539,7 +534,7 @@ class HomeController extends Controller
 
         $user = User::where('id','=', $idUserADelete)->first();
 
-        if ($user->role == 1 || $user->role == 2) {
+        if ($user->role == 1 || $user->role == 2 || $user->role == 3) {
 
             DB::table('users')->where('id', '=', $idUserADelete)->delete();
 
@@ -608,6 +603,14 @@ class HomeController extends Controller
         DB::table('formations')->where('nom', '=', $formationChoisie)->delete();
 
         return redirect()->back()->with('success', ' La formation '.$formationChoisie.' été supprimée ainsi que toutes les données liées !');
+
+    }
+
+    public function creationEnCours(Request $request)
+    {
+        
+
+        return view('creation_en_cours');
 
     }
 

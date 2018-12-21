@@ -7,13 +7,13 @@
         <h4>Madame, Monsieur {{ $data['nom'] }}</h4>
         <br>
         @if ( $data['role']  == 3)
-          <p>Votre profil d'Administrateur a été créé sur notre extranet à l'adresse http://www.jrt-formation-extranet.fr</p>
+          <p>Votre profil d'Administrateur a été créé sur notre extranet à l'adresse www.jrt-formation-extranet.fr</p>
         @endif
         @if ( $data['role']  == 2)
-          <p>Votre profil de Client a été créé sur notre extranet à l'adresse http://www.jrt-formation-extranet.fr</p>
+          <p>Votre profil de Client a été créé sur notre extranet à l'adresse www.jrt-formation-extranet.fr</p>
         @endif
         @if ( $data['role']  == 1)
-          <p>Votre profil de Formateur a été créé sur notre extranet à l'adresse http://www.jrt-formation-extranet.fr</p>
+          <p>Votre profil de Formateur a été créé sur notre extranet à l'adresse www.jrt-formation-extranet.fr</p>
         @endif
         <br>
         <p>Vous pouvez vous connecter grâce aux identifiants suivants :</p>

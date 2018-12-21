@@ -67,6 +67,8 @@ Route::group(['middleware' => ['apprenant']], function () {
     
     Route::get('/interface_apprenant', 'ApprenantController@index')->name('interface_apprenant');
 
+    Route::get('/creation_en_cours', 'HomeController@creationEnCours')->name('creation_en_cours');
+
     Route::post('send_form_formateur_apprenant', [ 'as' => 'send_form_formateur_apprenant', 'uses' => 'ApprenantController@sendFormFormateur']);
 	Route::post('send_form_formation_apprenant', [ 'as' => 'send_form_formation_apprenant', 'uses' => 'ApprenantController@sendFormFormation']);
 	Route::post('comFormSem1', [ 'as' => 'comFormSem1', 'uses' => 'ApprenantController@ajoutComSem1']);

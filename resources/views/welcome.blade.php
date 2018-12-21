@@ -191,6 +191,7 @@
             #contact_jrt_formation{
 
                 text-align: center;
+                padding: 0.5%;
             }
 
 
@@ -233,7 +234,7 @@
         </div>
         <div id="footer">
             <h4 id="contact_jrt_formation">
-                Usage interne uniquement | JRT Formation Julien RIVET | Tel : 06.62.82.07.68 | Reproduction interdite 
+                Usage interne uniquement | JRT Formation Julien RIVET | Tel : 06.62.82.07.08 | Reproduction interdite 
             </h4>
         </div>
         <!-- Scripts -->

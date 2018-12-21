@@ -46,25 +46,28 @@ class ApprenantController extends Controller
         $evalFormateur = Questionnaire::where('id',1)->first();
         $evalFormation = Questionnaire::where('id',2)->first();
 
-        $dateDebutForm = $formation->date_debut;
-        $dateFinForm = $formation->date_fin;
-
-        $datePlus4Jours = date('Y-m-d', strtotime($dateDebutForm. ' + 4 days'));
-        $datePlusOnzeJours = date('Y-m-d', strtotime($dateDebutForm. ' + 11 days'));
-        $datePlus18Jours = date('Y-m-d', strtotime($dateDebutForm. ' + 18 days'));
-
-        $dateDebutDateFormat = new DateTime($dateDebutForm);
-        $dateFinDateFormat = new DateTime($dateFinForm);
-        $interval = $dateDebutDateFormat->diff($dateFinDateFormat);
-
-        $interval = $interval->format('%a');
-
         if ($formation == null) {
 
-            return view('interface_apprenant');
+            return view('creation_en_cours');
         }
+        else{
 
-        return view('interface_apprenant', ['dateNow' => $dateNow , 'apprenant' => $apprenant, 'datePlus4Jours' => $datePlus4Jours, 'datePlusOnzeJours' => $datePlusOnzeJours, 'datePlus18Jours' => $datePlus18Jours,'dateDebutForm' => $dateDebutForm, 'dateFinForm' => $dateFinForm, 'evalFormateur' => $evalFormateur, 'evalFormation' => $evalFormation, 'interval' => $interval]);
+            $dateDebutForm = $formation->date_debut;
+            $dateFinForm = $formation->date_fin;
+
+            $datePlus4Jours = date('Y-m-d', strtotime($dateDebutForm. ' + 4 days'));
+            $datePlusOnzeJours = date('Y-m-d', strtotime($dateDebutForm. ' + 11 days'));
+            $datePlus18Jours = date('Y-m-d', strtotime($dateDebutForm. ' + 18 days'));
+
+            $dateDebutDateFormat = new DateTime($dateDebutForm);
+            $dateFinDateFormat = new DateTime($dateFinForm);
+            $interval = $dateDebutDateFormat->diff($dateFinDateFormat);
+
+            $interval = $interval->format('%a');
+
+            return view('interface_apprenant', ['dateNow' => $dateNow , 'apprenant' => $apprenant, 'datePlus4Jours' => $datePlus4Jours, 'datePlusOnzeJours' => $datePlusOnzeJours, 'datePlus18Jours' => $datePlus18Jours,'dateDebutForm' => $dateDebutForm, 'dateFinForm' => $dateFinForm, 'evalFormateur' => $evalFormateur, 'evalFormation' => $evalFormation, 'interval' => $interval]);
+
+        }
 
     }
 
@@ -147,6 +150,122 @@ class ApprenantController extends Controller
 
         foreach ($customerArr as $item) {
 
+            if (preg_match("/[^A-Za-z0-9 ]/", $item['nom']))
+            {
+                return redirect()->back()->with('error', 'Un nom contient des caractères spéciaux (ou des accents)');
+            }
+
+            if (preg_match("/[^A-Za-z0-9 ]/", $item['prenom']))
+            {
+                return redirect()->back()->with('error', 'Un prénom contient des caractères spéciaux (ou des accents)');
+            }
+
+            if (preg_match("/[^A-Za-z0-9 ]/", $item['adresse']))
+            {
+                return redirect()->back()->with('error', 'Une adresse contient des caractères spéciaux (ou des accents)');
+            }
+
+            if (preg_match("/[^A-Za-z0-9 ]/", $item['lieu_naissance']))
+            {
+                return redirect()->back()->with('error', 'Un lieu de naissance contient des caractères spéciaux (ou des accents)');
+            }
+
+            if (preg_match("/[^A-Za-z0-9 ]/", $item['id_pole_emploi']))
+            {
+                return redirect()->back()->with('error', 'Un ID Pole emploi contient des caractères spéciaux (ou des accents)');
+            }
+
+            if (preg_match("/[^A-Za-z0-9 ]/", $item['numero_ss']))
+            {
+                return redirect()->back()->with('error', 'Un numéro de sécurité s. contient des caractères spéciaux (ou des accents)');
+            }
+            
+            if (preg_match("/[^A-Za-z0-9 ]/", $item['sexe']))
+            {
+                return redirect()->back()->with('error', 'Un champ "sexe" contient des caractères spéciaux (ou des accents)');
+            }
+
+            if (preg_match("/[^A-Za-z0-9 ]/", $item['groupe_formation']))
+            {
+                return redirect()->back()->with('error', 'Un nom de groupe de formation contient des caractères spéciaux (ou des accents)');
+            }
+
+            if (preg_match("/[^A-Za-z0-9 ]/", $item['nationalite']))
+            {
+                return redirect()->back()->with('error', 'Une nationalité contient des caractères spéciaux (ou des accents)');
+            }
+
+            if (strlen($item['numero_telephone']) < 10)
+            {
+                $item['numero_telephone'] = '0'.$item['numero_telephone'];
+            }
+
+            $mdp = generatePassword();
+            $item['password'] = $mdp;
+
+            $user = User::where('email', '=', $item['email'])->first();
+            $userIdP = User::where('email', '=', $item['id_pole_emploi'])->first();
+            $userSs = User::where('email', '=', $item['numero_ss'])->first();
+
+            if (strlen($item['date_naissance']) > 100 || strlen($item['email']) > 100 || strlen($item['id_pole_emploi']) > 100 || strlen($item['numero_ss']) > 100 || strlen($item['nom']) > 100 || strlen($item['prenom']) > 100 || strlen($item['groupe_formation']) > 100 || strlen($item['lieu_naissance']) > 100 || strlen($item['nationalite']) > 100 || strlen($item['adresse']) > 100 || strlen($item['sexe']) > 100 || strlen($item['password']) > 100 || strlen($item['numero_telephone']) > 100) {
+               
+                return redirect()->back()->with('error', 'Un ou plusieurs champs font plus de 100 caractères!'); 
+            }
+
+            if ($userSs != null) {
+
+                $usersAjoutés = Apprenant::where('groupe_formation', '=', $item['groupe_formation'])->get();
+
+                if ($usersAjoutés != null) {
+
+                    foreach ($usersAjoutés as $user) {
+
+                        DB::table('apprenants')->where('user_id', '=', $user->id)->delete();
+                        DB::table('users')->where('id', '=', $user->id)->delete();
+
+                    }
+
+                }
+                
+                return redirect()->back()->with('error', 'Le numéro de sécurité s : '.$userSS->numero_ss.' est déja utilisé par un utilisateur!'); 
+            }
+
+            if ($userIdP != null) {
+
+                $usersAjoutés = Apprenant::where('groupe_formation', '=', $item['groupe_formation'])->get();
+
+                if ($usersAjoutés != null) {
+
+                    foreach ($usersAjoutés as $user) {
+
+                        DB::table('apprenants')->where('user_id', '=', $user->id)->delete();
+                        DB::table('users')->where('id', '=', $user->id)->delete();
+
+                    }
+
+                }
+                
+                return redirect()->back()->with('error', 'L\'ID Pole emploi : '.$userIdP->id_pole_emploi.' est déja utilisé par un utilisateur!'); 
+            }
+
+            if ($user != null) {
+
+                $usersAjoutés = Apprenant::where('groupe_formation', '=', $item['groupe_formation'])->get();
+
+                if ($usersAjoutés != null) {
+
+                    foreach ($usersAjoutés as $user) {
+
+                        DB::table('apprenants')->where('user_id', '=', $user->id)->delete();
+                        DB::table('users')->where('id', '=', $user->id)->delete();
+
+                    }
+
+                }
+                
+                return redirect()->back()->with('error', 'L\'adresse email : '.$user->email.' est déja utilisée par un utilisateur!'); 
+            }
+
             if($item['date_naissance'] != null) {
 
                 $explodeDate = explode('/', $item['date_naissance']);
@@ -158,33 +277,7 @@ class ApprenantController extends Controller
                 $date = Carbon::createFromFormat('Y-m-d', $year.'-'.$month.'-'.$day)->toDateString();
                 $item['date_naissance'] = $date;    
 
-            }   
-            // return $item['date_naissance'];
-
-            $mdp = generatePassword();
-
-            $item['password'] = $mdp;
-
-            $user = User::where('email', '=', $item['email'])->first();
-
-            $userIdP = User::where('email', '=', $item['id_pole_emploi'])->first();
-
-            $userSs = User::where('email', '=', $item['numero_ss'])->first();
-
-            if ($userSs != null) {
-                
-                return redirect()->back()->with('error', 'Le numéro de sécurité s : '.$userSS->numero_ss.' est déja utilisé par un utilisateur!'); 
-            }
-
-            if ($userIdP != null) {
-                
-                return redirect()->back()->with('error', 'L\'ID Pole emploi : '.$userIdP->id_pole_emploi.' est déja utilisé par un utilisateur!'); 
-            }
-
-            if ($user != null) {
-                
-                return redirect()->back()->with('error', 'L\'adresse email : '.$user->email.' est déja utilisée par un utilisateur!'); 
-            }
+            }  
      
             $user = new User;
 
@@ -230,7 +323,20 @@ class ApprenantController extends Controller
             }
             catch(\Exception $e){
 
-                return redirect()->back()->with('error', 'une erreur est survenue lors de l\'envoi des données à l\'adresse : '.$item['email'].' !'); 
+                $usersAjoutés = Apprenant::where('groupe_formation', '=', $item['groupe_formation'])->get();
+
+                if ($usersAjoutés != null) {
+
+                    foreach ($usersAjoutés as $user) {
+
+                        DB::table('apprenants')->where('user_id', '=', $user->id)->delete();
+                        DB::table('users')->where('id', '=', $user->id)->delete();
+
+                    }
+
+                }
+
+                return redirect()->back()->with('error', 'une erreur est survenue lors de l\'envoi des données à l\'adresse : '.$item['email'].', la liste a été entièrement supprimée. Réessayez svp.'); 
             }
             
         }

@@ -27,7 +27,30 @@ class CreateUsersTable extends Migration
             
         });
 
-        
+        DB::table('users')->insert(
+
+            array(
+            'nom' => 'Rivet',
+            'prenom' => 'Julien',
+            'numero_telephone' => '0662820768',
+            'email' => 'ju.rivet1@gmail.com',
+            'password' => bcrypt('*********'),
+            'role' => '3',
+            )
+        );
+
+        DB::table('users')->insert(
+
+            array(
+            'nom' => 'Houz',
+            'prenom' => 'Thibaud',
+            'numero_telephone' => '0666666666',
+            'email' => 'houselstein.thibaud@gmail.com',
+            'password' => bcrypt('**********'),
+            'role' => '3',
+            )
+        );
+   
     }
 
     /**

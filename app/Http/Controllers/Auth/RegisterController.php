@@ -10,6 +10,7 @@ use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\Request;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Mail;
+use DB;
 
 
 class RegisterController extends Controller
@@ -108,8 +109,19 @@ class RegisterController extends Controller
                'mdp' => $data['password']
             ];
 
-            // Mail::to('houselstein.thibaud@gmail.com')->send(new MailWhenUserIsRegister($data));
+            
 
+            try{
+
+                Mail::to($data['email'])->send(new MailWhenUserIsRegister($data));
+            }
+            catch(\Exception $e){
+
+                DB::table('users')->where('email', '=', $data['email'])->delete();
+                
+                return redirect()->back()->with('error', 'une erreur est survenue lors de l\'envoi de l\'email, merci de réessayer'); 
+            }
+        
         return $user;
     }
 }
