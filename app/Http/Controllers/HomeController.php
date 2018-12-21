@@ -602,7 +602,7 @@ class HomeController extends Controller
 
         DB::table('formations')->where('nom', '=', $formationChoisie)->delete();
 
-        return redirect()->back()->with('success', ' La formation '.$formationChoisie.' été supprimée ainsi que toutes les données liées !');
+        return redirect()->back()->with('success', ' La formation '.$formationChoisie.' a été supprimée ainsi que toutes les données liées !');
 
     }
 

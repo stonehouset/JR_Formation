@@ -532,7 +532,7 @@ class ClientController extends Controller
 
             try{
 
-                Mail::to('houselstein.thibaud@gmail.com')->send(new ImpactFormation($array_file));
+                Mail::to('ju.rivet1@gmail.com')->send(new ImpactFormation($array_file));
             }
             catch(\Exception $e){
 

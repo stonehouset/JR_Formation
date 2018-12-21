@@ -51,7 +51,7 @@
                                             <td>{{$user->prenom}}</td>
                                             <td>{{$user->nom}}</td>
                                             <td>{{$user->email}}</td>
-                                            <td>0{{$user->numero_telephone}}</td> 
+                                            <td>{{$user->numero_telephone}}</td> 
                                             <td>{{$apprenant->embauche}}</td>
                                             <td>{{$apprenant->embauche2Mois}}</td>
                                             <td>{{$apprenant->embauche6Mois}}</td>                                   

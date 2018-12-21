@@ -82,16 +82,37 @@ class AbsenceRetardController extends Controller
 
             if ($request->absence_ou_retard == 1) { //Envoi d'un email a l'admin pour signaler le retard.
 
-                Mail::to('houselstein.thibaud@gmail.com')->send(new SignalementRetard($data));
+                try{
+                    Mail::to('ju.rivet1@gmail.com')->send(new SignalementRetard($data));
 
-                return redirect()->back()->with('success', 'Retard signalé!');
+                    return redirect()->back()->with('success', 'Retard signalé!');
+                }
+                catch(\Exception $e){
+
+                    $dernierSignalement = AbsencesRetards::where('apprenant_id','=', $apprenant)->first();
+
+                    DB::table('absences_retards')->where('id', '=', $dernierSignalement->id)->delete();
+
+                    return redirect()->back()->with('error', 'une erreur est survenue lors de l\'envoi du signalement, veuillez réessayer plus tard !'); 
+                }
                 
             }
             elseif ($request->absence_ou_retard == 2) { //Envoi d'un email a l'admin pour signaler l'absence.
                 
-                Mail::to('houselstein.thibaud@gmail.com')->send(new SignalementAbsence($data));
+                try{
+                    Mail::to('ju.rivet1@gmail.com')->send(new SignalementAbsence($data));
 
-                return redirect()->back()->with('success', 'Absence signalée!');
+                    return redirect()->back()->with('success', 'Absence signalée!');
+                }
+                catch(\Exception $e){
+                    
+                    $dernierSignalement = AbsencesRetards::where('apprenant_id','=', $apprenant)->first();
+
+                    DB::table('absences_retards')->where('id', '=', $dernierSignalement->id)->delete();
+                    
+                    return redirect()->back()->with('error', 'une erreur est survenue lors de l\'envoi du signalement, veuillez réessayer plus tard !'); 
+                }
+
                 
             }
             

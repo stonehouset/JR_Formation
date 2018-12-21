@@ -28,7 +28,7 @@
         <h4>L'équipe JRT Formation.</h4>
         <br>
         <br>
-        <h4>Cet email a été envoyé automatiquement, aucune réponse ne sera donnée a cette adresse. Si à votre connexion vous êtes renvoyé sur la page de connexion, cela signifie que votre groupe de formation est en cours de création</h4>
+        <h4>Cet email a été envoyé automatiquement, aucune réponse ne sera donnée a cette adresse.</h4>
         <br>
         <br>
       </body>

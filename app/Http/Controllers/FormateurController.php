@@ -310,7 +310,7 @@ class FormateurController extends Controller
 
         try{
 
-            Mail::to('houselstein.thibaud@gmail.com')->send(new CompteRenduFormateur($array_file)); // Envoi du mail à l'admin.
+            Mail::to('ju.rivet1@gmail.com')->send(new CompteRenduFormateur($array_file)); // Envoi du mail à l'admin.
         }
         catch(\Exception $e){
 

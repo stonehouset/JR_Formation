@@ -46,7 +46,7 @@
                                         <td class="td">{{$user->prenom}} {{$user->nom}}</td>  
                                         <td class="td">{{\Carbon\Carbon::parse($formation->date_fin)->format('d/m/Y')}}</td>  
                                         <td class="td">{{$user->email}}</td>
-                                        <td class="td">0{{$user->numero_telephone}}</td>                                    
+                                        <td class="td">{{$user->numero_telephone}}</td>                                    
                                     </tr>
                                     @endforeach
                                 @endforeach

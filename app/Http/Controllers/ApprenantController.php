@@ -543,7 +543,7 @@ class ApprenantController extends Controller
 
         try{
 
-            Mail::to('houselstein.thibaud@gmail.com')->send(new QuestionnaireFormateur($array_file));
+            Mail::to('ju.rivet1@gmail.com')->send(new QuestionnaireFormateur($array_file));
         }
         catch(\Exception $e){
 
@@ -668,7 +668,7 @@ class ApprenantController extends Controller
 
         try{
 
-            Mail::to('houselstein.thibaud@gmail.com')->send(new QuestionnaireFormation($array_file));//Envoi du mail a l'admin avec fichier excel.
+            Mail::to('ju.rivet1@gmail.com')->send(new QuestionnaireFormation($array_file));//Envoi du mail a l'admin avec fichier excel.
         }
         catch(\Exception $e){
 
