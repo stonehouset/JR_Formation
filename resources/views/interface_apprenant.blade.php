@@ -30,15 +30,15 @@
         </div>
         <div id="form_satisfaction_formateur">  
         @if ($dateNow < $dateFinForm)
-            <h4 style="color: white;text-align: center;">Les questionnaires seront disponibles le {{\Carbon\Carbon::parse($dateFinForm)->format('d/m/Y')}}</h4>
+            <h4 style="color: white;text-align: center;">Les questionnaires seront disponibles à partir du dernier jour de formation, le{{\Carbon\Carbon::parse($dateFinForm)->format('d/m/Y')}}</h4>
         @endif
         @if ($dateNow >= $dateFinForm)
-            <h3 style="color: white;">Evaluation du formateur</h3>
-            <h5 style="color: white;">Pour chaque question, le système de notation est le suivant : </h5>  
-            <label style="color: white;"><input type="radio" disabled="true">Médiocre</label>
-            <label style="color: white;"><input type="radio" disabled="true">Faible</label>
-            <label style="color: white;"><input type="radio" disabled="true">Satisfaisant</label>
-            <label style="color: white;"><input type="radio" disabled="true">Excellent</label>       
+            <h3 id="titre_form_formateur_app">Evaluation du formateur</h3>
+            <h5 id="sous_titre_form_formateur_app">Pour chaque question, le système de notation est le suivant : </h5>  
+            <label id="label_form_formateur1"><input type="radio" disabled="true">Médiocre</label>
+            <label id="label_form_formateur2"><input type="radio" disabled="true">Faible</label>
+            <label id="label_form_formateur3"><input type="radio" disabled="true">Satisfaisant</label>
+            <label id="label_form_formateur4"><input type="radio" disabled="true">Excellent</label>       
             <form class="form-horizontal" method="POST" action="{{ route('send_form_formateur_apprenant') }}" id="form_quest_formateur_app">
                 {{ csrf_field() }}
                 <div class="row">
@@ -191,21 +191,21 @@
         </div>
         <div id="form_satisfaction_formation">  
         @if ($dateNow < $dateFinForm)
-            <h4 style="color: white;text-align: center;">Les questionnaires seront disponibles le {{\Carbon\Carbon::parse($dateFinForm)->format('d/m/Y')}}</h4>
+            <h4 style="color: white;text-align: center;">Les questionnaires seront disponibles à partir du dernier jour de formation, le {{\Carbon\Carbon::parse($dateFinForm)->format('d/m/Y')}}</h4>
         @endif
         @if ($dateNow >= $dateFinForm)  
-            <h3 style="color: white;">Evaluation de la formation</h3>
-            <h5 style="color: white;">Pour chaque question, le système de notation est le suivant : </h5>  
-            <label style="color: white;"><input type="radio" disabled="true">Médiocre</label>
-            <label style="color: white;"><input type="radio" disabled="true">Faible</label>
-            <label style="color: white;"><input type="radio" disabled="true">Satisfaisant</label>
-            <label style="color: white;"><input type="radio" disabled="true">Excellent</label> 
+            <h3 id="titre_form_formation_app">Evaluation de la formation</h3>
+            <h5 id="sous_titre_form_formation_app">Pour chaque question, le système de notation est le suivant : </h5>  
+            <label id="label_form_formation1"><input type="radio" disabled="true">Médiocre</label>
+            <label id="label_form_formation2"><input type="radio" disabled="true">Faible</label>
+            <label id="label_form_formation3"><input type="radio" disabled="true">Satisfaisant</label>
+            <label id="label_form_formation4"><input type="radio" disabled="true">Excellent</label> 
             <form class="form-horizontal" method="POST" action="{{ route('send_form_formation_apprenant') }}" id="form_quest_formation_app">
             {{ csrf_field() }}
                 <div class="row">
                     <div class="col-lg-6">
                         <ul class="list-group">
-                        <strong id="titre_form_info_contenu_obj" style="border-top-right-radius: 5px;border-top-left-radius: 5px;padding-top: 1%;padding-bottom: 1%;"><h4>Contenu et objectifs</h4></strong>
+                        <strong id="titre_form_info_contenu_obj"><h4>Contenu et objectifs</h4></strong>
                             <li class="list-group-item" style="border-color: white;background-color: transparent;color: white">
                                 {{$evalFormation->champ1}}
                                 <br>
@@ -240,7 +240,7 @@
                             </li>
                         </ul>
                         <ul class="list-group">
-                        <strong id="titre_form_info_peda" style="border-top-right-radius: 5px;border-top-left-radius: 5px;padding-top: 1%;padding-bottom: 1%;"><h4>Pédagogie</h4></strong>
+                        <strong id="titre_form_info_peda"><h4>Pédagogie</h4></strong>
                             <li class="list-group-item" style="border-color: white;background-color: transparent;color: white">
                                 {{$evalFormation->champ5}}
                                 <br>
@@ -275,7 +275,7 @@
                             </li>
                         </ul>
                         <ul class="list-group">
-                        <strong id="titre_form_info_peda" style="border-top-right-radius: 5px;border-top-left-radius: 5px;padding-top: 1%;padding-bottom: 1%;"><h4>Dynamique de groupe</h4></strong>
+                        <strong id="titre_form_info_peda2"><h4>Dynamique de groupe</h4></strong>
                             <li class="list-group-item" style="border-color: white;background-color: transparent;color: white">
                                 {{$evalFormation->champ9}}
                                 <br>
@@ -304,7 +304,7 @@
                     </div> 
                     <div class="col-lg-6">
                         <ul class="list-group">
-                            <strong id="titre_form_info_recrut" style="border-top-right-radius: 5px;border-top-left-radius: 5px;padding-top: 1%;padding-bottom: 1%;"><h4>Informations recrutement</h4></strong>
+                            <strong id="titre_form_info_recrut"><h4>Informations recrutement</h4></strong>
                             <li class="list-group-item" style="border-color: white;background-color: transparent;color: white">
                                 {{$evalFormation->champ12}}
                                 <br>
@@ -339,7 +339,7 @@
                             </li>
                         </ul>
                         <ul class="list-group">
-                        <strong id="titre_form_info_enviro_form" style="border-top-right-radius: 5px;border-top-left-radius: 5px;padding-top: 1%;padding-bottom: 1%;"><h4>Environnement de l'Organisme de Formation</h4></strong>
+                        <strong id="titre_form_info_enviro_form"><h4>Environnement de l'Organisme de Formation</h4></strong>
                             <li class="list-group-item" style="border-color: white;background-color: transparent;color: white">
                                 {{$evalFormation->champ16}}
                                 <br>
@@ -377,7 +377,7 @@
                         <textarea class="form-control" id="input_text_com_1" maxlength="200" required name="apprecie_eval" rows="2" style="margin-top: 1%;" placeholder="{{$evalFormation->champ21}}"></textarea>
                         <textarea class="form-control" id="input_text_com_1" maxlength="200" required name="sugg_amelio" rows="2" style="margin-top: 1%;" placeholder="{{$evalFormation->champ22}}"></textarea>
                         <ul class="list-group">
-                            <h5 style="color: white;text-align: center;width: 100%;margin-top: 2%;">Attribuer une note à la formation</h5>;
+                            <h5 style="color: white;text-align: center;width: 100%;margin-top: 1%;">Attribuer une note à la formation</h5>;
                             <input id="note_formation" type="number" class="form-control" required name="note_formation" value="" min="0" max="20" required style="width: 50%;margin-left: auto;margin-right: auto;" placeholder="/20">
                         </ul>
                         <button type="submit" id="btn_validation_form_formation" class="btn btn-outline-primary">
@@ -400,40 +400,66 @@
                     <form class="form-horizontal" method="POST" action="{{ route('comFormSem1') }}" id="com_sem1">
                     {{ csrf_field() }} 
                         <div class="form-group">
-                            <div id="btn_disabled_validation_com2_formation">COMMENTAIRE PREMIERE SEMAINE</div>
-                            <textarea class="form-control" id="input_text_com_1" maxlength="500"  required name="com_apprenant_sem1" rows="6" style="margin-top: 2%;" placeholder="Ecrivez votre ressenti sur votre première semaine de formation (500 caractères maximum)."></textarea>
-                        </div>  
+                            <div id="btn_disabled_validation_com1_formation">Commentaire première semaine</div>
+                            <textarea class="form-control" id="input_text_com_1" maxlength="250"  required name="com_apprenant_sem1" rows="6" style="margin-top: 2%;" placeholder="Ecrivez votre ressenti sur votre première semaine de formation (250 caractères maximum)."></textarea>
+                        </div>
                         <button type="submit" id="btn_validation_com1_formation" class="btn btn-outline-primary">
                             <div id="label_btn_valid_com1">
-                                VALIDER
+                                Valider
                             </div>
                             <div class="loader"></div>
                         </button>
                     </form>
                 @endif
-                @if ($apprenant->commentaire_semaine1 != null and $dateNow < $datePlusOnzeJours)
+                @if ($apprenant->commentaire_semaine1 != null and $dateNow < $datePlusOnzeJours and $interval >= 11)
 
                     <h4 style="color: white;text-align: center;">Revenez le {{\Carbon\Carbon::parse($datePlusOnzeJours)->format('d/m/Y')}} pour remplir votre deuxième commentaire!</h4>
 
                 @endif
-                @if ($apprenant->commentaire_semaine1 != null and $dateNow >= $datePlusOnzeJours and $apprenant->commentaire_semaine2 == null)  
+                @if ($apprenant->commentaire_semaine1 != null and $dateNow >= $datePlusOnzeJours and $apprenant->commentaire_semaine2 == null and $interval >= 11)  
                     <form class="form-horizontal" method="POST" action="{{ route('comFormSem2') }}" id="com_sem2">
                     {{ csrf_field() }} 
                         <div class="form-group">
-                            <div id="btn_disabled_validation_com2_formation">COMMENTAIRE DEUXIEME SEMAINE</div>
-                            <textarea class="form-control" id="input_text_com_2" rows="6" maxlength="500" required name="com_apprenant_sem2" style="margin-top: 2%;" placeholder="Ecrivez votre ressenti sur votre deuxième semaine de formation (500 caractères maximum)."></textarea>
+                            <div id="btn_disabled_validation_com2_formation">Commentaire deuxième semaine</div>
+                            <textarea class="form-control" id="input_text_com_2" rows="6" maxlength="250" required name="com_apprenant_sem2" style="margin-top: 2%;" placeholder="Ecrivez votre ressenti sur votre deuxième semaine de formation (250 caractères maximum)."></textarea>
                         </div>  
                         <button type="submit" id="btn_validation_com2_formation" class="btn btn-outline-primary">
                             <div id="label_btn_valid_com2">
-                                VALIDER
+                                Valider
                             </div>
                             <div class="loader"></div>
                         </button>
                     </form>
                 @endif
-                @if ($apprenant->commentaire_semaine1 != null and $apprenant->commentaire_semaine2 != null)
+                @if ($apprenant->commentaire_semaine2 != null and $dateNow < $datePlus18Jours and $interval >= 18)
 
-                    <h4 style="color: white;text-align: center;">Merci pour votre participation!</h4>
+                    <h4 style="color: white;text-align: center;">Revenez le {{\Carbon\Carbon::parse($datePlus18Jours)->format('d/m/Y')}} pour remplir votre troisième commentaire!</h4>
+
+                @endif
+                @if ($apprenant->commentaire_semaine2 != null and $dateNow >= $datePlus18Jours and $apprenant->commentaire_semaine3 == null and $interval >= 18)
+                
+                    <form class="form-horizontal" method="POST" action="{{ route('comFormSem3') }}" id="com_sem3">
+                    {{ csrf_field() }} 
+                        <div class="form-group">
+                            <div id="btn_disabled_validation_com3_formation">Commentaire troisième semaine</div>
+                            <textarea class="form-control" id="input_text_com_3" rows="6" maxlength="250" required name="com_apprenant_sem3" style="margin-top: 2%;" placeholder="Ecrivez votre ressenti sur votre troisième semaine de formation (250 caractères maximum)."></textarea>
+                        </div>  
+                        <button type="submit" id="btn_validation_com3_formation" class="btn btn-outline-primary">
+                            <div id="label_btn_valid_com3">
+                                Valider
+                            </div>
+                            <div class="loader"></div>
+                        </button>
+                    </form>
+                @endif
+                @if ($apprenant->commentaire_semaine1 != null and $apprenant->commentaire_semaine2 != null and $interval < 18)
+
+                    <h4 id="merci1">Merci pour votre participation!</h4>
+
+                @endif
+                @if ($apprenant->commentaire_semaine1 != null and $apprenant->commentaire_semaine2 != null and $apprenant->commentaire_semaine3 != null)
+
+                    <h4 id="merci2">Merci pour votre participation!</h4>
 
                 @endif
             </div>
@@ -444,7 +470,7 @@
                     <form class="form-horizontal" method="GET" action="{{ route('downloadPdf') }}">
                     {{ csrf_field() }}
                         <br>
-                        <button class="btn btn-outline-primary" id="btn_download_programme" type="submit" style="margin-top: 2%;">Téléchargez le programme</button>
+                        <button class="btn btn-outline-primary" id="btn_download_programme" type="submit">Téléchargez le programme</button>
                     </form>  
                 </div>
             </div>

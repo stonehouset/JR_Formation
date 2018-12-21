@@ -46,10 +46,15 @@ class CommentaireController extends Controller
 
         if ($request->contenu_commentaire == null) {
            
-            return redirect()->back()->with('error', 'Votre message est vide!');                        //Erreurs si les inputs sont vides.
+            return redirect()->back()->with('error', 'Votre message est vide!');                 
 
         }
 
+        if (strlen($request->contenu_commentaire) > 200) {
+           
+            return redirect()->back()->with('error', 'Le commentaire ne doit pas dépasser 200 caractères!'); 
+        }
+        
         if ($dernierMessage != null) {
 
 

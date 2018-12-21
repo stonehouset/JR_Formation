@@ -1,0 +1,4 @@
+nom;prenom;numero_telephone;email;sexe;date_naissance;id_pole_emploi;numero_ss;groupe_formation;lieu_naissance;nationalite;adresse
+Apprenant 11;App 11;0601020303;apprenant11@app.fr;M;01/01/01;F4641751654848;589622757548724;Formation 2;Paris;FR;1 rue nom_rue
+Apprenant 22;App 22;0601020303;apprenant22@app.fr;M;02/01/01;F485575484894;549841757584841;Formation 2;Paris;FR;2 rue nom_rue
+Apprenant 33;App 33;060102034;apprenant33@app.fr;M;03/01/01;F6545757546454;2542475758425454;Formation 2;Paris;FR;3 rue nom_rue

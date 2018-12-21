@@ -27,7 +27,7 @@
             <ul class="list-group">
             	<li class="list-group-item" id="item_list_profil"><strong>@</strong> : {{Auth::user()->email}}</li>
                 @if(Auth::user()->role == 0)
-            	<li class="list-group-item" id="item_list_profil"><strong>Téléphone</strong> : 0{{Auth::user()->numero_telephone}}</li>
+            	<li class="list-group-item" id="item_list_profil"><strong>Téléphone</strong> : {{Auth::user()->numero_telephone}}</li>
                 @else
                 <li class="list-group-item" id="item_list_profil"><strong>Téléphone</strong> : {{Auth::user()->numero_telephone}}</li>
                 @endif
@@ -40,7 +40,7 @@
             <div class="col-lg-6">  
                 <ul class="list-group">
                     <li class="list-group-item" id="item_list_profil"><strong>ID Pôle Emploi</strong> : {{$apprenant->id_pole_emploi}}</li>
-                    <li class="list-group-item" id="item_list_profil"><strong>Date de naissance</strong> : 09/01/2001</li>
+                    <li class="list-group-item" id="item_list_profil"><strong>Date de naissance</strong> : {{\Carbon\Carbon::parse($apprenant->date_naissance)->format('d/m/Y')}}</li>
                     <li class="list-group-item" id="item_list_profil"><strong>Lieu de naissance</strong> : {{$apprenant->lieu_naissance}}</li>
                 </ul>
             </div>
@@ -64,7 +64,7 @@
                     <input type="password" class="form-control" name="confirmPassword" placeholder="Confirmer le nouveau mot de passe" id="input_profil_confirm_mdp">
                     <button type="submit" class="btn btn-outline-primary" id="btn_submit_change_mdp">
                         <div id="label_btn_submit_change_mdp">
-                            VALIDER
+                            Valider
                         </div>
                         <div class="loader"></div>
                     </button>

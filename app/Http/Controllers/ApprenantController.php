@@ -17,6 +17,7 @@ use Maatwebsite\Excel\Facades\Excel;
 use DB;
 use View;
 use File;
+use DateTime;
 use Illuminate\Support\Facades\Storage;
 
 
@@ -45,19 +46,25 @@ class ApprenantController extends Controller
         $evalFormateur = Questionnaire::where('id',1)->first();
         $evalFormation = Questionnaire::where('id',2)->first();
 
+        $dateDebutForm = $formation->date_debut;
+        $dateFinForm = $formation->date_fin;
+
+        $datePlus4Jours = date('Y-m-d', strtotime($dateDebutForm. ' + 4 days'));
+        $datePlusOnzeJours = date('Y-m-d', strtotime($dateDebutForm. ' + 11 days'));
+        $datePlus18Jours = date('Y-m-d', strtotime($dateDebutForm. ' + 18 days'));
+
+        $dateDebutDateFormat = new DateTime($dateDebutForm);
+        $dateFinDateFormat = new DateTime($dateFinForm);
+        $interval = $dateDebutDateFormat->diff($dateFinDateFormat);
+
+        $interval = $interval->format('%a');
+
         if ($formation == null) {
 
             return view('interface_apprenant');
         }
 
-        $dateDebutForm = $formation->date_debut;
-        $dateFinForm = $formation->date_fin;
-        $datePlus4Jours = date('Y-m-d', strtotime($dateDebutForm. ' + 4 days'));
-        $datePlusOnzeJours = date('Y-m-d', strtotime($dateDebutForm. ' + 11 days'));
-
-        
-
-        return view('interface_apprenant', ['dateNow' => $dateNow , 'apprenant' => $apprenant, 'datePlus4Jours' => $datePlus4Jours, 'datePlusOnzeJours' => $datePlusOnzeJours, 'dateDebutForm' => $dateDebutForm, 'dateFinForm' => $dateFinForm, 'evalFormateur' => $evalFormateur, 'evalFormation' => $evalFormation]);
+        return view('interface_apprenant', ['dateNow' => $dateNow , 'apprenant' => $apprenant, 'datePlus4Jours' => $datePlus4Jours, 'datePlusOnzeJours' => $datePlusOnzeJours, 'datePlus18Jours' => $datePlus18Jours,'dateDebutForm' => $dateDebutForm, 'dateFinForm' => $dateFinForm, 'evalFormateur' => $evalFormateur, 'evalFormation' => $evalFormation, 'interval' => $interval]);
 
     }
 
@@ -130,6 +137,7 @@ class ApprenantController extends Controller
             $result;
 
             for ($i = 0, $result = ''; $i < $length; $i++) {
+
                 $index = rand(0, $count - 1);
                 $result .= mb_substr($chars, $index, 1);
             }
@@ -142,9 +150,11 @@ class ApprenantController extends Controller
             if($item['date_naissance'] != null) {
 
                 $explodeDate = explode('/', $item['date_naissance']);
+
                 $day = $explodeDate[0];
                 $month = $explodeDate[1];
-                $year = $explodeDate[2];               
+                $year = $explodeDate[2]; 
+
                 $date = Carbon::createFromFormat('Y-m-d', $year.'-'.$month.'-'.$day)->toDateString();
                 $item['date_naissance'] = $date;    
 
@@ -156,6 +166,21 @@ class ApprenantController extends Controller
             $item['password'] = $mdp;
 
             $user = User::where('email', '=', $item['email'])->first();
+
+            $userIdP = User::where('email', '=', $item['id_pole_emploi'])->first();
+
+            $userSs = User::where('email', '=', $item['numero_ss'])->first();
+
+            if ($userSs != null) {
+                
+                return redirect()->back()->with('error', 'Le numéro de sécurité s : '.$userSS->numero_ss.' est déja utilisé par un utilisateur!'); 
+            }
+
+            if ($userIdP != null) {
+                
+                return redirect()->back()->with('error', 'L\'ID Pole emploi : '.$userIdP->id_pole_emploi.' est déja utilisé par un utilisateur!'); 
+            }
+
             if ($user != null) {
                 
                 return redirect()->back()->with('error', 'L\'adresse email : '.$user->email.' est déja utilisée par un utilisateur!'); 
@@ -232,6 +257,11 @@ class ApprenantController extends Controller
         $com = $request->com_apprenant_sem1;
         $dataApprenant = Apprenant::where('user_id','=',$idApprenant)->first();
 
+        if (strlen($com) > 250) {
+           
+            return redirect()->back()->with('error', 'Le commentaire ne doit pas dépasser 250 caractères!'); 
+        }
+
         if ($dataApprenant->commentaire_semaine1 != null) {
 
             return redirect()->back()->with('error', 'Vous avez déja écrit quelque chose pour cette semaine!'); 
@@ -244,7 +274,7 @@ class ApprenantController extends Controller
 
             DB::table('apprenants')->where('user_id' ,'=' , $idApprenant)->update(['commentaire_semaine1' => $com]);
           
-            return redirect()->back()->with('success', 'Commentaire semaine 1 ajouté, Merci!');  
+            return redirect()->back()->with('success', 'Commentaire de la première semaine ajouté, Merci!');  
         }
     }
 
@@ -260,6 +290,10 @@ class ApprenantController extends Controller
             return redirect()->back()->with('error', 'Merci de remplir le commentaire de la première semaine!'); 
 
         }
+        if (strlen($com) > 250) {
+           
+            return redirect()->back()->with('error', 'Le commentaire ne doit pas dépasser 250 caractères!'); 
+        }
         else if ($com == null) {
 
             return redirect()->back()->with('error', 'Le commentaire est vide!'); 
@@ -272,7 +306,40 @@ class ApprenantController extends Controller
 
             DB::table('apprenants')->where('user_id' ,'=' , $idApprenant)->update(['commentaire_semaine2' => $com]);
           
-            return redirect()->back()->with('success', 'Commentaire semaine 2 ajouté, Merci!');  
+            return redirect()->back()->with('success', 'Commentaire de la deuxième semaine ajouté, Merci!');  
+        }
+    }
+
+    public function ajoutComSem3(Request $request) //Fonction d'ajout du commentaire de la deuxième semaine de formation.
+    {
+
+        $idApprenant = auth()->user()->id;
+        $com = $request->com_apprenant_sem3;
+        $dataApprenant = Apprenant::where('user_id','=',$idApprenant)->first();
+
+        if ($dataApprenant->commentaire_semaine2 == null) {
+
+            return redirect()->back()->with('error', 'Merci de remplir le commentaire de la deuxième semaine!'); 
+
+        }
+
+        if (strlen($com) > 250) {
+           
+            return redirect()->back()->with('error', 'Le commentaire ne doit pas dépasser 250 caractères!'); 
+        }
+        else if ($com == null) {
+
+            return redirect()->back()->with('error', 'Le commentaire est vide!'); 
+
+        }else if ($dataApprenant->commentaire_semaine3 != null) {
+
+            return redirect()->back()->with('error', 'Vous avez déja écrit quelque chose pour cette semaine!'); 
+
+        }else{
+
+            DB::table('apprenants')->where('user_id' ,'=' , $idApprenant)->update(['commentaire_semaine3' => $com]);
+          
+            return redirect()->back()->with('success', 'Commentaire de la troisième semaine ajouté, Merci!');  
         }
     }
 
@@ -283,23 +350,23 @@ class ApprenantController extends Controller
         $apprenant = auth()->user()->id;
         $dataApprenant = User::where('id','=', $apprenant)->first();
          
-        $quest1 = "Le formateur sait transmettre ses connaissances (maitrise son sujet, donne des exemples pratiques)";
-        $quest2 = "Le formateur sait mobiliser les participants (donne envie d'apprendre, fait participer)"; 
-        $quest3 = "Le formateur sait s'adapter à chaque participant (personnalise son message, s'adapte au contexte de chacun)"; 
-        $quest4 = "Le formateur a des points forts"; 
-        $quest5 = "Les supports utilisés en formation étaient utiles pour apprendre (documents, vidéos)"; 
-        $quest6 = "La progression pédagogique est adaptée (rythme, difficulté progressive, équilibre théorie/pratique...)"; 
-        $quest7 = "L’alternance de moments de « théorie » avec des travaux pratiques vous a-t-elle semblé équilibrée"; 
-        $quest8 = "Le niveau du formateur vous a semblé correct"; 
-        $quest9 = "Le formateur a tenu un langage clair"; 
-        $quest10 = "Le formateur a respecté le contenu du programme,il vous a aidé à atteindre les objectifs"; 
-        $quest11 = "Il y a eu une adaptation au rythme, au contenu"; 
-        $quest12 = "La qualité des exemples cités"; 
-        $quest13 = "Le niveau des aptitudes (élocution, postures, tenue)"; 
-        $quest14 = "Le niveau de compétences et de disponibilité";
-        $quest15 = "Globalement, j'ai été très satisfait(e) du formateur";
-        $quest16 = "Si vous deviez suivre à nouveau une formation, le feriez-vous volontiers avec ce formateur ?";
-        $quest17 = "Recommanderiez-vous ce formateur à un centre de formation ou à une entreprise ?";    
+        $quest1 = "1";
+        $quest2 = "2"; 
+        $quest3 = "3"; 
+        $quest4 = "4"; 
+        $quest5 = "5"; 
+        $quest6 = "6"; 
+        $quest7 = "7"; 
+        $quest8 = "8"; 
+        $quest9 = "9"; 
+        $quest10 = "10"; 
+        $quest11 = "11"; 
+        $quest12 = "12"; 
+        $quest13 = "13"; 
+        $quest14 = "14";
+        $quest15 = "15";
+        $quest16 = "16";
+        $quest17 = "17";    
 
         $rep1 = $request->radio1;
         $rep2 = $request->radio2;
@@ -367,8 +434,17 @@ class ApprenantController extends Controller
         $array_file = [];
         array_push($array_file, $file);
 
-        Mail::to('houselstein.thibaud@gmail.com')->send(new QuestionnaireFormateur($array_file));
 
+        try{
+
+            Mail::to('houselstein.thibaud@gmail.com')->send(new QuestionnaireFormateur($array_file));
+        }
+        catch(\Exception $e){
+
+            File::delete('storage/questionnaire_formateur.xlsx');
+            return redirect()->back()->with('error', 'une erreur est survenue lors de l\'envoi du questionnaire, merci de réessayer'); 
+        }
+        
         File::delete('storage/questionnaire_formateur.xlsx');
 
         DB::table('apprenants')->where('user_id' ,'=' , $apprenant)->update(['questionnaire_formateur' => 1]);
@@ -384,29 +460,28 @@ class ApprenantController extends Controller
         $apprenant = auth()->user()->id;
         $dataApprenant = User::where('id','=', $apprenant)->first();
               
-        $quest1 = "Qualités des informations communiquées";
-        $quest2 = "Clarté des critères de sélection"; 
-        $quest3 = "Qualité des entretiens et des tests de recrutement"; 
-        $quest4 = "Accompagnement pour la constitution du dossier de rémunération"; 
-        $quest5 = "Accueil et service"; 
-        $quest6 = "Qualité des salles de formation"; 
-        $quest7 = "Qualité du matériel utilisé"; 
-        $quest8 = "Accessibilité des locaux"; 
-        $quest9 = "Adéquation de la formation avec vos objectifs d'emploi"; 
-        $quest10 = "Parcours de formation adapté à votre niveau"; 
-        $quest11 = "Durée de la formation"; 
-        $quest12 = "Efficacité du parcours proposé"; 
-        $quest13 = "Disponibilité du formateur"; 
-        $quest14 = "Qualité d'animation du formateur";
-        $quest15 = "Maîtrise du sujet et connaissance du secteur/métier par le formateur";
-        $quest16 = "Qualité des supports pédagogiques de la formation";
-        $quest17 = "Homogénéité du groupe";
-        $quest18 = "Participation du groupe";
-        $quest19 = "Ambiance générale de la formation"; 
-        $quest19 = "Ambiance générale de la formation";
-        $quest20 = "Vos commentaires sur cette formation";
-        $quest21 = "Vous avez particulierement apprécié";
-        $quest22 = "Vos suggestions d'amélioration";
+        $quest1 = "1";
+        $quest2 = "2"; 
+        $quest3 = "3"; 
+        $quest4 = "4"; 
+        $quest5 = "5"; 
+        $quest6 = "6"; 
+        $quest7 = "7"; 
+        $quest8 = "8"; 
+        $quest9 = "9"; 
+        $quest10 = "10"; 
+        $quest11 = "11"; 
+        $quest12 = "12"; 
+        $quest13 = "13"; 
+        $quest14 = "14";
+        $quest15 = "15";
+        $quest16 = "16";
+        $quest17 = "17";
+        $quest18 = "18";
+        $quest19 = "19"; 
+        $quest20 = "20";
+        $quest21 = "21";
+        $quest22 = "22";
 
         $rep1 = $request->radio1; //Recuperation des reponses du questinnaire.
         $rep2 = $request->radio2;
@@ -432,6 +507,11 @@ class ApprenantController extends Controller
         $rep22 = $request->sugg_amelio;
 
         $noteFormation = $request->note_formation;
+
+        if (strlen($rep20) > 200 || strlen($rep21) > 200 || strlen($rep22) > 200) {
+           
+            return redirect()->back()->with('error', 'Les 3 derniers champs ne doivent pas dépasser 250 caractères!'); 
+        }
 
         if ($rep1 == null || $rep2 == null || $rep3 == null || $rep4 == null || $rep5 == null || $rep6 == null || $rep7 == null || $rep8 == null || $rep9 == null || $rep10 == null || $rep11 == null || $rep12 == null || $rep13 == null ||$rep14 == null || $rep15 == null || $rep16 == null || $rep17 == null || $rep18 == null || $rep18 == null || $rep19 == null || $rep20 == null || $rep21 == null || $rep22 == null) {
             
@@ -480,7 +560,16 @@ class ApprenantController extends Controller
         
         array_push($array_file, $file);
 
-        Mail::to('houselstein.thibaud@gmail.com')->send(new QuestionnaireFormation($array_file));//Envoi du mail a l'admin avec fichier excel.
+        try{
+
+            Mail::to('houselstein.thibaud@gmail.com')->send(new QuestionnaireFormation($array_file));//Envoi du mail a l'admin avec fichier excel.
+        }
+        catch(\Exception $e){
+
+            File::delete('storage/questionnaire_formation.xlsx');
+            return redirect()->back()->with('error', 'une erreur est survenue lors de l\'envoi du questionnaire, merci de réessayer'); 
+        }
+        
 
         File::delete('storage/questionnaire_formation.xlsx');
 

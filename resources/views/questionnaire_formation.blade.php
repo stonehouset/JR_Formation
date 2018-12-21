@@ -23,21 +23,26 @@
         <div class="row">
             <form method="POST" action="{{ route('send_compte_rendu_formarteur')}}" id="form_compte_rendu">
             {{ csrf_field() }}
-                <div class="offset-lg-3 col-lg-6">
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text" id="basic-addon1">Groupe de formation à évaluer</span>
+                @if ($formations == null)
+                    <h5>Le compte rendu est disponible à partir du dernier jour de formation</h5>
+                @endif
+                @if ($formations != null)
+                    <div class="offset-lg-3 col-lg-6">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic_gr">Pour le groupe :</span>
+                            </div>
+                            <select class="custom-select" required id="select_groupe_eval" name="nom_formation">
+                                <option selected disabled="">Aucun sélectionné</option>
+                                    @foreach($formations as $formation)
+
+                                        <option value="{{$formation->id}}">{{$formation->nom}}</option>
+
+                                    @endforeach    
+                            </select>
                         </div>
-                        <select class="custom-select" required id="inputGroupSelect01" name="nom_formation">
-                            <option selected>Aucun sélectionné</option>
-                                @foreach($formations as $formation)
-
-                                    <option selected value="{{$formation->id}}">{{$formation->nom}}</option>
-
-                                @endforeach    
-                        </select>
                     </div>
-                </div>
+                @endif
                 <div class="col-lg-12" id="contenu_form_questionnaire_autoeval">
                     <div class="row">
                         <div class="offset-lg-1 col-lg-10" id="section_auto_eval">              
@@ -170,7 +175,7 @@
                         <div class="col-lg-12" id="section_validation">              
                             <button type="submit" id="btn_validation_form_formateur" class="btn btn-outline-primary">
                                 <div id="label_btn_add_eval_form">
-                                    VALIDER
+                                    Valider
                                 </div>
                                 <div class="loader"></div>
                             </button>  

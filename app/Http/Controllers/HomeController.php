@@ -8,10 +8,10 @@ use JR_Formation\Formation;
 use JR_Formation\Commentaire;
 use JR_Formation\AbsencesRetards;
 use JR_Formation\Questionnaire;
-use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
 use Carbon\Carbon;
 use Auth;
+use DB;
 use Illuminate\Support\Facades\Storage;
 
 class HomeController extends Controller
@@ -43,9 +43,11 @@ class HomeController extends Controller
         $users = User::all();
         $statut = null;
         $groupes_formation = Apprenant::distinct()->where('formation_id', null)->get(['groupe_formation']);
-        $clients = User::where('role', '=', '2')->get();
-        $formateurs = User::where('role', '=', '1')->get();
-        $apprenants = User::where('role', '=', '0')->get();
+        $clients = User::where('role', '=', '2')->orderBy('created_at','desc')->get();
+        $formateurs = User::where('role', '=', '1')->orderBy('created_at','desc')->get();
+        $apprenants = User::where('role', '=', '0')->orderBy('created_at','desc')->get();
+
+
 
         $usersNonApprenant = User::where('role', '=', '1')->orWhere('role', '=', '2')->orWhere('role', '=', '3')->get();
 
@@ -55,8 +57,51 @@ class HomeController extends Controller
 
             $apprenant->setAttribute('commentaire_semaine1', $infosUserApprenant->commentaire_semaine1);
             $apprenant->setAttribute('commentaire_semaine2', $infosUserApprenant->commentaire_semaine2);
+            $apprenant->setAttribute('commentaire_semaine3', $infosUserApprenant->commentaire_semaine3);
             $apprenant->setAttribute('groupe_formation', $infosUserApprenant->groupe_formation);
-            $apprenant->setAttribute('note_formation', $infosUserApprenant->note_formation);
+
+            if ($infosUserApprenant->date_embauche != null) {
+
+                $dateEmbauche = Carbon::parse($infosUserApprenant->date_embauche)->format('d/m/Y');
+            }
+            else{
+
+                $dateEmbauche = null;
+            }
+            
+            $apprenant->setAttribute('embauche', $dateEmbauche);
+            $apprenant->setAttribute('a2mois', $infosUserApprenant->embauche_2_mois);
+            $apprenant->setAttribute('a6mois', $infosUserApprenant->embauche_6_mois);
+
+            if ($infosUserApprenant->date_embauche == null && $infosUserApprenant->motif_non_embauche != null) {
+
+                $apprenant->setAttribute('embauche', $infosUserApprenant->motif_non_embauche);
+            }
+
+            if ($infosUserApprenant->date_embauche == null && $infosUserApprenant->motif_non_embauche == null) {
+
+                $apprenant->setAttribute('embauche', '-');
+            }
+
+            if ($infosUserApprenant->embauche_2_mois == 'non' && $infosUserApprenant->motif_non_embauche_2_mois != null) {
+
+                $apprenant->setAttribute('a2mois', $infosUserApprenant->motif_predefini.$infosUserApprenant->motif_non_embauche_2_mois);
+            }
+
+            if ($infosUserApprenant->embauche_6_mois == 'non' && $infosUserApprenant->motif_non_embauche_6_mois != null) {
+
+                $apprenant->setAttribute('a6mois', $infosUserApprenant->motif_non_embauche_6_mois);
+            }
+
+            if ($infosUserApprenant->note_formation != null) {
+
+                $apprenant->setAttribute('evalFormation', 'OK');
+            }
+
+            if ($infosUserApprenant->questionnaire_formateur != 0) {
+
+                $apprenant->setAttribute('evalFormateur', 'OK');
+            }           
 
         }
 
@@ -103,7 +148,7 @@ class HomeController extends Controller
         // return array($nbEmbauchesTotal, $nbEmbauches2moisTotal, $nbEmbauches6moisTotal);
         //Formations en cours,
 
-        $formations = Formation::all();
+        $formations = Formation::where('formateur_id', '!=', null)->orderBy('created_at','desc')->get();
 
         foreach ($formations as $formation) {
 
@@ -127,7 +172,7 @@ class HomeController extends Controller
 
                 $formation->setAttribute('statut', 'Terminée');
             }
-            else if ($formation->date_debut < $aujourdhui && $formation->date_fin > $aujourdhui ) {
+            else if ($formation->date_debut <= $aujourdhui && $formation->date_fin >= $aujourdhui ) {
 
                 $formation->setAttribute('statut', 'En cours');
             }
@@ -141,7 +186,7 @@ class HomeController extends Controller
 
         //Formation terminess
         
-        $formationsTerminees = Formation::where('date_fin', '<', $aujourdhui)->get();
+        $formationsTerminees = Formation::where('date_fin', '<', $aujourdhui)->orderBy('created_at','desc')->get();
 
         foreach ($formationsTerminees as $formation) {
             
@@ -152,6 +197,7 @@ class HomeController extends Controller
             if ($nbApprenants != 0) {
 
                 $notesApprenants = Apprenant::where('formation_id', $formation->id)->avg('note_formation');
+                $apprenantsNonEmbauches = Apprenant::where('formation_id', $formation->id)->where('motif_non_embauche', '!=', null)->get();
                 $ApprenantsEmbauches = Apprenant::where('formation_id', $formation->id)->where('date_embauche', '!=', null)->get();
                 $ApprenantsEmbauches2Mois = Apprenant::where('formation_id', $formation->id)->where('embauche_2_mois', '=', 'oui')->get();
                 $ApprenantsEmbauches6Mois = Apprenant::where('formation_id', $formation->id)->where('embauche_6_mois', '=', 'oui')->get();
@@ -159,6 +205,9 @@ class HomeController extends Controller
 
                 $nbVotant = $apprenantsVoteNonNull->count();
                 $formation->setAttribute('nbVotant', $nbVotant);
+
+                $nbApprenantsNonEmbauches = $apprenantsNonEmbauches->count();
+                $formation->setAttribute('nbApprenantsNonEmbauches', $nbApprenantsNonEmbauches);
 
                 $nbApprenantsEmbauches = $ApprenantsEmbauches->count();
                 $formation->setAttribute('nbApprenantsEmbauches', $nbApprenantsEmbauches);
@@ -172,6 +221,10 @@ class HomeController extends Controller
                 $pourcentageSatisfaction = $notesApprenants * 5;
                 $pourcentageSansDecimalSatif = round($pourcentageSatisfaction);
                 $formation->setAttribute('pourcentageSansDecimalSatif', $pourcentageSansDecimalSatif.' %');
+
+                $pourcentageApprenantNonEmbauches = $nbApprenantsNonEmbauches * 100 / $nbApprenants;
+                $pourcentageSansDecimalAppNonEmbauches = round($pourcentageApprenantNonEmbauches);
+                $formation->setAttribute('pourcentageSansDecimalAppNonEmbauches', '('.$pourcentageSansDecimalAppNonEmbauches.' %)');
 
                 $pourcentageApprenantEmbauches = $nbApprenantsEmbauches * 100 / $nbApprenants;
                 $pourcentageSansDecimalAppEmbauches = round($pourcentageApprenantEmbauches);
@@ -213,7 +266,6 @@ class HomeController extends Controller
             if ($formation->compte_rendu_formateur == 1) {
               
                 $formation->setAttribute('compte_rendu_formateur', 'OK');
-
             }
             else{
           
@@ -306,7 +358,6 @@ class HomeController extends Controller
 
             return view('questionnaire_formation');
         }
-
 
         return view('questionnaire_formation',['formations' => $formationsTermineesSansEval, 'autoEval' => $autoEval]);
     }
@@ -445,6 +496,11 @@ class HomeController extends Controller
             return redirect()->back()->with('error', 'le mot de passe doit contenir au moins 6 caractères!');
 
         }
+        elseif (strlen($mdp) > 12){
+
+            return redirect()->back()->with('error', 'le mot de passe doit contenir 12 caractères maximum!');
+
+        }
         elseif ($mdp === $confirmMdp){
             
             $password = bcrypt($mdp);
@@ -458,18 +514,27 @@ class HomeController extends Controller
             return redirect()->back()->with('error', 'les mots de passe ne correspondent pas!');
         }
 
-
     }
 
     public function deleteUser(Request $request)
     {
 
         $idUserADelete = $request->suppr_user;
+        $formations = Formation::all();
 
         if($idUserADelete == null){
 
             return redirect()->back()->with('error', 'Veuillez sélectionner un utilisateur!');
 
+        }
+
+        foreach ($formations as $formation) {
+            
+            if ($formation->client_id1 = $idUserADelete || $formation->client_id2 = $idUserADelete || $formation->client_id3 = $idUserADelete || $formation->client_id4 = $idUserADelete || $formation->client_id5 = $idUserADelete || $formation->formateur_id = $idUserADelete ) {
+                
+                return redirect()->back()->with('error', 'Cet utilisateur est lié à une ou plusieurs formation(s), veuillez supprimer la ou les formation(s) associée(s)');
+
+            }
         }
 
         $user = User::where('id','=', $idUserADelete)->first();
@@ -516,20 +581,16 @@ class HomeController extends Controller
     {
         
         $formationChoisie = $request->nom_formation;
+        $formationBdd = Formation::where('nom', $formationChoisie)->first();
+        $apprenantsFormation = Apprenant::where('formation_id', $formationBdd->id )->get();
+        $commentairesGroupes = Commentaire::where('formation', $formationBdd->nom)->get();
 
         if ($formationChoisie == null) {
             
             return redirect()->back()->with('error', 'Veuillez sélectionner une formation!');
         }
 
-        $formationBdd = Formation::where('nom', $formationChoisie)->first();
-
-        $apprenantsFormation = Apprenant::where('formation_id', $formationBdd->id )->get();
-
-        $commentairesGroupes = Commentaire::where('formation', $formationBdd->nom)->get();
-
-        foreach ($commentairesGroupes as $commentaire) {
-            
+        foreach ($commentairesGroupes as $commentaire) {           
 
             DB::table('commentaires')->where('formation', $commentaire->formation)->delete();
 
@@ -537,9 +598,7 @@ class HomeController extends Controller
 
         foreach($apprenantsFormation as $apprenant) {
 
-
             DB::table('apprenants')->where('formation_id', '=', $formationBdd->id)->delete(); 
-
             DB::table('users')->where('id', $apprenant->user_id)->delete();  
 
         }

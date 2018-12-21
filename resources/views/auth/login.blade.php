@@ -45,7 +45,7 @@
                                 <div class="offset-lg-1 col-lg-10">  
                                     <button type="submit" class="btn btn-outline-primary" id="btn_submit_login">
                                         <div id="label_btn_login">
-                                            CONNEXION
+                                            Connexion
                                         </div>
                                         <div class="loader"></div>
                                     </button> 

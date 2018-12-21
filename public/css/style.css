@@ -20,7 +20,7 @@ body{
 	
 }
 
-#entete_add_user,#titre_form_impact_form_admin,#titre_form_eval_autoeval_admin,#titre_form_eval_formation_admin,#titre_form_eval_formateur_admin,#btn_quest_auto_eval,#btn_quest_eval_formation,#btn_quest_eval_formateur,#btn_quest_impact_forma,#div_show_error,#div_show_success,#item_details_users,#item_suivi_embauche,#titre_auto_eval,#btn_donnees,#btn_gestion_formation,#btn_gestion_utilisateur,#btn_deconnexion,#label_email_form_connexion,#label_mdp_form_connexion,#input_checkbox_form_connexion,#btn_submit_login,#titre_form_impact_formation,#titre_form_impact_formation1,#titre_modif_mdp,#sous_titre_modif_mdp,#btn_apprenant_quest_formation,#btn_apprenant_quest_formateur,#btn_apprenant_com_fin_sem,#btn_questionnaires,#btn_apprenant_programme,#btn_disabled_validation_com2_formation,#head_tab_apprenant_client,#btn_form_client,#btn_impact_form_client,#header_com_groupe,#btn_suppr_user_haut,#header_ajout_formation,#color_heading9,#header_liste_apprenants,#header_add_user,#entete_liste_com,#text_nav_link,#titre_page_connexion,#titre_page_commentaire,#titre_interface_formateur,#titre_profil,#titre_questionnaire_formateur,#titre_interface_client,#header_item_utilisateur,#header_tableau_apprenants,#header_tableau_apprenants_formateur,#label_retard_absence,#label_note{
+#btn_valider_suivi_client,#btn_valider_impact_formation,#merci1,#merci2,#btn_validation_com3_formation,#btn_validation_form_formateur,#btn_validation_form_formation,#titre_form_info_recrut,#titre_form_info_enviro_form,#titre_form_info_contenu_obj,#titre_form_info_peda,#titre_form_info_peda2,#btn_download_programme,#btn_validation_com1_formation,#btn_validation_com2_formation,#titre_form_formateur_app,#sous_titre_form_formateur_app,#titre_form_formation_app,#sous_titre_form_formation_app,#text_nav_link1,#text_nav_link2,#text_nav_link3,#text_nav_link4,#text_nav_link5,#text_nav_link6,#text_nav_link7,#text_nav_link8,#entete_liste_com2,#btn_submit_change_mdp,#btn_valider_impact_formation_admin,#btn_validation_form_formateur_admin,#btn_validation_form_formation_admin,#entete_add_user,#titre_form_impact_form_admin,#titre_form_eval_autoeval_admin,#titre_form_eval_formation_admin,#titre_form_eval_formateur_admin,#btn_quest_auto_eval,#btn_quest_eval_formation,#btn_quest_eval_formateur,#btn_quest_impact_forma,#div_show_error,#div_show_success,#item_details_users,#item_suivi_embauche,#titre_auto_eval,#btn_donnees,#btn_gestion_formation,#btn_gestion_utilisateur,#btn_deconnexion,#label_email_form_connexion,#label_mdp_form_connexion,#input_checkbox_form_connexion,#btn_submit_login,#titre_form_impact_formation,#titre_form_impact_formation1,#titre_modif_mdp,#sous_titre_modif_mdp,#btn_apprenant_quest_formation,#btn_apprenant_quest_formateur,#btn_apprenant_com_fin_sem,#btn_questionnaires,#btn_apprenant_programme,#btn_disabled_validation_com2_formation,#btn_disabled_validation_com3_formation,#head_tab_apprenant_client,#btn_form_client,#btn_impact_form_client,#header_com_groupe,#btn_suppr_user_haut,#header_ajout_formation,#color_heading9,#header_liste_apprenants,#header_add_user,#entete_liste_com,#text_nav_link,#titre_page_connexion,#titre_page_commentaire,#titre_interface_formateur,#titre_profil,#titre_questionnaire_formateur,#titre_interface_client,#header_item_utilisateur,#header_tableau_apprenants,#header_tableau_apprenants_formateur,#label_retard_absence,#label_note{
 
 	font-family: 'GothamLight';
     src: url('/fonts/Gotham-Light.eot');
@@ -32,7 +32,7 @@ body{
 
 }
 
-#text_nav_link,#titre_page_connexion,#titre_page_commentaire,#titre_interface_formateur,#titre_profil,#titre_questionnaire_formateur,#titre_interface_client,#header_item_utilisateur,#header_tableau_apprenants,#header_tableau_apprenants_formateur,#label_retard_absence,#label_note{
+#text_nav_link1,#text_nav_link2,#text_nav_link3,#text_nav_link4,#text_nav_link5,#text_nav_link6,#text_nav_link7,#text_nav_link8,#titre_page_connexion,#titre_page_commentaire,#titre_interface_formateur,#titre_profil,#titre_questionnaire_formateur,#titre_interface_client,#header_item_utilisateur,#header_tableau_apprenants,#header_tableau_apprenants_formateur,#label_retard_absence,#label_note{
 
 
     font-size: 22px;
@@ -214,7 +214,49 @@ body{
 	border-radius: 1px;
 }
 
-#text_nav_link:hover{
+#text_nav_link1:hover{
+
+	color: white;
+	border-radius: 1px;
+}
+
+#text_nav_link2:hover{
+
+	color: white;
+	border-radius: 1px;
+}
+
+#text_nav_link3:hover{
+
+	color: white;
+	border-radius: 1px;
+}
+
+#text_nav_link4:hover{
+
+	color: white;
+	border-radius: 1px;
+}
+
+#text_nav_link5:hover{
+
+	color: white;
+	border-radius: 1px;
+}
+
+#text_nav_link6:hover{
+
+	color: white;
+	border-radius: 1px;
+}
+
+#text_nav_link7:hover{
+
+	color: white;
+	border-radius: 1px;
+}
+
+#text_nav_link8:hover{
 
 	color: white;
 	border-radius: 1px;
@@ -572,7 +614,7 @@ body{
 	text-shadow: none;
 }
 
-#btn_disabled_validation_com2_formation{
+#btn_disabled_validation_com2_formation,#btn_disabled_validation_com1_formation,#btn_disabled_validation_com3_formation{
 
 	width: 100%;
 	color: white;
@@ -583,20 +625,31 @@ body{
 	height: 45px;
 	padding-top: 1%;
 	margin-top: 2%;
+	font-size: 20px;
 }
 
-#input_text_com_1,#input_text_com_2{
+
+
+#input_text_com_1,#input_text_com_2,#input_text_com_1_admin,#input_text_com_2_admin,#input_text_com_3_admin{
 
 	box-shadow: 1px 1px 5px black;
+	margin-top: 1%;
+}
+
+#input_text_com_1_admin{
+
+	margin-top: 8%;
 }
 
 #btn_download_programme{
 
 	width: 100%;
+	margin-top: 2%;
 	color: white;
 	border-radius: 2px;
 	border: 1px white solid;
 	box-shadow: 2px 2px 4px black;
+	font-size: 18px;
 }
 
 #btn_download_programme:hover{
@@ -803,7 +856,6 @@ li.list-group-item{
 
 	height: 130px;
 	padding-bottom: 1px;
-	border-color: #2D3F58;
 	box-shadow: 1px 1px 5px black;
 	
 }
@@ -902,11 +954,16 @@ input[type=radio] {
 	margin-top: 1%;
 }
 
-#titre_form_info_recrut,#titre_form_info_enviro_form,#titre_form_info_contenu_obj,#titre_form_info_peda{
+#titre_form_info_recrut,#titre_form_info_enviro_form,#titre_form_info_contenu_obj,#titre_form_info_peda,#titre_form_info_peda2{
 
 	text-align: center;
 	margin-top: 1%;
 	background-color: white;
+
+	border-top-right-radius: 5px;
+	border-top-left-radius: 5px;
+	padding-top: 1%;
+	padding-bottom: 1%;
 
 }
 
@@ -962,11 +1019,12 @@ input[type=radio] {
 	height: 50px;
 	margin-top: 5%;
 	box-shadow: 1px 1px 5px black;
+	font-size: 19px;
 }
 
 #btn_submit_login:hover{
 
-	border: 1px white solid;
+	border: 1px green solid;
 	background-color: green;
 }
 
@@ -1083,7 +1141,7 @@ input[type=radio] {
 
 }
 
-#row_com_sem_apprenant{
+#row_com_sem_apprenant,#row_com_sem_groupe{
 
 	margin: 1%;
 	margin-top: 0%;
@@ -1116,7 +1174,7 @@ input[type=radio] {
 	
 }
 
-#entete_liste_com{
+#entete_liste_com,#entete_liste_com2{
 
 	text-align: center;
 	color: white;
@@ -1124,7 +1182,6 @@ input[type=radio] {
 	margin-top: 1%;
 	box-shadow: 1px 1px 5px black;
 	border: 1px white solid;
-
 	padding-top: 0.5%;
 	border-radius: 2px;
 	height: 45px;
@@ -1139,10 +1196,9 @@ input[type=radio] {
 
 }
 
-#cadre_scroll_commentaire{
+#cadre_scroll_commentaire,#cadre_scroll_commentaire2{
 
-	height: 250px;
-	
+	height: 250px;	
 	overflow-y:scroll;
 	position: static;
 	border: 1px white solid;
@@ -1164,10 +1220,10 @@ input[type=radio] {
 
 	margin-top: 5%;
 	width: 50%;
-	
 	display: block;
 	margin-right:auto;
 	margin-left: auto;
+	font-size: 18px;
 }
 
 #btn_submit_change_mdp:hover{
@@ -1187,14 +1243,17 @@ input[type=radio] {
 	border-radius: 2px;
 }
 
+#section_auto_eval_admin,#section_auto_eval2_admin,#section_materiel_logistique_admin,#section_et_demain_admin{
 
-#contenu_form_questionnaire_autoeval{
-
-	padding-left: 1%;
+	border: 1px #2D3F58 solid;
+	margin-top: 0.5%;
+	border-radius: 2px;
+	box-shadow: 1px 1px 5px black;
+	padding: 1%;
 
 }
 
-#section_auto_eval{
+#section_contenu_pedago,#section_materiel_logistique,#section_et_demain,#section_auto_eval{
 
 	border: 1px #E0002D solid;
 	margin-top: 0.5%;
@@ -1202,34 +1261,6 @@ input[type=radio] {
 	box-shadow: 1px 1px 5px black;
 
 }
-
-#section_contenu_pedago{
-
-	border: 1px #E0002D solid;
-	margin-top: 0.5%;
-	border-radius: 2px;
-	box-shadow: 1px 1px 5px black;
-
-}
-
-#section_materiel_logistique{
-
-	border: 1px #E0002D solid;
-	margin-top: 0.5%;
-	border-radius: 2px;
-	box-shadow: 1px 1px 5px black;
-
-}
-
-#section_et_demain{
-
-	border: 1px #E0002D solid;
-	margin-top: 0.5%;
-	border-radius: 2px;
-	box-shadow: 1px 1px 5px black;
-
-}
-
 
 #titre_auto_eval{
 
@@ -1296,71 +1327,44 @@ input[type=radio] {
 
 }
 
-#btn_validation_form_formateur{
+#btn_validation_form_formateur,#btn_validation_form_formation,#btn_validation_com1_formation,#btn_validation_com2_formation,#btn_validation_com3_formation{
 
 	width: 100%;
-	height: 60px;
+	height: 50px;
 	margin-bottom: 2%;
 	margin-top: 5%;
 	border: 1px green solid;
 	box-shadow: 1px 1px 5px black;
 	border-radius: 2%;
 	color: white;
-	background-color: #2D3F58;
 	font-size: 20px;
 }
 
-#btn_validation_form_formation{
 
-	width: 100%;
-	height: 50px;
-	margin-bottom: 2%;
-	margin-top: 4%;
-	border: 1px green solid;
-	box-shadow: 1px 1px 5px black;
-	border-radius: 2%;
-	color: white;
-	background-color: #2D3F58;
-	font-size: 20px;
-}
 
-#btn_validation_com1_formation{
-
-	width: 100%;
-	height: 50px;
-	margin-bottom: 2%;
-	margin-top: 4%;
-	border: 1px green solid;
-	box-shadow: 1px 1px 5px black;
-	border-radius: 2%;
-	color: white;
-	background-color: #2D3F58;
-	font-size: 20px;
-
-}
 
 #btn_validation_form_formation:hover{
 
-	border: 1px white solid;
+	
 	background-color: green;
 	
 }
 
 #btn_validation_form_formateur:hover{
 
-	border: 1px white solid;
+	
 	background-color: green;
 }
 
 #btn_validation_com1_formateur:hover{
 
-	border: 1px white solid;
+	
 	background-color: green;
 }
 
 #btn_validation_com2_formateur:hover{
 
-	border: 1px white solid;
+	
 	background-color: green;
 }
 
@@ -1377,6 +1381,7 @@ input[type=radio] {
 	width: 100%;
 	border: 1px green solid;
 	box-shadow: 1px 1px 5px black;
+	font-size: 20px;
 }
 
 #btn_valider_suivi_client:hover{
@@ -1565,6 +1570,7 @@ input[type=radio] {
 	color: white;
 	border-color: green;
 	box-shadow: 1px 1px 5px black;
+	font-size: 20px;
 }
 
 #btn_valider_impact_formation:hover{
@@ -1779,17 +1785,9 @@ input[type=radio] {
 	bottom:1px;
 }
 
-#card_ajout_user{
+#card_ajout_user,#card_ajout_apprenant{
 
 	border-color: white; 
-	color: #2D3F58;
-	box-shadow: 1px 1px 5px black;
-	background-color: transparent;
-}
-
-#card_ajout_apprenant{
-
-	border-color: white;
 	color: #2D3F58;
 	box-shadow: 1px 1px 5px black;
 	background-color: transparent;
@@ -1898,12 +1896,13 @@ input[type=radio] {
 
 }
 
-#input_form{
+#input_form,#input_form_client{
 
-	width: 30%;
+	max-width: 30%;
 	margin-left: 1%;
 	padding-bottom:1px;
 }
+
 
 #input_form:active{
 
@@ -1917,11 +1916,11 @@ input[type=radio] {
 
 .loader {
 
-  border: 6px solid #f3f3f3; /* Light grey */
-  border-top: 6px solid #2D3F58; /* Blue */
+  border: 3px solid #75A3E4; /* Light grey */
+  border-top: 3px solid #2D3F58; /* Blue */
   border-radius: 50%;
-  width: 26px;
-  height: 26px;
+  width: 25px;
+  height: 25px;
   margin-right: auto;
   margin-left: auto;
   animation: spin 2s linear infinite;
@@ -1949,7 +1948,7 @@ input[type=radio] {
 #btn_quest_auto_eval,#btn_quest_eval_formation,#btn_quest_eval_formateur,#btn_quest_impact_forma{
 
 	color: white;
-	border: 1px white solid;
+	border: 1px #E0002D solid;
 	border-radius: 1px;
 	width: 100%;
 	box-shadow: 1px 1px 5px black;
@@ -1981,20 +1980,34 @@ input[type=radio] {
 	color: black;
 }
 
-#container_form_eval_formateur_admin,#container_form_eval_formation_admin,#container_impact_forma_admin{
+#container_form_eval_formateur_admin,#container_form_eval_formation_admin,#container_impact_forma_admin,#container_form_eval_autoeval_admin{
 
 	margin-top: 2%;
 	margin-bottom: 2%;
 	width: 100%;
 }
 
-#form_eval_formateur_modifiable,#form_impact_client_admin{
+#form_impact_client_admin{
 
-	margin-top: 1%;
-	width: 95%;
 	color: white;
+	width: 95%;
 	margin-right: auto;
 	margin-left: auto;
+
+}
+
+#partie1,#partie2,#partie3,#partie4,#partie5{
+
+	box-shadow: 1px 1px 5px black;
+	padding: 1%;
+	margin-top: 1%;
+	border-radius: 1px;
+	border: 1px #2D3F58 solid;
+}
+
+#partie1{
+
+	margin-top: 0;
 }
 
 #titre_form_eval_formateur_admin,#titre_form_eval_formation_admin,#titre_form_eval_autoeval_admin,#titre_form_impact_form_admin{
@@ -2004,11 +2017,11 @@ input[type=radio] {
 
 .form_admin{
 
-	border-color: white;
+	border: 1px #2D3F58 solid;
+	border-radius: 1px;
 	background-color: transparent;
 	color: white;
 	height: auto;
-
 }
 
 #form_compte_rendu_admin{
@@ -2017,14 +2030,30 @@ input[type=radio] {
 	width: 100%;
 }
 
-#btn_validation_form_formateur_admin,#btn_validation_form_formation_admin{
+#btn_validation_form_formateur_admin,#btn_validation_form_formation_admin,#btn_validation_form_formateur_admin,#btn_valider_impact_formation_admin{
 
 	width: 100%;
-	height: 60px;
+	height: 50px;
 	color: white;
 	border: 1px green solid;
 	box-shadow: 1px 1px 5px black;
-	margin-top: 5%;
+	margin-top: 2%;
+	font-size: 18px;
+}
+
+#btn_valider_impact_formation_admin:hover{
+
+	background-color: green;
+
+}
+#btn_validation_form_formation_admin:hover{
+
+	background-color: green;
+}
+
+#btn_validation_form_formateur_admin:hover{
+
+	background-color: green;
 }
 
 #erreur_login{
@@ -2050,13 +2079,63 @@ input[type=radio] {
 	margin-top: 2%;
 }
 
-#entete_add_user{
+#entete_add_user,#entete_add_gr{
 
 	color: white;
+}
+
+#entete_add_gr{
+
+	margin-top: 2%;
+	font-size: 17px;
 }
 
 #row_commentaire_ind,#row_commentaire_gr{
 
 	font-style: italic;
 	margin-bottom: 0.2%;
+}
+
+#basic_gr,#select_groupe_eval{
+
+	border: 1px #2D3F58 solid;
+	box-shadow: 1px 1px 5px black;
+
+}
+
+#titre_form_formateur_app,#sous_titre_form_formateur_app,#titre_form_formation_app,#sous_titre_form_formation_app,#label_form_formation1,#label_form_formation2,#label_form_formation3,#label_form_formation4,#label_form_formateur1,#label_form_formateur2,#label_form_formateur3,#label_form_formateur4{
+
+	color:white;
+	
+}
+
+#sous_titre_form_formateur_app,,#sous_titre_form_formation_app{
+
+	font-size: 18px;
+}
+
+#merci1,#merci2{
+
+	color: white;
+	text-align: center;
+}
+
+#form_selectionnable,#app_selectionnable{
+
+	color: white;
+	margin-top: 1%;
+}
+
+#input_com1,#input_com2{
+
+	font-size: 18px;
+	margin-left: 2%;
+	max-width: 30%;
+	
+}
+
+#table_tab_com1,#table_tab_com2{
+
+	width: 100%;
+	table-layout: fixed;
 }

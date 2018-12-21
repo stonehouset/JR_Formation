@@ -93,7 +93,8 @@
                                             <th scope="col">Client(s)</th>
                                             <th scope="col">Nb apprenants</th>
                                             <th scope="col">% Satisfaction</th>
-                                            <th scope="col">Nb Embauchés</th>
+                                            <th scope="col">Non embauchés</th>
+                                            <th scope="col">Embauchés</th>
                                             <th scope="col">A 2 mois</th>
                                             <th scope="col">A 6 mois</th>
                                             <th scope="col">Impact Formation</th>
@@ -133,6 +134,11 @@
                                             </td>  
                                             <td>
                                                 <h5>
+                                                    <span class="badge badge-primary badge-pill">{{$formation->nbApprenantsNonEmbauches}} {{$formation->pourcentageSansDecimalAppNonEmbauches}}</span>
+                                                </h5>
+                                            </td>
+                                            <td>
+                                                <h5>
                                                     <span class="badge badge-primary badge-pill">{{$formation->nbApprenantsEmbauches}} {{$formation->pourcentageSansDecimalAppEmbauches}}</span>
                                                 </h5>
                                             </td> 
@@ -159,36 +165,41 @@
             </div>    
             <div class="card-text" id="gestion_utilisateurs">  
                 <div class="row">
-                    <div class="col-lg-8" id="tableau_gestion_admin_infos_apprenants">
+                    <div class="col-lg-12" id="tableau_gestion_admin_infos_apprenants">
                         <div class="card-header" id="header_tableau_apprenants">
                             Apprenants       
                             <a  href="{{route('apprenants_admin_csv')}}">&#8659;</a> 
                             <input type="text" id="myInput" onkeyup="search()" placeholder="nom ou prénom" title="cherche apprenant">
+                            <button id="btn_switch_to_client_form">+</button>
                         </div>
                         <div id="tab_admin_apprenants">   
-                            <table class="table table-striped table" id="myTable">
+                            <table class="table table-striped table" id="myTable" style="table-layout: fixed;">
                                 <thead id="head_tab_apprenants_admin">
                                     <tr id="myUL"> 
-                                        <th scope="col">Prénom + Nom</th>  
-                                        <th scope="col">Groupe formation</th>                                    
-                                        <th scope="col">Email</th>
-                                        <th scope="col">Téléphone</th>                                       
-                                        <th scope="col">Commentaire Semaine 1</th>
-                                        <th scope="col">Commentaire Semaine 2</th>
-                                        <th scope="col">Note formation</th>                
+                                        <th scope="col">Prénom Nom <br>Groupe formation</th>                                   
+                                                                           
+                                        <th scope="col">Commentaires</th>
+                                        <th scope="col">Embauché/ 2 mois/ 6 mois</th> 
+                                        <th scope="col">Eval Formation<br>Eval Formateur</th> 
                                     </tr>
                                 </thead>
                                 <tbody id="body_tab_apprenants_admin">
                                     @if ($apprenants != null)
                                         @foreach($apprenants as $apprenant)
                                         <tr id="td">
-                                            <td class="td">{{$apprenant->prenom}} {{$apprenant->nom}}</td>
-                                            <td class="td">{{$apprenant->groupe_formation}}</td>
-                                            <td class="td">{{$apprenant->email}}</td>
-                                            <td class="td">{{$apprenant->numero_telephone}}</td>                                   
-                                            <td class="td">{{$apprenant->commentaire_semaine1}}</td>
-                                            <td class="td">{{$apprenant->commentaire_semaine2}}</td>
-                                            <td class="td">{{$apprenant->note_formation}}</td>                                         
+                                            <td class="td">{{$apprenant->prenom}} {{$apprenant->nom}}<br>{{$apprenant->groupe_formation}}</td>
+                                                                             
+                                            <td class="td" style="height:70px;min-width: 150px;">
+                                                <div style="word-wrap: break-word;overflow:auto;height:70px;width: auto;">{{$apprenant->commentaire_semaine1}}<br><br>{{$apprenant->commentaire_semaine2}}<br><br>{{$apprenant->commentaire_semaine3}}</div>
+                                            </td>
+                                            <td class="td" style="height: 70px;min-width: 150px;">
+                                                <div style="word-wrap: break-word;overflow:auto;height:70px;width: auto;">
+                                                  {{$apprenant->embauche}}<br><br>
+                                                 -{{$apprenant->a2mois}}<br><br>
+                                                 -{{$apprenant->a6mois}}
+                                                </div>
+                                            </td> 
+                                            <td class="td">{{$apprenant->evalFormation}}<br>{{$apprenant->evalFormateur}}</td>   
                                         </tr>
                                         @endforeach
                                     @endif
@@ -196,10 +207,11 @@
                             </table> 
                         </div>
                     </div>
-                    <div class="col-lg-4" id="tableau_gestion_admin_infos_formateurs">                   
+                </div>
+                <div class="row" id="tab_formateurs_et_clients">
+                    <div class="col-lg-6" id="tableau_gestion_admin_infos_formateurs">                   
                         <div class="card-header" id="header_tableau_apprenants">                      
-                            Formateurs 
-                        <button type="button" id="btn_switch_to_client" class="btn btn-primary btn-sm">Clients</button>                   
+                            Formateurs                   
                         </div>
                         <div id="tab_formateur_admin">
                             <table class="table table-striped table-dark" >
@@ -224,10 +236,10 @@
                             </table>
                         </div> 
                     </div> 
-                    <div class="col-lg-4" id="tableau_gestion_admin_infos_formateurs2">                   
+                    <div class="col-lg-6" id="tableau_gestion_admin_infos_formateurs2">                   
                         <div class="card-header" id="header_tableau_apprenants">                      
                             Clients
-                            <button type="button" id="btn_switch_to_form" class="btn btn-primary btn-sm">Formateurs</button>                       
+                            <button id="btn_switch_to_form">App</button>                       
                         </div>
                         <div id="tab_formateur_admin">
                             <table class="table table-striped table-dark" >
@@ -264,7 +276,7 @@
                         </div>
                         <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
                             <div class="card-body"> 
-                                <h5 id="entete_add_user">Veuilez compléter tous les champs pour ajouter un utilisateur</h5>                                                       
+                                <h5 id="entete_add_user">Veuillez compléter tous les champs pour ajouter un utilisateur. Veillez à ne pas ajouter une adresse mail déja existante et à rentrer 2 mots de passe identiques.</h5>
                                 <form class="form-horizontal" method="POST" action="{{ route('register') }}" id="register_user">
                                 {{ csrf_field() }}
                                     <div class="row">
@@ -361,7 +373,7 @@
                                             </div>                                                                                
                                             <button type="submit" id="btn_ajout_liste_apprenants" class="btn btn-outline-primary">
                                                 <div id="label_btn_submit_add_appr">
-                                                    AJOUTER
+                                                    Ajouter
                                                 </div>
                                                 <div class="loader"></div> 
                                             </button>
@@ -469,6 +481,7 @@
                                 </h5>
                             </div>
                             <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#accordion">
+                                <h6 id="entete_add_gr">Veuillez compléter tous les champs pour ajouter un groupe de formation. Vous pouvez sélectionner jusqu'a 5 clients maximum. Le programme doit être unique, sans accent ni espace.</h6>
                                 <form method="POST" action="{{ route('formation') }}" enctype="multipart/form-data" autocomplete="off" id="form_add_formation">
                                     {{ csrf_field() }}
                                     <div class="card-body">
@@ -478,7 +491,7 @@
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text" id="basic-addon1">Nom</span>
                                                     </div>
-                                                    <select class="custom-select" id="inputGroupSelect01"  name="nom_formation">
+                                                    <select class="custom-select" required id="inputGroupSelect01"  name="nom_formation">
                                                         <option selected disabled="true">Aucun sélectionné</option>
 
                                                         @foreach($groupes_formation as $groupe_formation)
@@ -494,13 +507,13 @@
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text" id="basic-addon1">Début</span>
                                                     </div>
-                                                    <input type="date" class="form-control" placeholder="01/01/2018" aria-label="date_debut_formation" aria-describedby="basic-addon2" id="choix_dat_form"  name="debut_formation">
+                                                    <input type="date" class="form-control" required placeholder="01/01/2018" aria-label="date_debut_formation" aria-describedby="basic-addon2" id="choix_dat_form"  name="debut_formation">
                                                 </div> 
                                                 <div class="input-group mb-3">
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text" id="basic-addon1">Fin</span>
                                                     </div>
-                                                    <input type="date" class="form-control" placeholder="01/01/2018" aria-label="date_fin_formation" aria-describedby="basic-addon2" id="choix_dat_form"  name="fin_formation">
+                                                    <input type="date" class="form-control" required placeholder="01/01/2018" aria-label="date_fin_formation" aria-describedby="basic-addon2" id="choix_dat_form"  name="fin_formation">
                                                 </div>                                                  
                                             </div>
                                             <div class="col-lg-6">
@@ -508,7 +521,7 @@
                                                 <h6 id="h6_plusieurs_clients">Maintenir touche Ctrl et clique gauche pour sélectionner plusieurs clients</h6>
                                                 <div class="input-group-prepend" id="input_select_clients">
                                                     <span class="input-group-text" id="basic-addon1">Client(s)</span>
-                                                        <select class="custom-select" name="client[]" multiple style="height: 60px;">
+                                                        <select class="custom-select" required name="client[]" multiple style="height: 60px;">
                                                         @foreach($clients as $client)
                                                             <option value="{{$client->id}}" >{{$client->prenom}} {{$client->nom}}</option>
                                                         @endforeach  
@@ -541,7 +554,7 @@
                                                 </div> 
                                                 <button type="submit" class="btn btn-outline-primary" id="btn_ajout_confirm_formation">   
                                                     <div id="label_btn_submit_add_form">
-                                                        AJOUTER
+                                                        Ajouter
                                                     </div>
                                                     <div class="loader"></div>
                                                 </button> 

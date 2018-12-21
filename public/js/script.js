@@ -23,7 +23,6 @@ $( document ).ready(function() {
     $('#btn_valider_suivi_client ').hide();
     $('#input_date_embauche').hide();
     $('#label_date_embauche').hide();
-    $('#tableau_gestion_admin_infos_formateurs2').hide();
     $('#form_satisfaction_formateur').hide();
     $('.loader').hide();
     $('#form_com_semaine_apprenant').hide();
@@ -32,6 +31,8 @@ $( document ).ready(function() {
     $('#container_form_eval_formation_admin').hide();
     $('#container_form_eval_autoeval_admin').hide();
     $('#container_impact_forma_admin').hide();
+    $('#tab_formateurs_et_clients').hide();
+    
     
     
     if($('#div_show_error').is(':visible') || $('#div_show_success').is(':visible')){
@@ -130,18 +131,18 @@ $("#btn_donnees").click(function(){
     $("#dropdownMenuButton").hide(); 
 });
 
-$("#btn_switch_to_client").click(function(){
+$("#btn_switch_to_client_form").click(function(){
 
-    $("#tableau_gestion_admin_infos_formateurs").hide();
-    $("#tableau_gestion_admin_infos_formateurs2").show('fast');
+    $("#tableau_gestion_admin_infos_apprenants").hide();
+    $("#tab_formateurs_et_clients").show('fast');
  
 });
 
 $("#btn_switch_to_form").click(function(){
 
-    $("#tableau_gestion_admin_infos_formateurs2").hide();
-    $("#tableau_gestion_admin_infos_formateurs").show('fast');
-  
+    $("#tab_formateurs_et_clients").hide();
+    $("#tableau_gestion_admin_infos_apprenants").show('fast');
+ 
 });
 
 
@@ -469,11 +470,8 @@ function search() {
 
                 tr[i].style.display = "none";
             }
-
         }
-
     }
-
 }
 
 function search2() {
@@ -502,11 +500,98 @@ function search2() {
 
                 tr[i].style.display = "none";
             }
-
         }
-
     }
+}
 
+function search3() {
+
+  // Declare variables
+  var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("input_form_client");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("table_tab_client");
+  tr = table.getElementsByTagName("tr");
+
+  // Loop through all table rows, and hide those who don't match the search query
+    for (i = 0; i < tr.length; i++) {
+
+        td = tr[i].getElementsByTagName("td")[0];
+
+        if (td) {
+
+            txtValue = td.textContent || td.innerText;
+
+            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+
+                tr[i].style.display = "";
+
+            } else {
+
+                tr[i].style.display = "none";
+            }
+        }
+    }
+}
+
+function search4() {
+
+  // Declare variables
+  var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("input_com1");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("table_tab_com1");
+  tr = table.getElementsByTagName("tr");
+
+  // Loop through all table rows, and hide those who don't match the search query
+    for (i = 0; i < tr.length; i++) {
+
+        td = tr[i].getElementsByTagName("td")[0];
+
+        if (td) {
+
+            txtValue = td.textContent || td.innerText;
+
+            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+
+                tr[i].style.display = "";
+
+            } else {
+
+                tr[i].style.display = "none";
+            }
+        }
+    }
+}
+
+function search5() {
+
+  // Declare variables
+  var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("input_com2");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("table_tab_com2");
+  tr = table.getElementsByTagName("tr");
+
+  // Loop through all table rows, and hide those who don't match the search query
+    for (i = 0; i < tr.length; i++) {
+
+        td = tr[i].getElementsByTagName("td")[0];
+
+        if (td) {
+
+            txtValue = td.textContent || td.innerText;
+
+            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+
+                tr[i].style.display = "";
+
+            } else {
+
+                tr[i].style.display = "none";
+            }
+        }
+    }
 }
 
 $('#form_login').submit(function() {
@@ -618,9 +703,9 @@ $('#com_sem2').submit(function() {
     $('.loader').show();
 });
 
-$('#com_sem2').submit(function() {
+$('#com_sem3').submit(function() {
 
-    $('#label_btn_valid_com2').hide();
+    $('#label_btn_valid_com3').hide();
     $('.loader').show();
 });
 

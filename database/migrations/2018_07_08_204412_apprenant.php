@@ -35,8 +35,9 @@ class Apprenant extends Migration
             $table->text('motif_predefini', 200)->nullable(); 
             $table->text('motif_non_embauche_2_mois', 200)->nullable(); 
             $table->text('motif_non_embauche_6_mois', 200)->nullable(); 
-            $table->text('commentaire_semaine1', 500)->nullable(); 
-            $table->text('commentaire_semaine2', 500)->nullable(); 
+            $table->text('commentaire_semaine1', 250)->nullable(); 
+            $table->text('commentaire_semaine2', 250)->nullable(); 
+            $table->text('commentaire_semaine3', 250)->nullable(); 
 
         });
     }

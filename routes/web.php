@@ -71,6 +71,8 @@ Route::group(['middleware' => ['apprenant']], function () {
 	Route::post('send_form_formation_apprenant', [ 'as' => 'send_form_formation_apprenant', 'uses' => 'ApprenantController@sendFormFormation']);
 	Route::post('comFormSem1', [ 'as' => 'comFormSem1', 'uses' => 'ApprenantController@ajoutComSem1']);
 	Route::post('comFormSem2', [ 'as' => 'comFormSem2', 'uses' => 'ApprenantController@ajoutComSem2']);
+	Route::post('comFormSem3', [ 'as' => 'comFormSem3', 'uses' => 'ApprenantController@ajoutComSem3']);
+
 
 });
    

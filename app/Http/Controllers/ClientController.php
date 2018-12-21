@@ -34,61 +34,83 @@ class ClientController extends Controller
         
     }
 
-    public function index()
+    public function index() //Affichage de la vue interface_client avec les donnees de l'utilsateur connecte.
     {
         $users = User::all();
-        $dateJour = date('Y-m-d');
+        $dateJour = date('Y-m-d'); 
 
         $idClient = auth()->user()->id;
-
-        $formations = Formation::where('client_id1', '=', $idClient)
+        $formations = Formation::where('client_id1', '=', $idClient) //Toutes les formations d'un client.
                                 ->orWhere('client_id2', $idClient)
                                 ->orWhere('client_id3', $idClient)
                                 ->orWhere('client_id4', $idClient)
                                 ->orWhere('client_id5', $idClient)
                                 ->get();
-
+     ;
         $formationsTerminees = Formation::where('date_fin', '<=', $dateJour)
-                                        ->where('client_id1', '=', $idClient)
-                                        ->orWhere('client_id2', $idClient)
-                                        ->orWhere('client_id3', $idClient)
-                                        ->orWhere('client_id4', $idClient)
-                                        ->orWhere('client_id5', $idClient)
-                                        ->where('impact_formation', '=', 0)
-                                        ->get();
+                                        ->where('impact_formation', '=', '0')
+                                        ->where(function($q) use ($idClient){
+                                              $q->where('client_id1', $idClient)
+                                                ->orWhere('client_id2', $idClient)
+                                                ->orWhere('client_id3', $idClient)
+                                                ->orWhere('client_id4', $idClient)
+                                                ->orWhere('client_id5', $idClient);
+                                          })
+                                        ->get();   
 
 
         $impactFormation = Questionnaire::where('id',4)->first(); 
 
         foreach ($formations as $formation) {
             
-            $apprenants = Apprenant::where('formation_id','=',$formation->id)->get();
+            $apprenants = Apprenant::where('formation_id','=',$formation->id)->get(); //Recuperation des apprenants dune formation.
                                      
-
-            // return $apprenants;
-
             $formation->setAttribute('apprenants', $apprenants);
 
             foreach ($apprenants as $apprenant) {
             
-                $users = User::where('id','=',$apprenant->user_id)->get();
+                $users = User::where('id','=',$apprenant->user_id)->get(); //Recuperation donnes user des apprenants.
 
                 $apprenant->setAttribute('users', $users);
 
-                if ($apprenant->date_embauche != null) {
+
+                if ($apprenant->date_embauche != null && $apprenant->motif_non_embauche == null) {
 
                     $apprenant->setAttribute('embauche', 'oui');
                 }
-                else{
+
+                if($apprenant->date_embauche == null && $apprenant->motif_non_embauche != null){
 
                     $apprenant->setAttribute('embauche', 'non');
+                }
+
+                if($apprenant->date_embauche == null && $apprenant->motif_non_embauche == null){
+
+                    $apprenant->setAttribute('embauche', '-');
+                    $apprenant->setAttribute('embauche2Mois', '-');
+                    $apprenant->setAttribute('embauche6Mois', '-');
+                }
+
+
+                if($apprenant->date_embauche != null && $apprenant->motif_non_embauche == null){
+
+                    $apprenant->setAttribute('embauche', 'oui');
+                    $apprenant->setAttribute('embauche2Mois', $apprenant->embauche_2_mois);
+                    $apprenant->setAttribute('embauche6Mois', $apprenant->embauche_6_mois);
+                }
+
+                if($apprenant->date_embauche == null && $apprenant->motif_non_embauche != null){
+
+                    $apprenant->setAttribute('embauche', 'non');
+                    $apprenant->setAttribute('embauche2Mois', $apprenant->embauche_2_mois);
+                    $apprenant->setAttribute('embauche6Mois', $apprenant->embauche_6_mois);
                 }
 
             }
      
         }
 
-        return view('interface_client', ['formations' => $formations, 'formations_terminees' => $formationsTerminees, 'impactFormation' => $impactFormation]);
+        return view('interface_client', ['formations' => $formations, 'formations_terminees' => $formationsTerminees, 'impactFormation' => $impactFormation, 'dateJour' => $dateJour]);
     }
 
     public function getDownload()
@@ -118,7 +140,7 @@ class ClientController extends Controller
 
         foreach ($formations as $formation) {
             
-            $apprenants = Apprenant::where('formation_id','=',$formation->id)->get();
+            $apprenants = Apprenant::where('formation_id','=',$formation->id)->orderBy('created_at','desc')->get();
 
             // return $apprenants;
 
@@ -204,6 +226,11 @@ class ClientController extends Controller
              return redirect()->back()->with('error', 'Veuillez saisir un motif si l\'apprenant n\'a pas été embauché!');
         }
 
+        if ( strlen($motifNonEmbauche) > 100 || strlen($motifNonEmbauche2Mois) > 100 || strlen($motifNonEmbauche6Mois) > 100) {
+            
+            return redirect()->back()->with('error', 'Un motif ne doit pas faire plus de 100 caractères!');
+        }
+
         if ($embaucheOuNon != null && $motifNonEmbauche != null) {
             
             return redirect()->back()->with('error', 'Aucun motif nécéssaire si l\'apprenant a été embauché!');
@@ -259,6 +286,16 @@ class ClientController extends Controller
                     ]);
             }
 
+            if ($embaucheA2Mois != null && $motifPredefini2Mois != null) {
+                
+                return redirect()->back()->with('error', 'Aucun motif nécessaire si l\'apprenant est toujours présent après 2 mois!');
+            }
+
+            if ($embaucheA2Mois != null && $motifNonEmbauche2Mois != null) {
+                
+                return redirect()->back()->with('error', 'Aucun motif nécessaire si l\'apprenant est toujours présent après 2 mois!');
+            }
+
             if ($apprenantEmbauche->embauche_2_mois != null && $embaucheA2Mois != null) {
                 
                 DB::table('apprenants')->where('user_id' ,'=' , $idApprenant)->update(['embauche_2_mois' => $apprenantEmbauche->embauche_2_mois]);
@@ -268,19 +305,29 @@ class ClientController extends Controller
                 
                 DB::table('apprenants')->where('user_id' ,'=' , $idApprenant)->update(['embauche_2_mois' => $oui]);
                 
-
             }
-            else{
+
+            if ($apprenantEmbauche->embauche_2_mois == null && $embaucheA2Mois == null && $motifPredefini2Mois == null && $motifNonEmbauche2Mois == null) {
+                
+                DB::table('apprenants')->where('user_id' ,'=' , $idApprenant)->update(['embauche_2_mois' => '-']);     
+            }
+
+            if($apprenantEmbauche->embauche_2_mois == '-' && $embaucheA2Mois == null && $motifPredefini2Mois != null && $motifNonEmbauche2Mois != null){
 
                 DB::table('apprenants')->where('user_id' ,'=' , $idApprenant)->update([
 
-                                                'embauche_2_mois' => $non,
-                                                'motif_predefini' => $motifPredefini2Mois,
-                                                'motif_non_embauche_2_mois' => $motifNonEmbauche2Mois,
-                                                'embauche_6_mois' => '-'
+                    'embauche_2_mois' => $non,
+                    'motif_predefini' => $motifPredefini2Mois,
+                    'motif_non_embauche_2_mois' => $motifNonEmbauche2Mois,
+                    'embauche_6_mois' => $non
 
-                                                ]);
+                ]);
 
+            }
+
+            if ($embaucheA6Mois != null && $motifNonEmbauche6Mois != null) {
+                
+                return redirect()->back()->with('error', 'Aucun motif nécessaire si l\'apprenant est toujours présent après 6 mois!');
             }
 
             if ($apprenantEmbauche->embauche_6_mois != null && $embaucheA6Mois != null) {
@@ -288,23 +335,25 @@ class ClientController extends Controller
                 DB::table('apprenants')->where('user_id' ,'=' , $idApprenant)->update(['embauche_6_mois' => $apprenantEmbauche->embauche_6_mois]);
             }
 
-            if ($embaucheA6Mois != null  && $motifNonEmbauche6Mois == null) {
+            if ($apprenantEmbauche->embauche_6_mois == null && $embaucheA6Mois == null && $motifNonEmbauche6Mois == null) {
                 
-                DB::table('apprenants')->where('user_id' ,'=' , $idApprenant)->update(['embauche_6_mois' => $oui]);
-                
-
+                DB::table('apprenants')->where('user_id' ,'=' , $idApprenant)->update(['embauche_6_mois' => '-']);
             }
-            else{
 
+            if ($embaucheA6Mois != null  && $motifNonEmbauche6Mois == null && $apprenantEmbauche->embauche_6_mois == null) {
+                
+                DB::table('apprenants')->where('user_id' ,'=' , $idApprenant)->update(['embauche_6_mois' => $oui]);                
+            }
 
+            if ($embaucheA6Mois == null  && $motifNonEmbauche6Mois != null && $apprenantEmbauche->embauche_6_mois == null || $apprenantEmbauche->embauche_6_mois == '-') {
+                
                 DB::table('apprenants')->where('user_id' ,'=' , $idApprenant)->update([  
                                                 
-                                                'motif_non_embauche_6_mois' => $motifNonEmbauche6Mois,
-                                                'embauche_6_mois' => $non
+                    'motif_non_embauche_6_mois' => $motifNonEmbauche6Mois,
+                    'embauche_6_mois' => $non
 
-                                                ]);
+                ]);                
             }
-
 
             return redirect()->back()->with('success', 'Suivi mis à jour, merci!');
 
@@ -338,11 +387,10 @@ class ClientController extends Controller
         $resultObjectif2 = $request->radio2;
 
         $objectif3 = $request->objectif3;
-        $resultObjectif3 = $request->radio3;
+        $resultObjectif3 = $request->radio3;                               //Recuperation de tous les champs du formulaire.
 
         $objectif4 = $request->objectif4;
         $resultObjectif4 = $request->radio4;
-
 
         $indicQuali1 = $request->indic1;
         $constatIndic1 = $request->constat1;
@@ -373,38 +421,46 @@ class ClientController extends Controller
         $resultIndic5 = $request->result5;
         $constatFinalIndic5 = $request->constat_final5;
 
-        $intituleIndicQuanti1 = 'Organisation du travail et cohésion d’équipe';
+        $intituleIndicQuanti1 = '1';
         $resultIndicQuanti1 = $request->evol1;
 
-        $intituleIndicQuanti2 = 'Sécurité au travail (respect de règles, accidents du travail…)';
+        $intituleIndicQuanti2 = '2';
         $resultIndicQuanti2 = $request->evol2;
 
-        $intituleIndicQuanti3 = 'Utilisation des supports écrits professionnels';
+        $intituleIndicQuanti3 = '3';
         $resultIndicQuanti3 = $request->evol2;
 
-        $intituleIndicQuanti4 = 'Respect des normes qualité et environnemental';
+        $intituleIndicQuanti4 = '4';
         $resultIndicQuanti4 = $request->evol4;
 
-        $intituleIndicQuanti5 = 'Qualité de la relation client / usager';
+        $intituleIndicQuanti5 = '5';
         $resultIndicQuanti5 = $request->evol5;
 
-        $intituleIndicQuanti6 = 'Fidélisation et/ou maintien dans l’emploi';
+        $intituleIndicQuanti6 = '6';
         $resultIndicQuanti6 = $request->evol6;
-
-        // return array($objectif1, $resultObjectif1, $objectif2, $resultObjectif2, $objectif3, $resultObjectif3, $objectif4, $resultObjectif4, $indicQuali1, $constatIndic1, $resultIndic1, $constatFinalIndic1, $indicQuali2, $constatIndic2, $resultIndic2, $constatFinalIndic2, $indicQuali3, $constatIndic3, $resultIndic3, $constatFinalIndic3, $indicQuali4, $constatIndic4, $resultIndic4, $constatFinalIndic4, $indicQuali5, $constatIndic5, $resultIndic5, $constatFinalIndic5, $intituleIndicQuanti1, $resultIndicQuanti1, $intituleIndicQuanti2, $resultIndicQuanti2, $intituleIndicQuanti3, $resultIndicQuanti3, $intituleIndicQuanti4, $resultIndicQuanti4, $intituleIndicQuanti5, $resultIndicQuanti5, $intituleIndicQuanti6, $resultIndicQuanti6,);
-
 
         if ($entreprise == null || $hierarchieClient == null || $fonctionClient == null || $formation == null) {
         
-            return redirect()->back()->with('error', 'Merci de compléter la section "identification"!');
+            return redirect()->back()->with('error', 'Merci de compléter la section "Identification"!');
         }
+
+        $reps = array($entreprise,$hierarchieClient,$fonctionClient,$intituleFormation,$dureeFormation,$objectif1,$objectif2,$objectif3,$objectif4,$indicQuali1,$constatIndic1,$resultIndic1,$constatFinalIndic1,$indicQuali2,$constatIndic2,$resultIndic2,$constatFinalIndic2,$indicQuali3,$constatIndic3,$resultIndic3,$constatFinalIndic3,$indicQuali4,$constatIndic4,$resultIndic4,$constatFinalIndic4,$indicQuali5,$constatIndic5,$resultIndic5,$constatFinalIndic5);
+
+        foreach ($reps as $rep) {
+
+            if (strlen($rep) > 100) {
+            
+                return redirect()->back()->with('error', 'Les champs ne doivent pas contenir plus de 100 caractères!');
+            }
+        }
+
 
         if ($objectif1 == null || $resultObjectif1 == null || $objectif2 == null || $resultObjectif2 == null || $indicQuali1 == null || $constatIndic1 == null || $resultIndic1 == null || $constatFinalIndic1 == null || $intituleIndicQuanti1 == null || $resultIndicQuanti1 == null || $intituleIndicQuanti2 == null || $resultIndicQuanti2 == null || $intituleIndicQuanti3 == null || $resultIndicQuanti3 == null || $intituleIndicQuanti4 == null || $resultIndicQuanti4 == null || $intituleIndicQuanti5 == null || $resultIndicQuanti5 == null || $intituleIndicQuanti6 == null || $resultIndicQuanti6 == null) {
             
             return redirect()->back()->with('error', 'Merci de compléter au moins 2 objectifs de progrès fixe et 1 indicateur quantitatif!');
 
         }
-        else{
+        else{ //Si section identification ok et minimum champs complétés ok, creation + envoi du fichier excel.
 
             $intituleFormation = $infoFormation->nom;
 
@@ -438,8 +494,7 @@ class ClientController extends Controller
             }
 
             $arrayQuestions = array($labelEntreprise, $labelHierarchie, $labelFormation, $objectif1, $objectif2, $objectif3, $objectif4, $indicQuali1, $indicQuali2, $indicQuali3, $indicQuali4, $indicQuali5, $intituleIndicQuanti1, $intituleIndicQuanti2, $intituleIndicQuanti3, $intituleIndicQuanti4, $intituleIndicQuanti5, $intituleIndicQuanti6);
-
-           
+          
             $arrayReponses = array($entreprise, $hierarchieClient, $fonctionClient, $intituleFormation, $dureeFormation, $resultObjectif1, $resultObjectif2, $resultObjectif3, $resultObjectif4, $constatIndic1, $resultIndic1, $constatFinalIndic1, $constatIndic2, $resultIndic2, $constatFinalIndic2, $constatIndic3, $resultIndic3, $constatFinalIndic3, $constatIndic4, $resultIndic4, $constatFinalIndic4, $constatIndic5, $resultIndic5, $constatFinalIndic5, $resultIndicQuanti1, $resultIndicQuanti2, $resultIndicQuanti3, $resultIndicQuanti4, $resultIndicQuanti5, $resultIndicQuanti6);
 
             $j = 0;
@@ -459,8 +514,7 @@ class ClientController extends Controller
 
                         $data[$i]['Compléments réponses 2'] = $arrayReponses[$j++];
                     }
-                }
-                         
+                }                       
             }
 
             $file = Excel::create('impact_formation', function ($excel) use ($data) {
@@ -476,8 +530,17 @@ class ClientController extends Controller
             $array_file = [];
             array_push($array_file, $file);
 
-            // Mail::to('houselstein.thibaud@gmail.com')->send(new ImpactFormation($array_file));
+            try{
 
+                Mail::to('houselstein.thibaud@gmail.com')->send(new ImpactFormation($array_file));
+            }
+            catch(\Exception $e){
+
+                File::delete('storage/impact_formation.xlsx');
+
+                return redirect()->back()->with('error', 'une erreur est survenue lors de l\'envoi du formulaire, veuillez réessayer plus tard.'); 
+            }
+            
             File::delete('storage/impact_formation.xlsx');
 
             DB::table('formations')->where('id' ,'=' , $formation)->update(['impact_formation' => 1]);

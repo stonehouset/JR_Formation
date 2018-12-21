@@ -41,7 +41,7 @@ class QuestionnaireController extends Controller
 
         if ($champ1 == null && $champ2 == null && $champ3 == null && $champ4 == null && $champ5 == null && $champ6 == null && $champ7 == null && $champ8 == null && $champ9 == null && $champ10 == null && $champ11 == null && $champ12 == null && $champ13 == null && $champ14 == null && $champ15 == null && $champ16 == null && $champ17 == null) {
         	
-        	return redirect()->back()->with('error', 'Tous les champs sont vides!');
+        	return redirect()->back()->with('error', 'Tous les champs sont vides, rien à modifier!');
 
         }else{
 

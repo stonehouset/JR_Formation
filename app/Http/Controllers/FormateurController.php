@@ -37,10 +37,11 @@ class FormateurController extends Controller
 
         $aujourdhui = date('Y-m-d');
         $users = User::all(); //Recuperation des donnees utilisateurs.
-        $formateur_id = auth()->user()->id; //Recuperation de l'id du formateur connecté.
+        $formateurId = auth()->user()->id; //Recuperation de l'id du formateur connecté.
 
         $formationsEnCours = Formation::where('date_debut', '<=', $aujourdhui)
                            ->where('date_fin', '>=', $aujourdhui)
+                           ->where('formateur_id', '=', $formateurId)
                            ->get();
 
 
@@ -54,7 +55,7 @@ class FormateurController extends Controller
 
             foreach ($apprenants as $apprenant) {
             
-                $users = User::where('id','=',$apprenant->user_id)->get(); //Ajout des donnees utilisateurs aux apprenants.
+                $users = User::where('id','=',$apprenant->user_id)->orderBy('created_at','desc')->get(); //Ajout des donnees utilisateurs aux apprenants.
 
                 $apprenant->setAttribute('users', $users);
 
@@ -78,6 +79,10 @@ class FormateurController extends Controller
         elseif ($request->note_apprenant == null) {
             
             return redirect()->back()->with('error', 'Vous n\'avez pas attribué de note!');
+        }
+        if ($request->note_apprenant > 20 || $request->note_apprenant < 0) {
+            
+            return redirect()->back()->with('error', 'La note doit être comprise entre 0 et 20!');
         }
         else{
 
@@ -113,11 +118,9 @@ class FormateurController extends Controller
 
         if ($dernierMessage != null) {
 
-
             $dateJourDernierMessage = $dernierMessage->date_jour;
     
         }else{
-
 
             $dateJourDernierMessage = '1970-01-01 00:00:00';
             
@@ -125,16 +128,20 @@ class FormateurController extends Controller
       
         $datePlus10Heures = date('Y-m-d H:i:s', strtotime($dateJourDernierMessage)+36000);
 
-
         if ($datePlus10Heures > $dateJour) {
 
-             return redirect()->back()->with('error', 'Vous avez déja écrit un message à propos de ce groupe aujourd\'hui!');
+            return redirect()->back()->with('error', 'Vous avez déja écrit un message à propos de ce groupe aujourd\'hui!');
 
         }
 
         else if ($contenuCommentaire == null) {
             
             return redirect()->back()->with('error', 'Le commentaire est vide!');
+        }
+
+        else if (strlen($contenuCommentaire) > 200) {
+            
+            return redirect()->back()->with('error', 'Le commentaire ne doit pas faire plus de 200 caractères!');
         }
 
         else{
@@ -223,19 +230,19 @@ class FormateurController extends Controller
         $formateur = auth()->user()->id;                                //Recuperation des infos du formateur.
         $dataFormateur = User::where('id','=', $formateur)->first();
          
-        $quest1 = "Qualifiez votre performance durant cette session";
-        $quest2 = "Avez-vous atteint les objectifs du séminaire ? Si oui quels sont les éléments qui vous permettent de l’affirmer ? Si non, pour quelles raisons ? Qu’auriez-vous dû faire ?"; 
-        $quest3 = "Avez-vous apporté des modifications significatives (déroulé, contenu, timing, supports, outils) ? Si oui lesquelles ?"; 
-        $quest4 = "Matériel d’animation"; 
-        $quest5 = "Supports animateurs"; 
-        $quest6 = "Documents participants"; 
-        $quest7 = "Accès du lieu de formation"; 
-        $quest8 = "Salles"; 
-        $quest9 = "Mobilier"; 
-        $quest10 = "Accueil"; 
-        $quest11 = "Pauses"; 
-        $quest12 = "Repas";
-        $quest13 = "D’une manière générale, quelles sont vos idées, vos suggestions pour améliorer et développer ensemble notre efficacité ?"; 
+        $quest1 = "1";
+        $quest2 = "2"; 
+        $quest3 = "3"; 
+        $quest4 = "4"; 
+        $quest5 = "5"; 
+        $quest6 = "6"; 
+        $quest7 = "7"; 
+        $quest8 = "8"; 
+        $quest9 = "9"; 
+        $quest10 = "10"; 
+        $quest11 = "11"; 
+        $quest12 = "12";
+        $quest13 = "13"; 
         $rep1 = $request->radioPerf;
         $rep2 = $request->contenu_objectif_atteint_ou_non;
         $rep3 = $request->contenu_modifs;
@@ -301,13 +308,22 @@ class FormateurController extends Controller
 
         array_push($array_file, $file);
 
-        Mail::to('houselstein.thibaud@gmail.com')->send(new CompteRenduFormateur($array_file)); // Envoi du mail à l'admin.
+        try{
+
+            Mail::to('houselstein.thibaud@gmail.com')->send(new CompteRenduFormateur($array_file)); // Envoi du mail à l'admin.
+        }
+        catch(\Exception $e){
+
+            File::delete('storage/compte_rendu_formateur.xlsx'); //Suppression du fichier excel temporaire.
+            return redirect()->back()->with('error', 'une erreur est survenue lors de l\'envoi du compte rendu, veuillez réessayer plus tard !'); 
+        }
+        
 
         File::delete('storage/compte_rendu_formateur.xlsx'); //Suppression du fichier excel temporaire.
 
         DB::table('formations')->where('id' ,'=' , $formation)->update(['compte_rendu_formateur' => 1]);
 
-        return redirect()->back()->with('success', 'Questionnaire envoyé, merci!');
+        return redirect()->back()->with('success', 'Compte rendu envoyé, merci!');
     }
 
 }

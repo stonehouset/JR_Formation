@@ -27,7 +27,7 @@
                     <input type="text" id="input_form" onkeyup="search2()"  placeholder="recherche par groupe" title="cherche formateur">
                 </div>
                 <div id="tab_infos_interface_formateur">
-                    <table id="taille_tab_formateur" class="table table-striped table">
+                    <table id="table_tab_formateur" class="table table-striped table">
                         <thead id="head_tab_apprenant_formateur">
                             <tr >
                                 <th scope="col">Formation</th>
@@ -76,7 +76,7 @@
                         </div>
                         <button type="submit" id="btn_ajouter_com_formateur_to_apprenant" class="btn btn-outline-primary">
                             <div id="label_btn_add_com_forma">
-                                AJOUTER
+                                Ajouter
                             </div>
                             <div class="loader" id="loader1"></div>
                         </button>
@@ -138,7 +138,7 @@
                         </div>
                         <button type="submit" id="btn_valider_note" class="btn btn-outline-primary">
                             <div id="label_btn_add_note_forma">
-                                AJOUTER
+                                Ajouter
                             </div>
                             <div class="loader" id="loader3"></div>
                         </button>
@@ -171,7 +171,7 @@
                                 <textarea class="form-control" required id="zone_text_com_jour" placeholder="Donnez votre ressenti globale de la journée sur le groupe de formation sélectionné (200 caractères max). " rows="5" name="contenu_commentaire" maxlength="200"></textarea>
                                 <button type="submit" id="btn_valider_com_jour" class="btn btn-outline-primary">
                                     <div id="label_btn_add_come_form_forma">
-                                        AJOUTER
+                                        Ajouter
                                     </div>
                                     <div class="loader" id="loader4"></div>
                                 </button>

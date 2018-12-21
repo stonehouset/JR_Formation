@@ -24,41 +24,41 @@
                 <ul class="navbar-nav mr-auto">
                     @if(Auth::user()->role === 3)
                     <li class="nav-item active" >
-                        <a class="nav-link" href="/home" id="text_nav_link">Gestion<span class="sr-only">(current)</span></a>
+                        <a class="nav-link" href="/home" id="text_nav_link1">Gestion<span class="sr-only">(current)</span></a>
                     </li>
                     @endif
                     @if(Auth::user()->role === 3)
                     <li class="nav-item active" >
-                        <a class="nav-link" href="/commentaires" id="text_nav_link">Commentaires<span class="sr-only">(current)</span></a>
+                        <a class="nav-link" href="/commentaires" id="text_nav_link2">Commentaires<span class="sr-only">(current)</span></a>
                     </li>
                     @endif
                     @if(Auth::user()->role === 3)
                     <li class="nav-item active" >
-                        <a class="nav-link" href="/questionnaires" id="text_nav_link">Questionnaires<span class="sr-only">(current)</span></a>
+                        <a class="nav-link" href="/questionnaires" id="text_nav_link3">Questionnaires<span class="sr-only">(current)</span></a>
                     </li>
                     @endif
                     @if(Auth::user()->role === 0)
                     <li class="nav-item active" >
-                        <a class="nav-link" href="/interface_apprenant" id="text_nav_link">Apprenant <span class="sr-only">(current)</span></a>
+                        <a class="nav-link" href="/interface_apprenant" id="text_nav_link4">Apprenant <span class="sr-only">(current)</span></a>
                     </li>
                     @endif
                     @if(Auth::user()->role === 1)
                     <li class="nav-item active" >
-                        <a class="nav-link" href="/interface_formateur" id="text_nav_link">Formateur <span class="sr-only">(current)</span></a>
+                        <a class="nav-link" href="/interface_formateur" id="text_nav_link5">Formateur <span class="sr-only">(current)</span></a>
                     </li>
                     @endif
                     @if(Auth::user()->role === 2) 
                     <li class="nav-item active" >
-                        <a class="nav-link" href="/interface_client" id="text_nav_link">Client <span class="sr-only">(current)</span></a>
+                        <a class="nav-link" href="/interface_client" id="text_nav_link6">Client <span class="sr-only">(current)</span></a>
                     </li>
                     @endif
                     @if(Auth::user()->role === 1) 
                     <li class="nav-item active" >
-                        <a class="nav-link" href="/questionnaire_formation" id="text_nav_link">Compte Rendu<span class="sr-only">(current)</span></a>
+                        <a class="nav-link" href="/questionnaire_formation" id="text_nav_link7">Compte Rendu<span class="sr-only">(current)</span></a>
                     </li>
                     @endif
                     <li class="nav-item active" >
-                        <a class="nav-link" href="/profil" id="text_nav_link">Profil <span class="sr-only">(current)</span></a>
+                        <a class="nav-link" href="/profil" id="text_nav_link8">Profil <span class="sr-only">(current)</span></a>
                     </li>
                 </ul>        
                 @guest

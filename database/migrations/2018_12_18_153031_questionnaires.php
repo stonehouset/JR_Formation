@@ -121,7 +121,7 @@ class Questionnaires extends Migration
                 'champ15' => '¤ Accueil',
                 'champ16' => '¤ Pauses',
                 'champ17' => '¤ Repas',
-                'champ18' => '4/ Contenu et Pédagogie',
+                'champ18' => '4/ Et demain',
                 'champ19' => '¤  D’une manière générale, quelles sont vos idées, vos suggestions pour améliorer et développer ensemble notre efficacité ?',
                
             )

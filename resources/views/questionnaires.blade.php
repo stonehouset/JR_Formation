@@ -11,7 +11,7 @@
 	            <button type="button" class="btn btn-outline-dark" id="btn_quest_eval_formation">Eval Formation</button> 
 	        </div>
 	        <div class="col-lg-3">
-	            <button type="button" class="btn btn-outline-dark" id="btn_quest_auto_eval">Auto Eval</button> 
+	            <button type="button" class="btn btn-outline-dark" id="btn_quest_auto_eval">Compte Rendu</button> 
 	        </div>
 	        <div class="col-lg-3">
 	            <button type="button" class="btn btn-outline-dark" id="btn_quest_impact_forma">Impact Formation</button> 
@@ -108,13 +108,14 @@
                             <textarea class="form-control" name="quest17_eval_formateur_admin" placeholder="{{$evalFormateur->champ17}}" rows="2" maxlength="200"></textarea>     
                         </li> 
                     </ul>
-                    <button type="submit" id="btn_validation_form_formateur_admin" class="btn btn-outline-primary">
-                        <div id="label_btn_valid_quest_formateur_admin">
-                            Mettre à jour
-                        </div>
-                        <div class="loader"></div>
-                    </button> 
+                    
                 </div>
+                <button type="submit" id="btn_validation_form_formateur_admin" class="btn btn-outline-primary">
+                    <div id="label_btn_valid_quest_formateur_admin">
+                        Mettre à jour
+                    </div>
+                    <div class="loader"></div>
+                </button> 
         	</div>
        </form>
     </div>
@@ -180,8 +181,7 @@
                     <ul class="list-group">
                         <li class="list-group-item form_admin">
                             <h6>Question 12</h6>
-                            <textarea class="form-control" name="quest12_eval_formation_admin" placeholder="{{$evalFormation->champ12}}" rows="2" maxlength="200"></textarea>
-                                 
+                            <textarea class="form-control" name="quest12_eval_formation_admin" placeholder="{{$evalFormation->champ12}}" rows="2" maxlength="200"></textarea>        
                         </li>
                         <li class="list-group-item form_admin">
                             <h6>Question 13</h6>
@@ -189,8 +189,7 @@
                         </li>
                         <li class="list-group-item form_admin">
                             <h6>Question 14</h6>
-                            <textarea class="form-control" name="quest14_eval_formation_admin" placeholder="{{$evalFormation->champ14}}" rows="2" maxlength="200"></textarea>
-                                                     
+                            <textarea class="form-control" name="quest14_eval_formation_admin" placeholder="{{$evalFormation->champ14}}" rows="2" maxlength="200"></textarea>                     
                         </li>
                         <li class="list-group-item form_admin">
                             <h6>Question 15</h6>
@@ -215,16 +214,16 @@
                             <textarea class="form-control" name="quest19_eval_formation_admin" placeholder="{{$evalFormation->champ19}}" rows="2" maxlength="200"></textarea> 
                         </li>
                     </ul>
-                    <textarea class="form-control" id="input_text_com_1" maxlength="200" name="quest20_eval_formation_admin" rows="2" style="margin-top: 1%;" placeholder="{{$evalFormation->champ20}}"></textarea>
-                    <textarea class="form-control" id="input_text_com_1" maxlength="200" name="quest21_eval_formation_admin" rows="2" style="margin-top: 1%;" placeholder="{{$evalFormation->champ21}}"></textarea>
-                    <textarea class="form-control" id="input_text_com_1" maxlength="200" name="quest22_eval_formation_admin" rows="2" style="margin-top: 1%;" placeholder="{{$evalFormation->champ22}}"></textarea>
-                    <button type="submit" id="btn_validation_form_formation_admin" class="btn btn-outline-primary">
-                        <div id="label_btn_valid_quest_formation_admin">
-                            Mettre à jour
-                        </div>
-                        <div class="loader"></div>
-                    </button>
+                    <textarea class="form-control" id="input_text_com_1_admin" maxlength="200" name="quest20_eval_formation_admin" rows="2" placeholder="{{$evalFormation->champ20}}"></textarea>
+                    <textarea class="form-control" id="input_text_com_2_admin" maxlength="200" name="quest21_eval_formation_admin" rows="2"  placeholder="{{$evalFormation->champ21}}"></textarea>
+                    <textarea class="form-control" id="input_text_com_3_admin" maxlength="200" name="quest22_eval_formation_admin" rows="2" placeholder="{{$evalFormation->champ22}}"></textarea>   
                 </div>
+                <button type="submit" id="btn_validation_form_formation_admin" class="btn btn-outline-primary">
+                    <div id="label_btn_valid_quest_formation_admin">
+                        Mettre à jour
+                    </div>
+                    <div class="loader"></div>
+                </button>
             </div>
         </form>      
     </div>
@@ -233,9 +232,9 @@
         <div class="row">
             <form method="POST" action="{{ route('autoEval') }}" id="form_compte_rendu_admin">
             {{ csrf_field() }}
-                <div class="col-lg-12" id="contenu_form_questionnaire_autoeval">
+                <div class="col-lg-12"">
                     <div class="row">
-                        <div class="offset-lg-1 col-lg-10" id="section_auto_eval">              
+                        <div class="col-lg-12" id="section_auto_eval_admin">              
                             <h6>Titre 1</h6>
                             <textarea class="form-control" name="quest1_autoeval_formateur_admin" placeholder="{{$autoEval->champ1}}" rows="1" maxlength="200"></textarea> 
                             <div class="form-group">
@@ -252,7 +251,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="offset-lg-1 col-lg-10" id="section_auto_eval">              
+                        <div class="col-lg-12" id="section_auto_eval2_admin">              
                             <h6>Titre 2</h6>
                             <textarea class="form-control" name="quest5_autoeval_formateur_admin" placeholder="{{$autoEval->champ5}}" rows="1" maxlength="200"></textarea>
                             <div class="form-group">
@@ -264,7 +263,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="offset-lg-1 col-lg-10" id="section_materiel_logistique">              
+                        <div class="col-lg-12" id="section_materiel_logistique_admin">              
                             <h6>Titre 3</h6>
                             <textarea class="form-control" name="quest8_autoeval_formateur_admin" placeholder="{{$autoEval->champ8}}" rows="1" maxlength="200"></textarea>
                             <div class="row">
@@ -308,7 +307,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="offset-lg-1 col-lg-10" id="section_et_demain">              
+                        <div class="col-lg-12" id="section_et_demain_admin">              
                             <h6>Titre 4</h6>
                             <textarea class="form-control" name="quest18_autoeval_formateur_admin" placeholder="{{$autoEval->champ18}}" rows="1" maxlength="200"></textarea>
                             <div class="form-group">
@@ -320,7 +319,7 @@
                     </div>
                     <div class="row">
                         <div class="col-lg-12" id="section_validation">              
-                            <button type="submit" id="btn_validation_form_formateur" class="btn btn-outline-primary">
+                            <button type="submit" id="btn_validation_form_formateur_admin" class="btn btn-outline-primary">
                                 <div id="label_btn_add_eval_form_admin">
                                     Mettre à jour
                                 </div>
@@ -337,66 +336,74 @@
     	<div class="row">
     		<form class="form-group" method="POST" action="{{ route('impactFormation') }}" id="form_impact_client_admin">
                 {{csrf_field()}}
-	    		
-                <h6>Titre du formulaire</h6>
-                <textarea class="form-control" name="quest1_impact_formation_admin" placeholder="{{$impactFormation->champ1}}" rows="1" maxlength="200"></textarea>
+	    		<div id="partie1">
+                    <h6>Titre du formulaire</h6>
+                    <textarea class="form-control" name="quest1_impact_formation_admin" placeholder="{{$impactFormation->champ1}}" rows="1" maxlength="200"></textarea>
 
-                <h6>Sous titre 1</h6>
-                <textarea class="form-control" name="quest2_impact_formation_admin" placeholder="{{$impactFormation->champ2}}" rows="2" maxlength="200"></textarea>
+                    <h6>Sous titre 1</h6>
+                    <textarea class="form-control" name="quest2_impact_formation_admin" placeholder="{{$impactFormation->champ2}}" rows="2" maxlength="200"></textarea>
 
-                <h6>Sous titre 2</h6>
-                <textarea class="form-control" name="quest3_impact_formation_admin" placeholder="{{$impactFormation->champ3}}" rows="2" maxlength="200"></textarea>                
-                <h6>Sous titre 3</h6>
-                <textarea class="form-control" name="quest4_impact_formation_admin" placeholder="{{$impactFormation->champ4}}" rows="3" maxlength="200"></textarea>  
+                    <h6>Sous titre 2</h6>
+                    <textarea class="form-control" name="quest3_impact_formation_admin" placeholder="{{$impactFormation->champ3}}" rows="2" maxlength="200"></textarea>                
+                    <h6>Sous titre 3</h6>
+                    <textarea class="form-control" name="quest4_impact_formation_admin" placeholder="{{$impactFormation->champ4}}" rows="3" maxlength="200"></textarea> 
+                </div> 
                 <div class="row">
                     <div class="col-lg-12">
-                        <h6>Titre 1</h6>
-                		<textarea class="form-control" name="quest5_impact_formation_admin" placeholder="{{$impactFormation->champ5}}" rows="1" maxlength="200"></textarea>
-                        <div class="offset-lg-2 col-lg-8">
-                            <h6>Label 1</h6>
-                			<textarea class="form-control" name="quest6_impact_formation_admin" placeholder="{{$impactFormation->champ6}}" rows="1" maxlength="200"></textarea>
-                        
-                            <h6>Label 2</h6>
-                			<textarea class="form-control" name="quest7_impact_formation_admin" placeholder="{{$impactFormation->champ7}}" rows="1" maxlength="200"></textarea>
-                       
-                            <h6>Label 3</h6>
-                			<textarea class="form-control" name="quest8_impact_formation_admin" placeholder="{{$impactFormation->champ8}}" rows="1" maxlength="200"></textarea>
-                        </div>
-                        <h6>Titre 2</h6>
-                		<textarea class="form-control" name="quest9_impact_formation_admin" placeholder="{{$impactFormation->champ9}}" rows="1" maxlength="200"></textarea>
-                        
-                        <h6>Titre 3</h6>
-                		<textarea class="form-control" name="quest10_impact_formation_admin" placeholder="{{$impactFormation->champ10}}" rows="1" maxlength="200"></textarea>
-                		<h6>Sous titre</h6>
-                		<textarea class="form-control" name="quest11_impact_formation_admin" placeholder="{{$impactFormation->champ11}}" rows="2" maxlength="200"></textarea>
-                  
-                        <h6>Titre 4</h6>
-            			<textarea class="form-control" name="quest12_impact_formation_admin" placeholder="{{$impactFormation->champ12}}" rows="1" maxlength="200"></textarea>
-                        <h6 id="sous_titre_indicateurs"></h6>
-                        <h6>Sous titre</h6>
-                		<textarea class="form-control" name="quest13_impact_formation_admin" placeholder="{{$impactFormation->champ13}}" rows="2" maxlength="200"></textarea>
-                        <div class="form-group row">
-                            <div class="offset-lg-3 col-lg-6">
+                        <div id="partie2">
+                            <h6>Titre 1</h6>
+                    		<textarea class="form-control" name="quest5_impact_formation_admin" placeholder="{{$impactFormation->champ5}}" rows="1" maxlength="200"></textarea>
+                            <div class="offset-lg-2 col-lg-5">
                                 <h6>Label 1</h6>
-                				<textarea class="form-control" name="quest14_impact_formation_admin" placeholder="{{$impactFormation->champ14}}" rows="1" maxlength="200"></textarea>
-                           
+                    			<textarea class="form-control" name="quest6_impact_formation_admin" placeholder="{{$impactFormation->champ6}}" rows="1" maxlength="200"></textarea>
+                            
                                 <h6>Label 2</h6>
-                				<textarea class="form-control" name="quest15_impact_formation_admin" placeholder="{{$impactFormation->champ15}}" rows="1" maxlength="200"></textarea>
-                            
+                    			<textarea class="form-control" name="quest7_impact_formation_admin" placeholder="{{$impactFormation->champ7}}" rows="1" maxlength="200"></textarea>
+                           
                                 <h6>Label 3</h6>
-                				<textarea class="form-control" name="quest16_impact_formation_admin" placeholder="{{$impactFormation->champ16}}" rows="1" maxlength="200"></textarea>
-                            
-                                <h6>Label 4</h6>
-                				<textarea class="form-control" name="quest17_impact_formation_admin" placeholder="{{$impactFormation->champ17}}" rows="1" maxlength="200"></textarea>
-                            
-                                <h6>Label 5</h6>
-                				<textarea class="form-control" name="quest18_impact_formation_admin" placeholder="{{$impactFormation->champ18}}" rows="1" maxlength="200"></textarea>
-                            
-                                <h6>Label 6</h6>
-                				<textarea class="form-control" name="quest19_impact_formation_admin" placeholder="{{$impactFormation->champ19}}" rows="1" maxlength="200"></textarea>
+                    			<textarea class="form-control" name="quest8_impact_formation_admin" placeholder="{{$impactFormation->champ8}}" rows="1" maxlength="200"></textarea>
                             </div>
-                        </div>                             
-                        <button type="submit" id="btn_valider_impact_formation" class="btn btn-outline-primary"> 
+                        </div>
+                        <div id="partie3">
+                            <h6>Titre 2</h6>
+                    		<textarea class="form-control" name="quest9_impact_formation_admin" placeholder="{{$impactFormation->champ9}}" rows="1" maxlength="200"></textarea>
+                        </div>
+                        <div id="partie4">
+                            <h6>Titre 3</h6>
+                    		<textarea class="form-control" name="quest10_impact_formation_admin" placeholder="{{$impactFormation->champ10}}" rows="1" maxlength="200"></textarea>
+                    		<h6>Sous titre</h6>
+                    		<textarea class="form-control" name="quest11_impact_formation_admin" placeholder="{{$impactFormation->champ11}}" rows="2" maxlength="200"></textarea>
+                        </div>
+                        <div id="partie5">
+                            <h6>Titre 4</h6>
+                			<textarea class="form-control" name="quest12_impact_formation_admin" placeholder="{{$impactFormation->champ12}}" rows="1" maxlength="200"></textarea>
+                            <h6 id="sous_titre_indicateurs"></h6>
+                            <h6>Sous titre</h6>
+                    		<textarea class="form-control" name="quest13_impact_formation_admin" placeholder="{{$impactFormation->champ13}}" rows="2" maxlength="200"></textarea>
+                            <div class="form-group row">
+                                <div class="col-lg-6">
+                                    <h6>Label 1</h6>
+                    				<textarea class="form-control" name="quest14_impact_formation_admin" placeholder="{{$impactFormation->champ14}}" rows="1" maxlength="200"></textarea>
+                               
+                                    <h6>Label 2</h6>
+                    				<textarea class="form-control" name="quest15_impact_formation_admin" placeholder="{{$impactFormation->champ15}}" rows="1" maxlength="200"></textarea>
+                                
+                                    <h6>Label 3</h6>
+                    				<textarea class="form-control" name="quest16_impact_formation_admin" placeholder="{{$impactFormation->champ16}}" rows="1" maxlength="200"></textarea>
+                                </div>    
+                                <div class="col-lg-6">
+                                    <h6>Label 4</h6>
+                    				<textarea class="form-control" name="quest17_impact_formation_admin" placeholder="{{$impactFormation->champ17}}" rows="1" maxlength="200"></textarea>
+                                
+                                    <h6>Label 5</h6>
+                    				<textarea class="form-control" name="quest18_impact_formation_admin" placeholder="{{$impactFormation->champ18}}" rows="1" maxlength="200"></textarea>
+                                
+                                    <h6>Label 6</h6>
+                    				<textarea class="form-control" name="quest19_impact_formation_admin" placeholder="{{$impactFormation->champ19}}" rows="1" maxlength="200"></textarea>
+                                </div>
+                            </div>  
+                        </div>                           
+                        <button type="submit" id="btn_valider_impact_formation_admin" class="btn btn-outline-primary"> 
                             <div id="label_btn_valid_eval_admin">
                                 Mettre à jour
                             </div>
